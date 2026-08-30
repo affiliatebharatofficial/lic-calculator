@@ -30,10 +30,10 @@ const breadcrumbs = [
 ];
 
 const breakdownItems = [
-  { id: '1', label: 'Total Base Premiums Paid', amount: '₹1,25,000', notes: '5 years of premium payments' },
-  { id: '2', label: 'Guaranteed Surrender Value (GSV @ 50%)', amount: '₹50,000', notes: 'Statutory minimum percentage formula' },
-  { id: '3', label: 'Special Surrender Value (SSV @ 55%)', amount: '₹68,750', notes: 'Actuarial discounted paid-up value' },
-  { id: '4', label: 'Payable Surrender Value (Higher of GSV/SSV)', amount: '₹68,750', notes: 'Payable by LIC' }
+  { id: '1', label: t(locale, 'common.totalPremiumsPaid'), amount: '₹1,25,000', notes: `5 ${t(locale, 'common.years')}` },
+  { id: '2', label: t(locale, 'common.guaranteedGsv'), amount: '₹50,000', notes: 'GSV @ 50%' },
+  { id: '3', label: t(locale, 'common.specialSsv'), amount: '₹68,750', notes: 'SSV @ 55%' },
+  { id: '4', label: t(locale, 'common.cashSurrenderPayout'), amount: '₹68,750', notes: 'max(GSV, SSV)' }
 ];
 
 const relatedTools = [
@@ -84,7 +84,7 @@ const relatedTools = [
       <PlanSelector
         id="planTableNo"
         name="planTableNo"
-        label="Select LIC Plan"
+        label={t(locale, 'common.selectPlan')}
         defaultValue={914}
         required
       />
@@ -104,7 +104,7 @@ const relatedTools = [
         id="policyTerm"
         name="policyTerm"
         label={t(locale, 'common.policyTerm')}
-        min={12}
+        min={10}
         max={35}
         step={1}
         value={20}
@@ -116,7 +116,7 @@ const relatedTools = [
         id="completedYears"
         name="completedYears"
         label={t(locale, 'common.completedYears')}
-        min={1}
+        min={2}
         max={35}
         step={1}
         value={5}
@@ -155,14 +155,14 @@ const relatedTools = [
   <div slot="results" id="calc-result-container">
     <div class="space-y-4">
       <ResultCard
-        headline="Estimated Cash Surrender Payout"
+        headline={t(locale, 'common.cashSurrenderPayout')}
         amount="₹68,750"
-        subtitle="Special Surrender Value (SSV) applies as it is higher than GSV (₹50,000)"
+        subtitle={`max(${t(locale, 'common.guaranteedGsv')}: ₹50,000, ${t(locale, 'common.specialSsv')}: ₹68,750)`}
         stats={[
           { label: t(locale, 'common.totalPremiumsPaid'), value: '₹1,25,000' },
-          { label: 'Guaranteed (GSV)', value: '₹50,000' },
-          { label: 'Special (SSV)', value: '₹68,750' },
-          { label: 'Paid-Up Sum Assured', value: '₹1,25,000' }
+          { label: t(locale, 'common.guaranteedGsv'), value: '₹50,000' },
+          { label: t(locale, 'common.specialSsv'), value: '₹68,750' },
+          { label: t(locale, 'common.paidUpSumAssured'), value: '₹1,25,000' }
         ]}
       />
 
@@ -187,9 +187,9 @@ const relatedTools = [
   <div slot="breakdown">
     <ResultBreakdown
       title={t(locale, 'common.breakdown')}
-      subtitle="Comparing GSV vs SSV for 5 completed years on Table 914"
+      subtitle={`${t(locale, 'common.componentBreakdown')} 5 ${t(locale, 'common.years')} (Table 914)`}
       items={breakdownItems}
-      totalLabel="Payable Cash Surrender Value"
+      totalLabel={t(locale, 'common.cashSurrenderPayout')}
       totalAmount="₹68,750"
     />
   </div>
@@ -197,8 +197,10 @@ const relatedTools = [
   <div slot="explanation">
     <CalculationExplanation
       title={seoData.howItWorks.title}
+      description={seoData.howItWorks.description}
       steps={seoData.howItWorks.steps}
       notes={seoData.assumptionsAndLimitations.notes}
+      locale={locale}
     />
   </div>
 

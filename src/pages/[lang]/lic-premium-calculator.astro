@@ -39,10 +39,10 @@ const frequencyOptions = [
 ];
 
 const breakdownItems = [
-  { id: '1', label: 'Basic Tabular Premium', amount: '₹24,850', notes: 'Table 914, Age 30, Term 20' },
-  { id: '2', label: 'High Sum Assured Rebate (₹5L+)', amount: '-₹750', isCredit: false, notes: '₹1.50 per ₹1,000 SA' },
-  { id: '3', label: 'Payment Mode Rebate (Yearly 2%)', amount: '-₹482', isCredit: false, notes: '2% discount on tabular' },
-  { id: '4', label: 'GST (4.5% 1st Year / 2.25% Renewal)', amount: '₹1,063', isCredit: true, notes: 'Statutory GST' }
+  { id: '1', label: `${t(locale, 'common.annualPremium')} (Basic)`, amount: '₹24,850', notes: 'Table 914' },
+  { id: '2', label: 'High Sum Assured Rebate', amount: '-₹750', isCredit: false, notes: '₹1.50 / ₹1,000 SA' },
+  { id: '3', label: 'Payment Mode Rebate (2%)', amount: '-₹482', isCredit: false, notes: '2% discount' },
+  { id: '4', label: 'GST (4.5%)', amount: '₹1,063', isCredit: true, notes: '1st Year GST' }
 ];
 
 const relatedTools = [
@@ -60,7 +60,7 @@ const relatedTools = [
   },
   {
     title: t(locale, 'nav.surrenderCalculator'),
-    description: 'Check how much cash value builds up after 2+ policy years.',
+    description: 'Estimate surrender payout value and evaluate early exit terms.',
     url: getLocalizedPath('/lic-surrender-value-calculator', locale),
     category: 'Surrender'
   }
@@ -93,7 +93,7 @@ const relatedTools = [
       <PlanSelector
         id="planTableNo"
         name="planTableNo"
-        label="Select LIC Plan"
+        label={t(locale, 'common.selectPlan')}
         defaultValue={914}
         required
       />
@@ -102,22 +102,10 @@ const relatedTools = [
         id="age"
         name="age"
         label={t(locale, 'common.age')}
-        min={8}
-        max={55}
+        min={18}
+        max={65}
         step={1}
         value={30}
-        unit={t(locale, 'common.years')}
-        required
-      />
-
-      <RangeInput
-        id="policyTerm"
-        name="policyTerm"
-        label={t(locale, 'common.policyTerm')}
-        min={12}
-        max={35}
-        step={1}
-        value={20}
         unit={t(locale, 'common.years')}
         required
       />
@@ -133,13 +121,24 @@ const relatedTools = [
         required
       />
 
+      <RangeInput
+        id="policyTerm"
+        name="policyTerm"
+        label={t(locale, 'common.policyTerm')}
+        min={12}
+        max={35}
+        step={1}
+        value={20}
+        unit={t(locale, 'common.years')}
+        required
+      />
+
       <SelectInput
-        id="premiumFrequency"
-        name="premiumFrequency"
+        id="frequency"
+        name="frequency"
         label={t(locale, 'common.frequency')}
         options={frequencyOptions}
         value="yearly"
-        required
       />
 
       <CheckboxInput
@@ -159,9 +158,9 @@ const relatedTools = [
   <div slot="results" id="calc-result-container">
     <div class="space-y-4">
       <ResultCard
-        headline="Estimated 1st Year Premium"
+        headline={t(locale, 'common.annualPremium')}
         amount="₹24,681"
-        subtitle="Including 4.5% 1st Year GST (Renewal approx. ₹24,150/yr @ 2.25% GST)"
+        subtitle="Including 4.5% GST"
         stats={[
           { label: t(locale, 'common.sumAssured'), value: '₹5,00,000' },
           { label: t(locale, 'common.policyTerm'), value: `20 ${t(locale, 'common.years')}` },
@@ -191,9 +190,9 @@ const relatedTools = [
   <div slot="breakdown">
     <ResultBreakdown
       title={t(locale, 'common.breakdown')}
-      subtitle="Table 914 (₹5,00,000 Sum Assured)"
+      subtitle={`Table 914 (${t(locale, 'common.sumAssured')}: ₹5,00,000)`}
       items={breakdownItems}
-      totalLabel="Total 1st Year Premium Payable"
+      totalLabel={t(locale, 'common.annualPremium')}
       totalAmount="₹24,681"
     />
   </div>
@@ -201,8 +200,10 @@ const relatedTools = [
   <div slot="explanation">
     <CalculationExplanation
       title={seoData.howItWorks.title}
+      description={seoData.howItWorks.description}
       steps={seoData.howItWorks.steps}
       notes={seoData.assumptionsAndLimitations.notes}
+      locale={locale}
     />
   </div>
 

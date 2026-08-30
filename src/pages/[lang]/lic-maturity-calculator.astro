@@ -30,9 +30,9 @@ const breadcrumbs = [
 ];
 
 const breakdownItems = [
-  { id: '1', label: 'Guaranteed Base Sum Assured', amount: '₹5,00,000', notes: 'Contractually guaranteed life cover' },
-  { id: '2', label: 'Simple Reversionary Bonus (20 Yrs @ ₹42/th)', amount: '₹4,20,000', notes: '₹21,000 declared per policy year' },
-  { id: '3', label: 'Final Additional Bonus (FAB @ ₹70/th)', amount: '₹35,000', notes: 'One-time loyalty terminal bonus' }
+  { id: '1', label: t(locale, 'common.baseSumAssured'), amount: '₹5,00,000', notes: t(locale, 'common.baseSumAssuredDesc') },
+  { id: '2', label: `${t(locale, 'common.simpleReversionaryBonus')} (20 Yrs @ ₹42/th)`, amount: '₹4,20,000', notes: t(locale, 'common.annualBonusDesc') },
+  { id: '3', label: `${t(locale, 'common.finalAdditionalBonus')} (FAB @ ₹70/th)`, amount: '₹35,000', notes: t(locale, 'common.oneTimeBonusDesc') }
 ];
 
 const relatedTools = [
@@ -83,7 +83,7 @@ const relatedTools = [
       <PlanSelector
         id="planTableNo"
         name="planTableNo"
-        label="Select LIC Plan"
+        label={t(locale, 'common.selectPlan')}
         defaultValue={914}
         required
       />
@@ -131,9 +131,9 @@ const relatedTools = [
   <div slot="results" id="calc-result-container">
     <div class="space-y-4">
       <ResultCard
-        headline="Estimated Lump-Sum Maturity Payout"
+        headline={t(locale, 'common.totalEstimatedPayout')}
         amount="₹9,55,000"
-        subtitle="₹5,00,000 Base Sum Assured + ₹4,20,000 Bonus + ₹35,000 FAB"
+        subtitle={`₹5,00,000 ${t(locale, 'common.baseSumAssured')} + ₹4,20,000 ${t(locale, 'common.simpleReversionaryBonus')} + ₹35,000 FAB`}
         stats={[
           { label: t(locale, 'common.sumAssured'), value: '₹5,00,000' },
           { label: t(locale, 'common.policyTerm'), value: `20 ${t(locale, 'common.years')}` },
@@ -163,9 +163,9 @@ const relatedTools = [
   <div slot="breakdown">
     <ResultBreakdown
       title={t(locale, 'common.breakdown')}
-      subtitle="Component breakdown for ₹5,00,000 Sum Assured under Table 914"
+      subtitle={`${t(locale, 'common.componentBreakdown')} ₹5,00,000 Sum Assured (Table 914)`}
       items={breakdownItems}
-      totalLabel="Total Estimated Lump-Sum Payout"
+      totalLabel={t(locale, 'common.totalEstimatedPayout')}
       totalAmount="₹9,55,000"
     />
   </div>
@@ -173,8 +173,10 @@ const relatedTools = [
   <div slot="explanation">
     <CalculationExplanation
       title={seoData.howItWorks.title}
+      description={seoData.howItWorks.description}
       steps={seoData.howItWorks.steps}
       notes={seoData.assumptionsAndLimitations.notes}
+      locale={locale}
     />
   </div>
 

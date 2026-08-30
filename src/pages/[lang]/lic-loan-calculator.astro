@@ -34,10 +34,10 @@ const policyStatusOptions = [
 ];
 
 const breakdownItems = [
-  { id: '1', label: 'Policy Surrender Value (Collateral)', amount: '₹2,00,000', notes: 'Current cash value of the policy' },
-  { id: '2', label: 'Eligible Borrowing Ratio', amount: '90%', notes: 'Statutory loan percentage for in-force policies' },
-  { id: '3', label: 'Maximum Loan Amount Sanctioned', amount: '₹1,80,000', notes: 'Immediate borrowing limit' },
-  { id: '4', label: 'Semi-Annual Interest Rate (9.50% p.a.)', amount: '₹8,550', notes: 'Payable half-yearly; principal repayment is flexible' }
+  { id: '1', label: t(locale, 'common.surrenderValue'), amount: '₹2,00,000', notes: 'Collateral' },
+  { id: '2', label: 'Eligible Borrowing Ratio', amount: '90%', notes: 'In-Force Policy' },
+  { id: '3', label: t(locale, 'common.eligibleLoan'), amount: '₹1,80,000', notes: 'Sanction Limit' },
+  { id: '4', label: 'Semi-Annual Interest (9.50% p.a.)', amount: '₹8,550', notes: 'Payable half-yearly' }
 ];
 
 const relatedTools = [
@@ -84,8 +84,8 @@ const relatedTools = [
         name="surrenderValue"
         label={t(locale, 'common.surrenderValue')}
         min={10000}
-        max={100000000}
-        step={10000}
+        max={50000000}
+        step={5000}
         value={200000}
         required
       />
@@ -93,7 +93,7 @@ const relatedTools = [
       <SelectInput
         id="policyStatus"
         name="policyStatus"
-        label="Current Policy Status"
+        label="Policy Status"
         options={policyStatusOptions}
         value="in_force"
       />
@@ -108,9 +108,9 @@ const relatedTools = [
   <div slot="results" id="calc-result-container">
     <div class="space-y-4">
       <ResultCard
-        headline="Maximum Eligible Loan Amount"
+        headline={t(locale, 'common.eligibleLoan')}
         amount="₹1,80,000"
-        subtitle="90% of ₹2,00,000 Surrender Value for In-Force Policy"
+        subtitle={`90% of ₹2,00,000 ${t(locale, 'common.surrenderValue')}`}
         stats={[
           { label: t(locale, 'common.surrenderValue'), value: '₹2,00,000' },
           { label: 'Borrowing Capacity', value: '90%' },
@@ -140,9 +140,9 @@ const relatedTools = [
   <div slot="breakdown">
     <ResultBreakdown
       title={t(locale, 'common.breakdown')}
-      subtitle="Computed against ₹2,00,000 Surrender Value"
+      subtitle={`${t(locale, 'common.surrenderValue')}: ₹2,00,000`}
       items={breakdownItems}
-      totalLabel="Max Borrowing Limit"
+      totalLabel={t(locale, 'common.eligibleLoan')}
       totalAmount="₹1,80,000"
     />
   </div>
@@ -150,8 +150,10 @@ const relatedTools = [
   <div slot="explanation">
     <CalculationExplanation
       title={seoData.howItWorks.title}
+      description={seoData.howItWorks.description}
       steps={seoData.howItWorks.steps}
       notes={seoData.assumptionsAndLimitations.notes}
+      locale={locale}
     />
   </div>
 

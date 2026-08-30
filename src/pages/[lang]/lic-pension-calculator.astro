@@ -28,9 +28,9 @@ const breadcrumbs = [
 ];
 
 const breakdownItems = [
-  { id: '1', label: 'Gross Purchase Price Corpus', amount: '₹25,00,000', notes: 'Initial retirement investment' },
-  { id: '2', label: 'Concessional Annuity GST (1.8%)', amount: '₹44,204', isCredit: true, notes: 'Government statutory tax' },
-  { id: '3', label: 'Guaranteed Annual Payout (~6.96%)', amount: '₹1,74,000 / yr', isCredit: true, notes: 'Lifelong fixed income guarantee' }
+  { id: '1', label: t(locale, 'common.purchasePrice'), amount: '₹25,00,000', notes: 'Corpus' },
+  { id: '2', label: 'Annuity GST (1.8%)', amount: '₹44,204', isCredit: true, notes: 'Statutory GST' },
+  { id: '3', label: t(locale, 'common.annualPension'), amount: '₹1,74,000 / yr', isCredit: true, notes: '~6.96% p.a.' }
 ];
 
 const relatedTools = [
@@ -67,13 +67,15 @@ const relatedTools = [
       <ResetButton />
     </div>
 
-    <form class="space-y-5">
+    <form id="lic-pension-form" class="space-y-5">
       <CurrencyInput
         id="purchasePrice"
         name="purchasePrice"
         label={t(locale, 'common.purchasePrice')}
         value={2500000}
         min={100000}
+        max={100000000}
+        step={50000}
         required
       />
       <RangeInput
@@ -94,12 +96,12 @@ const relatedTools = [
 
   <div slot="results">
     <ResultCard
-      headline="Guaranteed Monthly Pension"
+      headline={t(locale, 'common.monthlyPension')}
       amount="₹14,500 / month"
-      subtitle="Estimated Annuity Rate ~6.96% p.a. (Annual: ₹1,74,000/yr)"
+      subtitle={`Estimated Annuity Rate ~6.96% p.a. (${t(locale, 'common.annualPension')}: ₹1,74,000/yr)`}
       stats={[
         { label: t(locale, 'common.purchasePrice'), value: '₹25,00,000' },
-        { label: 'Annual Pension', value: '₹1,74,000' },
+        { label: t(locale, 'common.annualPension'), value: '₹1,74,000' },
         { label: 'Return of Purchase Price', value: 'Option Available' },
         { label: 'Pension Frequency', value: 'Monthly (NEFT)' }
       ]}
@@ -109,9 +111,9 @@ const relatedTools = [
   <div slot="breakdown">
     <ResultBreakdown
       title={t(locale, 'common.breakdown')}
-      subtitle="Sample illustration for ₹25,00,000 lump sum purchase price"
+      subtitle={`${t(locale, 'common.componentBreakdown')} ₹25,00,000 ${t(locale, 'common.purchasePrice')}`}
       items={breakdownItems}
-      totalLabel="Estimated Guaranteed Annual Income"
+      totalLabel={t(locale, 'common.annualPension')}
       totalAmount="₹1,74,000 / yr"
     />
   </div>
@@ -119,8 +121,10 @@ const relatedTools = [
   <div slot="explanation">
     <CalculationExplanation
       title={seoData.howItWorks.title}
+      description={seoData.howItWorks.description}
       steps={seoData.howItWorks.steps}
       notes={seoData.assumptionsAndLimitations.notes}
+      locale={locale}
     />
   </div>
 

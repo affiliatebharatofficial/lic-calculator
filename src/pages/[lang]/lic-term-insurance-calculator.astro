@@ -28,9 +28,9 @@ const breadcrumbs = [
 ];
 
 const breakdownItems = [
-  { id: '1', label: 'Base Mortality Risk Premium (Age 28, Term 35)', amount: '₹10,847', notes: 'Pure mortality risk charge' },
-  { id: '2', label: 'High Sum Assured Rebate (₹1 Crore+)', amount: '₹1,500', isCredit: false, notes: 'Discount for high volume coverage' },
-  { id: '3', label: 'Statutory GST (18.0% on Pure Protection)', amount: '₹1,953', isCredit: true, notes: 'Applicable tax on term insurance' }
+  { id: '1', label: `${t(locale, 'common.annualPremium')} (Mortality Risk)`, amount: '₹10,847', notes: 'Pure Risk Charge' },
+  { id: '2', label: 'High Sum Assured Rebate', amount: '-₹1,500', isCredit: false, notes: '₹1 Crore+ Volume Discount' },
+  { id: '3', label: 'Statutory GST (18.0%)', amount: '₹1,953', isCredit: true, notes: 'Pure Protection GST' }
 ];
 
 const relatedTools = [
@@ -81,9 +81,9 @@ const relatedTools = [
 
   <div slot="results">
     <ResultCard
-      headline="Estimated Term Premium"
+      headline={t(locale, 'common.recommendedCover')}
       amount="₹11,300 / Year"
-      subtitle="For ₹1.00 Crore Pure Life Cover till Age 63 (Incl. 18% GST)"
+      subtitle={`₹1.00 Crore ${t(locale, 'common.baseSumAssuredDesc')} (Incl. 18% GST)`}
       stats={[
         { label: t(locale, 'common.sumAssured'), value: '₹1.00 Crore' },
         { label: 'Monthly Equivalent', value: '₹985 / mo' },
@@ -96,9 +96,9 @@ const relatedTools = [
   <div slot="breakdown">
     <ResultBreakdown
       title={t(locale, 'common.breakdown')}
-      subtitle="Annual cost structure for ₹1.00 Crore cover at Age 28"
+      subtitle={`${t(locale, 'common.componentBreakdown')} ₹1.00 Crore ${t(locale, 'common.sumAssured')}`}
       items={breakdownItems}
-      totalLabel="Total Annual Premium (Incl. GST)"
+      totalLabel={t(locale, 'common.annualPremium')}
       totalAmount="₹11,300 / yr"
     />
   </div>
@@ -106,8 +106,10 @@ const relatedTools = [
   <div slot="explanation">
     <CalculationExplanation
       title={seoData.howItWorks.title}
+      description={seoData.howItWorks.description}
       steps={seoData.howItWorks.steps}
       notes={seoData.assumptionsAndLimitations.notes}
+      locale={locale}
     />
   </div>
 

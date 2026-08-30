@@ -31,10 +31,10 @@ const breadcrumbs = [
 ];
 
 const breakdownItems = [
-  { id: '1', label: 'Total Base Premiums Paid In', amount: '₹1,25,000', notes: '5 years of premium payments' },
-  { id: '2', label: 'Estimated Cash Surrender Payout', amount: '₹68,750', notes: 'Payable via Special Surrender Value' },
-  { id: '3', label: 'Net Monetary Difference (Shortfall)', amount: '₹56,250', isCredit: true, notes: '45.0% capital reduction' },
-  { id: '4', label: 'Forfeited Future Maturity Returns', amount: '₹9,55,000', notes: 'Full Sum Assured and accrued bonuses forfeited' }
+  { id: '1', label: t(locale, 'common.totalPremiumsPaid'), amount: '₹1,25,000', notes: `5 ${t(locale, 'common.years')}` },
+  { id: '2', label: t(locale, 'common.cashSurrenderPayout'), amount: '₹68,750', notes: 'SSV @ 55%' },
+  { id: '3', label: t(locale, 'common.capitalLoss'), amount: '₹56,250', isCredit: true, notes: '45.0% shortfall' },
+  { id: '4', label: t(locale, 'common.totalEstimatedPayout'), amount: '₹9,55,000', notes: 'Maturity (Table 914)' }
 ];
 
 const relatedTools = [
@@ -156,13 +156,13 @@ const relatedTools = [
   <div slot="results" id="calc-result-container">
     <div class="space-y-4">
       <ResultCard
-        headline="Estimated Difference (Capital Shortfall)"
+        headline={t(locale, 'common.capitalLoss')}
         amount="₹56,250"
-        subtitle="45.0% of total deposited premiums forfeited upon immediate surrender"
+        subtitle={`45.0% (${t(locale, 'common.totalPremiumsPaid')})`}
         stats={[
           { label: t(locale, 'common.totalPremiumsPaid'), value: '₹1,25,000' },
-          { label: 'Surrender Payout', value: '₹68,750' },
-          { label: 'Difference Amount', value: '₹56,250' },
+          { label: t(locale, 'common.cashSurrenderPayout'), value: '₹68,750' },
+          { label: t(locale, 'common.capitalLoss'), value: '₹56,250' },
           { label: 'Shortfall %', value: '45.0%' }
         ]}
       />
@@ -188,9 +188,9 @@ const relatedTools = [
   <div slot="breakdown">
     <ResultBreakdown
       title={t(locale, 'common.breakdown')}
-      subtitle="Quantification of premium capital versus cash return for 5 years on Table 914"
+      subtitle={`${t(locale, 'common.componentBreakdown')} 5 ${t(locale, 'common.years')} (Table 914)`}
       items={breakdownItems}
-      totalLabel="Net Estimated Monetary Difference"
+      totalLabel={t(locale, 'common.capitalLoss')}
       totalAmount="₹56,250"
     />
   </div>
@@ -207,8 +207,10 @@ const relatedTools = [
   <div slot="explanation">
     <CalculationExplanation
       title={seoData.howItWorks.title}
+      description={seoData.howItWorks.description}
       steps={seoData.howItWorks.steps}
       notes={seoData.assumptionsAndLimitations.notes}
+      locale={locale}
     />
   </div>
 

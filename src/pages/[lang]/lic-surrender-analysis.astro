@@ -40,11 +40,11 @@ const frequencyOptions = [
 ];
 
 const breakdownItems = [
-  { id: '1', label: 'Total Premiums Deposited', amount: '₹1,25,000', notes: '5 years of premium payments' },
-  { id: '2', label: 'Guaranteed Surrender Value (GSV @ 50%)', amount: '₹50,000', notes: 'Statutory minimum cash value formula' },
-  { id: '3', label: 'Special Surrender Value (SSV @ 55%)', amount: '₹68,750', notes: 'Actuarial paid-up discounted value' },
-  { id: '4', label: 'Estimated Monetary Difference (Capital Shortfall)', amount: '₹56,250', isCredit: true, notes: '45.0% reduction from total capital paid' },
-  { id: '5', label: 'Paid-Up Cover Alternative', amount: '₹1,25,000', notes: 'Life insurance cover retained if you stop paying' }
+  { id: '1', label: t(locale, 'common.totalPremiumsPaid'), amount: '₹1,25,000', notes: `5 ${t(locale, 'common.years')}` },
+  { id: '2', label: t(locale, 'common.guaranteedGsv'), amount: '₹50,000', notes: 'GSV @ 50%' },
+  { id: '3', label: t(locale, 'common.specialSsv'), amount: '₹68,750', notes: 'SSV @ 55%' },
+  { id: '4', label: t(locale, 'common.capitalLoss'), amount: '₹56,250', isCredit: true, notes: '45.0% shortfall' },
+  { id: '5', label: t(locale, 'common.paidUpSumAssured'), amount: '₹1,25,000', notes: t(locale, 'common.baseSumAssuredDesc') }
 ];
 
 const relatedTools = [
@@ -256,9 +256,9 @@ const relatedTools = [
   <div slot="breakdown">
     <ResultBreakdown
       title={t(locale, 'common.breakdown')}
-      subtitle="Complete accounting of premiums deposited, cash factors, and capital difference"
+      subtitle={`${t(locale, 'common.componentBreakdown')} 5 ${t(locale, 'common.years')} (Table 914)`}
       items={breakdownItems}
-      totalLabel="Net Estimated Capital Difference"
+      totalLabel={t(locale, 'common.capitalLoss')}
       totalAmount="₹56,250"
     />
   </div>
@@ -266,8 +266,10 @@ const relatedTools = [
   <div slot="explanation">
     <CalculationExplanation
       title={seoData.howItWorks.title}
+      description={seoData.howItWorks.description}
       steps={seoData.howItWorks.steps}
       notes={seoData.assumptionsAndLimitations.notes}
+      locale={locale}
     />
   </div>
 
