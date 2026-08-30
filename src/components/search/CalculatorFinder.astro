@@ -1,4 +1,13 @@
 ---
+import { getLocalizedPath } from '@/lib/i18n';
+import type { Locale } from '@/types/i18n';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+
 interface IntentOption {
   id: string;
   label: string;
@@ -8,70 +17,134 @@ interface IntentOption {
   badge?: string;
 }
 
-const intents: IntentOption[] = [
-  {
-    id: 'surrender',
-    label: 'Surrender Value & Loss',
-    icon: 'shield-alert',
-    description: 'Find out how much money you will receive and how much you lose if you stop paying and surrender early.',
-    targetUrl: '/lic-surrender-value-calculator',
-    badge: 'Popular'
+const INTENTS_BY_LOCALE: Record<Locale, {
+  badge: string;
+  title: string;
+  desc: string;
+  openCalc: string;
+  intents: IntentOption[];
+}> = {
+  hi: {
+    badge: 'इंटरैक्टिव खोजक',
+    title: 'पता नहीं कौन सा कैलकुलेटर चुनना है?',
+    desc: 'आज आपका मुख्य उद्देश्य क्या है? त्वरित मार्गदर्शन के लिए नीचे एक विकल्प चुनें।',
+    openCalc: 'कैलकुलेटर खोलें →',
+    intents: [
+      { id: 'surrender', label: 'सरेंडर वैल्यू व नुकसान', icon: 'shield-alert', description: 'जानें कि समय से पहले पॉलिसी बंद करने पर कितना नकद मिलेगा और कितना नुकसान होगा।', targetUrl: getLocalizedPath('/lic-surrender-value-calculator', 'hi'), badge: 'लोकप्रिय' },
+      { id: 'premium', label: 'पॉलिसी प्रीमियम', icon: 'calculator', description: 'स्टैंडर्ड एलआईसी बचत योजनाओं के लिए वार्षिक, अर्ध-वार्षिक या मासिक प्रीमियम की गणना करें।', targetUrl: getLocalizedPath('/lic-premium-calculator', 'hi') },
+      { id: 'maturity', label: 'मैच्योरिटी राशि', icon: 'chart-bar', description: 'पॉलिसी अवधि पूरी होने पर लॉयल्टी एडिशन व बोनस सहित कुल रिटर्न का अनुमान लगाएं।', targetUrl: getLocalizedPath('/lic-maturity-calculator', 'hi') },
+      { id: 'loan', label: 'पॉलिसी लोन पात्रता', icon: 'banknotes', description: 'पॉलिसी कवर खोए बिना सरेंडर वैल्यू पर मिलने वाले अधिकतम लोन की जांच करें।', targetUrl: getLocalizedPath('/lic-loan-calculator', 'hi') },
+      { id: 'bonus', label: 'जमा बोनस', icon: 'gift', description: 'पॉलिसी अवधि में जमा होने वाले सिंपल रिवर्जनरी व फाइनल एडिशनल बोनस का अनुमान लगाएं।', targetUrl: getLocalizedPath('/lic-bonus-calculator', 'hi') },
+      { id: 'insurance', label: 'प्योर टर्म इंश्योरेंस', icon: 'shield-check', description: 'बिना निवेश मिलावट के उच्च जीवन बीमा सुरक्षा के प्रीमियम की गणना करें।', targetUrl: getLocalizedPath('/lic-term-insurance-calculator', 'hi') },
+      { id: 'pension', label: 'रिटायरमेंट पेंशन', icon: 'user-group', description: 'एकमुश्त एन्युइटी खरीद मूल्य से आजीवन मिलने वाली गारंटीकृत मासिक पेंशन जानें।', targetUrl: getLocalizedPath('/lic-pension-calculator', 'hi') }
+    ]
   },
-  {
-    id: 'premium',
-    label: 'Policy Premium',
-    icon: 'calculator',
-    description: 'Calculate your annual, half-yearly, or monthly premium installment for standard LIC savings plans.',
-    targetUrl: '/lic-premium-calculator'
+  mr: {
+    badge: 'इंटरअ‍ॅक्टिव्ह शोधक',
+    title: 'कोणता कॅल्क्युलेटर निवडावा हे समजत नाही का?',
+    desc: 'आज आपले मुख्य उद्दिष्ट काय आहे? झटपट मार्गदर्शनासाठी खालील पर्याय निवडा.',
+    openCalc: 'कॅल्क्युलेटर उघडा →',
+    intents: [
+      { id: 'surrender', label: 'सरेंडर व्हॅल्यू व तोटा', icon: 'shield-alert', description: 'मुदतपूर्व पॉलिसी बंद केल्यास मिळणारी रक्कम आणि होणारा तोटा तपासा.', targetUrl: getLocalizedPath('/lic-surrender-value-calculator', 'mr'), badge: 'लोकप्रिय' },
+      { id: 'premium', label: 'पॉलिसी प्रीमियम', icon: 'calculator', description: 'वार्षिक, सहामाही किंवा मासिक हप्त्याची अचूक गणना करा.', targetUrl: getLocalizedPath('/lic-premium-calculator', 'mr') },
+      { id: 'maturity', label: 'मॅच्युरिटी रक्कम', icon: 'chart-bar', description: 'मुदतपूर्तीनंतर मिळणाऱ्या एकूण परताव्याचा अंदाज घ्या.', targetUrl: getLocalizedPath('/lic-maturity-calculator', 'mr') },
+      { id: 'loan', label: 'पॉलिसी कर्ज पात्रता', icon: 'banknotes', description: 'पॉलिसी चालू ठेवून सरेंडर मूल्यावर मिळणाऱ्या कर्जाची तपासणी करा.', targetUrl: getLocalizedPath('/lic-loan-calculator', 'mr') },
+      { id: 'bonus', label: 'संचित बोनस', icon: 'gift', description: 'कालावधीत जमा होणाऱ्या वार्षिक बोनसची गणना करा.', targetUrl: getLocalizedPath('/lic-bonus-calculator', 'mr') },
+      { id: 'insurance', label: 'प्युअर टर्म कव्हर', icon: 'shield-check', description: 'किमान खर्चात उच्च विमा संरक्षणाची गणना करा.', targetUrl: getLocalizedPath('/lic-term-insurance-calculator', 'mr') },
+      { id: 'pension', label: 'निवृत्तीवेतन पेन्शन', icon: 'user-group', description: 'एकरकमी गुंतवणुकीवर मिळणारी आजीवन हमीची पेन्शन तपासा.', targetUrl: getLocalizedPath('/lic-pension-calculator', 'mr') }
+    ]
   },
-  {
-    id: 'maturity',
-    label: 'Maturity Amount',
-    icon: 'chart-bar',
-    description: 'Estimate your total lump sum return upon completing your policy term including loyalty additions.',
-    targetUrl: '/lic-maturity-calculator'
+  gu: {
+    badge: 'ઇન્ટરેક્ટિવ ફાઇન્ડર',
+    title: 'કયું કેલ્ક્યુલેટર વાપરવું તે નક્કી નથી?',
+    desc: 'આજે તમારો મુખ્ય ઉદ્દેશ્ય શું છે? ત્વરિત માર્ગદર્શન માટે નીચેનો વિકલ્પ પસંદ કરો.',
+    openCalc: 'કેલ્ક્યુલેટર ખોલો →',
+    intents: [
+      { id: 'surrender', label: 'સરન્ડર વેલ્યુ અને નુકસાન', icon: 'shield-alert', description: 'મુદત પહેલાં પોલિસી બંધ કરતાં મળતી રકમ અને થનાર નુકસાન તપાસો.', targetUrl: getLocalizedPath('/lic-surrender-value-calculator', 'gu'), badge: 'લોકપ્રિય' },
+      { id: 'premium', label: 'પોલિસી પ્રીમિયમ', icon: 'calculator', description: 'વાર્ષિક, અર્ધ-વાર્ષિક કે માસિક હપ્તાની ગણતરી કરો.', targetUrl: getLocalizedPath('/lic-premium-calculator', 'gu') },
+      { id: 'maturity', label: 'મેચ્યોરિટી રકમ', icon: 'chart-bar', description: 'મુદત પાકતાં મળતા કુલ વળતરનો અંદાજ મેળવો.', targetUrl: getLocalizedPath('/lic-maturity-calculator', 'gu') },
+      { id: 'loan', label: 'પોલિસી લોન પાત્રતા', icon: 'banknotes', description: 'સરન્ડર વેલ્યુ પર મળવાપાત્ર લોન અને વ્યાજ તપાસો.', targetUrl: getLocalizedPath('/lic-loan-calculator', 'gu') },
+      { id: 'bonus', label: 'જમા બોનસ', icon: 'gift', description: 'સમગ્ર મુદતમાં જમા થતા બોનસનો અંદાજ લગાવો.', targetUrl: getLocalizedPath('/lic-bonus-calculator', 'gu') },
+      { id: 'insurance', label: 'પ્યોર ટર્મ કવર', icon: 'shield-check', description: 'ઉચ્ચ વીમા સુરક્ષા માટેના પ્રીમિયમની ગણતરી કરો.', targetUrl: getLocalizedPath('/lic-term-insurance-calculator', 'gu') },
+      { id: 'pension', label: 'નિવૃત્તિ પેન્શન', icon: 'user-group', description: 'એકમુશ્ત રોકાણ પર આજીવન પેન્શનની ગણતરી કરો.', targetUrl: getLocalizedPath('/lic-pension-calculator', 'gu') }
+    ]
   },
-  {
-    id: 'loan',
-    label: 'Policy Loan Eligibility',
-    icon: 'banknotes',
-    description: 'Check how much cash you can borrow against your in-force policy without losing your insurance cover.',
-    targetUrl: '/lic-loan-calculator'
+  bn: {
+    badge: 'ইন্টারেক্টিভ ফাইন্ডার',
+    title: 'কোন ক্যালকুলেটরটি প্রয়োজন বুঝতে পারছেন না?',
+    desc: 'আজ আপনার মূল উদ্দেশ্য কী? তাৎক্ষণিক নির্দেশনার জন্য নিচের একটি বিকল্প নির্বাচন করুন।',
+    openCalc: 'ক্যালকুলেটর খুলুন →',
+    intents: [
+      { id: 'surrender', label: 'সারেন্ডার ভ্যালু ও ক্ষতি', icon: 'shield-alert', description: 'মেয়াদপূর্তির আগে পলিসি বন্ধ করলে প্রাপ্ত অর্থ ও ক্ষতির পরিমাণ জানুন।', targetUrl: getLocalizedPath('/lic-surrender-value-calculator', 'bn'), badge: 'জনপ্রিয়' },
+      { id: 'premium', label: 'পলিসি প্রিমিয়াম', icon: 'calculator', description: 'বার্ষিক, অর্ধবার্ষিক বা মাসিক কিস্তির সঠিক হিসাব করুন।', targetUrl: getLocalizedPath('/lic-premium-calculator', 'bn') },
+      { id: 'maturity', label: 'ম্যাচিউরিটি অর্থ', icon: 'chart-bar', description: 'মেয়াদ শেষে বোনাস সহ মোট প্রাপ্ত অর্থের পরিমাণ হিসাব করুন।', targetUrl: getLocalizedPath('/lic-maturity-calculator', 'bn') },
+      { id: 'loan', label: 'পলিসি ঋণের যোগ্যতা', icon: 'banknotes', description: 'পলিসি বহাল রেখে সারেন্ডার মূল্যের ওপর সর্বোচ্চ ঋণের পরিমাণ জানুন।', targetUrl: getLocalizedPath('/lic-loan-calculator', 'bn') },
+      { id: 'bonus', label: 'জমাকৃত বোনাস', icon: 'gift', description: 'পলিসির পুরো মেয়াদে অর্জিত বোনাসের হিসাব দেখুন।', targetUrl: getLocalizedPath('/lic-bonus-calculator', 'bn') },
+      { id: 'insurance', label: 'পিওর টার্ম ইন্স্যুরেন্স', icon: 'shield-check', description: 'স্বল্প খরচে উচ্চ জীবন বীমা সুরক্ষার প্রিমিয়াম হিসাব করুন।', targetUrl: getLocalizedPath('/lic-term-insurance-calculator', 'bn') },
+      { id: 'pension', label: 'অবসর পেনশন', icon: 'user-group', description: 'এককালীন মূল্যে আজীবন মাসিক পেনশনের হিসাব জানুন।', targetUrl: getLocalizedPath('/lic-pension-calculator', 'bn') }
+    ]
   },
-  {
-    id: 'bonus',
-    label: 'Accrued Bonus',
-    icon: 'gift',
-    description: 'Estimate total Simple Reversionary Bonus and Final Additional Bonus accumulated over your term.',
-    targetUrl: '/lic-bonus-calculator'
+  ta: {
+    badge: 'வழிகாட்டி தேடல்',
+    title: 'எந்த கால்குலேட்டர் தேவை என்று தெரியவில்லையா?',
+    desc: 'இன்றைய உங்களின் முக்கிய நோக்கம் என்ன? உடனடி வழிகாட்டலுக்கு கீழே ஒரு விருப்பத்தைத் தேர்வுசெய்க.',
+    openCalc: 'கருவியைத் திறக்க →',
+    intents: [
+      { id: 'surrender', label: 'சரண்டர் மதிப்பு & இழப்பு', icon: 'shield-alert', description: 'பாலிசியை ரத்து செய்யும்போது கிடைக்கும் ரொக்கம் மற்றும் இழப்பை அறியுங்கள்.', targetUrl: getLocalizedPath('/lic-surrender-value-calculator', 'ta'), badge: 'பிரபலம்' },
+      { id: 'premium', label: 'பாலிசி பிரீமியம்', icon: 'calculator', description: 'வருடாந்திர, அரையாண்டு அல்லது மாதாந்திர தவணையை கணக்கிடுங்கள்.', targetUrl: getLocalizedPath('/lic-premium-calculator', 'ta') },
+      { id: 'maturity', label: 'முதிர்வுத் தொகை', icon: 'chart-bar', description: 'முதிர்வில் கிடைக்கும் ஒட்டுமொத்த வருமானத்தை அறியுங்கள்.', targetUrl: getLocalizedPath('/lic-maturity-calculator', 'ta') },
+      { id: 'loan', label: 'பாலிசி கடன் தகுதி', icon: 'banknotes', description: 'சரண்டர் மதிப்பில் பெறக்கூடிய கடன் மற்றும் வட்டி செலவை கணக்கிடுங்கள்.', targetUrl: getLocalizedPath('/lic-loan-calculator', 'ta') },
+      { id: 'bonus', label: 'சேரும் போனஸ்', icon: 'gift', description: 'பாலிசி காலத்தில் சேரும் போனஸ் தொகையை மதிப்பிடுங்கள்.', targetUrl: getLocalizedPath('/lic-bonus-calculator', 'ta') },
+      { id: 'insurance', label: 'பியூர் டேர்ம் கவர்', icon: 'shield-check', description: 'உயர் காப்பீட்டு பாதுகாப்பிற்கான பிரீமியம் கணக்கீடு.', targetUrl: getLocalizedPath('/lic-term-insurance-calculator', 'ta') },
+      { id: 'pension', label: 'ஓய்வூதிய பென்ஷன்', icon: 'user-group', description: 'வாழ்நாள் முழுவதும் கிடைக்கும் உத்தரவாத மாத ஓய்வூதியத்தை கணக்கிடுங்கள்.', targetUrl: getLocalizedPath('/lic-pension-calculator', 'ta') }
+    ]
   },
-  {
-    id: 'insurance',
-    label: 'Pure Term Cover',
-    icon: 'shield-check',
-    description: 'Calculate affordable high-cover pure life insurance protection without investment mixing.',
-    targetUrl: '/lic-term-insurance-calculator'
+  te: {
+    badge: 'ఇంటరాక్టివ్ ఫైండర్',
+    title: 'ఏ కాలిక్యులేటర్ కావాలో తెలియడం లేదా?',
+    desc: 'ఈ రోజు మీ ప్రాథమిక లక్ష్యం ఏమిటి? తక్షణ మార్గదర్శకత్వం కోసం క్రింది ఎంపికను ఎంచుకోండి.',
+    openCalc: 'కాలిక్యులేటర్ తెరవండి →',
+    intents: [
+      { id: 'surrender', label: 'సరెండర్ విలువ & నష్టం', icon: 'shield-alert', description: 'గడువుకు ముందే పాలసీ ఆపివేస్తే వచ్చే మొత్తం మరియు నష్టాన్ని తెలుసుకోండి.', targetUrl: getLocalizedPath('/lic-surrender-value-calculator', 'te'), badge: 'పాపులర్' },
+      { id: 'premium', label: 'పాలసీ ప్రీమియం', icon: 'calculator', description: 'వార్షిక, అర్ధ-వార్షిక లేదా నెలవారీ ప్రీమియం లెక్కించండి.', targetUrl: getLocalizedPath('/lic-premium-calculator', 'te') },
+      { id: 'maturity', label: 'మెచ్యూరిటీ మొత్తం', icon: 'chart-bar', description: 'గడువు ముగిసిన తర్వాత వచ్చే మొత్తం రాబడిని అంచనా వేయండి.', targetUrl: getLocalizedPath('/lic-maturity-calculator', 'te') },
+      { id: 'loan', label: 'పాలసీ లోన్ అర్హత', icon: 'banknotes', description: 'సరెండర్ విలువపై గరిష్టంగా లభించే రుణం మరియు వడ్డీని తనిఖీ చేయండి.', targetUrl: getLocalizedPath('/lic-loan-calculator', 'te') },
+      { id: 'bonus', label: 'చేరిన బోనస్', icon: 'gift', description: 'పాలసీ కాలవ్యవధిలో చేరే బోనస్ మొత్తాన్ని అంచనా వేయండి.', targetUrl: getLocalizedPath('/lic-bonus-calculator', 'te') },
+      { id: 'insurance', label: 'ప్యూర్ టర్మ్ కవర్', icon: 'shield-check', description: 'అధిక భీమా రక్షణ కోసం ప్రీమియం లెక్కించండి.', targetUrl: getLocalizedPath('/lic-term-insurance-calculator', 'te') },
+      { id: 'pension', label: 'రిటైర్మెంట్ పెన్షన్', icon: 'user-group', description: 'ఏకమొత్తం కొనుగోలుపై జీవితాంతం వచ్చే నెలవారీ పెన్షన్ లెక్కించండి.', targetUrl: getLocalizedPath('/lic-pension-calculator', 'te') }
+    ]
   },
-  {
-    id: 'pension',
-    label: 'Retirement Pension',
-    icon: 'user-group',
-    description: 'Estimate guaranteed lifelong monthly pension from one-time annuity purchase price.',
-    targetUrl: '/lic-pension-calculator'
+  en: {
+    badge: 'Interactive Finder',
+    title: 'Not sure which calculator you need?',
+    desc: 'What is your primary goal today? Click an option below for instant guidance.',
+    openCalc: 'Open Calculator →',
+    intents: [
+      { id: 'surrender', label: 'Surrender Value & Loss', icon: 'shield-alert', description: 'Find out how much money you will receive and how much you lose if you stop paying and surrender early.', targetUrl: '/lic-surrender-value-calculator', badge: 'Popular' },
+      { id: 'premium', label: 'Policy Premium', icon: 'calculator', description: 'Calculate your annual, half-yearly, or monthly premium installment for standard LIC savings plans.', targetUrl: '/lic-premium-calculator' },
+      { id: 'maturity', label: 'Maturity Amount', icon: 'chart-bar', description: 'Estimate your total lump sum return upon completing your policy term including loyalty additions.', targetUrl: '/lic-maturity-calculator' },
+      { id: 'loan', label: 'Policy Loan Eligibility', icon: 'banknotes', description: 'Check how much cash you can borrow against your in-force policy without losing your insurance cover.', targetUrl: '/lic-loan-calculator' },
+      { id: 'bonus', label: 'Accrued Bonus', icon: 'gift', description: 'Estimate total Simple Reversionary Bonus and Final Additional Bonus accumulated over your term.', targetUrl: '/lic-bonus-calculator' },
+      { id: 'insurance', label: 'Pure Term Cover', icon: 'shield-check', description: 'Calculate affordable high-cover pure life insurance protection without investment mixing.', targetUrl: '/lic-term-insurance-calculator' },
+      { id: 'pension', label: 'Retirement Pension', icon: 'user-group', description: 'Estimate guaranteed lifelong monthly pension from one-time annuity purchase price.', targetUrl: '/lic-pension-calculator' }
+    ]
   }
-];
+};
+
+const currentData = INTENTS_BY_LOCALE[locale] || INTENTS_BY_LOCALE.en;
+const intents = currentData.intents;
 ---
 
 <div class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-8 shadow-card" data-calculator-finder>
   <div class="max-w-xl mb-6">
     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-100 text-brand-800 mb-2">
-      Interactive Finder
+      {currentData.badge}
     </span>
     <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-      Not sure which calculator you need?
+      {currentData.title}
     </h3>
     <p class="text-sm text-slate-500 mt-1">
-      What is your primary goal today? Click an option below for instant guidance.
+      {currentData.desc}
     </p>
   </div>
 
@@ -105,21 +178,21 @@ const intents: IntentOption[] = [
   <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" data-finder-panel>
     <div class="space-y-1">
       <div class="text-xs font-semibold text-brand-700 uppercase tracking-wider" data-finder-category>
-        Surrender Value & Loss Analysis
+        {intents[0].label}
       </div>
       <h4 class="text-base font-bold text-slate-900" data-finder-title>
-        Estimate Cash Payout & Financial Difference
+        {intents[0].label}
       </h4>
       <p class="text-xs text-slate-600 max-w-xl" data-finder-desc>
-        Find out how much money you will receive and how much you lose if you stop paying and surrender early.
+        {intents[0].description}
       </p>
     </div>
     <a
-      href="/lic-surrender-value-calculator"
+      href={intents[0].targetUrl}
       class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-xs font-semibold text-white bg-brand-700 hover:bg-brand-800 transition-colors shrink-0 shadow-sm"
       data-finder-btn
     >
-      Open Calculator &rarr;
+      {currentData.openCalc}
     </a>
   </div>
 </div>
@@ -152,7 +225,7 @@ const intents: IntentOption[] = [
         chip.setAttribute('aria-selected', 'true');
 
         if (categoryEl) categoryEl.textContent = selected.label;
-        if (titleEl) titleEl.textContent = `LIC ${selected.label} Tool`;
+        if (titleEl) titleEl.textContent = selected.label;
         if (descEl) descEl.textContent = selected.description;
         if (btnEl) btnEl.setAttribute('href', selected.targetUrl);
       });

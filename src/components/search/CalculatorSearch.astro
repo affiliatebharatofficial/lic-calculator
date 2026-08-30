@@ -1,13 +1,16 @@
 ---
 import { ALL_CALCULATORS } from '@/lib/calculators/registry';
+import { getLocalizedPath } from '@/lib/i18n';
+import type { Locale } from '@/types/i18n';
 
 interface Props {
   variant?: 'modal' | 'inline';
   placeholder?: string;
   class?: string;
+  locale?: Locale;
 }
 
-const { variant = 'modal', placeholder = 'Search calculators (e.g. Surrender, Premium, Table 914)...', class: className = '' } = Astro.props;
+const { variant = 'modal', placeholder = 'Search calculators (e.g. Surrender, Premium, Table 914)...', class: className = '', locale = 'en' } = Astro.props;
 
 const searchItems = [
   ...ALL_CALCULATORS.map(calc => ({
@@ -17,17 +20,17 @@ const searchItems = [
            calc.titleKey === 'nav.bonusCalculator' ? 'LIC Bonus Calculator' :
            calc.titleKey === 'nav.loanCalculator' ? 'LIC Policy Loan Calculator' :
            calc.slug.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' '),
-    url: `/${calc.slug}`,
+    url: getLocalizedPath(`/${calc.slug}`, locale),
     category: 'Calculator',
     badge: calc.category,
     keywords: `${calc.slug} ${calc.category} estimate calculate`
   })),
-  { title: 'Table 914: LIC New Endowment Plan', url: '/lic-premium-calculator?plan=914', category: 'Plan', badge: 'Endowment', keywords: '914 endowment savings' },
-  { title: 'Table 915: LIC New Jeevan Anand', url: '/lic-premium-calculator?plan=915', category: 'Plan', badge: 'Whole Life', keywords: '915 jeevan anand' },
-  { title: 'Table 936: LIC Jeevan Labh', url: '/lic-premium-calculator?plan=936', category: 'Plan', badge: 'Limited PPT', keywords: '936 jeevan labh' },
-  { title: 'Table 945: LIC Jeevan Umang', url: '/lic-premium-calculator?plan=945', category: 'Plan', badge: 'Guaranteed 8%', keywords: '945 umang pension' },
-  { title: 'Surrender vs. Continue vs. Paid-Up Analysis', url: '/lic-surrender-value-calculator#comparison', category: 'Guide', badge: 'Decision Tool', keywords: 'surrender loss paid-up vs surrender' },
-  { title: 'Policy Loan Eligibility Calculator', url: '/lic-loan-calculator', category: 'Calculator', badge: 'Loan', keywords: 'loan against policy interest' },
+  { title: 'Table 914: LIC New Endowment Plan', url: getLocalizedPath('/lic-premium-calculator?plan=914', locale), category: 'Plan', badge: 'Endowment', keywords: '914 endowment savings' },
+  { title: 'Table 915: LIC New Jeevan Anand', url: getLocalizedPath('/lic-premium-calculator?plan=915', locale), category: 'Plan', badge: 'Whole Life', keywords: '915 jeevan anand' },
+  { title: 'Table 936: LIC Jeevan Labh', url: getLocalizedPath('/lic-premium-calculator?plan=936', locale), category: 'Plan', badge: 'Limited PPT', keywords: '936 jeevan labh' },
+  { title: 'Table 945: LIC Jeevan Umang', url: getLocalizedPath('/lic-premium-calculator?plan=945', locale), category: 'Plan', badge: 'Guaranteed 8%', keywords: '945 umang pension' },
+  { title: 'Surrender vs. Continue vs. Paid-Up Analysis', url: getLocalizedPath('/lic-surrender-value-calculator#comparison', locale), category: 'Guide', badge: 'Decision Tool', keywords: 'surrender loss paid-up vs surrender' },
+  { title: 'Policy Loan Eligibility Calculator', url: getLocalizedPath('/lic-loan-calculator', locale), category: 'Calculator', badge: 'Loan', keywords: 'loan against policy interest' },
 ];
 ---
 

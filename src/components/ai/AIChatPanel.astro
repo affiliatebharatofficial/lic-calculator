@@ -1,17 +1,97 @@
 ---
 import SuggestedQuestions from './SuggestedQuestions.astro';
+import type { Locale } from '@/types/i18n';
 
 interface Props {
   title?: string;
   calculatorType?: 'premium' | 'maturity' | 'surrender' | 'loan' | 'general';
   class?: string;
+  locale?: Locale;
 }
 
 const {
-  title = 'AI Policy Assistant',
+  title,
   calculatorType = 'general',
-  class: className = ''
+  class: className = '',
+  locale = 'en'
 } = Astro.props;
+
+const PANEL_TEXT: Record<Locale, {
+  defaultTitle: string;
+  subtitle: string;
+  online: string;
+  welcome: string;
+  placeholder: string;
+  askBtn: string;
+  disclaimer: string;
+}> = {
+  hi: {
+    defaultTitle: 'एआई पॉलिसी सहायक',
+    subtitle: 'नियम व गणना की आसान व्याख्या',
+    online: 'ऑनलाइन',
+    welcome: 'नमस्ते! मैं आपका एआई पॉलिसी सहायक हूँ। एलआईसी नियमों, गणना शर्तों या सरेंडर वैल्यू के बारे में कोई भी प्रश्न पूछें।',
+    placeholder: 'अपनी पॉलिसी या गणना के बारे में प्रश्न पूछें...',
+    askBtn: 'पूछें',
+    disclaimer: 'एआई सहायक केवल सूचनात्मक है और वित्तीय सलाह नहीं देता है।'
+  },
+  mr: {
+    defaultTitle: 'एआय पॉलिसी सहाय्यक',
+    subtitle: 'नियम व गणनेचे सोपे स्पष्टीकरण',
+    online: 'ऑनलाइन',
+    welcome: 'नमस्कार! मी आपला एआय पॉलिसी सहाय्यक आहे. एलआयसी नियम किंवा परताव्याबाबत कोणताही प्रश्न विचारा.',
+    placeholder: 'पॉलिसी किंवा गणनेबाबत प्रश्न विचारा...',
+    askBtn: 'विचारा',
+    disclaimer: 'एआय सहाय्यक केवळ माहितीसाठी आहे आणि आर्थिक सल्ला देत नाही.'
+  },
+  gu: {
+    defaultTitle: 'AI પોલિસી સહાયક',
+    subtitle: 'નિયમો અને ગણતરીની સરળ સમજૂતી',
+    online: 'ઓનલાઇન',
+    welcome: 'નમસ્તે! હું તમારો AI પોલિસી સહાયક છું. LIC નિયમો અથવા ગણતરી વિશે કોઈ પણ પ્રશ્ન પૂછો.',
+    placeholder: 'તમારી પોલિસી અથવા ગણતરી વિશે પ્રશ્ન પૂછો...',
+    askBtn: 'પૂછો',
+    disclaimer: 'AI સહાયક માત્ર માહિતી માટે છે અને નાણાકીય સલાહ આપતું નથી.'
+  },
+  bn: {
+    defaultTitle: 'এআই পলিসি সহায়ক',
+    subtitle: 'নিয়ম ও হিসাবের সহজ ব্যাখ্যা',
+    online: 'অনলাইন',
+    welcome: 'নমস্কার! আমি আপনার এআই পলিসি সহায়ক। এলআইসি নিয়ম বা রিটার্ন সংক্রান্ত যেকোনো প্রশ্ন জিজ্ঞাসা করুন।',
+    placeholder: 'পলিসি বা হিসাব সম্পর্কে প্রশ্ন জিজ্ঞাসা করুন...',
+    askBtn: 'জিজ্ঞাসা করুন',
+    disclaimer: 'এআই সহায়ক শুধুমাত্র তথ্যমূলক এবং কোনো আর্থিক পরামর্শ দেয় না।'
+  },
+  ta: {
+    defaultTitle: 'AI பாலிசி உதவியாளர்',
+    subtitle: 'விதிகள் மற்றும் கணக்கீட்டின் எளிய விளக்கம்',
+    online: 'ஆன்லைன்',
+    welcome: 'வணக்கம்! நான் உங்கள் AI பாலிசி உதவியாளர். எல்ஐசி விதிகள் மற்றும் கணக்கீடுகள் குறித்து ஏதேனும் கேள்வி கேளுங்கள்.',
+    placeholder: 'உங்கள் பாலிசி அல்லது கணக்கீடு பற்றி கேளுங்கள்...',
+    askBtn: 'கேட்க',
+    disclaimer: 'AI உதவியாளர் தகவல் நோக்கங்களுக்கானது மட்டுமே; நிதி ஆலோசனை அல்ல.'
+  },
+  te: {
+    defaultTitle: 'AI పాలసీ అసిస్టెంట్',
+    subtitle: 'నిబంధనలు మరియు గణనల సులభ వివరణ',
+    online: 'ఆన్‌లైన్',
+    welcome: 'నమస్కారం! నేను మీ AI పాలసీ అసిస్టెంట్‌ని. ఎల్ఐసి నిబంధనలు లేదా గణనల గురించి ఏదైనా ప్రశ్న అడగండి.',
+    placeholder: 'మీ పాలసీ లేదా గణన గురించి ప్రశ్న అడగండి...',
+    askBtn: 'అడగండి',
+    disclaimer: 'AI అసిస్టెంట్ సమాచారం కొరకు మాత్రమే, ఇది ఆర్థిక సలహా కాదు.'
+  },
+  en: {
+    defaultTitle: 'AI Policy Assistant',
+    subtitle: 'Deterministic calculation interpretation',
+    online: 'Online',
+    welcome: 'Hello! I am your AI Policy Assistant. Ask me any question about LIC rules, calculation terminology, or click a suggested question below.',
+    placeholder: 'Ask a question about your policy or calculation...',
+    askBtn: 'Ask',
+    disclaimer: 'AI assistant is informational and does not provide financial advice. Calculations are authoritative.'
+  }
+};
+
+const txt = PANEL_TEXT[locale] || PANEL_TEXT.en;
+const panelTitle = title || txt.defaultTitle;
 ---
 
 <div class={`bg-white rounded-2xl border border-slate-200/90 shadow-card flex flex-col overflow-hidden ${className}`} id="ai-chat-panel">
@@ -22,13 +102,13 @@ const {
         AI
       </div>
       <div>
-        <h3 class="text-sm font-bold text-slate-900">{title}</h3>
-        <div class="text-[10px] text-slate-500">Deterministic calculation interpretation</div>
+        <h3 class="text-sm font-bold text-slate-900">{panelTitle}</h3>
+        <div class="text-[10px] text-slate-500">{txt.subtitle}</div>
       </div>
     </div>
     <div class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/60">
       <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-      Online
+      {txt.online}
     </div>
   </div>
 
@@ -41,7 +121,7 @@ const {
       </div>
       <div class="bg-white border border-slate-200 rounded-2xl rounded-tl-sm p-3.5 shadow-sm max-w-[85%] text-left">
         <p class="text-xs text-slate-800 leading-relaxed">
-          Hello! I am your AI Policy Assistant. Ask me any question about LIC rules, calculation terminology, or click a suggested question below.
+          {txt.welcome}
         </p>
       </div>
     </div>
@@ -59,7 +139,7 @@ const {
         type="text"
         id="ai-chat-input"
         class="flex-1 px-4 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition-all text-slate-900 placeholder:text-slate-400 outline-none"
-        placeholder="Ask a question about your policy or calculation..."
+        placeholder={txt.placeholder}
         maxlength="500"
         required
       />
@@ -68,12 +148,12 @@ const {
         id="ai-chat-send-btn"
         class="px-4 py-2.5 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-bold text-xs rounded-xl shadow-sm transition-all shrink-0 flex items-center gap-1"
       >
-        <span>Ask</span>
+        <span>{txt.askBtn}</span>
         <span>→</span>
       </button>
     </form>
     <div class="text-[10px] text-slate-400 text-center mt-2">
-      AI assistant is informational and does not provide financial advice. Calculations are authoritative.
+      {txt.disclaimer}
     </div>
   </div>
 </div>
