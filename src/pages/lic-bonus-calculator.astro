@@ -1,0 +1,171 @@
+---
+import CalculatorShell from '@/components/calculator/CalculatorShell.astro';
+import PlanSelector from '@/components/calculator/PlanSelector.astro';
+import CurrencyInput from '@/components/calculator/CurrencyInput.astro';
+import RangeInput from '@/components/calculator/RangeInput.astro';
+import CalculateButton from '@/components/calculator/CalculateButton.astro';
+import ResetButton from '@/components/calculator/ResetButton.astro';
+import ResultCard from '@/components/ui/ResultCard.astro';
+import ResultBreakdown from '@/components/calculator/ResultBreakdown.astro';
+import CalculationExplanation from '@/components/calculator/CalculationExplanation.astro';
+import RelatedCalculatorCard from '@/components/calculator/RelatedCalculatorCard.astro';
+import AIExplanationCard from '@/components/ai/AIExplanationCard.astro';
+import { CALCULATOR_SEO_DATA } from '@/lib/seo/calculator-content';
+
+const seoData = CALCULATOR_SEO_DATA['lic-bonus-calculator'];
+
+const breadcrumbs = [
+  { name: 'Calculators', url: '/calculators' },
+  { name: 'Bonus Calculator', url: '/lic-bonus-calculator' }
+];
+
+const breakdownItems = [
+  { id: '1', label: 'Annual Reversionary Bonus (₹42/th/yr)', amount: '₹21,000 / yr', notes: 'Accrues annually per ₹1,000 SA' },
+  { id: '2', label: 'Total Reversionary Bonus (20 Years)', amount: '₹4,20,000', isCredit: true, notes: 'Cumulative across full 20 year policy term' },
+  { id: '3', label: 'Final Additional Bonus (FAB)', amount: '₹35,000', isCredit: true, notes: 'Terminal bonus for policies with term >= 15 yrs' }
+];
+
+const relatedTools = [
+  {
+    title: 'Maturity Calculator',
+    description: 'See total maturity payout combining Sum Assured and accrued bonus.',
+    url: '/lic-maturity-calculator',
+    category: 'Maturity'
+  },
+  {
+    title: 'Surrender Value Calculator',
+    description: 'Check what percentage of accrued bonus is paid upon early surrender.',
+    url: '/lic-surrender-value-calculator',
+    category: 'Surrender'
+  }
+];
+---
+
+<CalculatorShell
+  title={seoData.seoTitle}
+  description={seoData.metaDescription}
+  calculatorTitle={seoData.h1}
+  calculatorSubtitle={seoData.subtitle}
+  category={seoData.category}
+  lastReviewedDate={seoData.lastReviewedDate}
+  sources={seoData.sources}
+  faqs={seoData.faqs}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Form Inputs Slot -->
+  <div slot="inputs" class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 shadow-card">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+      <h2 class="text-base font-bold text-slate-900">Bonus Parameters</h2>
+      <ResetButton />
+    </div>
+
+    <div id="calc-error-banner" class="hidden mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200/80 text-rose-700 text-xs font-semibold" role="alert"></div>
+
+    <form id="lic-bonus-form" class="space-y-5">
+      <PlanSelector
+        id="planTableNo"
+        name="planTableNo"
+        label="Select LIC Plan"
+        defaultValue={914}
+        required
+      />
+
+      <CurrencyInput
+        id="sumAssured"
+        name="sumAssured"
+        label="Sum Assured (Life Cover)"
+        min={100000}
+        max={100000000}
+        step={25000}
+        value={500000}
+        required
+      />
+
+      <RangeInput
+        id="policyTerm"
+        name="policyTerm"
+        label="Policy Term"
+        min={10}
+        max={35}
+        step={1}
+        value={20}
+        unit="Years"
+        required
+      />
+
+      <div class="pt-2">
+        <CalculateButton text="Calculate Bonus Accruals" />
+      </div>
+    </form>
+  </div>
+
+  <!-- Results Slot -->
+  <div slot="results" id="calc-result-container">
+    <div class="space-y-4">
+      <ResultCard
+        headline="Estimated Total Bonus Accrual"
+        amount="₹4,55,000"
+        subtitle="Includes Simple Reversionary Bonus + Final Additional Bonus (FAB)"
+        stats={[
+          { label: 'Annual Bonus', value: '₹21,000 / yr' },
+          { label: 'Vested Bonus', value: '₹4,20,000' },
+          { label: 'FAB Loyalty Addition', value: '₹35,000' },
+          { label: 'Total Term', value: '20 Years' }
+        ]}
+      />
+
+      <div id="calc-rule-source-badge" class="text-xs text-slate-500 bg-slate-50 border border-slate-200/60 p-2.5 rounded-xl text-center">
+        Rule Version: SYNTHETIC_2024.1 (Verified Rule Set Table 914)
+      </div>
+
+      <button
+        type="button"
+        id="explain-ai-btn"
+        class="w-full py-2.5 px-4 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-sm hover:shadow transition-all flex items-center justify-center gap-2 cursor-pointer"
+      >
+        <span>✨</span>
+        <span>Explain this bonus calculation with AI</span>
+      </button>
+
+      <AIExplanationCard calculatorId="lic-bonus-calculator" />
+    </div>
+  </div>
+
+  <!-- Bottom Slots -->
+  <div slot="breakdown">
+    <ResultBreakdown
+      title="Bonus Accrual Component Breakdown"
+      subtitle="Accrual schedule for ₹5,00,000 Sum Assured under Table 914"
+      items={breakdownItems}
+      totalLabel="Total Projected Bonus Accumulation"
+      totalAmount="₹4,55,000"
+    />
+  </div>
+
+  <div slot="explanation">
+    <CalculationExplanation
+      title={seoData.howItWorks.title}
+      steps={seoData.howItWorks.steps}
+      notes={seoData.assumptionsAndLimitations.notes}
+    />
+  </div>
+
+  <div slot="related">
+    <RelatedCalculatorCard tools={relatedTools} />
+  </div>
+</CalculatorShell>
+
+<div id="calc-live-announcer" class="sr-only" aria-live="polite"></div>
+
+<script>
+  import { initCalculatorForm } from '@/lib/client/calculator-client';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initCalculatorForm({
+      formId: 'lic-bonus-form',
+      apiEndpoint: '/api/calculators/bonus',
+      calculatorId: 'lic-bonus-calculator',
+      calculatorName: 'LIC Bonus Calculator'
+    });
+  });
+</script>

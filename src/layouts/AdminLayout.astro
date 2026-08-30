@@ -1,0 +1,129 @@
+---
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  activeSection?: 'dashboard' | 'plans' | 'rules' | 'sources' | 'content' | 'translations' | 'glossary' | 'faq' | 'audit';
+}
+
+const { title, activeSection = 'dashboard' } = Astro.props;
+
+const navItems = [
+  { id: 'dashboard', label: 'Dashboard', href: '/admin/dashboard', icon: '📊' },
+  { id: 'plans', label: 'LIC Plans', href: '/admin/plans', icon: '📑' },
+  { id: 'rules', label: 'Rule Management', href: '/admin/rules', icon: '⚖️' },
+  { id: 'sources', label: 'Actuarial Sources', href: '/admin/sources', icon: '📚' },
+  { id: 'translations', label: 'Translations (7 Lng)', href: '/admin/translations', icon: '🌐' },
+  { id: 'seo', label: 'SEO & E-E-A-T', href: '/admin/seo-health', icon: '🎯' },
+  { id: 'audit', label: 'Audit Trail', href: '/admin/audit', icon: '🛡️' }
+];
+---
+
+<!doctype html>
+<html lang="en" class="h-full bg-slate-950 font-sans antialiased text-slate-100">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | LIC Calculator Admin</title>
+    <!-- Strictly Noindex for Admin Namespace -->
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="h-full flex flex-col md:flex-row overflow-hidden">
+    <!-- Sidebar Navigation -->
+    <aside class="w-full md:w-64 bg-slate-900 border-r border-slate-800 flex flex-col shrink-0">
+      <!-- Admin Brand -->
+      <div class="h-16 px-6 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center font-bold text-sm">
+            LC
+          </div>
+          <div>
+            <span class="font-bold text-sm tracking-tight text-white block">LIC Admin & CMS</span>
+            <span class="text-[10px] text-amber-400 font-mono block">Restricted Environment</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nav Links -->
+      <nav class="p-4 space-y-1 flex-1 overflow-y-auto">
+        {
+          navItems.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <a
+                href={item.href}
+                class={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-colors ${
+                  isActive
+                    ? 'bg-brand-600/20 text-brand-400 border border-brand-500/30'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                }`}
+              >
+                <span>{item.icon}</span>
+                <span>{item.label}</span>
+              </a>
+            );
+          })
+        }
+      </nav>
+
+      <!-- User & Logout -->
+      <div class="p-4 border-t border-slate-800 bg-slate-950/40">
+        <div class="flex items-center justify-between">
+          <div class="truncate">
+            <span class="text-xs font-bold text-white block truncate" id="admin-user-name">Administrator</span>
+            <span class="text-[10px] text-slate-500 block truncate" id="admin-user-email">admin@lic-calculators.com</span>
+          </div>
+          <button
+            type="button"
+            id="admin-logout-btn"
+            class="p-2 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-950/30 transition-colors text-xs font-semibold cursor-pointer"
+            title="Log Out"
+          >
+            🚪
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden bg-slate-950">
+      <!-- Top Bar -->
+      <header class="h-16 px-6 sm:px-8 border-b border-slate-800 flex items-center justify-between shrink-0 bg-slate-900/40">
+        <div class="flex items-center gap-3">
+          <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">{title}</h1>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+            D1 Production Live
+          </span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a
+            href="/"
+            target="_blank"
+            class="text-xs text-slate-400 hover:text-white transition-colors flex items-center gap-1 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700"
+          >
+            <span>Public Site</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- Page Body Scroll Container -->
+      <div class="flex-1 overflow-y-auto p-6 sm:p-8">
+        <slot />
+      </div>
+    </main>
+
+    <script>
+      document.getElementById('admin-logout-btn')?.addEventListener('click', async () => {
+        try {
+          await fetch('/api/admin/auth/logout', { method: 'POST' });
+          window.location.href = '/admin/login';
+        } catch {
+          window.location.href = '/admin/login';
+        }
+      });
+    </script>
+  </body>
+</html>

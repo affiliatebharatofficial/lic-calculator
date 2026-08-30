@@ -1,0 +1,28 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  class?: string;
+  variant?: 'default' | 'highlight' | 'muted';
+}
+
+const { title, subtitle, class: className = '', variant = 'default' } = Astro.props;
+
+const variantStyles = {
+  default: 'bg-white border-slate-200/80',
+  highlight: 'bg-brand-50/50 border-brand-200',
+  muted: 'bg-slate-50 border-slate-200'
+};
+---
+
+<div class={`rounded-xl border shadow-card p-6 ${variantStyles[variant]} ${className}`}>
+  {
+    (title || subtitle) && (
+      <div class="mb-5">
+        {title && <h3 class="text-lg font-semibold text-slate-900 tracking-tight">{title}</h3>}
+        {subtitle && <p class="text-sm text-slate-500 mt-1">{subtitle}</p>}
+      </div>
+    )
+  }
+  <slot />
+</div>

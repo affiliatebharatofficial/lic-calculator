@@ -1,0 +1,70 @@
+---
+interface Props {
+  id?: string;
+  name?: string;
+  label?: string;
+  defaultValue?: number | string;
+  required?: boolean;
+  helpText?: string;
+  class?: string;
+}
+
+const {
+  id = 'planTableNo',
+  name = 'planTableNo',
+  label = 'Select LIC Plan',
+  defaultValue = 914,
+  required = true,
+  helpText = 'Calculations execute only with verified rule data.',
+  class: className = ''
+} = Astro.props;
+
+const plans = [
+  { tableNo: 914, name: 'LIC New Endowment Plan (Table 914)', status: 'verified', badge: 'Verified Rule Data' },
+  { tableNo: 915, name: 'LIC New Jeevan Anand (Table 915)', status: 'pending', badge: 'Pending Verification' },
+  { tableNo: 936, name: 'LIC Jeevan Labh (Table 936)', status: 'pending', badge: 'Pending Verification' },
+  { tableNo: 945, name: 'LIC Jeevan Umang (Table 945)', status: 'pending', badge: 'Pending Verification' }
+];
+---
+
+<div class={`space-y-1.5 ${className}`}>
+  <div class="flex items-center justify-between">
+    <label for={id} class="block text-sm font-semibold text-slate-800">
+      {label}
+      {required && <span class="text-rose-500 font-bold ml-0.5">*</span>}
+    </label>
+    <span class="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+      Verified Rules
+    </span>
+  </div>
+
+  <div class="relative rounded-xl shadow-xs">
+    <select
+      id={id}
+      name={name}
+      required={required}
+      class="w-full appearance-none rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-navy-600 focus:outline-none focus:ring-2 focus:ring-navy-600/15 transition-all font-medium pr-10"
+    >
+      {plans.map((p) => (
+        <option
+          value={p.tableNo}
+          selected={String(p.tableNo) === String(defaultValue)}
+        >
+          {p.name} {p.status === 'verified' ? '✓' : '(Pending Verification)'}
+        </option>
+      ))}
+    </select>
+    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400">
+      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+  </div>
+
+  {helpText && (
+    <p class="text-xs text-slate-500">
+      {helpText}
+    </p>
+  )}
+</div>

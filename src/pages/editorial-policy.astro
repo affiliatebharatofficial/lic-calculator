@@ -1,0 +1,69 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Editorial & Actuarial Policy', url: '/editorial-policy' }
+];
+---
+
+<BaseLayout
+  title="Editorial & Actuarial Integrity Policy - LIC Calculator"
+  description="Learn about our rigorous actuarial research, source verification, peer-review standards, and transparent correction processes."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        E-E-A-T Standards & Editorial Integrity
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Editorial & Actuarial Verification Policy
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        LIC Calculator (lic-calculators.com) is an independent financial technology platform dedicated to providing deterministic, transparent, and accurate policy calculation tools for policyholders across India.
+      </p>
+    </div>
+
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. Independent Platform Charter</h2>
+      <p>
+        We are an independent informational and calculation platform. We are <strong>NOT</strong> affiliated with, owned by, endorsed by, or operating on behalf of the Life Insurance Corporation of India (LIC) or any governmental entity. Our tools are built solely to help consumers evaluate policy numbers, surrender values, paid-up scenarios, and loan limits objectively.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Actuarial Source Verification Standards</h2>
+      <p>
+        Every formula, tabular rate, Guaranteed Surrender Value (GSV) factor, Special Surrender Value (SSV) factor, and bonus matrix implemented in our calculation engines must be grounded in official documentary sources:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Official LIC Policy Documents and Circulars published by the Central Actuarial Department.</li>
+        <li>Statutory Master Circulars issued by the Insurance Regulatory and Development Authority of India (IRDAI).</li>
+        <li>Annual Actuarial Valuation Reports declaring simple reversionary bonus and final additional bonus (FAB) rates.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Human Peer Review & Separation of Duties</h2>
+      <p>
+        To ensure complete reliability, our publishing workflow enforces strict separation of duties. No financial rule or educational article authored by a team member can be deployed directly to production. Every calculation rule must pass:
+      </p>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Automated Regression Fixtures</strong>: Synthetic mathematical test cases run across standard, edge-case, and boundary scenarios.</li>
+        <li><strong>Independent Actuarial Verification</strong>: Review by an authorized reviewer or actuary who was not the author.</li>
+        <li><strong>Published State Transition</strong>: Controlled activation in Cloudflare D1 with permanent audit trail logging.</li>
+      </ol>
+
+      <h2 class="text-xl font-bold text-slate-900">4. AI Usage & Grounding Rules</h2>
+      <p>
+        AI assistants and explanation layers on our platform assist users in understanding calculation outputs and policy terminology. <strong>AI is never permitted to generate or modify production calculation rules automatically</strong>. All AI responses are strictly grounded in deterministic engine outputs and verified glossaries.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. User Feedback & Transparent Corrections</h2>
+      <p>
+        We encourage users and insurance professionals to report potential discrepancies or outdated rates. You can report any issue directly via our <a href="/contact/correction" class="text-brand-600 font-semibold underline">Correction Submission Portal</a>. All reports are logged and reviewed within 48 business hours.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Card -->
+    <AuthorReviewerCard />
+  </div>
+</BaseLayout>

@@ -1,0 +1,42 @@
+---
+import type { Locale } from '@/types/i18n';
+import { SUPPORTED_LOCALES, LOCALE_CODES, getLocalizedPath } from '@/lib/i18n';
+
+interface Props {
+  currentLocale?: Locale;
+  class?: string;
+  variant?: 'compact' | 'expanded';
+}
+
+const { currentLocale = 'en', class: className = '', variant = 'compact' } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<div class={`language-switcher-root relative inline-block text-left ${className}`} data-current-locale={currentLocale}>
+  <label for={`lang-select-${variant}`} class="sr-only">Select Website Language</label>
+  
+  <div class="flex items-center gap-1.5 bg-slate-100/90 hover:bg-slate-200/80 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-slate-800 transition-colors border border-slate-200/80 shadow-xs">
+    <svg class="h-3.5 w-3.5 text-slate-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+    </svg>
+
+    <select
+      id={`lang-select-${variant}`}
+      class="bg-transparent text-slate-900 text-xs font-bold focus:outline-none cursor-pointer pr-1"
+      aria-label="Change language"
+      onchange="window.location.href = this.value"
+    >
+      {
+        LOCALE_CODES.map((loc) => {
+          const locInfo = SUPPORTED_LOCALES[loc];
+          const targetUrl = getLocalizedPath(currentPath, loc);
+          return (
+            <option value={targetUrl} selected={loc === currentLocale}>
+              {locInfo.nativeName} ({loc.toUpperCase()})
+            </option>
+          );
+        })
+      }
+    </select>
+  </div>
+</div>

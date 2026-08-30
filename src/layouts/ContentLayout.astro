@@ -1,0 +1,50 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import type { BreadcrumbItem } from '@/types/seo';
+import type { Locale } from '@/types/i18n';
+import { detectLocaleFromPath } from '@/lib/i18n';
+
+interface Props {
+  title: string;
+  description: string;
+  pageTitle: string;
+  pageSubtitle?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  locale?: Locale;
+}
+
+const {
+  title,
+  description,
+  pageTitle,
+  pageSubtitle,
+  breadcrumbs = [],
+  locale: explicitLocale
+} = Astro.props;
+
+const locale = explicitLocale || detectLocaleFromPath(Astro.url.pathname);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+  jsonLdType="WebPage"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <div class="border-b border-slate-200 pb-6 mb-8 mt-2">
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        {pageTitle}
+      </h1>
+      {pageSubtitle && <p class="text-base text-slate-600 mt-2">{pageSubtitle}</p>}
+    </div>
+
+    <div class="prose prose-slate max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-brand-600 hover:prose-a:text-brand-700">
+      <slot />
+    </div>
+  </div>
+</BaseLayout>

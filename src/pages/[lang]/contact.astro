@@ -1,0 +1,51 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+
+const breadcrumbs = [
+  { name: 'Contact', url: getLocalizedPath('/contact', locale) }
+];
+---
+
+<BaseLayout
+  title={`Contact - ${t(locale, 'site.name')}`}
+  description="Contact information and feedback for LIC Calculator."
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <div class="border-b border-slate-200 pb-6 mb-8 mt-2">
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Contact & Feedback
+      </h1>
+      <p class="text-base text-slate-600 mt-2">
+        Have suggestions or inquiries regarding our mathematical calculators? Get in touch.
+      </p>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-4 text-sm text-slate-700">
+      <p>
+        For inquiries, mathematical corrections, or feedback regarding our calculators, please email our product engineering team:
+      </p>
+      <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl font-mono text-sm font-semibold text-brand-700">
+        support@lic-calculators.com
+      </div>
+      <p class="text-xs text-slate-500">
+        Note: We cannot access your individual LIC policy records or service branch inquiries. Please contact your nearest LIC branch for official policy servicing.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

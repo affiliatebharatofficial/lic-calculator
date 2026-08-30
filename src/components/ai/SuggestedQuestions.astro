@@ -1,0 +1,56 @@
+---
+interface Props {
+  calculatorType?: 'premium' | 'maturity' | 'surrender' | 'loan' | 'general';
+  class?: string;
+}
+
+const { calculatorType = 'general', class: className = '' } = Astro.props;
+
+const questionsMap: Record<string, string[]> = {
+  surrender: [
+    'Why is the surrender value lower than premiums paid?',
+    'What is the difference between GSV and SSV?',
+    'What happens if I convert to Paid-Up instead?',
+    'How can I take a policy loan instead of surrendering?'
+  ],
+  maturity: [
+    'Which part of my maturity payout is guaranteed?',
+    'What is a Simple Reversionary Bonus?',
+    'What is Final Additional Bonus (FAB)?'
+  ],
+  premium: [
+    'How do mode rebates reduce my annual premium?',
+    'Is GST added to every LIC premium installment?',
+    'What is the difference between Policy Term and PPT?'
+  ],
+  loan: [
+    'How is interest calculated on an LIC policy loan?',
+    'Do I have to repay the loan principal every year?',
+    'Does taking a loan cancel my insurance cover?'
+  ],
+  general: [
+    'What is a paid-up policy?',
+    'How is surrender value calculated?',
+    'What is the grace period for LIC premium payments?'
+  ]
+};
+
+const questions: string[] = questionsMap[calculatorType] || questionsMap.general || [];
+---
+
+<div class={`space-y-2 ${className}`}>
+  <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Suggested Questions</div>
+  <div class="flex flex-wrap gap-2">
+    {
+      questions.map((q) => (
+        <button
+          type="button"
+          class="suggested-q-btn text-xs bg-slate-100/90 hover:bg-brand-50 hover:text-brand-700 text-slate-700 font-medium px-3 py-1.5 rounded-full border border-slate-200/80 transition-colors text-left"
+          data-question={q}
+        >
+          {q}
+        </button>
+      ))
+    }
+  </div>
+</div>

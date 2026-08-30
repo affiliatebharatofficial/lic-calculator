@@ -1,0 +1,82 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides' },
+  { name: 'LIC Policy Loan Rules', url: '/guides/lic-policy-loan-rules' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Policy Loan Rules, Interest Rate & Repayment Guide',
+  description: 'Learn how much you can borrow against your LIC policy, 90% LTV limits, semi-annual interest rules, and how loans impact maturity claims.',
+  url: `${siteUrl}/guides/lic-policy-loan-rules`,
+  publishedDate: '2026-01-12T00:00:00Z',
+  modifiedDate: '2026-01-20T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Policy Loan Rules, Interest Rate & Repayment Guide | LIC Calculator"
+  description="Learn how much you can borrow against your LIC policy, 90% LTV limits, semi-annual interest rules, and how loans impact maturity claims."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+        Liquidity Guide • Policy Loan
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Policy Loan Rules, Interest Rates & Repayment Guide
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Need short-term liquidity without surrendering your policy? Learn how policy loans work, interest calculations, and how loans keep your life cover intact.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-emerald-900">Check your borrowing eligibility</h2>
+        <p class="text-xs text-emerald-700">Calculate maximum borrowing limit based on your acquired surrender value.</p>
+      </div>
+      <a
+        href="/lic-loan-calculator"
+        class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Eligible Loan &rarr;
+      </a>
+    </div>
+
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. Maximum Borrowing Limit (Loan-to-Value)</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>In-Force Policies</strong>: Up to 90% of the acquired cash surrender value.</li>
+        <li><strong>Fully Paid-Up Policies</strong>: Up to 80% of the acquired cash surrender value.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Interest Rate & Repayment Flexibility</h2>
+      <p>
+        LIC currently charges approximately 9.50% p.a. interest, payable semi-annually (every 6 months). There is no mandatory monthly EMI for the principal. You can repay the principal at any time in installments or full, or leave it to be deducted from your final maturity payout.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-loan-calculator" />
+
+    <!-- Author Card -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="January 2026" />
+  </article>
+</BaseLayout>

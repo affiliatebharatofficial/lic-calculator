@@ -1,0 +1,93 @@
+---
+import AIChatPanel from './AIChatPanel.astro';
+---
+
+<!-- Floating AI Trigger Button -->
+<button
+  type="button"
+  id="ai-drawer-trigger"
+  class="fixed bottom-6 right-6 z-40 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-bold text-xs py-3 px-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 group cursor-pointer focus:outline-none focus:ring-4 focus:ring-brand-200"
+  aria-label="Open AI Policy Assistant"
+  aria-expanded="false"
+  aria-controls="ai-drawer"
+>
+  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+  <span class="text-sm">✨</span>
+  <span class="hidden sm:inline font-semibold">Ask AI Assistant</span>
+</button>
+
+<!-- Backdrop Overlay -->
+<div
+  id="ai-drawer-backdrop"
+  class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 opacity-0 pointer-events-none transition-opacity duration-300"
+  aria-hidden="true"
+></div>
+
+<!-- Slide-Over Drawer Modal -->
+<aside
+  id="ai-drawer"
+  class="fixed bottom-0 right-0 sm:top-0 sm:bottom-0 w-full sm:w-[420px] max-h-[85vh] sm:max-h-full bg-white z-50 shadow-2xl rounded-t-3xl sm:rounded-none sm:rounded-l-3xl border-t sm:border-t-0 sm:border-l border-slate-200 transform translate-y-full sm:translate-y-0 sm:translate-x-full transition-transform duration-300 flex flex-col overflow-hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="ai-drawer-title"
+  aria-hidden="true"
+>
+  <!-- Drawer Header -->
+  <div class="px-5 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="text-base">✨</span>
+      <h2 id="ai-drawer-title" class="text-sm font-bold text-slate-900">AI Policy Assistant</h2>
+    </div>
+    <button
+      type="button"
+      id="ai-drawer-close"
+      class="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg hover:bg-slate-200/60 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500"
+      aria-label="Close AI Assistant"
+    >
+      ✕
+    </button>
+  </div>
+
+  <!-- Drawer Body containing Chat Panel -->
+  <div class="flex-1 overflow-y-auto">
+    <AIChatPanel title="LIC Policy Assistant" class="border-0 rounded-none shadow-none" />
+  </div>
+</aside>
+
+<script>
+  const trigger = document.getElementById('ai-drawer-trigger');
+  const backdrop = document.getElementById('ai-drawer-backdrop');
+  const drawer = document.getElementById('ai-drawer');
+  const closeBtn = document.getElementById('ai-drawer-close');
+
+  function openDrawer() {
+    if (!drawer || !backdrop || !trigger) return;
+    drawer.classList.remove('translate-y-full', 'sm:translate-x-full');
+    backdrop.classList.remove('opacity-0', 'pointer-events-none');
+    backdrop.classList.add('opacity-100');
+    trigger.setAttribute('aria-expanded', 'true');
+    drawer.setAttribute('aria-hidden', 'false');
+    const input = document.getElementById('ai-chat-input') as HTMLInputElement | null;
+    if (input) setTimeout(() => input.focus(), 300);
+  }
+
+  function closeDrawer() {
+    if (!drawer || !backdrop || !trigger) return;
+    drawer.classList.add('translate-y-full', 'sm:translate-x-full');
+    backdrop.classList.add('opacity-0', 'pointer-events-none');
+    backdrop.classList.remove('opacity-100');
+    trigger.setAttribute('aria-expanded', 'false');
+    drawer.setAttribute('aria-hidden', 'true');
+    trigger.focus();
+  }
+
+  trigger?.addEventListener('click', openDrawer);
+  closeBtn?.addEventListener('click', closeDrawer);
+  backdrop?.addEventListener('click', closeDrawer);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && trigger?.getAttribute('aria-expanded') === 'true') {
+      closeDrawer();
+    }
+  });
+</script>

@@ -1,0 +1,108 @@
+---
+import CalculatorField from './CalculatorField.astro';
+
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  value?: number | string;
+  placeholder?: string;
+  min?: number;
+  max?: number;
+  step?: number;
+  required?: boolean;
+  helpText?: string;
+  error?: string;
+  showWordsHelper?: boolean;
+  class?: string;
+}
+
+const {
+  id,
+  name,
+  label,
+  value = '',
+  placeholder = 'e.g. 5,00,000',
+  min = 0,
+  max = 1000000000,
+  step = 1000,
+  required = false,
+  helpText,
+  error,
+  showWordsHelper = true,
+  class: className = ''
+} = Astro.props;
+---
+
+<CalculatorField
+  id={id}
+  label={label}
+  required={required}
+  helpText={helpText}
+  error={error}
+  class={className}
+>
+  <div class="relative rounded-xl shadow-sm" data-currency-input-wrapper>
+    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
+      <span class="text-base font-bold text-slate-500 font-mono">₹</span>
+    </div>
+    <input
+      type="number"
+      id={id}
+      name={name}
+      value={value}
+      placeholder={placeholder}
+      min={min}
+      max={max}
+      step={step}
+      required={required}
+      inputmode="numeric"
+      class={`block w-full rounded-xl border bg-white py-3 pl-9 pr-4 text-base font-semibold font-mono text-slate-900 shadow-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-600 transition-colors sm:text-sm ${
+        error ? 'border-rose-400 bg-rose-50/20' : 'border-slate-300'
+      }`}
+      aria-describedby={helpText ? `${id}-help` : undefined}
+      data-currency-input
+    />
+  </div>
+
+  {showWordsHelper && (
+    <div class="text-[11px] font-medium text-slate-500 italic mt-1" data-currency-words-helper>
+      {/* Live Indian word helper updated via client script */}
+    </div>
+  )}
+</CalculatorField>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    function formatIndianCompact(val) {
+      const num = Number(val);
+      if (isNaN(num) || num <= 0) return '';
+      if (num >= 10000000) {
+        const cr = num / 10000000;
+        return `~ ₹${cr.toFixed(cr % 1 === 0 ? 0 : 2)} Crore`;
+      }
+      if (num >= 100000) {
+        const lakh = num / 100000;
+        return `~ ₹${lakh.toFixed(lakh % 1 === 0 ? 0 : 2)} Lakh`;
+      }
+      if (num >= 1000) {
+        return `~ ₹${(num / 1000).toFixed(0)} Thousand`;
+      }
+      return `₹${num.toLocaleString('en-IN')}`;
+    }
+
+    document.querySelectorAll('[data-currency-input-wrapper]').forEach((wrapper) => {
+      const input = wrapper.querySelector('[data-currency-input]');
+      const helper = wrapper.parentElement?.querySelector('[data-currency-words-helper]');
+      if (!input || !helper) return;
+
+      function updateHelper() {
+        const text = formatIndianCompact(input.value);
+        helper.textContent = text;
+      }
+
+      input.addEventListener('input', updateHelper);
+      updateHelper();
+    });
+  });
+</script>

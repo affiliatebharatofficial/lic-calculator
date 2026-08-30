@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import AccordionItem from '@/components/ui/AccordionItem.astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+
+const breadcrumbs = [
+  { name: t(locale, 'nav.guides') || 'FAQ', url: getLocalizedPath('/faq', locale) }
+];
+---
+
+<BaseLayout
+  title={`Frequently Asked Questions - ${t(locale, 'site.name')}`}
+  description="Common questions about LIC policy calculations, surrender value rules, paid-up policies, and maturity bonuses."
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <div class="border-b border-slate-200 pb-6 mb-8 mt-2">
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Frequently Asked Questions
+      </h1>
+      <p class="text-base text-slate-600 mt-2">
+        Answers to common questions regarding policy calculations, surrender rules, and life coverage.
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      <Accordion>
+        <AccordionItem title="Why is surrender value lower than total premiums paid?" open={true}>
+          <p>
+            In traditional life insurance policies, premiums paid in the early years cover high administrative overheads, distributor commissions, statutory reserves, and the cost of mortality life coverage. Therefore, early surrender values only return a percentage of eligible premiums.
+          </p>
+        </AccordionItem>
+        <AccordionItem title="What is the difference between Guaranteed (GSV) and Special (SSV) Surrender Value?">
+          <p>
+            GSV is the minimum contractually guaranteed cash value based on statutory percentage tables. SSV is an actuarially determined value based on the policy paid-up proportion and bonuses. LIC pays the higher of the two values.
+          </p>
+        </AccordionItem>
+        <AccordionItem title="What happens when a policy is made Paid-Up?">
+          <p>
+            When you stop paying premiums after acquiring cash value (2+ years), the policy becomes Paid-Up. You receive no immediate cash today, but your life cover continues at a proportionately reduced amount and the full paid-up benefit is paid at maturity without early exit penalties.
+          </p>
+        </AccordionItem>
+        <AccordionItem title="Are the calculations on this website official?">
+          <p>
+            No. This is an independent educational platform. All estimates are computed deterministically using standard formula tables and must be verified against official branch records.
+          </p>
+        </AccordionItem>
+      </Accordion>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,114 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides' },
+  { name: 'What is LIC Surrender Value?', url: '/guides/what-is-lic-surrender-value' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'What is LIC Surrender Value? Complete Calculation Guide & Rules',
+  description: 'Understand how LIC policy surrender value is calculated, the difference between GSV and SSV, 2-year acquisition rules, and why surrendering early causes capital loss.',
+  url: `${siteUrl}/guides/what-is-lic-surrender-value`,
+  publishedDate: '2026-01-05T00:00:00Z',
+  modifiedDate: '2026-01-20T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="What is LIC Surrender Value? Calculation Guide & GSV/SSV Rules"
+  description="Understand how LIC policy surrender value is calculated, the difference between GSV and SSV, 2-year acquisition rules, and why surrendering early causes capital loss."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Pillar Educational Guide • Surrender Valuation
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        What is LIC Surrender Value? How GSV & SSV Are Calculated
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Surrendering an LIC life insurance policy means terminating the contract before its scheduled maturity date to receive an immediate cash payout. Learn how the payout is determined and why timing is critical.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Want to check your exact surrender payout?</h2>
+        <p class="text-xs text-brand-700">Use our verified deterministic calculator to project GSV vs SSV in seconds.</p>
+      </div>
+      <a
+        href="/lic-surrender-value-calculator"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Surrender Value &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. When Does an LIC Policy Acquire Cash Surrender Value?</h2>
+      <p>
+        Under standard LIC regulations and IRDAI product design guidelines, traditional participating endowment policies acquire a guaranteed surrender value only after premiums have been paid continuously for <strong>at least two full consecutive policy years</strong>.
+      </p>
+      <p>
+        If you stop paying premiums before completing 2 full policy years, the policy lapses without acquiring any cash surrender value, resulting in a total loss of all deposited premiums.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Guaranteed Surrender Value (GSV) vs. Special Surrender Value (SSV)</h2>
+      <p>
+        When you submit a surrender request, LIC calculates two distinct values and pays you whichever is <strong>higher</strong>:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-brand-700 uppercase block">Guaranteed (GSV)</span>
+          <h3 class="font-bold text-slate-900 text-sm">Statutory Minimum Guarantee</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Calculated as a statutory percentage (30% to 90% depending on elapsed policy years) applied to total eligible premiums paid, excluding first-year premium and taxes, plus vested bonus factor.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-indigo-700 uppercase block">Special (SSV)</span>
+          <h3 class="font-bold text-slate-900 text-sm">Actuarial Discounted Value</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Calculated using Paid-Up Sum Assured multiplied by LIC Special Surrender Value factors. In the majority of mid-tenure cases, SSV produces a significantly higher payout than GSV.
+          </p>
+        </div>
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Why Surrendering Early Leads to a Substantial Financial Shortfall</h2>
+      <p>
+        In traditional endowment policies, early premiums absorb high administrative, underwriting, distribution, and mortality risk costs. When you surrender in years 3 to 7, you typically receive only 30% to 55% of the total money you deposited, forfeiting both accumulated interest and future maturity bonuses.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Better Alternatives to Immediate Surrender</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Convert to Paid-Up Policy</strong>: Stop paying future premiums without canceling. Your policy remains active with reduced sum assured payable on original maturity.</li>
+        <li><strong>Take a Policy Loan</strong>: Borrow up to 90% of the surrender value at competitive interest (9.5% p.a.) without canceling life coverage.</li>
+      </ul>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-surrender-value-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="January 2026" />
+  </article>
+</BaseLayout>

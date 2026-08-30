@@ -1,0 +1,235 @@
+---
+import type { AuthorProfile } from '@/lib/editorial';
+import { AuthorManager } from '@/lib/editorial';
+import type { Locale } from '@/types/i18n';
+import { getLocalizedPath, t } from '@/lib/i18n';
+
+interface Props {
+  author?: AuthorProfile;
+  reviewer?: AuthorProfile;
+  lastReviewedDate?: string;
+  sources?: { title: string; publisher: string; reference: string }[];
+  locale?: Locale;
+  class?: string;
+}
+
+const {
+  author = AuthorManager.getDefaultAuthor(),
+  reviewer = AuthorManager.getDefaultReviewer(),
+  lastReviewedDate = 'August 2026',
+  sources = [
+    {
+      title: 'LIC New Endowment Plan 914 Official Policy Document',
+      publisher: 'Life Insurance Corporation of India',
+      reference: 'CO/ACT/2020/914'
+    },
+    {
+      title: 'IRDAI Master Circular on Life Insurance Products',
+      publisher: 'Insurance Regulatory and Development Authority of India',
+      reference: 'IRDAI/ACT/CIR/2024'
+    }
+  ],
+  locale = 'en',
+  class: className = ''
+} = Astro.props;
+
+const authorSocials = AuthorManager.sanitizeSocialLinks(author.socialLinks || {});
+const reviewerSocials = reviewer ? AuthorManager.sanitizeSocialLinks(reviewer.socialLinks || {}) : {};
+---
+
+<div class={`bg-slate-50 border border-slate-200/90 rounded-2xl p-5 sm:p-7 space-y-6 mt-10 shadow-card ${className}`}>
+  <!-- Header / Title -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200/80 pb-4 gap-2">
+    <div class="flex items-center gap-2">
+      <h3 class="text-sm font-bold text-slate-900 tracking-tight">{locale === 'en' ? 'Editorial & Actuarial Trust' : t(locale, 'editorial.verifiedReview')}</h3>
+      <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+        Peer Reviewed
+      </span>
+    </div>
+    <span class="text-xs text-slate-500 font-medium">{locale === 'en' ? 'Last reviewed:' : `${t(locale, 'editorial.lastReviewed')}:`} {lastReviewedDate}</span>
+  </div>
+
+  <!-- Author and Reviewer Dual Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Written By -->
+    <div class="flex flex-col sm:flex-row gap-3.5 sm:gap-4 items-start">
+      <div class="w-12 h-12 rounded-full bg-brand-100 border border-brand-200 flex items-center justify-center font-bold text-brand-700 text-sm shrink-0 overflow-hidden shadow-xs">
+        {author.photoUrl ? (
+          <img
+            src={author.photoUrl}
+            alt={`Photo of ${author.name}`}
+            width="48"
+            height="48"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            onerror="this.style.display='none'; this.parentElement.innerText=this.getAttribute('data-initials');"
+            data-initials={author.name.slice(0, 2).toUpperCase()}
+          />
+        ) : (
+          <span>{author.name.slice(0, 2).toUpperCase()}</span>
+        )}
+      </div>
+
+      <div class="space-y-1 text-xs flex-1">
+        <span class="text-[10px] font-bold tracking-wider text-brand-700 uppercase block">
+          {locale === 'en' ? 'Written By' : t(locale, 'editorial.writtenBy')}
+        </span>
+        <a href={getLocalizedPath(`/author/${author.slug}`, locale)} class="font-bold text-slate-900 text-sm hover:text-brand-600 transition-colors block">
+          {author.name}
+        </a>
+        <span class="text-slate-600 block text-[11px] font-medium">{author.title}</span>
+        {author.qualifications && author.qualifications.length > 0 && (
+          <div class="flex flex-wrap gap-1 pt-1">
+            {author.qualifications.slice(0, 2).map((q) => (
+              <span class="text-[9px] bg-slate-200/70 text-slate-700 px-1.5 py-0.5 rounded font-medium">{q}</span>
+            ))}
+          </div>
+        )}
+        <p class="text-slate-500 leading-relaxed text-[11px] pt-1.5">{author.biography}</p>
+        
+        <!-- Safe Social Links -->
+        <div class="flex flex-wrap gap-3 pt-2">
+          {authorSocials.linkedin && (
+            <a
+              href={authorSocials.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 text-[11px] font-semibold text-brand-700 hover:text-brand-800"
+              aria-label={`${author.name} LinkedIn Profile`}
+            >
+              <span>LinkedIn &rarr;</span>
+            </a>
+          )}
+          {authorSocials.x && (
+            <a
+              href={authorSocials.x}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-700 hover:text-slate-900"
+              aria-label={`${author.name} on X (Twitter)`}
+            >
+              <span>X (Twitter) &rarr;</span>
+            </a>
+          )}
+          {authorSocials.website && (
+            <a
+              href={authorSocials.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 hover:text-slate-800"
+              aria-label={`${author.name} Website`}
+            >
+              <span>Profile &rarr;</span>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviewed By -->
+    {reviewer && (
+      <div class="flex flex-col sm:flex-row gap-3.5 sm:gap-4 items-start border-t md:border-t-0 md:border-l border-slate-200/80 pt-4 md:pt-0 md:pl-6">
+        <div class="w-12 h-12 rounded-full bg-indigo-100 border border-indigo-200 flex items-center justify-center font-bold text-indigo-700 text-sm shrink-0 overflow-hidden shadow-xs">
+          {reviewer.photoUrl ? (
+            <img
+              src={reviewer.photoUrl}
+              alt={`Photo of ${reviewer.name}`}
+              width="48"
+              height="48"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              onerror="this.style.display='none'; this.parentElement.innerText=this.getAttribute('data-initials');"
+              data-initials={reviewer.name.slice(0, 2).toUpperCase()}
+            />
+          ) : (
+            <span>{reviewer.name.slice(0, 2).toUpperCase()}</span>
+          )}
+        </div>
+
+        <div class="space-y-1 text-xs flex-1">
+          <span class="text-[10px] font-bold tracking-wider text-indigo-700 uppercase block">
+            {locale === 'en' ? 'Actuarial Review' : t(locale, 'editorial.reviewedBy')}
+          </span>
+          <a href={getLocalizedPath(`/author/${reviewer.slug}`, locale)} class="font-bold text-slate-900 text-sm hover:text-indigo-600 transition-colors block">
+            {reviewer.name}
+          </a>
+          <span class="text-slate-600 block text-[11px] font-medium">{reviewer.title}</span>
+          {reviewer.qualifications && reviewer.qualifications.length > 0 && (
+            <div class="flex flex-wrap gap-1 pt-1">
+              {reviewer.qualifications.slice(0, 2).map((q) => (
+                <span class="text-[9px] bg-indigo-50 text-indigo-700 border border-indigo-100 px-1.5 py-0.5 rounded font-medium">{q}</span>
+              ))}
+            </div>
+          )}
+          <p class="text-slate-500 leading-relaxed text-[11px] pt-1.5">{reviewer.biography}</p>
+          
+          <!-- Safe Reviewer Social Links -->
+          <div class="flex flex-wrap gap-3 pt-2">
+            {reviewerSocials.linkedin && (
+              <a
+                href={reviewerSocials.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 text-[11px] font-semibold text-indigo-700 hover:text-indigo-800"
+                aria-label={`${reviewer.name} LinkedIn Profile`}
+              >
+                <span>LinkedIn &rarr;</span>
+              </a>
+            )}
+            {reviewerSocials.x && (
+              <a
+                href={reviewerSocials.x}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-700 hover:text-slate-900"
+                aria-label={`${reviewer.name} on X (Twitter)`}
+              >
+                <span>X (Twitter) &rarr;</span>
+              </a>
+            )}
+            {reviewerSocials.website && (
+              <a
+                href={reviewerSocials.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 hover:text-slate-800"
+                aria-label={`${reviewer.name} Website`}
+              >
+                <span>Profile &rarr;</span>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+
+  <!-- Sources Box -->
+  {sources && sources.length > 0 && (
+    <div class="bg-white rounded-xl border border-slate-200/80 p-4 space-y-2">
+      <span class="text-[11px] font-bold text-slate-800 uppercase tracking-wider block">
+        {locale === 'en' ? 'Primary Sources & Regulatory References' : t(locale, 'editorial.sourcesAndReferences')}
+      </span>
+      <ul class="space-y-1.5 text-xs text-slate-600 divide-y divide-slate-100">
+        {sources.map((src) => (
+          <li class="pt-1.5 first:pt-0 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <span class="font-medium text-slate-800">{src.title}</span>
+            <span class="text-[10px] font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded shrink-0">
+              Ref: {src.reference} ({src.publisher})
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  <!-- Correction Prompt & Independent Disclaimer -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[11px] text-slate-500 pt-2 border-t border-slate-200/80">
+    <span>
+      Found an error or outdated rate? <a href={getLocalizedPath('/contact/correction', locale)} class="text-brand-600 font-semibold hover:underline">Submit a correction report</a>.
+    </span>
+    <a href={getLocalizedPath('/editorial-policy', locale)} class="text-slate-600 hover:text-slate-900 font-semibold underline">
+      Read Editorial Policy &rarr;
+    </a>
+  </div>
+</div>

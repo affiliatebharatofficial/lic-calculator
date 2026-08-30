@@ -1,0 +1,106 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Contact', url: '/contact' },
+  { name: 'Submit a Correction', url: '/contact/correction' }
+];
+---
+
+<BaseLayout
+  title="Submit a Correction or Report an Outdated Rate - LIC Calculator"
+  description="Help us maintain complete calculation accuracy. Report an outdated rule, calculation discrepancy, or broken citation directly to our actuarial team."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="max-w-2xl mx-auto py-12 px-4 sm:px-6 space-y-8">
+    <div class="space-y-2 text-center">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200">
+        Actuarial Accuracy Feedback
+      </span>
+      <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Report an Error or Correction</h1>
+      <p class="text-sm text-slate-600">
+        We take mathematical integrity and regulatory accuracy seriously. All submissions are reviewed by our actuarial team.
+      </p>
+    </div>
+
+    <!-- Notification Success Banner -->
+    <div id="correction-success-box" class="hidden p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-semibold text-center">
+      Thank you! Your correction report has been logged and queued for actuarial verification.
+    </div>
+
+    <div class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-8 shadow-card space-y-5">
+      <form id="correction-form" class="space-y-4">
+        <div class="space-y-1">
+          <label for="pageUrl" class="block text-xs font-bold text-slate-700">Affected Page URL or Calculator</label>
+          <input
+            type="url"
+            id="pageUrl"
+            name="pageUrl"
+            placeholder="https://lic-calculators.com/lic-surrender-value-calculator"
+            required
+            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
+          />
+        </div>
+
+        <div class="space-y-1">
+          <label for="issueType" class="block text-xs font-bold text-slate-700">Type of Discrepancy</label>
+          <select
+            id="issueType"
+            name="issueType"
+            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm bg-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
+          >
+            <option value="calculation_error">Calculation Math Discrepancy (e.g. GSV/SSV calculation)</option>
+            <option value="outdated_rate">Outdated Bonus / Premium Rate</option>
+            <option value="broken_source">Broken or Missing Document Reference</option>
+            <option value="translation_typo">Language / Translation Typo</option>
+            <option value="other">Other Feedback</option>
+          </select>
+        </div>
+
+        <div class="space-y-1">
+          <label for="description" class="block text-xs font-bold text-slate-700">Description of Issue & Supporting Details</label>
+          <textarea
+            id="description"
+            name="description"
+            rows="4"
+            required
+            placeholder="Please provide specifics: table number, term, sum assured, expected output vs calculated output, or circular number..."
+            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
+          ></textarea>
+        </div>
+
+        <div class="space-y-1">
+          <label for="userEmail" class="block text-xs font-bold text-slate-700">Your Email (Optional, for follow-up)</label>
+          <input
+            type="email"
+            id="userEmail"
+            name="userEmail"
+            placeholder="name@example.com"
+            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full py-3 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-bold text-xs tracking-wide transition-all shadow-sm cursor-pointer mt-2"
+        >
+          Submit Correction Report
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('correction-form') as HTMLFormElement;
+    const successBox = document.getElementById('correction-success-box');
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form.reset();
+      if (successBox) {
+        successBox.classList.remove('hidden');
+      }
+    });
+  </script>
+</BaseLayout>

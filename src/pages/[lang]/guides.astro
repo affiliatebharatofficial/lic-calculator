@@ -1,0 +1,77 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import Card from '@/components/ui/Card.astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+
+const breadcrumbs = [
+  { name: 'Guides', url: getLocalizedPath('/guides', locale) }
+];
+
+const guides = [
+  {
+    title: 'Complete Guide to Surrendering an LIC Policy',
+    description: 'Understand the difference between GSV and SSV, capital shortfalls, tax implications, and 3-way alternatives.',
+    slug: '/lic-surrender-analysis'
+  },
+  {
+    title: 'How to Take a Policy Loan from LIC',
+    description: 'Learn how to borrow up to 90% against your surrender value at nominal interest rates without forfeiting life cover.',
+    slug: '/lic-loan-calculator'
+  },
+  {
+    title: 'Understanding Reversionary & Final Additional Bonuses',
+    description: 'How LIC calculates annual bonuses and loyalty additions for traditional endowment policies.',
+    slug: '/lic-bonus-calculator'
+  }
+];
+---
+
+<BaseLayout
+  title={`Policy Guides & Knowledge Base - ${t(locale, 'site.name')}`}
+  description="Educational guides to understand your LIC life insurance policy, surrender value options, and maturity proceeds."
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <div class="border-b border-slate-200 pb-6 mb-8 mt-2">
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Policy Guides & Educational Resources
+      </h1>
+      <p class="text-base text-slate-600 mt-2">
+        Unbiased, clear explanations of insurance rules, bonus systems, and policy lifecycle decisions.
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      {
+        guides.map((g) => (
+          <Card class="hover:border-brand-300 transition-all p-6">
+            <h2 class="text-lg font-bold text-slate-900">{g.title}</h2>
+            <p class="text-sm text-slate-600 mt-2 leading-relaxed">{g.description}</p>
+            <div class="mt-4 pt-3 border-t border-slate-100 flex justify-end">
+              <a
+                href={getLocalizedPath(g.slug, locale)}
+                class="text-xs font-bold text-brand-700 hover:text-brand-900 transition-colors"
+              >
+                Read Guide &rarr;
+              </a>
+            </div>
+          </Card>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

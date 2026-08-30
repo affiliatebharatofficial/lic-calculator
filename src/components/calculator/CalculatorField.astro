@@ -1,0 +1,53 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  required?: boolean;
+  helpText?: string;
+  error?: string;
+  tooltip?: string;
+  class?: string;
+}
+
+const {
+  id,
+  label,
+  required = false,
+  helpText,
+  error,
+  tooltip,
+  class: className = ''
+} = Astro.props;
+---
+
+<div class={`w-full space-y-1.5 ${className}`}>
+  <div class="flex items-center justify-between">
+    <label for={id} class="block text-sm font-semibold text-slate-800 select-none">
+      {label}
+      {required && <span class="text-rose-500 ml-0.5 font-bold" title="Required field">*</span>}
+    </label>
+
+    {tooltip && (
+      <span class="text-[11px] text-slate-400 font-normal cursor-help" title={tooltip}>
+        ℹ Help
+      </span>
+    )}
+  </div>
+
+  <slot />
+
+  {
+    error ? (
+      <p id={`${id}-error`} class="text-xs text-rose-600 font-medium flex items-center gap-1 mt-1">
+        <svg class="h-3.5 w-3.5 text-rose-500" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+        </svg>
+        {error}
+      </p>
+    ) : helpText ? (
+      <p id={`${id}-help`} class="text-xs text-slate-500 mt-1">
+        {helpText}
+      </p>
+    ) : null
+  }
+</div>

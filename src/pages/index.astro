@@ -1,0 +1,643 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Badge from '@/components/ui/Badge.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import AccordionItem from '@/components/ui/AccordionItem.astro';
+import CalculatorSearch from '@/components/search/CalculatorSearch.astro';
+import CalculatorFinder from '@/components/search/CalculatorFinder.astro';
+import AIChatPanel from '@/components/ai/AIChatPanel.astro';
+import { t } from '@/lib/i18n';
+
+const locale = 'en';
+
+const popularPlans = [
+  { tableNo: 914, name: 'New Endowment Plan', category: 'Endowment', minAge: 8, maxAge: 55, minTerm: 12, maxTerm: 35, slug: 'lic-premium-calculator?plan=914' },
+  { tableNo: 915, name: 'New Jeevan Anand', category: 'Endowment + Whole Life', minAge: 18, maxAge: 50, minTerm: 15, maxTerm: 35, slug: 'lic-premium-calculator?plan=915' },
+  { tableNo: 936, name: 'Jeevan Labh', category: 'Limited Premium', minAge: 8, maxAge: 59, minTerm: 16, maxTerm: 25, slug: 'lic-premium-calculator?plan=936' },
+  { tableNo: 945, name: 'Jeevan Umang', category: 'Whole Life 8% Survival', minAge: 0, maxAge: 55, minTerm: 15, maxTerm: 30, slug: 'lic-premium-calculator?plan=945' },
+  { tableNo: 855, name: 'Tech Term', category: 'Pure Term Cover', minAge: 18, maxAge: 65, minTerm: 10, maxTerm: 40, slug: 'lic-term-insurance-calculator' },
+  { tableNo: 857, name: 'Saral Pension', category: 'Immediate Annuity', minAge: 40, maxAge: 80, minTerm: 1, maxTerm: 1, slug: 'lic-pension-calculator' }
+];
+
+const faqs = [
+  {
+    q: 'What is an LIC surrender value?',
+    a: 'Surrender value is the payable cash amount an insurance policyholder receives if they choose to terminate their policy before the completion of the contractual term. It is calculated as the higher of Guaranteed Surrender Value (GSV) and Special Surrender Value (SSV).'
+  },
+  {
+    q: 'Can I calculate my LIC maturity value online?',
+    a: 'Yes. For participating (with-profit) endowment policies, maturity value is estimated as: Basic Sum Assured + Total Accrued Simple Reversionary Bonuses + Final Additional Bonus (FAB if eligible).'
+  },
+  {
+    q: 'Is this an official LIC website or calculator?',
+    a: 'No. lic-calculators.com is an independent informational and calculation portal developed for educational financial planning. We have no affiliation, partnership, or authorization from Life Insurance Corporation of India (LIC). For official policy services, visit licindia.in.'
+  },
+  {
+    q: 'Are calculator results exact?',
+    a: 'Our tools use publicly declared tabular rates, standard modal rebates, and published bonus rates. However, final official settlement amounts are subject to LIC’s official underwriting records and prevailing government taxes (GST).'
+  },
+  {
+    q: 'What is the minimum period required to surrender an LIC policy?',
+    a: 'For most traditional endowment and money-back plans, policyholders must have paid at least 2 full consecutive years of premiums to acquire any cash surrender value.'
+  }
+];
+---
+
+<BaseLayout
+  title="LIC Calculator - Calculate Premiums, Maturity, Bonus & Surrender Values"
+  description="Independent online calculators to estimate LIC policy premiums, maturity returns, bonus additions, surrender value, and surrender loss comparisons."
+  jsonLdType="WebSite"
+>
+  <!-- ==================================================
+       SECTION 1: HERO & INSTANT CALCULATOR SEARCH
+       ================================================== -->
+  <section class="relative bg-gradient-to-b from-brand-50/80 via-slate-50 to-white py-12 sm:py-16 md:py-20 border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <!-- Status Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-100/90 text-brand-900 text-xs font-semibold mb-6 border border-brand-200/60 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
+        Fast • Transparent • 100% Free Financial Utilities
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight">
+        LIC <span class="text-brand-700">Calculator</span>
+      </h1>
+
+      <p class="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        Calculate LIC premiums, maturity values, surrender values, bonuses and understand the true financial impact of your policies.
+      </p>
+
+      <!-- Interactive Live Search Bar in Hero -->
+      <div class="mt-8 max-w-xl mx-auto">
+        <CalculatorSearch variant="inline" placeholder="Search calculators (e.g. Surrender, Premium, Table 914)..." />
+      </div>
+
+      <!-- Hero Call-to-Action Buttons -->
+      <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+        <Button variant="primary" size="lg" href="/calculators" class="w-full sm:w-auto shadow-sm">
+          {t(locale, 'home.exploreCalculators')}
+        </Button>
+        <Button
+          variant="secondary"
+          size="lg"
+          href="/lic-surrender-value-calculator"
+          class="w-full sm:w-auto border-amber-300 text-amber-950 hover:bg-amber-50/60 font-semibold"
+        >
+          <span class="w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
+          Surrender Value Calculator
+        </Button>
+      </div>
+
+      <!-- Microcopy Trust / Disclaimer -->
+      <div class="mt-8 pt-6 border-t border-slate-200/60 max-w-xl mx-auto flex items-center justify-center gap-2 text-xs text-slate-400">
+        <svg class="h-4 w-4 text-slate-400 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
+        </svg>
+        <span>
+          Independent informational website • Not affiliated with Life Insurance Corporation of India (LIC)
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================
+       SECTION 2: POPULAR CALCULATORS WITH VISUAL HIERARCHY
+       ================================================== -->
+  <section class="py-16 bg-slate-50/60 border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Explore Tools</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
+            Popular LIC Policy Calculators
+          </h2>
+          <p class="text-sm text-slate-500 mt-1">
+            Instant, transparent, and accurate tools to plan your policy lifecycle.
+          </p>
+        </div>
+        <a href="/calculators" class="text-xs font-semibold text-brand-700 hover:text-brand-800 mt-3 sm:mt-0 flex items-center gap-1">
+          View All Calculators &rarr;
+        </a>
+      </div>
+
+      <!-- Asymmetrical Hierarchy Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Highlighted / Primary Tool: Surrender Value & Loss -->
+        <div class="lg:col-span-6 flex flex-col">
+          <div class="h-full bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-white rounded-2xl border-2 border-amber-300/80 p-6 sm:p-8 shadow-card flex flex-col justify-between hover:border-amber-400 transition-all group">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <Badge type="warning" class="bg-amber-100 text-amber-950 font-bold border-amber-300">
+                  ★ Most Critical Tool
+                </Badge>
+                <span class="text-xs font-semibold text-amber-800">
+                  Surrender vs. Paid-Up
+                </span>
+              </div>
+
+              <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 group-hover:text-amber-900 transition-colors">
+                LIC Surrender Value & Loss Calculator
+              </h3>
+
+              <p class="text-sm text-slate-700 leading-relaxed">
+                Thinking of closing your policy early? Understand what happens to your hard-earned money. Compare estimated cash surrender proceeds against paid-up benefits before you submit surrender papers.
+              </p>
+
+              <div class="grid grid-cols-2 gap-3 pt-2">
+                <div class="p-3 bg-white rounded-xl border border-amber-200">
+                  <span class="text-[10px] text-slate-500 block uppercase font-medium">Calculates</span>
+                  <span class="text-xs font-bold text-slate-900">GSV vs. SSV Cash Value</span>
+                </div>
+                <div class="p-3 bg-white rounded-xl border border-amber-200">
+                  <span class="text-[10px] text-slate-500 block uppercase font-medium">Evaluates</span>
+                  <span class="text-xs font-bold text-rose-700">Financial Loss %</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 pt-5 border-t border-amber-200/80 flex items-center justify-between">
+              <span class="text-xs font-bold text-amber-900 group-hover:underline">
+                Calculate Surrender Proceeds & Loss
+              </span>
+              <a
+                href="/lic-surrender-value-calculator"
+                class="inline-flex items-center justify-center px-4 py-2 rounded-lg text-xs font-bold text-white bg-amber-700 hover:bg-amber-800 transition-colors shadow-sm"
+              >
+                Launch Calculator &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondary Calculators Grid (5 Tools) -->
+        <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- 1. Premium -->
+          <a href="/lic-premium-calculator" class="p-5 bg-white rounded-xl border border-slate-200/90 shadow-card hover:border-brand-300 hover:shadow-card-hover transition-all group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Savings & Protection</span>
+                <Badge type="info">Endowment</Badge>
+              </div>
+              <h4 class="text-sm font-bold text-slate-900 group-hover:text-brand-700 transition-colors">
+                Premium Calculator
+              </h4>
+              <p class="text-xs text-slate-500 mt-1 line-clamp-2">
+                Calculate annual, half-yearly & monthly premiums for Table 914, 915, 936, 945.
+              </p>
+            </div>
+            <div class="mt-3 pt-3 border-t border-slate-100 text-xs font-semibold text-brand-700 flex justify-between">
+              <span>Calculate</span><span>&rarr;</span>
+            </div>
+          </a>
+
+          <!-- 2. Maturity -->
+          <a href="/lic-maturity-calculator" class="p-5 bg-white rounded-xl border border-slate-200/90 shadow-card hover:border-brand-300 hover:shadow-card-hover transition-all group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Lump Sum Return</span>
+                <Badge type="success">Returns</Badge>
+              </div>
+              <h4 class="text-sm font-bold text-slate-900 group-hover:text-brand-700 transition-colors">
+                Maturity Calculator
+              </h4>
+              <p class="text-xs text-slate-500 mt-1 line-clamp-2">
+                Estimate Sum Assured + Vested Bonus + Final Additional Bonus (FAB) at term end.
+              </p>
+            </div>
+            <div class="mt-3 pt-3 border-t border-slate-100 text-xs font-semibold text-brand-700 flex justify-between">
+              <span>Calculate</span><span>&rarr;</span>
+            </div>
+          </a>
+
+          <!-- 3. Policy Loan -->
+          <a href="/lic-loan-calculator" class="p-5 bg-white rounded-xl border border-slate-200/90 shadow-card hover:border-brand-300 hover:shadow-card-hover transition-all group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Liquidity Option</span>
+                <Badge type="default">Loan</Badge>
+              </div>
+              <h4 class="text-sm font-bold text-slate-900 group-hover:text-brand-700 transition-colors">
+                Policy Loan Calculator
+              </h4>
+              <p class="text-xs text-slate-500 mt-1 line-clamp-2">
+                Borrow up to 90% of surrender value without surrendering life cover.
+              </p>
+            </div>
+            <div class="mt-3 pt-3 border-t border-slate-100 text-xs font-semibold text-brand-700 flex justify-between">
+              <span>Calculate</span><span>&rarr;</span>
+            </div>
+          </a>
+
+          <!-- 4. Bonus -->
+          <a href="/lic-bonus-calculator" class="p-5 bg-white rounded-xl border border-slate-200/90 shadow-card hover:border-brand-300 hover:shadow-card-hover transition-all group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Valuation Addition</span>
+                <Badge type="default">Bonus</Badge>
+              </div>
+              <h4 class="text-sm font-bold text-slate-900 group-hover:text-brand-700 transition-colors">
+                Bonus Calculator
+              </h4>
+              <p class="text-xs text-slate-500 mt-1 line-clamp-2">
+                Project Simple Reversionary Bonus accumulation over 15–35 years.
+              </p>
+            </div>
+            <div class="mt-3 pt-3 border-t border-slate-100 text-xs font-semibold text-brand-700 flex justify-between">
+              <span>Calculate</span><span>&rarr;</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================
+       SECTION 3: CALCULATOR FINDER INTERACTIVE UI
+       ================================================== -->
+  <section class="py-16 bg-white border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <CalculatorFinder />
+    </div>
+  </section>
+
+  <!-- ==================================================
+       SECTION 4: SURRENDER FEATURE SPOTLIGHT
+       ================================================== -->
+  <section class="py-16 bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-white border-b border-amber-200/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <Badge type="warning">Key Product Differentiator</Badge>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Thinking about surrendering your LIC policy?
+          </h2>
+          <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+            Many policyholders surrender policies without knowing that early surrender often results in a <strong>30% to 70% loss</strong> of total premiums paid. Our calculator helps you understand your exact numbers before taking action.
+          </p>
+
+          <div class="space-y-2.5 pt-2 text-xs sm:text-sm text-slate-800">
+            <div class="flex items-start gap-2.5">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span><strong>Total Premium Paid:</strong> Itemized cumulative investment minus taxes and rider costs.</span>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span><strong>GSV vs. SSV:</strong> Compares statutory guaranteed minimum vs. actuarial special surrender value.</span>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span><strong>Estimated Difference:</strong> Exact monetary loss amount and loss percentage.</span>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span><strong>Paid-Up vs. Surrender:</strong> Explores how making the policy Paid-Up saves your invested capital.</span>
+            </div>
+          </div>
+
+          <div class="pt-4 flex flex-wrap items-center gap-3">
+            <Button variant="primary" href="/lic-surrender-value-calculator" class="bg-amber-700 hover:bg-amber-800 focus:ring-amber-500">
+              Calculate Surrender Value
+            </Button>
+            <Button variant="secondary" href="/lic-surrender-loss-calculator" class="border-amber-300 text-amber-950 hover:bg-amber-50">
+              Analyze Surrender Loss
+            </Button>
+          </div>
+        </div>
+
+        <!-- Preview UI Box (Labeled clearly as Illustration Only) -->
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl bg-navy-950 p-6 sm:p-7 text-white shadow-2xl border border-slate-800 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <span class="text-xs font-bold uppercase tracking-wider text-amber-400">
+                Surrender Breakdown Preview
+              </span>
+              <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700 font-medium">
+                Example Illustration
+              </span>
+            </div>
+
+            <div class="space-y-3 font-mono text-xs sm:text-sm">
+              <div class="flex justify-between py-2 border-b border-slate-800/80">
+                <span class="text-slate-400">Total Premiums Paid:</span>
+                <span class="font-bold text-white">₹3,00,000</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-slate-800/80">
+                <span class="text-slate-400">Est. Cash Payout (SSV):</span>
+                <span class="font-bold text-emerald-400">₹1,65,000</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-slate-800/80">
+                <span class="text-slate-400">Net Estimated Loss:</span>
+                <span class="font-bold text-rose-400">-₹1,35,000 (45%)</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-slate-800/80">
+                <span class="text-slate-400">Paid-Up Cover Available:</span>
+                <span class="font-bold text-amber-300">₹2,50,000 Cover</span>
+              </div>
+            </div>
+
+            <p class="text-[11px] text-slate-400 italic leading-snug pt-1">
+              * Illustration for a 20-year endowment policy surrendered at Year 6. Real figures depend on verified circulars.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================
+       SECTION 5: AI ASSISTANT PREVIEW UI
+       ================================================== -->
+  <section class="py-16 bg-slate-50/60 border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-6 space-y-4">
+          <Badge type="info">Coming in Future Phase</Badge>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Understand your policy with AI
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+            Get instant, plain-language explanations of your calculation results, understand complex policy circulars, and learn the exact trade-offs before making permanent decisions.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <div class="p-3.5 bg-white rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold text-slate-900 mb-1">Explain Results</h4>
+              <p class="text-[11px] text-slate-500">Breaks down why surrender value differs from premiums paid.</p>
+            </div>
+            <div class="p-3.5 bg-white rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold text-slate-900 mb-1">Answer Policy Queries</h4>
+              <p class="text-[11px] text-slate-500">Clarifies loan interest, grace periods, and bonus vesting rules.</p>
+            </div>
+            <div class="p-3.5 bg-white rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold text-slate-900 mb-1">Input Identification</h4>
+              <p class="text-[11px] text-slate-500">Guides you on locating Sum Assured and Table numbers on bond papers.</p>
+            </div>
+            <div class="p-3.5 bg-white rounded-xl border border-slate-200">
+              <h4 class="text-xs font-bold text-slate-900 mb-1">Policy PDF Analysis</h4>
+              <p class="text-[11px] text-slate-500">Future capability to parse policy document statements securely.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6">
+          <AIChatPanel />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================
+       SECTION 6: POPULAR LIC PLANS BROWSABLE CATALOG
+       ================================================== -->
+  <section class="py-16 bg-white border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Reference Catalog</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
+            Popular LIC Plans & Table Numbers
+          </h2>
+          <p class="text-sm text-slate-500 mt-1">
+            Browse major endowment, money back, whole life, and pension plans.
+          </p>
+        </div>
+        <a href="/plans" class="text-xs font-semibold text-brand-700 hover:text-brand-800 mt-3 sm:mt-0">
+          View All Plans &rarr;
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {
+          popularPlans.map((plan) => (
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-card hover:border-brand-300 hover:shadow-card-hover transition-all flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-mono text-xs font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-200/60">
+                    Table {plan.tableNo}
+                  </span>
+                  <Badge type="default">{plan.category}</Badge>
+                </div>
+                <h3 class="text-base font-bold text-slate-900 mt-1">
+                  {plan.name}
+                </h3>
+                <div class="mt-3 pt-3 border-t border-slate-100 space-y-1 text-xs text-slate-600">
+                  <div class="flex justify-between">
+                    <span class="text-slate-400">Entry Age:</span>
+                    <span class="font-semibold">{plan.minAge} to {plan.maxAge} Yrs</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-slate-400">Policy Term:</span>
+                    <span class="font-semibold">{plan.minTerm} to {plan.maxTerm} Yrs</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-slate-100">
+                <a
+                  href={`/${plan.slug}`}
+                  class="text-xs font-bold text-brand-700 hover:text-brand-800 flex items-center justify-between"
+                >
+                  <span>Open Premium Tool</span>
+                  <span>&rarr;</span>
+                </a>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================
+       SECTION 7: HOW IT WORKS (4-STEP FLOW)
+       ================================================== -->
+  <section class="py-16 bg-slate-50/60 border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Simple Process</span>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
+        How LIC Calculator Works
+      </h2>
+      <p class="text-sm text-slate-500 mt-2 max-w-xl mx-auto">
+        Four quick steps to transparent, deterministic policy calculations.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 text-left">
+        <!-- Step 1 -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-card relative">
+          <div class="w-9 h-9 rounded-xl bg-brand-700 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-sm">
+            1
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mb-1.5">Select Calculator</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Choose from Surrender Value, Premium, Maturity, Loan, or Bonus tools based on your goal.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-card relative">
+          <div class="w-9 h-9 rounded-xl bg-brand-700 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-sm">
+            2
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mb-1.5">Enter Details</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Input basic parameters like age, sum assured, policy term, and completed premium years.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-card relative">
+          <div class="w-9 h-9 rounded-xl bg-brand-700 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-sm">
+            3
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mb-1.5">Get Estimate</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Instant calculation computed via deterministic formulas and versioned actuarial tables.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-card relative">
+          <div class="w-9 h-9 rounded-xl bg-brand-700 text-white flex items-center justify-center font-bold text-sm mb-4 shadow-sm">
+            4
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mb-1.5">Decide & Compare</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Review detailed breakdowns, compare Surrender vs. Paid-Up options, and make informed choices.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================
+       SECTION 8: GUIDES & RESOURCES
+       ================================================== -->
+  <section class="py-16 bg-white border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Knowledge Base</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
+            Policy Guides & Explanations
+          </h2>
+          <p class="text-sm text-slate-500 mt-1">
+            Clear, unbiased articles on policy lifecycle rules, surrender factors, and bonus additions.
+          </p>
+        </div>
+        <a href="/guides" class="text-xs font-semibold text-brand-700 hover:text-brand-800 mt-3 sm:mt-0">
+          All Guides &rarr;
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 flex flex-col justify-between">
+          <div>
+            <Badge type="warning" class="mb-2">Surrender Guide</Badge>
+            <h3 class="text-sm font-bold text-slate-900 mb-2">LIC Surrender Value Explained</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              How Guaranteed Surrender Value (GSV) and Special Surrender Value (SSV) factors are determined.
+            </p>
+          </div>
+          <a href="/lic-surrender-value-calculator" class="text-xs font-bold text-brand-700 hover:text-brand-800 mt-4 pt-3 border-t border-slate-200">
+            Read Guide &rarr;
+          </a>
+        </div>
+
+        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 flex flex-col justify-between">
+          <div>
+            <Badge type="info" class="mb-2">Maturity Guide</Badge>
+            <h3 class="text-sm font-bold text-slate-900 mb-2">LIC Maturity Value Calculation</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              How Simple Reversionary Bonuses and Final Additional Bonuses accumulate toward maturity.
+            </p>
+          </div>
+          <a href="/lic-maturity-calculator" class="text-xs font-bold text-brand-700 hover:text-brand-800 mt-4 pt-3 border-t border-slate-200">
+            Read Guide &rarr;
+          </a>
+        </div>
+
+        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 flex flex-col justify-between">
+          <div>
+            <Badge type="default" class="mb-2">Loan Guide</Badge>
+            <h3 class="text-sm font-bold text-slate-900 mb-2">LIC Policy Loan Rules & Rates</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Borrowing rules against policy surrender values, interest calculation, and repayment terms.
+            </p>
+          </div>
+          <a href="/lic-loan-calculator" class="text-xs font-bold text-brand-700 hover:text-brand-800 mt-4 pt-3 border-t border-slate-200">
+            Read Guide &rarr;
+          </a>
+        </div>
+
+        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 flex flex-col justify-between">
+          <div>
+            <Badge type="default" class="mb-2">Bonus Guide</Badge>
+            <h3 class="text-sm font-bold text-slate-900 mb-2">How LIC Annual Bonus Works</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Understanding actuarial valuation declarations per thousand sum assured for participating plans.
+            </p>
+          </div>
+          <a href="/lic-bonus-calculator" class="text-xs font-bold text-brand-700 hover:text-brand-800 mt-4 pt-3 border-t border-slate-200">
+            Read Guide &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================
+       SECTION 9: FAQ ACCORDION
+       ================================================== -->
+  <section class="py-16 bg-slate-50/60 border-b border-slate-200/80">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-700">Got Questions?</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
+          Frequently Asked Questions
+        </h2>
+        <p class="text-sm text-slate-500 mt-2">
+          Clear answers about LIC calculations, surrender value, and our independent platform.
+        </p>
+      </div>
+
+      <Accordion>
+        {
+          faqs.map((faq, index) => (
+            <AccordionItem title={faq.q} open={index === 0}>
+              <p>{faq.a}</p>
+            </AccordionItem>
+          ))
+        }
+      </Accordion>
+    </div>
+  </section>
+
+  <!-- ==================================================
+       SECTION 10: TRUST & INDEPENDENCE DISCLAIMER BLOCK
+       ================================================== -->
+  <section class="py-14 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl bg-slate-50 border border-slate-200/90 p-6 sm:p-8 text-center space-y-4">
+        <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-amber-100 text-amber-900 font-bold text-base mb-1">
+          ℹ
+        </div>
+        <h3 class="text-lg sm:text-xl font-bold text-slate-900">
+          Independent Platform Notice & Disclaimer
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <strong>lic-calculators.com</strong> is an independent informational and calculation portal. It is <strong>NOT</strong> affiliated with, authorized by, or endorsed by the <strong>Life Insurance Corporation of India (LIC)</strong>. All product names, logos, and brands are property of their respective owners.
+        </p>
+        <div class="pt-2">
+          <a
+            href="/disclaimer"
+            class="text-xs font-semibold text-brand-700 hover:text-brand-800 underline"
+          >
+            Read Our Full Legal Disclaimer & Transparency Statement &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,73 @@
+---
+interface Props {
+  placeholder?: string;
+  suggestedPrompts?: string[];
+  class?: string;
+}
+
+const {
+  placeholder = 'Ask anything about this LIC calculation or policy rule...',
+  suggestedPrompts = [
+    'Explain surrender loss in simple words',
+    'What happens if I convert to Paid-Up?',
+    'How is bonus declared on Table 914?'
+  ],
+  class: className = ''
+} = Astro.props;
+---
+
+<div class={`space-y-3 ${className}`} data-ai-input-container>
+  <!-- Suggested Prompt Chips -->
+  {
+    suggestedPrompts.length > 0 && (
+      <div class="flex flex-wrap gap-1.5">
+        {suggestedPrompts.map((prompt) => (
+          <button
+            type="button"
+            class="text-[11px] font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 border border-slate-200/80 px-2.5 py-1 rounded-lg transition-colors text-left"
+            data-ai-prompt-chip={prompt}
+          >
+            "{prompt}"
+          </button>
+        ))}
+      </div>
+    )
+  }
+
+  <!-- Prompt Input Box -->
+  <div class="relative flex items-center">
+    <input
+      type="text"
+      placeholder={placeholder}
+      class="block w-full rounded-xl border border-slate-300 bg-white py-3 pl-4 pr-12 text-xs sm:text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-600"
+      data-ai-input-field
+    />
+    <button
+      type="button"
+      class="absolute right-2 p-2 rounded-lg bg-brand-700 hover:bg-brand-800 text-white transition-colors disabled:opacity-50"
+      aria-label="Send AI Query"
+      data-ai-send-btn
+    >
+      <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M3.105 2.289a.75.75 0 00-.826.95l1.414 4.925A1.5 1.5 0 005.135 9.25h6.115a.75.75 0 010 1.5H5.135a1.5 1.5 0 00-1.442 1.086l-1.414 4.926a.75.75 0 00.826.95 28.896 28.896 0 0015.293-7.154.75.75 0 000-1.115A28.897 28.897 0 003.105 2.289z" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-ai-input-container]').forEach((container) => {
+      const input = container.querySelector('[data-ai-input-field]');
+      const chips = container.querySelectorAll('[data-ai-prompt-chip]');
+      chips.forEach((chip) => {
+        chip.addEventListener('click', () => {
+          if (input) {
+            input.value = chip.getAttribute('data-ai-prompt-chip') || '';
+            input.focus();
+          }
+        });
+      });
+    });
+  });
+</script>

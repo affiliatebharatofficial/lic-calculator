@@ -1,0 +1,93 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides' },
+  { name: 'How LIC Bonus is Calculated', url: '/guides/how-lic-bonus-is-calculated' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'How is LIC Bonus Calculated? Simple Reversionary vs FAB Explained',
+  description: 'A comprehensive actuarial guide explaining how LIC declares annual valuation bonuses, the mathematical formula per ₹1,000 Sum Assured, and Final Additional Bonus (FAB) eligibility.',
+  url: `${siteUrl}/guides/how-lic-bonus-is-calculated`,
+  publishedDate: '2026-01-10T00:00:00Z',
+  modifiedDate: '2026-01-20T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="How is LIC Bonus Calculated? Simple Reversionary & FAB Rates Guide"
+  description="A comprehensive actuarial guide explaining how LIC declares annual valuation bonuses, the mathematical formula per ₹1,000 Sum Assured, and Final Additional Bonus (FAB) eligibility."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200">
+        Actuarial Valuation Guide • Bonus Mechanics
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        How is LIC Bonus Calculated? Simple Reversionary & FAB Rates
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Understand how participating (with-profits) policies share in LIC surplus profits, how annual simple reversionary bonuses vest, and how terminal loyalty additions are paid.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-amber-900">Estimate your accrued bonus total</h2>
+        <p class="text-xs text-amber-700">Calculate total projected bonus accruals based on your policy term and sum assured.</p>
+      </div>
+      <a
+        href="/lic-bonus-calculator"
+        class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Bonus &rarr;
+      </a>
+    </div>
+
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What is Simple Reversionary Bonus?</h2>
+      <p>
+        Every financial year, LIC conducts a statutory actuarial valuation of its assets and liabilities. Under section 28 of the LIC Act, 95% of the surplus generated from participating policies is distributed back to policyholders in the form of <strong>Simple Reversionary Bonus</strong>.
+      </p>
+      <p>
+        The bonus is declared as an amount per ₹1,000 Basic Sum Assured per year (e.g. ₹42 per ₹1,000 SA for a 20-year Table 914 endowment plan).
+      </p>
+
+      <div class="p-4 rounded-xl bg-slate-100 font-mono text-xs text-slate-800">
+        Annual Bonus = (Basic Sum Assured / 1,000) * Declared Bonus Rate
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Does LIC Bonus Compound?</h2>
+      <p>
+        No. Traditional LIC endowment plans declare <em>Simple</em> Reversionary Bonus, which does not earn compound interest. Each year bonus is calculated strictly on the original Sum Assured and vests into the policy account to be paid on maturity or claim.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. What is Final Additional Bonus (FAB)?</h2>
+      <p>
+        Final Additional Bonus is a terminal loyalty addition paid once at the end of the policy term (or on death claim) provided the policy has run for a minimum required period (typically 15 or more years).
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-maturity-calculator" />
+
+    <!-- Author Card -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="January 2026" />
+  </article>
+</BaseLayout>

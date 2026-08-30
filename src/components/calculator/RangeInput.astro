@@ -1,0 +1,92 @@
+---
+import CalculatorField from './CalculatorField.astro';
+
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  value?: number;
+  min: number;
+  max: number;
+  step?: number;
+  unit?: string;
+  required?: boolean;
+  helpText?: string;
+  error?: string;
+  class?: string;
+}
+
+const {
+  id,
+  name,
+  label,
+  value = 20,
+  min = 5,
+  max = 35,
+  step = 1,
+  unit = 'Years',
+  required = false,
+  helpText,
+  error,
+  class: className = ''
+} = Astro.props;
+---
+
+<CalculatorField
+  id={id}
+  label={label}
+  required={required}
+  helpText={helpText}
+  error={error}
+  class={className}
+>
+  <div class="space-y-2 bg-slate-50/70 p-3.5 rounded-xl border border-slate-200" data-range-wrapper>
+    <div class="flex items-center justify-between">
+      <span class="text-xs text-slate-500 font-medium">{min} {unit}</span>
+      <div class="flex items-center gap-1">
+        <input
+          type="number"
+          id={id}
+          name={name}
+          value={value}
+          min={min}
+          max={max}
+          step={step}
+          class="w-16 text-center text-sm font-bold font-mono text-slate-900 bg-white border border-slate-300 rounded-lg py-1 px-1.5 focus:outline-none focus:ring-1 focus:ring-brand-600"
+          data-range-number
+        />
+        <span class="text-xs font-semibold text-slate-700">{unit}</span>
+      </div>
+      <span class="text-xs text-slate-500 font-medium">{max} {unit}</span>
+    </div>
+
+    <input
+      type="range"
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-700 focus:outline-none"
+      data-range-slider
+      aria-label={label}
+    />
+  </div>
+</CalculatorField>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-range-wrapper]').forEach((wrap) => {
+      const numInput = wrap.querySelector('[data-range-number]');
+      const slider = wrap.querySelector('[data-range-slider]');
+      if (!numInput || !slider) return;
+
+      slider.addEventListener('input', () => {
+        numInput.value = slider.value;
+      });
+
+      numInput.addEventListener('input', () => {
+        slider.value = numInput.value;
+      });
+    });
+  });
+</script>

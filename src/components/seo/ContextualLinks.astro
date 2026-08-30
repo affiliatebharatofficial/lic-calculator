@@ -1,0 +1,49 @@
+---
+import { InternalLinkingEngine, type InternalLinkItem } from '@/lib/seo';
+
+interface Props {
+  currentPath: string;
+  customLinks?: InternalLinkItem[];
+  title?: string;
+}
+
+const {
+  currentPath,
+  customLinks,
+  title = 'Related Financial Calculators & Educational Guides'
+} = Astro.props;
+
+const links = customLinks || InternalLinkingEngine.getRelatedLinks(currentPath);
+---
+
+{
+  links && links.length > 0 && (
+    <div class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 space-y-4 shadow-card mt-8">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="text-sm font-bold text-slate-900 tracking-tight">{title}</h3>
+        <span class="text-[11px] font-semibold text-brand-600">Topical Cluster</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+        {links.map((link) => (
+          <a
+            href={link.url}
+            class="group p-3.5 rounded-xl border border-slate-100 bg-slate-50/60 hover:bg-brand-50/50 hover:border-brand-200/80 transition-all block space-y-1"
+          >
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-900 group-hover:text-brand-700 transition-colors">
+                {link.title}
+              </span>
+              <span class="text-[10px] font-semibold uppercase px-1.5 py-0.5 rounded bg-white text-slate-500 border border-slate-200/60 group-hover:border-brand-200">
+                {link.type}
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed">
+              {link.description}
+            </p>
+          </a>
+        ))}
+      </div>
+    </div>
+  )
+}

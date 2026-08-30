@@ -1,0 +1,144 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { VERIFIED_AUTHORS } from '@/lib/editorial';
+import { StructuredDataGenerator } from '@/lib/seo';
+
+export function getStaticPaths() {
+  return VERIFIED_AUTHORS.map((author) => ({
+    params: { slug: author.slug },
+    props: { author }
+  }));
+}
+
+const { author } = Astro.props;
+const personSchema = StructuredDataGenerator.generatePerson(author);
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Authors & Reviewers', url: '/editorial-policy' },
+  { name: author.name, url: `/author/${author.slug}` }
+];
+
+const authoredItems = [
+  {
+    title: 'LIC Surrender Value Calculator & Methodology',
+    url: '/lic-surrender-value-calculator',
+    type: 'Calculator Engine',
+    desc: 'Deterministic Guaranteed Surrender Value (GSV) and Special Surrender Value (SSV) calculation matrix.'
+  },
+  {
+    title: 'What is LIC Surrender Value? Complete Guide',
+    url: '/guides/what-is-lic-surrender-value',
+    type: 'Educational Guide',
+    desc: 'Deep-dive into 2-year vesting rules, bonus factors, and surrender penalty math.'
+  },
+  {
+    title: 'How LIC Declares Bonuses & Terminal FAB',
+    url: '/guides/how-lic-bonus-is-calculated',
+    type: 'Actuarial Guide',
+    desc: 'Actuarial valuation breakdown of simple reversionary bonuses and final additional bonuses.'
+  }
+];
+---
+
+<BaseLayout
+  title={`${author.name} - ${author.title} | LIC Calculator`}
+  description={author.biography}
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+  <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <!-- Profile Header Card -->
+    <div class="bg-white rounded-3xl border border-slate-200/90 p-8 sm:p-10 shadow-card flex flex-col sm:flex-row gap-8 items-start">
+      <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-brand-100 border border-brand-200 flex items-center justify-center font-extrabold text-brand-700 text-3xl sm:text-4xl shrink-0 shadow-sm">
+        {author.name.slice(0, 2).toUpperCase()}
+      </div>
+
+      <div class="space-y-3 flex-1">
+        <div class="space-y-1">
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-brand-50 text-brand-700 border border-brand-200 uppercase tracking-wider">
+            {author.role}
+          </span>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">{author.name}</h1>
+          <p class="text-sm font-semibold text-slate-600">{author.title}</p>
+        </div>
+
+        <p class="text-sm text-slate-700 leading-relaxed pt-1">{author.biography}</p>
+
+        <!-- Experience and Qualifications Badges -->
+        <div class="flex flex-wrap gap-2 pt-2">
+          <span class="px-3 py-1 rounded-xl bg-slate-100 text-slate-800 text-xs font-semibold">
+            ⏳ {author.experienceYears}+ Years Actuarial/Financial Experience
+          </span>
+          {author.qualifications.map((q) => (
+            <span class="px-3 py-1 rounded-xl bg-indigo-50 text-indigo-800 border border-indigo-100 text-xs font-semibold">
+              🎓 {q}
+            </span>
+          ))}
+        </div>
+
+        <!-- Social Profiles -->
+        <div class="pt-3 flex gap-3">
+          {author.socialLinks.linkedin && (
+            <a
+              href={author.socialLinks.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-brand-50 text-slate-700 hover:text-brand-700 border border-slate-200 text-xs font-bold transition-all"
+            >
+              LinkedIn Profile ↗
+            </a>
+          )}
+          {author.socialLinks.x && (
+            <a
+              href={author.socialLinks.x}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all"
+            >
+              X (Twitter) ↗
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <!-- Expertise Areas -->
+    <div class="bg-slate-50 rounded-2xl border border-slate-200/80 p-6 space-y-3">
+      <h2 class="text-base font-bold text-slate-900">Actuarial & Subject Matter Expertise</h2>
+      <div class="flex flex-wrap gap-2">
+        {author.expertiseAreas.map((area) => (
+          <span class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 shadow-xs">
+            ✓ {area}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Authored & Verified Content -->
+    <div class="space-y-4">
+      <div class="border-b border-slate-200 pb-3">
+        <h2 class="text-xl font-bold text-slate-900">Authored Tools & Peer-Reviewed Guides</h2>
+        <p class="text-xs text-slate-500">Calculators and educational guides developed or verified by {author.name}.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {authoredItems.map((item) => (
+          <a
+            href={item.url}
+            class="group p-5 rounded-2xl border border-slate-200/90 bg-white hover:bg-brand-50/40 hover:border-brand-300 transition-all shadow-card block space-y-2"
+          >
+            <span class="text-[10px] font-bold uppercase text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-200">
+              {item.type}
+            </span>
+            <h3 class="text-sm font-bold text-slate-900 group-hover:text-brand-700 transition-colors">
+              {item.title}
+            </h3>
+            <p class="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

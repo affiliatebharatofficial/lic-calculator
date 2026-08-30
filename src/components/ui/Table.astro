@@ -1,0 +1,67 @@
+---
+interface Column {
+  key: string;
+  header: string;
+  align?: 'left' | 'center' | 'right';
+}
+
+interface Props {
+  columns: Column[];
+  rows: Record<string, unknown>[];
+  caption?: string;
+  class?: string;
+}
+
+const { columns, rows, caption, class: className = '' } = Astro.props;
+---
+
+<div class={`overflow-x-auto rounded-xl border border-slate-200 shadow-sm ${className}`}>
+  <table class="min-w-full divide-y divide-slate-200 text-left text-sm text-slate-700">
+    {caption && <caption class="sr-only">{caption}</caption>}
+    <thead class="bg-slate-50 text-xs font-semibold uppercase text-slate-600 tracking-wider">
+      <tr>
+        {
+          columns.map((col) => (
+            <th
+              scope="col"
+              class={`px-4 py-3.5 ${
+                col.align === 'right' ? 'text-right' : col.align === 'center' ? 'text-center' : 'text-left'
+              }`}
+            >
+              {col.header}
+            </th>
+          ))
+        }
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-200 bg-white">
+      {
+        rows.length === 0 ? (
+          <tr>
+            <td colspan={columns.length} class="px-4 py-6 text-center text-slate-400">
+              No data available
+            </td>
+          </tr>
+        ) : (
+          rows.map((row) => (
+            <tr class="hover:bg-slate-50/80 transition-colors">
+              {columns.map((col) => (
+                <td
+                  class={`px-4 py-3.5 whitespace-nowrap ${
+                    col.align === 'right'
+                      ? 'text-right font-mono'
+                      : col.align === 'center'
+                      ? 'text-center'
+                      : 'text-left'
+                  }`}
+                >
+                  {String(row[col.key] ?? '—')}
+                </td>
+              ))}
+            </tr>
+          ))
+        )
+      }
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,48 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+
+const breadcrumbs = [
+  { name: 'Privacy Policy', url: getLocalizedPath('/privacy-policy', locale) }
+];
+---
+
+<BaseLayout
+  title={`Privacy Policy - ${t(locale, 'site.name')}`}
+  description="Our commitment to user privacy and zero data harvesting."
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <div class="border-b border-slate-200 pb-6 mb-8 mt-2">
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Privacy Policy
+      </h1>
+      <p class="text-base text-slate-600 mt-2">
+        We respect your privacy. All financial calculations are executed securely without persistent tracking.
+      </p>
+    </div>
+
+    <div class="prose prose-slate max-w-none text-sm sm:text-base leading-relaxed space-y-4 text-slate-700">
+      <p>
+        <strong>Zero Data Storage of Policy Details:</strong> We do not require users to create an account, log in, or enter personal policy identification numbers. Numbers entered into calculators are processed ephemerally in memory and are never sold or stored in persistent databases.
+      </p>
+      <p>
+        <strong>AI Assistant Privacy:</strong> User queries sent to our AI Explanation Layer are scrubbed of phone numbers, emails, PAN, Aadhaar, and policy numbers before processing.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

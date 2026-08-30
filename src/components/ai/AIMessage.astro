@@ -1,0 +1,33 @@
+---
+interface Props {
+  sender: 'user' | 'assistant';
+  content: string;
+  timestamp?: string;
+  class?: string;
+}
+
+const { sender, content, timestamp = 'Just now', class: className = '' } = Astro.props;
+---
+
+<div class={`flex gap-3 ${sender === 'user' ? 'justify-end' : 'justify-start'} ${className}`}>
+  {
+    sender === 'assistant' && (
+      <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-700 text-white font-bold text-xs shadow-sm">
+        AI
+      </div>
+    )
+  }
+
+  <div class={`max-w-[85%] rounded-2xl px-4 py-3 text-xs sm:text-sm leading-relaxed ${
+    sender === 'user'
+      ? 'bg-brand-700 text-white rounded-br-none shadow-sm'
+      : 'bg-white border border-slate-200 text-slate-800 rounded-bl-none shadow-sm'
+  }`}>
+    <div class="space-y-1">
+      <p>{content}</p>
+    </div>
+    <div class={`text-[10px] mt-1.5 ${sender === 'user' ? 'text-brand-200' : 'text-slate-400'}`}>
+      {timestamp}
+    </div>
+  </div>
+</div>

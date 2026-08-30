@@ -1,0 +1,55 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+
+const breadcrumbs = [
+  { name: 'Disclaimer', url: getLocalizedPath('/disclaimer', locale) }
+];
+---
+
+<BaseLayout
+  title={`Legal & Independence Disclaimer - ${t(locale, 'site.name')}`}
+  description="Important legal disclaimer regarding independent calculator status and estimation limitations."
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <div class="border-b border-slate-200 pb-6 mb-8 mt-2">
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Legal Disclaimer & Independence Notice
+      </h1>
+      <p class="text-base text-slate-600 mt-2">
+        Please read this disclaimer carefully before using our calculation tools.
+      </p>
+    </div>
+
+    <div class="prose prose-slate max-w-none text-sm sm:text-base leading-relaxed space-y-4 text-slate-700">
+      <div class="p-5 bg-amber-50 border border-amber-200 rounded-2xl text-amber-900 text-sm font-medium">
+        <strong>Independent Website Notice:</strong> lic-calculators.com is an independent informational and calculation portal. It is NOT affiliated with, sponsored by, authorized by, or endorsed by Life Insurance Corporation of India (LIC).
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-900 mt-6">Informational Purpose Only</h2>
+      <p>
+        All calculations, projections, surrender value estimates, and bonus illustrations generated on this platform are for general informational, educational, and personal financial planning purposes only. They do not constitute financial, investment, legal, or actuarial advice.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900 mt-6">Estimation Limitations</h2>
+      <p>
+        While every effort is made to maintain accurate mathematical formulas and verified rule sets, actual policy surrender values, bonus rates, and maturity amounts are subject to individual policy terms, endorsement conditions, and official records maintained by Life Insurance Corporation of India.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

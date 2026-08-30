@@ -1,0 +1,74 @@
+---
+export interface BreakdownItem {
+  id: string;
+  label: string;
+  amount: string;
+  isCredit?: boolean; // true = +, false = -, undefined = neutral
+  percentage?: string;
+  notes?: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  items: BreakdownItem[];
+  totalLabel?: string;
+  totalAmount: string;
+  class?: string;
+}
+
+const {
+  title = 'Calculation Breakdown',
+  subtitle = 'Detailed itemization of the calculation components',
+  items = [],
+  totalLabel = 'Estimated Net Total',
+  totalAmount,
+  class: className = ''
+} = Astro.props;
+---
+
+<div class={`bg-white rounded-2xl border border-slate-200/90 shadow-card overflow-hidden ${className}`}>
+  <div class="p-5 sm:p-6 border-b border-slate-100">
+    <h3 class="text-base font-bold text-slate-900">{title}</h3>
+    {subtitle && <p class="text-xs text-slate-500 mt-0.5">{subtitle}</p>}
+  </div>
+
+  <div class="divide-y divide-slate-100">
+    {
+      items.map((item) => (
+        <div class="p-3.5 sm:p-4 sm:px-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 hover:bg-slate-50/60 transition-colors">
+          <div class="space-y-0.5">
+            <div class="text-xs sm:text-sm font-semibold text-slate-800 break-words">
+              {item.label}
+            </div>
+            {item.notes && <div class="text-[11px] text-slate-400 leading-snug">{item.notes}</div>}
+          </div>
+
+          <div class="text-left sm:text-right shrink-0">
+            <div class={`text-sm sm:text-base font-bold font-mono break-words ${
+              item.isCredit === true
+                ? 'text-emerald-700'
+                : item.isCredit === false
+                ? 'text-rose-700'
+                : 'text-slate-900'
+            }`} style="overflow-wrap: anywhere;">
+              {item.isCredit === true ? '+ ' : item.isCredit === false ? '- ' : ''}
+              {item.amount}
+            </div>
+            {item.percentage && (
+              <span class="text-[10px] text-slate-400 font-medium">{item.percentage}</span>
+            )}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Total Summary Row -->
+  <div class="p-5 sm:px-6 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+    <span class="text-sm font-bold text-slate-900">{totalLabel}</span>
+    <span class="text-lg sm:text-xl font-extrabold font-mono text-brand-900">
+      {totalAmount}
+    </span>
+  </div>
+</div>

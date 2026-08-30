@@ -1,0 +1,128 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import CalculatorHeader from './CalculatorHeader.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import AccordionItem from '@/components/ui/AccordionItem.astro';
+import { AuthorManager } from '@/lib/editorial';
+import type { AuthorProfile } from '@/lib/editorial';
+import type { BreadcrumbItem } from '@/types/seo';
+import type { Locale } from '@/types/i18n';
+import { detectLocaleFromPath } from '@/lib/i18n';
+
+interface Props {
+  title: string;
+  description: string;
+  calculatorTitle: string;
+  calculatorSubtitle: string;
+  category?: string;
+  lastUpdated?: string;
+  breadcrumbs: BreadcrumbItem[];
+  locale?: Locale;
+  author?: AuthorProfile;
+  reviewer?: AuthorProfile;
+  lastReviewedDate?: string;
+  sources?: { title: string; publisher: string; reference: string }[];
+  showAuthorCard?: boolean;
+  faqs?: Array<{ question: string; answer: string }>;
+}
+
+const {
+  title,
+  description,
+  calculatorTitle,
+  calculatorSubtitle,
+  category = 'Financial Calculator',
+  lastUpdated = 'August 2026',
+  breadcrumbs,
+  locale: explicitLocale,
+  author = AuthorManager.getDefaultAuthor(),
+  reviewer = AuthorManager.getDefaultReviewer(),
+  lastReviewedDate,
+  sources,
+  showAuthorCard = true,
+  faqs
+} = Astro.props;
+
+const locale = explicitLocale || detectLocaleFromPath(Astro.url.pathname);
+const effectiveLastReviewed = lastReviewedDate || lastUpdated || 'August 2026';
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+  jsonLdType="FinancialProduct"
+  faqs={faqs}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <!-- Calculator Title & Description -->
+    <CalculatorHeader
+      title={calculatorTitle}
+      subtitle={calculatorSubtitle}
+      category={category}
+      lastUpdated={lastUpdated}
+    />
+
+    <!-- Main Calculator Shell Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Left Column: Inputs Form Shell -->
+      <div class="lg:col-span-7 space-y-6">
+        <slot name="inputs" />
+      </div>
+
+      <!-- Right Column: Results & High-level Metrics Shell -->
+      <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
+        <slot name="results" />
+      </div>
+    </div>
+
+    <!-- Bottom Extended Content (Breakdowns, Explanations, Tables, Author/Reviewer, FAQs) -->
+    <div class="mt-12 space-y-10 border-t border-slate-200/80 pt-10">
+      <slot name="breakdown" />
+      <slot name="explanation" />
+      <slot name="comparison" />
+      
+      <!-- Contextual Internal Links -->
+      <slot name="contextual-links">
+        <ContextualLinks currentPath={Astro.url.pathname} />
+      </slot>
+
+      <!-- E-E-A-T Editorial Author & Reviewer Box -->
+      {showAuthorCard && (
+        <slot name="author">
+          <AuthorReviewerCard
+            author={author}
+            reviewer={reviewer}
+            lastReviewedDate={effectiveLastReviewed}
+            sources={sources}
+            locale={locale}
+          />
+        </slot>
+      )}
+
+      <slot name="related" />
+      
+      <!-- FAQ Section with Schema Sync -->
+      <slot name="faqs">
+        {faqs && faqs.length > 0 && (
+          <div class="space-y-4">
+            <h2 class="text-xl font-bold text-slate-900">Frequently Asked Questions</h2>
+            <Accordion>
+              {faqs.map((faq, idx) => (
+                <AccordionItem title={faq.question} open={idx === 0}>
+                  <p class="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        )}
+      </slot>
+    </div>
+  </div>
+</BaseLayout>

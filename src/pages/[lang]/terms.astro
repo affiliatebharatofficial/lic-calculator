@@ -1,0 +1,48 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+
+const breadcrumbs = [
+  { name: 'Terms of Use', url: getLocalizedPath('/terms', locale) }
+];
+---
+
+<BaseLayout
+  title={`Terms of Use - ${t(locale, 'site.name')}`}
+  description="Terms of service and usage conditions for LIC Calculator."
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <div class="border-b border-slate-200 pb-6 mb-8 mt-2">
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Terms of Service
+      </h1>
+      <p class="text-base text-slate-600 mt-2">
+        Guidelines and terms governing your use of this independent platform.
+      </p>
+    </div>
+
+    <div class="prose prose-slate max-w-none text-sm sm:text-base leading-relaxed space-y-4 text-slate-700">
+      <p>
+        By accessing or using lic-calculators.com, you agree to comply with and be bound by these Terms of Service.
+      </p>
+      <p>
+        This service is provided free of charge on an "as is" and "as available" basis without warranties of any kind. You agree that mathematical calculations and projections are informational estimates only.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,53 @@
+---
+import CalculatorField from './CalculatorField.astro';
+
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  value?: string;
+  required?: boolean;
+  helpText?: string;
+  error?: string;
+  min?: string;
+  max?: string;
+  class?: string;
+}
+
+const {
+  id,
+  name,
+  label,
+  value = '',
+  required = false,
+  helpText = 'Format: DD/MM/YYYY',
+  error,
+  min,
+  max,
+  class: className = ''
+} = Astro.props;
+---
+
+<CalculatorField
+  id={id}
+  label={label}
+  required={required}
+  helpText={helpText}
+  error={error}
+  class={className}
+>
+  <div class="relative rounded-xl shadow-sm">
+    <input
+      type="date"
+      id={id}
+      name={name}
+      value={value}
+      min={min}
+      max={max}
+      required={required}
+      class={`block w-full rounded-xl border bg-white py-3 px-3.5 text-sm font-semibold text-slate-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-600 transition-colors ${
+        error ? 'border-rose-400 bg-rose-50/20' : 'border-slate-300'
+      }`}
+    />
+  </div>
+</CalculatorField>

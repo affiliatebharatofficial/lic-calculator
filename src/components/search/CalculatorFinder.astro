@@ -1,0 +1,161 @@
+---
+interface IntentOption {
+  id: string;
+  label: string;
+  icon: string;
+  description: string;
+  targetUrl: string;
+  badge?: string;
+}
+
+const intents: IntentOption[] = [
+  {
+    id: 'surrender',
+    label: 'Surrender Value & Loss',
+    icon: 'shield-alert',
+    description: 'Find out how much money you will receive and how much you lose if you stop paying and surrender early.',
+    targetUrl: '/lic-surrender-value-calculator',
+    badge: 'Popular'
+  },
+  {
+    id: 'premium',
+    label: 'Policy Premium',
+    icon: 'calculator',
+    description: 'Calculate your annual, half-yearly, or monthly premium installment for standard LIC savings plans.',
+    targetUrl: '/lic-premium-calculator'
+  },
+  {
+    id: 'maturity',
+    label: 'Maturity Amount',
+    icon: 'chart-bar',
+    description: 'Estimate your total lump sum return upon completing your policy term including loyalty additions.',
+    targetUrl: '/lic-maturity-calculator'
+  },
+  {
+    id: 'loan',
+    label: 'Policy Loan Eligibility',
+    icon: 'banknotes',
+    description: 'Check how much cash you can borrow against your in-force policy without losing your insurance cover.',
+    targetUrl: '/lic-loan-calculator'
+  },
+  {
+    id: 'bonus',
+    label: 'Accrued Bonus',
+    icon: 'gift',
+    description: 'Estimate total Simple Reversionary Bonus and Final Additional Bonus accumulated over your term.',
+    targetUrl: '/lic-bonus-calculator'
+  },
+  {
+    id: 'insurance',
+    label: 'Pure Term Cover',
+    icon: 'shield-check',
+    description: 'Calculate affordable high-cover pure life insurance protection without investment mixing.',
+    targetUrl: '/lic-term-insurance-calculator'
+  },
+  {
+    id: 'pension',
+    label: 'Retirement Pension',
+    icon: 'user-group',
+    description: 'Estimate guaranteed lifelong monthly pension from one-time annuity purchase price.',
+    targetUrl: '/lic-pension-calculator'
+  }
+];
+---
+
+<div class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-8 shadow-card" data-calculator-finder>
+  <div class="max-w-xl mb-6">
+    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-100 text-brand-800 mb-2">
+      Interactive Finder
+    </span>
+    <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+      Not sure which calculator you need?
+    </h3>
+    <p class="text-sm text-slate-500 mt-1">
+      What is your primary goal today? Click an option below for instant guidance.
+    </p>
+  </div>
+
+  <!-- Interactive Intent Selection Chips -->
+  <div class="flex flex-wrap gap-2.5 mb-6" role="tablist" aria-label="Calculator Goal Selector">
+    {
+      intents.map((intent, idx) => (
+        <button
+          type="button"
+          class={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all border ${
+            idx === 0
+              ? 'bg-brand-700 text-white border-brand-700 shadow-sm'
+              : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 hover:border-slate-300'
+          }`}
+          data-finder-chip={intent.id}
+          aria-selected={idx === 0 ? 'true' : 'false'}
+          role="tab"
+        >
+          {intent.label}
+          {intent.badge && (
+            <span class="ml-1.5 px-1.5 py-0.2 rounded text-[10px] bg-amber-400 text-slate-950 font-bold">
+              {intent.badge}
+            </span>
+          )}
+        </button>
+      ))
+    }
+  </div>
+
+  <!-- Dynamic Detail Card -->
+  <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" data-finder-panel>
+    <div class="space-y-1">
+      <div class="text-xs font-semibold text-brand-700 uppercase tracking-wider" data-finder-category>
+        Surrender Value & Loss Analysis
+      </div>
+      <h4 class="text-base font-bold text-slate-900" data-finder-title>
+        Estimate Cash Payout & Financial Difference
+      </h4>
+      <p class="text-xs text-slate-600 max-w-xl" data-finder-desc>
+        Find out how much money you will receive and how much you lose if you stop paying and surrender early.
+      </p>
+    </div>
+    <a
+      href="/lic-surrender-value-calculator"
+      class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-xs font-semibold text-white bg-brand-700 hover:bg-brand-800 transition-colors shrink-0 shadow-sm"
+      data-finder-btn
+    >
+      Open Calculator &rarr;
+    </a>
+  </div>
+</div>
+
+<script is:inline define:vars={{ intents }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('[data-calculator-finder]');
+    if (!container) return;
+
+    const chips = container.querySelectorAll('[data-finder-chip]');
+    const categoryEl = container.querySelector('[data-finder-category]');
+    const titleEl = container.querySelector('[data-finder-title]');
+    const descEl = container.querySelector('[data-finder-desc]');
+    const btnEl = container.querySelector('[data-finder-btn]');
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const id = chip.getAttribute('data-finder-chip');
+        const selected = intents.find((i) => i.id === id);
+        if (!selected) return;
+
+        chips.forEach((c) => {
+          c.classList.remove('bg-brand-700', 'text-white', 'border-brand-700', 'shadow-sm');
+          c.classList.add('bg-slate-50', 'text-slate-700', 'border-slate-200');
+          c.setAttribute('aria-selected', 'false');
+        });
+
+        chip.classList.remove('bg-slate-50', 'text-slate-700', 'border-slate-200');
+        chip.classList.add('bg-brand-700', 'text-white', 'border-brand-700', 'shadow-sm');
+        chip.setAttribute('aria-selected', 'true');
+
+        if (categoryEl) categoryEl.textContent = selected.label;
+        if (titleEl) titleEl.textContent = `LIC ${selected.label} Tool`;
+        if (descEl) descEl.textContent = selected.description;
+        if (btnEl) btnEl.setAttribute('href', selected.targetUrl);
+      });
+    });
+  });
+</script>

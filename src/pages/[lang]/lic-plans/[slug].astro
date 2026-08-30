@@ -1,0 +1,60 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { VERIFIED_PLANS } from '@/pages/lic-plans/[slug].astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  const nonDefaultLocales = LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE);
+  const paths: any[] = [];
+
+  for (const lang of nonDefaultLocales) {
+    for (const plan of VERIFIED_PLANS) {
+      paths.push({
+        params: { lang, slug: plan.slug },
+        props: { plan }
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { lang } = Astro.params;
+const { plan } = Astro.props;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+
+const breadcrumbs = [
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
+  { name: 'Plans', url: getLocalizedPath('/plans', locale) },
+  { name: plan.name, url: getLocalizedPath(`/lic-plans/${plan.slug}`, locale) }
+];
+---
+
+<BaseLayout
+  title={`${plan.name} - ${t(locale, 'site.name')}`}
+  description={plan.description}
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+>
+  <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <div class="flex items-center gap-2">
+        <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+          Table {plan.tableNo}
+        </span>
+        <span class="text-xs text-slate-500 font-semibold">{plan.category}</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">{plan.name}</h1>
+      <p class="text-base text-slate-600 leading-relaxed">{plan.description}</p>
+    </div>
+
+    <!-- Contextual Links -->
+    <ContextualLinks currentPath={`/lic-plans/${plan.slug}`} />
+
+    <!-- Author Card -->
+    <AuthorReviewerCard />
+  </div>
+</BaseLayout>

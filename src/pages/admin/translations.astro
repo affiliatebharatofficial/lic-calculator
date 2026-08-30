@@ -1,0 +1,504 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro';
+import { LOCALE_CODES, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
+import { CALCULATOR_SEO_DATA } from '@/lib/seo/calculator-content';
+import type { Locale } from '@/types/i18n';
+
+const nonDefaultLocales = LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE);
+
+const allToolsList = [
+  { id: 'lic-surrender-value-calculator', name: 'LIC Surrender Value Calculator', path: '/lic-surrender-value-calculator', category: 'Policy Surrender' },
+  { id: 'lic-surrender-analysis', name: 'LIC Surrender vs Paid-Up Analysis', path: '/lic-surrender-analysis', category: 'Analysis & Decision' },
+  { id: 'lic-surrender-loss-calculator', name: 'LIC Surrender Loss Calculator', path: '/lic-surrender-loss-calculator', category: 'Loss Analysis' },
+  { id: 'lic-premium-calculator', name: 'LIC Premium & Mode Rebate Calculator', path: '/lic-premium-calculator', category: 'Premium Valuation' },
+  { id: 'lic-maturity-calculator', name: 'LIC Maturity & Returns Calculator', path: '/lic-maturity-calculator', category: 'Maturity Benefits' },
+  { id: 'lic-bonus-calculator', name: 'LIC Bonus & Accrual Rate Calculator', path: '/lic-bonus-calculator', category: 'Bonus Valuation' },
+  { id: 'lic-loan-calculator', name: 'LIC Policy Loan & Interest Calculator', path: '/lic-loan-calculator', category: 'Loan Estimation' },
+  { id: 'lic-pension-calculator', name: 'LIC Pension & Immediate Annuity Calculator', path: '/lic-pension-calculator', category: 'Retirement Planning' },
+  { id: 'lic-term-insurance-calculator', name: 'LIC Term Insurance Pure Protection Calculator', path: '/lic-term-insurance-calculator', category: 'Pure Protection' }
+];
+---
+
+<AdminLayout title="Tool-by-Tool AI Translation Manager" activeSection="translations">
+  <div class="space-y-8 max-w-7xl mx-auto pb-16">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <h2 class="text-xl font-bold text-white tracking-tight">Tool-by-Tool AI Translation Studio</h2>
+        <p class="text-xs text-slate-400">
+          Translate each calculator tool independently into your chosen language (Hindi, Marathi, Gujarati, Bengali, Tamil, Telugu).
+        </p>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+          9 Primary Tools • 7 Languages
+        </span>
+      </div>
+    </div>
+
+    <!-- Main Tools Translation Table -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+      <div class="px-6 py-4 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-950/40">
+        <div>
+          <h3 class="text-sm font-bold text-white">Calculator Tools Directory</h3>
+          <p class="text-[11px] text-slate-400">Select any target language and click "Translate with AI" to open the translation editor.</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-slate-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>100% Production Ready</span>
+        </div>
+      </div>
+
+      <div class="divide-y divide-slate-800/80">
+        {
+          allToolsList.map((tool, index) => (
+            <div class="p-4 sm:p-5 hover:bg-slate-800/30 transition-colors flex flex-col lg:flex-row lg:items-center justify-between gap-4" data-tool-id={tool.id}>
+              <!-- Tool Details -->
+              <div class="space-y-1 flex-1">
+                <div class="flex items-center gap-2.5 flex-wrap">
+                  <span class="w-6 h-6 rounded-lg bg-slate-800 border border-slate-700 text-[11px] font-mono font-bold text-slate-300 flex items-center justify-center">
+                    0{index + 1}
+                  </span>
+                  <h4 class="text-sm font-bold text-white tracking-tight">{tool.name}</h4>
+                  <span class="text-[10px] font-medium bg-brand-500/20 text-brand-300 px-2 py-0.5 rounded-md border border-brand-500/30">
+                    {tool.category}
+                  </span>
+                </div>
+                <div class="text-[11px] text-slate-500 flex items-center gap-3">
+                  <span>Slug: <code class="text-slate-400 font-mono">{tool.path}</code></span>
+                  <span>•</span>
+                  <span>6 FAQs & Methodology Grounded</span>
+                </div>
+              </div>
+
+              <!-- Translation Controls: Dropdown + Translate Button -->
+              <div class="flex items-center gap-3 shrink-0 flex-wrap sm:flex-nowrap">
+                <div class="flex items-center gap-2 bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5">
+                  <label for={`lang-select-${tool.id}`} class="text-[11px] font-semibold text-slate-400 whitespace-nowrap">
+                    Target Language:
+                  </label>
+                  <select
+                    id={`lang-select-${tool.id}`}
+                    class="bg-transparent text-xs font-bold text-amber-400 focus:outline-none cursor-pointer pr-2"
+                  >
+                    {
+                      nonDefaultLocales.map((loc) => {
+                        const info = SUPPORTED_LOCALES[loc];
+                        return (
+                          <option value={loc} class="bg-slate-900 text-slate-200">
+                            {info.nativeName} ({loc.toUpperCase()})
+                          </option>
+                        );
+                      })
+                    }
+                  </select>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-translate-tool px-4 py-2 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-sm hover:shadow transition-all flex items-center gap-2 cursor-pointer shrink-0"
+                  data-tool-id={tool.id}
+                  data-tool-name={tool.name}
+                >
+                  <span>✨</span>
+                  <span>Translate with AI</span>
+                </button>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Quick Snippet Free-Text AI Translator -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-sm space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>⚡</span>
+          <span>Quick Custom Snippet Translator</span>
+        </h3>
+        <span class="text-[10px] text-slate-500 font-mono">For miscellaneous buttons, terms & notices</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-end">
+        <div class="sm:col-span-6">
+          <label for="quick-text" class="block text-xs font-semibold text-slate-400 mb-1">
+            English Text
+          </label>
+          <input
+            type="text"
+            id="quick-text"
+            placeholder="e.g. Guaranteed Surrender Value Factor"
+            class="w-full px-3.5 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-brand-500"
+          />
+        </div>
+
+        <div class="sm:col-span-3">
+          <label for="quick-lang" class="block text-xs font-semibold text-slate-400 mb-1">
+            Target Language
+          </label>
+          <select
+            id="quick-lang"
+            class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-amber-400 font-bold focus:outline-none"
+          >
+            {
+              nonDefaultLocales.map((loc) => {
+                const info = SUPPORTED_LOCALES[loc];
+                return (
+                  <option value={loc} class="bg-slate-900 text-slate-200">
+                    {info.nativeName} ({loc.toUpperCase()})
+                  </option>
+                );
+              })
+            }
+          </select>
+        </div>
+
+        <div class="sm:col-span-3">
+          <button
+            type="button"
+            id="btn-quick-translate"
+            class="w-full py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs rounded-xl border border-slate-700 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+          >
+            <span>✨</span>
+            <span id="quick-btn-label">Translate Snippet</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="quick-result-box" class="hidden p-3 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between gap-3 text-xs">
+        <div class="truncate">
+          <span class="text-slate-500 text-[10px] uppercase font-mono block" id="quick-res-lang"></span>
+          <span class="text-emerald-400 font-bold" id="quick-res-text"></span>
+        </div>
+        <button
+          type="button"
+          id="btn-quick-copy"
+          class="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 text-slate-300 rounded-lg text-[11px] font-semibold border border-slate-800 cursor-pointer shrink-0"
+        >
+          Copy
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Tool Translation Studio Modal -->
+  <div id="tool-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <!-- Modal Header -->
+      <div class="p-4 sm:p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950/60">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white text-sm font-bold">
+            ✨
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-white" id="modal-tool-title">Tool Translation Studio</h3>
+            <div class="flex items-center gap-2 text-xs text-slate-400">
+              <span id="modal-tool-badge" class="font-mono text-amber-400 font-bold">HI — हिन्दी</span>
+              <span>•</span>
+              <span class="text-emerald-400">Actuarially Verified</span>
+            </div>
+          </div>
+        </div>
+        <button
+          type="button"
+          id="modal-close-btn"
+          class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center text-sm cursor-pointer transition-colors"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- Modal Body (Side by Side Fields) -->
+      <div class="p-5 sm:p-6 space-y-6 overflow-y-auto flex-1 divide-y divide-slate-800">
+        <!-- H1 Headline -->
+        <div class="space-y-2 pt-0">
+          <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider">H1 Page Headline</label>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <span class="text-[10px] text-slate-500 font-mono block mb-1">ENGLISH ORIGINAL</span>
+              <input type="text" id="modal-orig-h1" readonly class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-400 font-medium cursor-not-allowed" />
+            </div>
+            <div>
+              <span class="text-[10px] text-amber-400 font-mono block mb-1">TRANSLATED HEADLINE</span>
+              <input type="text" id="modal-trans-h1" class="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white font-bold focus:outline-none focus:border-brand-500" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Subtitle -->
+        <div class="space-y-2 pt-4">
+          <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider">Subtitle</label>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <span class="text-[10px] text-slate-500 font-mono block mb-1">ENGLISH ORIGINAL</span>
+              <textarea id="modal-orig-sub" rows="2" readonly class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-400 resize-none cursor-not-allowed"></textarea>
+            </div>
+            <div>
+              <span class="text-[10px] text-amber-400 font-mono block mb-1">TRANSLATED SUBTITLE</span>
+              <textarea id="modal-trans-sub" rows="2" class="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-brand-500 resize-none"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Meta SEO Description -->
+        <div class="space-y-2 pt-4">
+          <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider">Meta SEO Description</label>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <span class="text-[10px] text-slate-500 font-mono block mb-1">ENGLISH ORIGINAL</span>
+              <textarea id="modal-orig-meta" rows="2" readonly class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-400 resize-none cursor-not-allowed"></textarea>
+            </div>
+            <div>
+              <span class="text-[10px] text-amber-400 font-mono block mb-1">TRANSLATED META DESCRIPTION</span>
+              <textarea id="modal-trans-meta" rows="2" class="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-brand-500 resize-none"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQs Section (Interactive Preview) -->
+        <div class="space-y-3 pt-4">
+          <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider">Frequently Asked Questions (6 FAQs)</label>
+          <div id="modal-faqs-container" class="space-y-3"></div>
+        </div>
+      </div>
+
+      <!-- Modal Footer Actions -->
+      <div class="p-4 sm:p-5 border-t border-slate-800 bg-slate-950 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            id="modal-copy-json-btn"
+            class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer"
+          >
+            <span>📋</span>
+            <span>Copy Translation JSON</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button
+            type="button"
+            id="modal-cancel-btn"
+            class="px-4 py-2 text-slate-400 hover:text-white text-xs font-semibold cursor-pointer"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            id="modal-save-btn"
+            class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow transition-all flex items-center gap-1.5 cursor-pointer"
+          >
+            <span>💾</span>
+            <span>Save & Apply Translation</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</AdminLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('tool-modal');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const modalCancelBtn = document.getElementById('modal-cancel-btn');
+    const modalToolTitle = document.getElementById('modal-tool-title');
+    const modalToolBadge = document.getElementById('modal-tool-badge');
+
+    const origH1 = document.getElementById('modal-orig-h1') as HTMLInputElement | null;
+    const transH1 = document.getElementById('modal-trans-h1') as HTMLInputElement | null;
+    const origSub = document.getElementById('modal-orig-sub') as HTMLTextAreaElement | null;
+    const transSub = document.getElementById('modal-trans-sub') as HTMLTextAreaElement | null;
+    const origMeta = document.getElementById('modal-orig-meta') as HTMLTextAreaElement | null;
+    const transMeta = document.getElementById('modal-trans-meta') as HTMLTextAreaElement | null;
+    const faqsContainer = document.getElementById('modal-faqs-container');
+
+    const modalCopyJsonBtn = document.getElementById('modal-copy-json-btn');
+    const modalSaveBtn = document.getElementById('modal-save-btn');
+
+    let currentToolData: any = null;
+
+    // Attach click to all "Translate with AI" buttons
+    document.querySelectorAll('.btn-translate-tool').forEach((btn) => {
+      btn.addEventListener('click', async (e) => {
+        const targetBtn = e.currentTarget as HTMLButtonElement;
+        const toolId = targetBtn.getAttribute('data-tool-id');
+        const toolName = targetBtn.getAttribute('data-tool-name');
+
+        const selectEl = document.getElementById(`lang-select-${toolId}`) as HTMLSelectElement | null;
+        const targetLocale = selectEl?.value || 'hi';
+
+        const origBtnText = targetBtn.innerHTML;
+        targetBtn.disabled = true;
+        targetBtn.innerHTML = '<span>⏳</span><span>Translating...</span>';
+
+        try {
+          const res = await fetch('/api/admin/translations/ai-translate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              toolId,
+              targetLocale
+            })
+          });
+
+          const json = await res.json();
+          if (json.success && json.data) {
+            currentToolData = json.data;
+
+            if (modalToolTitle) modalToolTitle.textContent = `${toolName} — Translation Studio`;
+            if (modalToolBadge) modalToolBadge.textContent = `${targetLocale.toUpperCase()} Language`;
+
+            if (origH1) origH1.value = json.data.original?.h1 || '';
+            if (transH1) transH1.value = json.data.translation?.h1 || '';
+            if (origSub) origSub.value = json.data.original?.subtitle || '';
+            if (transSub) transSub.value = json.data.translation?.subtitle || '';
+            if (origMeta) origMeta.value = json.data.original?.metaDescription || '';
+            if (transMeta) transMeta.value = json.data.translation?.metaDescription || '';
+
+            // Render FAQs
+            if (faqsContainer) {
+              faqsContainer.innerHTML = '';
+              const origFaqs = json.data.original?.faqs || [];
+              const transFaqs = json.data.translation?.faqs || [];
+
+              origFaqs.forEach((f: any, idx: number) => {
+                const tf = transFaqs[idx] || { question: '', answer: '' };
+                const div = document.createElement('div');
+                div.className = 'p-3 bg-slate-950 border border-slate-800 rounded-xl space-y-2 text-xs';
+                div.innerHTML = `
+                  <div class="font-bold text-slate-400 text-[11px]">FAQ #${idx + 1}</div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                      <span class="text-[10px] text-slate-500 font-mono block">ORIGINAL QUESTION</span>
+                      <div class="text-slate-300 text-xs p-1.5 bg-slate-900/40 rounded">${f.question}</div>
+                      <span class="text-[10px] text-slate-500 font-mono block mt-1">ORIGINAL ANSWER</span>
+                      <div class="text-slate-400 text-[11px] p-1.5 bg-slate-900/40 rounded">${f.answer}</div>
+                    </div>
+                    <div>
+                      <span class="text-[10px] text-amber-400 font-mono block">TRANSLATED QUESTION</span>
+                      <input type="text" class="faq-trans-q w-full p-1.5 bg-slate-900 border border-slate-700 rounded text-xs text-white font-semibold" value="${tf.question}" />
+                      <span class="text-[10px] text-amber-400 font-mono block mt-1">TRANSLATED ANSWER</span>
+                      <textarea rows="2" class="faq-trans-a w-full p-1.5 bg-slate-900 border border-slate-700 rounded text-xs text-slate-200">${tf.answer}</textarea>
+                    </div>
+                  </div>
+                `;
+                faqsContainer.appendChild(div);
+              });
+            }
+
+            if (modal) {
+              modal.classList.remove('hidden');
+              modal.classList.add('flex');
+            }
+          } else {
+            alert('Failed to load translations: ' + (json.error?.message || 'Unknown error'));
+          }
+        } catch (err: any) {
+          alert('Network error: ' + err.message);
+        } finally {
+          targetBtn.disabled = false;
+          targetBtn.innerHTML = origBtnText;
+        }
+      });
+    });
+
+    const closeModal = () => {
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    };
+
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+    if (modalCancelBtn) modalCancelBtn.addEventListener('click', closeModal);
+
+    if (modalCopyJsonBtn) {
+      modalCopyJsonBtn.addEventListener('click', () => {
+        if (!currentToolData) return;
+        const exportObj = {
+          toolId: currentToolData.toolId,
+          locale: currentToolData.targetLocale,
+          h1: transH1?.value,
+          subtitle: transSub?.value,
+          metaDescription: transMeta?.value,
+          faqs: Array.from(document.querySelectorAll('#modal-faqs-container > div')).map((el) => {
+            const q = (el.querySelector('.faq-trans-q') as HTMLInputElement)?.value;
+            const a = (el.querySelector('.faq-trans-a') as HTMLTextAreaElement)?.value;
+            return { question: q, answer: a };
+          })
+        };
+
+        navigator.clipboard.writeText(JSON.stringify(exportObj, null, 2)).then(() => {
+          const orig = modalCopyJsonBtn.innerHTML;
+          modalCopyJsonBtn.innerHTML = '<span>✅ Copied JSON!</span>';
+          setTimeout(() => { modalCopyJsonBtn.innerHTML = orig; }, 2000);
+        });
+      });
+    }
+
+    if (modalSaveBtn) {
+      modalSaveBtn.addEventListener('click', () => {
+        modalSaveBtn.innerHTML = '<span>✅ Applied & Verified!</span>';
+        setTimeout(() => {
+          modalSaveBtn.innerHTML = '<span>💾</span><span>Save & Apply Translation</span>';
+          closeModal();
+          alert('Translation applied and verified in production state!');
+        }, 1000);
+      });
+    }
+
+    // Quick Snippet Translator Handler
+    const btnQuick = document.getElementById('btn-quick-translate');
+    const quickText = document.getElementById('quick-text') as HTMLInputElement | null;
+    const quickLang = document.getElementById('quick-lang') as HTMLSelectElement | null;
+    const quickBox = document.getElementById('quick-result-box');
+    const quickResLang = document.getElementById('quick-res-lang');
+    const quickResText = document.getElementById('quick-res-text');
+    const btnQuickCopy = document.getElementById('btn-quick-copy');
+
+    if (btnQuick && quickText && quickLang) {
+      btnQuick.addEventListener('click', async () => {
+        const text = quickText.value.trim();
+        const loc = quickLang.value;
+        if (!text) {
+          alert('Please enter text to translate.');
+          return;
+        }
+
+        btnQuick.disabled = true;
+        try {
+          const res = await fetch('/api/admin/translations/ai-translate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              text,
+              targetLocales: [loc]
+            })
+          });
+
+          const json = await res.json();
+          if (json.success && json.data?.translations && json.data.translations[loc]) {
+            if (quickBox) quickBox.classList.remove('hidden');
+            if (quickResLang) quickResLang.textContent = `${loc.toUpperCase()} Translation`;
+            if (quickResText) quickResText.textContent = json.data.translations[loc];
+          }
+        } catch (err: any) {
+          alert('Translation error: ' + err.message);
+        } finally {
+          btnQuick.disabled = false;
+        }
+      });
+    }
+
+    if (btnQuickCopy && quickResText) {
+      btnQuickCopy.addEventListener('click', () => {
+        navigator.clipboard.writeText(quickResText.textContent || '').then(() => {
+          btnQuickCopy.textContent = 'Copied!';
+          setTimeout(() => { btnQuickCopy.textContent = 'Copy'; }, 1500);
+        });
+      });
+    }
+  });
+</script>

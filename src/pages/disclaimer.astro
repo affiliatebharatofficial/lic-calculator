@@ -1,0 +1,50 @@
+---
+import ContentLayout from '@/layouts/ContentLayout.astro';
+import Alert from '@/components/ui/Alert.astro';
+
+const breadcrumbs = [{ name: 'Disclaimer', url: '/disclaimer' }];
+---
+
+<ContentLayout
+  title="Disclaimer & Non-Affiliation Notice | LIC Calculator"
+  description="Important legal disclaimer: lic-calculators.com is an independent informational and calculation portal and is not affiliated with Life Insurance Corporation of India (LIC)."
+  pageTitle="Legal Disclaimer & Independence Notice"
+  pageSubtitle="Mandatory disclosure regarding platform independence, estimates, and data sources."
+  breadcrumbs={breadcrumbs}
+>
+  <Alert type="warning" title="Independent Informational Platform" class="mb-8">
+    lic-calculators.com is an independently operated website. It is <strong>NOT</strong> owned, operated, endorsed, or affiliated with the <strong>Life Insurance Corporation of India (LIC)</strong> or any government organization.
+  </Alert>
+
+  <div class="space-y-6 text-sm text-slate-700 leading-relaxed">
+    <h2 class="text-lg font-bold text-slate-900">1. Nature of the Service</h2>
+    <p>
+      The calculators, tools, comparisons, and articles provided on <strong>lic-calculators.com</strong> are created purely for educational, illustrative, and personal financial planning purposes. All calculations and numerical illustrations are approximations based on publicly available policy brochures, standard premium tables, and historical bonus declarations.
+    </p>
+
+    <h2 class="text-lg font-bold text-slate-900">2. No Official Representations</h2>
+    <p>
+      We do NOT claim to represent Life Insurance Corporation of India (LIC) as an agent, broker, corporate agent, or official representative. We do not sell insurance policies, collect premium payments on behalf of LIC, or process official policy modifications.
+    </p>
+
+    <h2 class="text-lg font-bold text-slate-900">3. Verification of Exact Values</h2>
+    <p>
+      Actual premium rates, surrender values, paid-up values, loan eligibility, and maturity proceeds are subject to LIC’s official underwriting rules, prevailing government taxes (GST), bonus declarations for specific valuation years, and policy endorsements. Users are advised to verify exact figures directly through:
+    </p>
+    <ul class="list-disc pl-5 space-y-1 text-slate-600">
+      <li>The official LIC customer portal at <a href="https://licindia.in" target="_blank" rel="noopener noreferrer" class="text-brand-600 underline">licindia.in</a></li>
+      <li>An authorized branch office of Life Insurance Corporation of India</li>
+      <li>Your authorized LIC agent or development officer</li>
+    </ul>
+
+    <h2 class="text-lg font-bold text-slate-900">4. Trademarks and Intellectual Property</h2>
+    <p>
+      "LIC", "Life Insurance Corporation of India", and specific policy names such as "Jeevan Anand", "Jeevan Labh", "Jeevan Umang", etc., are registered trademarks and property of the Life Insurance Corporation of India. The use of these names on this platform is solely for descriptive, identifying, and reference purposes under nominative fair use.
+    </p>
+
+    <h2 class="text-lg font-bold text-slate-900">5. Limitation of Liability</h2>
+    <p>
+      Under no circumstances shall lic-calculators.com or its operators be held liable for any financial decisions, losses, or disputes arising from the use of estimates or information provided on this website.
+    </p>
+  </div>
+</ContentLayout>

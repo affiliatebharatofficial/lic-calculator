@@ -1,0 +1,45 @@
+---
+interface Props {
+  partnerName: string;
+  title: string;
+  description: string;
+  destinationUrl: string;
+  ctaText?: string;
+}
+
+const {
+  partnerName,
+  title,
+  description,
+  destinationUrl,
+  ctaText = 'Explore Partner Offers &rarr;'
+} = Astro.props;
+---
+
+<div class="rounded-2xl border border-indigo-100 bg-indigo-50/40 p-5 sm:p-6 space-y-3 my-6 shadow-xs">
+  <div class="flex items-center justify-between">
+    <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-700 bg-indigo-100/80 px-2 py-0.5 rounded border border-indigo-200">
+      Sponsored Recommendation • {partnerName}
+    </span>
+    <span class="text-[10px] text-slate-400 font-medium">Affiliate Partner</span>
+  </div>
+
+  <div class="space-y-1">
+    <h4 class="text-sm font-bold text-slate-900">{title}</h4>
+    <p class="text-xs text-slate-600 leading-relaxed">{description}</p>
+  </div>
+
+  <div class="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-indigo-100/80">
+    <span class="text-[10px] text-slate-500">
+      Disclosure: We may receive compensation if you choose a partner plan. This does not affect our independent calculation methodology.
+    </span>
+    <a
+      href={destinationUrl}
+      target="_blank"
+      rel="sponsored noopener noreferrer"
+      class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-xs text-center"
+    >
+      <span set:html={ctaText} />
+    </a>
+  </div>
+</div>

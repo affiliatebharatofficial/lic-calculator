@@ -1,0 +1,145 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro';
+import { AdminStore } from '@/lib/admin';
+
+const stats = AdminStore.getDashboardStats();
+---
+
+<AdminLayout title="Admin Overview & System Status" activeSection="dashboard">
+  <div class="space-y-8 max-w-7xl mx-auto">
+    <!-- Top Metric Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm space-y-2">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-semibold">
+          <span>Active Plans</span>
+          <span>📑</span>
+        </div>
+        <div class="text-3xl font-extrabold text-white font-mono">{stats.activePlans}</div>
+        <span class="text-[11px] text-slate-500 block">Tables 914, 915, 936, 945, 855, 857</span>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm space-y-2">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-semibold">
+          <span>Published Rules</span>
+          <span>⚖️</span>
+        </div>
+        <div class="text-3xl font-extrabold text-emerald-400 font-mono">{stats.publishedRules}</div>
+        <span class="text-[11px] text-slate-500 block">Live on public calculators</span>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm space-y-2">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-semibold">
+          <span>Verification Queue</span>
+          <span>⏳</span>
+        </div>
+        <div class="text-3xl font-extrabold text-amber-400 font-mono">{stats.pendingReviewRules}</div>
+        <span class="text-[11px] text-slate-500 block">Requires actuarial review</span>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-sm space-y-2">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-semibold">
+          <span>Verified Sources</span>
+          <span>📚</span>
+        </div>
+        <div class="text-3xl font-extrabold text-brand-400 font-mono">{stats.totalSources}</div>
+        <span class="text-[11px] text-slate-500 block">Official brochures & circulars</span>
+      </div>
+    </div>
+
+    <!-- Quick Action Banners -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-base font-bold text-white">Rule Publishing & Regression Gates</h2>
+          <span class="px-2 py-0.5 rounded-md bg-brand-500/20 text-brand-400 text-xs font-mono font-semibold">
+            Separation of Duties
+          </span>
+        </div>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Financial rules follow a strict 4-stage pipeline: <strong>Draft &rarr; Review &rarr; Automated Regression Gate &rarr; Verification &rarr; Publish</strong>. Unverified draft rules are strictly blocked from public calculator execution.
+        </p>
+        <div class="pt-2 flex gap-3">
+          <a
+            href="/admin/rules"
+            class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer"
+          >
+            Manage Rules &rarr;
+          </a>
+          <a
+            href="/admin/sources"
+            class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+          >
+            Manage Sources
+          </a>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-base font-bold text-white">Multilingual CMS (7 Languages)</h2>
+          <span class="px-2 py-0.5 rounded-md bg-indigo-500/20 text-indigo-400 text-xs font-mono font-semibold">
+            EN, HI, MR, GU, BN, TA, TE
+          </span>
+        </div>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Manage translations for all 7 regional languages with stable content keys. Unfinished draft translations are held in staging without corrupting public pages.
+        </p>
+        <div class="pt-2">
+          <a
+            href="/admin/translations"
+            class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer"
+          >
+            Review Translations &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Audit Logs Table -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-base font-bold text-white">Recent Immutable Audit Trail</h2>
+        <a href="/admin/audit" class="text-xs text-brand-400 hover:underline">View Full Audit Log &rarr;</a>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead>
+            <tr class="border-b border-slate-800 text-slate-400">
+              <th class="pb-3 font-semibold">Timestamp</th>
+              <th class="pb-3 font-semibold">Actor</th>
+              <th class="pb-3 font-semibold">Action / Event</th>
+              <th class="pb-3 font-semibold">Entity</th>
+              <th class="pb-3 font-semibold">Target ID</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 font-mono text-slate-300">
+            {
+              stats.recentAuditLogs.length === 0 ? (
+                <tr>
+                  <td colspan="5" class="py-6 text-center text-slate-500">
+                    No recent audit events recorded.
+                  </td>
+                </tr>
+              ) : (
+                stats.recentAuditLogs.map((log) => (
+                  <tr class="hover:bg-slate-800/40 transition-colors">
+                    <td class="py-3 text-slate-400">{log.createdAt.replace('T', ' ').slice(0, 19)}</td>
+                    <td class="py-3 text-white font-sans font-semibold">{log.actorName}</td>
+                    <td class="py-3">
+                      <span class="px-2 py-0.5 rounded bg-brand-950 border border-brand-800 text-brand-300 text-[10px] font-bold">
+                        {log.eventType}
+                      </span>
+                    </td>
+                    <td class="py-3 text-slate-400">{log.targetEntity}</td>
+                    <td class="py-3 text-slate-500 truncate max-w-xs">{log.targetId}</td>
+                  </tr>
+                ))
+              )
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</AdminLayout>

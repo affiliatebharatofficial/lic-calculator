@@ -1,0 +1,44 @@
+---
+import ContentLayout from '@/layouts/ContentLayout.astro';
+import Card from '@/components/ui/Card.astro';
+
+const breadcrumbs = [{ name: 'FAQs', url: '/faq' }];
+
+const faqs = [
+  {
+    q: 'Is this an official LIC website?',
+    a: 'No. lic-calculators.com is an independent educational and financial calculation portal. We have no affiliation, partnership, or authorization from Life Insurance Corporation of India (LIC).'
+  },
+  {
+    q: 'How accurate are the calculator results?',
+    a: 'Calculators use standard policy parameters and published actuarial formulas. However, official exact values must be verified directly through your nearest LIC branch or customer portal at licindia.in.'
+  },
+  {
+    q: 'Can I surrender my policy before 2 years?',
+    a: 'Most traditional LIC endowment plans require a minimum of 2 full policy years of paid premiums before acquiring any cash surrender value.'
+  },
+  {
+    q: 'Do you charge any fee for calculations?',
+    a: 'All tools, calculators, guides, and comparison tables on this website are 100% free and open for public access.'
+  }
+];
+---
+
+<ContentLayout
+  title="Frequently Asked Questions - LIC Policy Calculators"
+  description="Answers to common questions regarding LIC calculators, surrender values, loan eligibility, and website independence."
+  pageTitle="Frequently Asked Questions (FAQs)"
+  pageSubtitle="Clear answers to the most common queries about LIC calculations and our independent platform."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="space-y-4">
+    {
+      faqs.map((faq) => (
+        <Card class="p-6">
+          <h2 class="text-base font-bold text-slate-900 mb-2">{faq.q}</h2>
+          <p class="text-sm text-slate-600 leading-relaxed">{faq.a}</p>
+        </Card>
+      ))
+    }
+  </div>
+</ContentLayout>

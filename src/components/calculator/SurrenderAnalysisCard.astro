@@ -1,0 +1,102 @@
+---
+import Badge from '@/components/ui/Badge.astro';
+
+interface Props {
+  totalPaid: string;
+  surrenderValue: string;
+  lossAmount: string;
+  lossPercentage: string;
+  gsvAmount: string;
+  ssvAmount: string;
+  paidUpCover: string;
+  isIllustrationOnly?: boolean;
+  class?: string;
+}
+
+const {
+  totalPaid,
+  surrenderValue,
+  lossAmount,
+  lossPercentage,
+  gsvAmount,
+  ssvAmount,
+  paidUpCover,
+  isIllustrationOnly = true,
+  class: className = ''
+} = Astro.props;
+---
+
+<div class={`bg-gradient-to-b from-navy-900 to-slate-900 text-white rounded-2xl p-6 sm:p-8 shadow-result border border-slate-800 space-y-6 ${className}`}>
+  <!-- Top Headline & Badges -->
+  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
+    <div class="space-y-0.5">
+      <span class="text-xs font-bold uppercase tracking-wider text-amber-400">
+        Surrender Value Estimation
+      </span>
+      <div class="text-[11px] text-slate-400">
+        Higher of Guaranteed (GSV) vs Special (SSV)
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      {isIllustrationOnly && (
+        <Badge type="warning" class="bg-amber-400/20 text-amber-300 border-amber-400/30">
+          Illustration Only
+        </Badge>
+      )}
+      <Badge type="danger" class="bg-rose-500/20 text-rose-300 border-rose-500/30">
+        {lossPercentage} Loss
+      </Badge>
+    </div>
+  </div>
+
+  <!-- Primary Dominant Number: Estimated Cash In Hand -->
+  <div>
+    <span class="text-xs text-slate-400 font-medium block">
+      Estimated Cash Surrender Payout:
+    </span>
+    <div class="text-2xl sm:text-4xl lg:text-5xl font-extrabold font-mono text-emerald-400 mt-1 break-words" style="overflow-wrap: anywhere;">
+      {surrenderValue}
+    </div>
+    <p class="text-xs text-slate-400 mt-1 leading-snug">
+      Payable to policyholder after deductions (Excluding GST & rider charges).
+    </p>
+  </div>
+
+  <!-- Financial Loss Comparison Matrix -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 pt-2">
+    <div class="bg-slate-800/80 rounded-xl p-3 sm:p-3.5 border border-slate-700/60">
+      <span class="text-[11px] text-slate-400 block font-medium">Total Invested</span>
+      <span class="text-sm sm:text-base font-bold font-mono text-white mt-0.5 block break-words" style="overflow-wrap: anywhere;">{totalPaid}</span>
+    </div>
+
+    <div class="bg-rose-950/40 rounded-xl p-3 sm:p-3.5 border border-rose-800/50">
+      <span class="text-[11px] text-rose-300 block font-medium">Net Surrender Loss</span>
+      <span class="text-sm sm:text-base font-bold font-mono text-rose-400 mt-0.5 block break-words" style="overflow-wrap: anywhere;">-{lossAmount}</span>
+    </div>
+
+    <div class="bg-slate-800/80 rounded-xl p-3 sm:p-3.5 border border-slate-700/60">
+      <span class="text-[11px] text-amber-300 block font-medium">Paid-Up Alternative</span>
+      <span class="text-sm sm:text-base font-bold font-mono text-white mt-0.5 block break-words" style="overflow-wrap: anywhere;">{paidUpCover}</span>
+    </div>
+  </div>
+
+  <!-- GSV vs SSV Details -->
+  <div class="p-3 sm:p-3.5 rounded-xl bg-slate-800/50 border border-slate-700/50 text-xs space-y-2">
+    <div class="flex flex-col sm:flex-row sm:justify-between text-slate-300 gap-0.5">
+      <span>Guaranteed Surrender Value (GSV):</span>
+      <span class="font-mono font-semibold text-white break-words">{gsvAmount}</span>
+    </div>
+    <div class="flex flex-col sm:flex-row sm:justify-between text-slate-300 gap-0.5">
+      <span>Special Surrender Value (SSV):</span>
+      <span class="font-mono font-semibold text-white break-words">{ssvAmount}</span>
+    </div>
+  </div>
+
+  <!-- Important Surrender Caution -->
+  <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs leading-relaxed flex items-start gap-2.5">
+    <span class="text-amber-400 font-bold shrink-0 text-sm">⚠</span>
+    <div>
+      <strong>High Financial Loss Warning:</strong> Surrendering this policy leads to an estimated loss of <strong>{lossPercentage}</strong> of total paid premiums and permanently voids your life cover. Consider the <strong>Paid-Up</strong> option before submitting surrender papers.
+    </div>
+  </div>
+</div>

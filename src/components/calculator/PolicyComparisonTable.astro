@@ -1,0 +1,150 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  class?: string;
+}
+
+const {
+  title = 'Surrender vs. Paid-Up vs. Continue: 3-Way Comparison',
+  subtitle = 'Understand your 3 primary options before making any permanent decision on your LIC policy.',
+  class: className = ''
+} = Astro.props;
+
+const comparisonData = [
+  {
+    feature: 'Immediate Cash Payout',
+    surrender: 'Immediate lump sum (~30% to 70% of premiums)',
+    paidUp: 'No immediate cash (vests until maturity)',
+    continuePolicy: 'No immediate payout (maturity at term end)'
+  },
+  {
+    feature: 'Life Insurance Cover',
+    surrender: 'Terminated immediately (₹0 cover)',
+    paidUp: 'Continues with reduced proportional cover',
+    continuePolicy: 'Full 100% life cover remains active'
+  },
+  {
+    feature: 'Future Premium Burden',
+    surrender: 'No further premiums required',
+    paidUp: 'No further premiums required',
+    continuePolicy: 'Must pay all scheduled future premiums'
+  },
+  {
+    feature: 'Maturity Return Payout',
+    surrender: '₹0 (Policy is closed)',
+    paidUp: 'Proportional Sum Assured + Vested Bonus',
+    continuePolicy: 'Full Sum Assured + All Bonuses + FAB'
+  },
+  {
+    feature: 'Net Financial Impact',
+    surrender: 'Heavy capital loss in early policy years',
+    paidUp: 'Preserves invested money with reduced returns',
+    continuePolicy: 'Maximum financial yield and tax savings'
+  },
+  {
+    feature: 'Recommended When',
+    surrender: 'Emergency cash is urgently required',
+    paidUp: 'Cannot afford premiums but want some cover',
+    continuePolicy: 'You can comfortably manage annual premiums'
+  }
+];
+---
+
+<div class={`bg-white rounded-2xl border border-slate-200/90 shadow-card p-6 sm:p-8 space-y-6 ${className}`} id="comparison">
+  <div class="max-w-2xl">
+    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-100 text-brand-800 mb-2">
+      Strategic Decision Matrix
+    </span>
+    <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+      {title}
+    </h3>
+    <p class="text-xs sm:text-sm text-slate-500 mt-1">
+      {subtitle}
+    </p>
+  </div>
+
+  <!-- Desktop Comparison Table (Hidden on small mobile) -->
+  <div class="hidden md:block overflow-x-auto rounded-xl border border-slate-200">
+    <table class="min-w-full divide-y divide-slate-200 text-xs sm:text-sm">
+      <thead class="bg-slate-50">
+        <tr>
+          <th scope="col" class="py-4 pl-4 pr-3 text-left font-bold text-slate-900 w-1/4">
+            Comparison Criteria
+          </th>
+          <th scope="col" class="px-3 py-4 text-left font-bold text-rose-800 bg-rose-50/50 w-1/4">
+            1. Surrender Policy
+          </th>
+          <th scope="col" class="px-3 py-4 text-left font-bold text-amber-800 bg-amber-50/50 w-1/4">
+            2. Convert to Paid-Up
+          </th>
+          <th scope="col" class="px-3 py-4 text-left font-bold text-emerald-800 bg-emerald-50/50 w-1/4">
+            3. Continue Policy
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-200 bg-white">
+        {
+          comparisonData.map((row) => (
+            <tr class="hover:bg-slate-50/70 transition-colors">
+              <td class="py-3.5 pl-4 pr-3 font-semibold text-slate-800">
+                {row.feature}
+              </td>
+              <td class="px-3 py-3.5 text-slate-700 bg-rose-50/20">
+                {row.surrender}
+              </td>
+              <td class="px-3 py-3.5 text-slate-700 bg-amber-50/20">
+                {row.paidUp}
+              </td>
+              <td class="px-3 py-3.5 text-slate-700 bg-emerald-50/20">
+                {row.continuePolicy}
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Mobile Stacked Cards (Visible only on mobile) -->
+  <div class="grid grid-cols-1 gap-4 md:hidden">
+    <!-- Card 1: Surrender -->
+    <div class="rounded-xl border border-rose-200 bg-rose-50/30 p-5 space-y-3">
+      <div class="flex items-center justify-between">
+        <h4 class="font-bold text-sm text-rose-900">1. Surrender Policy</h4>
+        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-800">Immediate Cash</span>
+      </div>
+      <ul class="text-xs text-slate-700 space-y-2">
+        <li><strong>Payout:</strong> Immediate cash (~30%–70% of paid premiums).</li>
+        <li><strong>Cover:</strong> Terminated immediately (₹0 cover).</li>
+        <li><strong>Impact:</strong> Severe financial loss in early policy years.</li>
+      </ul>
+    </div>
+
+    <!-- Card 2: Paid-Up -->
+    <div class="rounded-xl border border-amber-200 bg-amber-50/30 p-5 space-y-3">
+      <div class="flex items-center justify-between">
+        <h4 class="font-bold text-sm text-amber-900">2. Convert to Paid-Up</h4>
+        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">Recommended</span>
+      </div>
+      <ul class="text-xs text-slate-700 space-y-2">
+        <li><strong>Payout:</strong> Paid at maturity (Reduced Sum Assured + Vested Bonus).</li>
+        <li><strong>Cover:</strong> Proportional life cover stays active till maturity.</li>
+        <li><strong>Impact:</strong> Stops future premium burden without full loss.</li>
+      </ul>
+    </div>
+
+    <!-- Card 3: Continue -->
+    <div class="rounded-xl border border-emerald-200 bg-emerald-50/30 p-5 space-y-3">
+      <div class="flex items-center justify-between">
+        <h4 class="font-bold text-sm text-emerald-900">3. Continue Policy</h4>
+        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">Max Return</span>
+      </div>
+      <ul class="text-xs text-slate-700 space-y-2">
+        <li><strong>Payout:</strong> Full Sum Assured + All Bonuses + FAB.</li>
+        <li><strong>Cover:</strong> 100% life insurance protection continues.</li>
+        <li><strong>Impact:</strong> Highest long-term return and tax benefits.</li>
+      </ul>
+    </div>
+  </div>
+</div>

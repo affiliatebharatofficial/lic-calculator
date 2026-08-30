@@ -1,0 +1,282 @@
+---
+import CalculatorShell from '@/components/calculator/CalculatorShell.astro';
+import PlanSelector from '@/components/calculator/PlanSelector.astro';
+import CurrencyInput from '@/components/calculator/CurrencyInput.astro';
+import RangeInput from '@/components/calculator/RangeInput.astro';
+import SelectInput from '@/components/calculator/SelectInput.astro';
+import CalculateButton from '@/components/calculator/CalculateButton.astro';
+import ResetButton from '@/components/calculator/ResetButton.astro';
+import ResultBreakdown from '@/components/calculator/ResultBreakdown.astro';
+import PolicyComparisonTable from '@/components/calculator/PolicyComparisonTable.astro';
+import SurrenderTimeline from '@/components/calculator/SurrenderTimeline.astro';
+import DataQualityBadge from '@/components/calculator/DataQualityBadge.astro';
+import CalculationExplanation from '@/components/calculator/CalculationExplanation.astro';
+import RelatedCalculatorCard from '@/components/calculator/RelatedCalculatorCard.astro';
+import AIExplanationCard from '@/components/ai/AIExplanationCard.astro';
+import { CALCULATOR_SEO_DATA } from '@/lib/seo/calculator-content';
+
+const seoData = CALCULATOR_SEO_DATA['lic-surrender-analysis'];
+
+const breadcrumbs = [
+  { name: 'Calculators', url: '/calculators' },
+  { name: 'Surrender Analysis', url: '/lic-surrender-analysis' }
+];
+
+const frequencyOptions = [
+  { label: 'Yearly', value: 'yearly' },
+  { label: 'Half-Yearly', value: 'half-yearly' },
+  { label: 'Quarterly', value: 'quarterly' },
+  { label: 'Monthly (NACH)', value: 'monthly' }
+];
+
+const breakdownItems = [
+  { id: '1', label: 'Total Premiums Deposited', amount: '₹1,25,000', notes: '5 years of premium payments' },
+  { id: '2', label: 'Guaranteed Surrender Value (GSV @ 50%)', amount: '₹50,000', notes: 'Statutory minimum cash value formula' },
+  { id: '3', label: 'Special Surrender Value (SSV @ 55%)', amount: '₹68,750', notes: 'Actuarial paid-up discounted value (Higher & Payable)' },
+  { id: '4', label: 'Estimated Monetary Difference (Capital Shortfall)', amount: '₹56,250', isCredit: true, notes: '45.0% reduction from total capital paid' },
+  { id: '5', label: 'Paid-Up Cover Alternative', amount: '₹1,25,000', notes: 'Life insurance cover retained if you stop paying without surrendering' }
+];
+
+const relatedTools = [
+  {
+    title: 'Surrender Value Calculator',
+    description: 'Quick estimation of GSV and SSV cash value factors.',
+    url: '/lic-surrender-value-calculator',
+    category: 'Surrender'
+  },
+  {
+    title: 'Surrender Loss Calculator',
+    description: 'Detailed analysis of capital difference and percentage loss.',
+    url: '/lic-surrender-loss-calculator',
+    category: 'Loss Analysis'
+  },
+  {
+    title: 'Policy Loan Calculator',
+    description: 'Borrow up to 90% of surrender value to retain full life cover.',
+    url: '/lic-loan-calculator',
+    category: 'Liquidity'
+  }
+];
+---
+
+<CalculatorShell
+  title={seoData.seoTitle}
+  description={seoData.metaDescription}
+  calculatorTitle={seoData.h1}
+  calculatorSubtitle={seoData.subtitle}
+  category={seoData.category}
+  lastReviewedDate={seoData.lastReviewedDate}
+  sources={seoData.sources}
+  faqs={seoData.faqs}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Form Inputs Slot -->
+  <div slot="inputs" class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 shadow-card">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+      <div>
+        <h2 class="text-base font-bold text-slate-900">Policy Details</h2>
+        <p class="text-xs text-slate-500 mt-0.5">Enter policy parameters to run complete 3-way surrender analysis.</p>
+      </div>
+      <ResetButton />
+    </div>
+
+    <!-- Error Banner -->
+    <div id="calc-error-banner" class="hidden mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200/80 text-rose-700 text-xs font-semibold" role="alert"></div>
+
+    <form id="lic-surrender-analysis-form" class="space-y-5">
+      <PlanSelector
+        id="planTableNo"
+        name="planTableNo"
+        label="Select LIC Plan"
+        defaultValue={914}
+        required
+      />
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <CurrencyInput
+          id="sumAssured"
+          name="sumAssured"
+          label="Basic Sum Assured"
+          min={100000}
+          max={100000000}
+          step={25000}
+          value={500000}
+          required
+        />
+
+        <CurrencyInput
+          id="annualPremium"
+          name="annualPremium"
+          label="Annual Premium (Excl. Tax)"
+          min={1000}
+          max={5000000}
+          step={1000}
+          value={25000}
+          required
+        />
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <RangeInput
+          id="policyTerm"
+          name="policyTerm"
+          label="Original Policy Term"
+          min={10}
+          max={35}
+          step={1}
+          value={20}
+          unit="Years"
+          required
+        />
+
+        <RangeInput
+          id="premiumPayingTerm"
+          name="premiumPayingTerm"
+          label="Premium Paying Term (PPT)"
+          min={5}
+          max={35}
+          step={1}
+          value={20}
+          unit="Years"
+          required
+        />
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <RangeInput
+          id="completedYears"
+          name="completedYears"
+          label="Years Premiums Paid"
+          min={1}
+          max={35}
+          step={1}
+          value={5}
+          unit="Years"
+          required
+          helpText="Minimum 2 years to acquire cash value."
+        />
+
+        <SelectInput
+          id="premiumFrequency"
+          name="premiumFrequency"
+          label="Payment Frequency"
+          options={frequencyOptions}
+          value="yearly"
+          required
+        />
+      </div>
+
+      <CurrencyInput
+        id="accruedBonus"
+        name="accruedBonus"
+        label="Vested Bonus to Date (Optional)"
+        min={0}
+        max={10000000}
+        step={5000}
+        value={0}
+        helpText="Leave ₹0 to estimate automatically from plan rules."
+      />
+
+      <div class="pt-2">
+        <CalculateButton text="Run Complete Surrender Analysis" />
+      </div>
+    </form>
+  </div>
+
+  <!-- Results Slot -->
+  <div slot="results" id="calc-result-container">
+    <div class="space-y-6">
+      <!-- High Level Metric Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-card space-y-1">
+          <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">1. Total Paid</span>
+          <div class="text-2xl font-black text-slate-900 tracking-tight" id="res-total-paid">₹1,25,000</div>
+          <span class="text-xs text-slate-500">5 regular annual installments</span>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-card space-y-1">
+          <span class="text-xs font-semibold text-brand-600 uppercase tracking-wider block">2. Cash Surrender Value</span>
+          <div class="text-2xl font-black text-brand-700 tracking-tight" id="res-surrender-val">₹68,750</div>
+          <span class="text-xs text-brand-600 font-medium" id="res-rule-applied">Governing: SSV (55.0%)</span>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-rose-100 bg-rose-50/40 p-5 shadow-card space-y-1">
+          <span class="text-xs font-semibold text-rose-700 uppercase tracking-wider block">3. Capital Difference</span>
+          <div class="text-2xl font-black text-rose-600 tracking-tight" id="res-diff-amt">-₹56,250</div>
+          <span class="text-xs text-rose-600 font-medium" id="res-diff-pct">45.0% less than premiums paid</span>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-indigo-100 bg-indigo-50/40 p-5 shadow-card space-y-1">
+          <span class="text-xs font-semibold text-indigo-700 uppercase tracking-wider block">4. Paid-Up Life Cover</span>
+          <div class="text-2xl font-black text-indigo-900 tracking-tight" id="res-paidup-sa">₹1,25,000</div>
+          <span class="text-xs text-indigo-700 font-medium">Cover remains with ₹0 further payment</span>
+        </div>
+      </div>
+
+      <!-- Analysis Timeline Chart -->
+      <SurrenderTimeline />
+
+      <!-- Verified Data Indicator -->
+      <DataQualityBadge />
+
+      <!-- AI Assistant Explanation CTA -->
+      <button
+        type="button"
+        id="explain-ai-btn"
+        class="w-full py-2.5 px-4 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-sm hover:shadow transition-all flex items-center justify-center gap-2 cursor-pointer"
+      >
+        <span>✨</span>
+        <span>Explain this 3-way analysis with AI</span>
+      </button>
+
+      <AIExplanationCard calculatorId="lic-surrender-analysis" />
+    </div>
+  </div>
+
+  <!-- Bottom Slots -->
+  <div slot="comparison">
+    <div class="space-y-4">
+      <PolicyComparisonTable
+        title="3-Way Decision Comparison: Surrender vs. Paid-Up vs. Continue"
+        subtitle="Objective numerical projection of your 3 primary financial options before taking action."
+      />
+    </div>
+  </div>
+
+  <div slot="breakdown">
+    <ResultBreakdown
+      title="Surrender Analysis Itemized Breakdown"
+      subtitle="Complete accounting of premiums deposited, cash factors, and capital difference"
+      items={breakdownItems}
+      totalLabel="Net Estimated Capital Difference"
+      totalAmount="₹56,250"
+    />
+  </div>
+
+  <div slot="explanation">
+    <CalculationExplanation
+      title={seoData.howItWorks.title}
+      steps={seoData.howItWorks.steps}
+      notes={seoData.assumptionsAndLimitations.notes}
+    />
+  </div>
+
+  <div slot="related">
+    <RelatedCalculatorCard tools={relatedTools} />
+  </div>
+</CalculatorShell>
+
+<div id="calc-live-announcer" class="sr-only" aria-live="polite"></div>
+
+<script>
+  import { initCalculatorForm } from '@/lib/client/calculator-client';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initCalculatorForm({
+      formId: 'lic-surrender-analysis-form',
+      apiEndpoint: '/api/calculators/surrender-analysis',
+      calculatorId: 'lic-surrender-analysis',
+      calculatorName: 'Advanced Surrender Analysis'
+    });
+  });
+</script>

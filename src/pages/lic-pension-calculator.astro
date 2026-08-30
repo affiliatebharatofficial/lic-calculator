@@ -1,0 +1,121 @@
+---
+import CalculatorShell from '@/components/calculator/CalculatorShell.astro';
+import CurrencyInput from '@/components/calculator/CurrencyInput.astro';
+import RangeInput from '@/components/calculator/RangeInput.astro';
+import CalculateButton from '@/components/calculator/CalculateButton.astro';
+import ResetButton from '@/components/calculator/ResetButton.astro';
+import ResultCard from '@/components/ui/ResultCard.astro';
+import ResultBreakdown from '@/components/calculator/ResultBreakdown.astro';
+import CalculationExplanation from '@/components/calculator/CalculationExplanation.astro';
+import RelatedCalculatorCard from '@/components/calculator/RelatedCalculatorCard.astro';
+import { CALCULATOR_SEO_DATA } from '@/lib/seo/calculator-content';
+
+const seoData = CALCULATOR_SEO_DATA['lic-pension-calculator'];
+
+const breadcrumbs = [
+  { name: 'Calculators', url: '/calculators' },
+  { name: 'Pension & Annuity Calculator', url: '/lic-pension-calculator' }
+];
+
+const breakdownItems = [
+  { id: '1', label: 'Gross Purchase Price Corpus', amount: '₹25,00,000', notes: 'Initial retirement investment' },
+  { id: '2', label: 'Concessional Annuity GST (1.8%)', amount: '₹44,204', isCredit: true, notes: 'Government statutory tax' },
+  { id: '3', label: 'Guaranteed Annual Payout (~6.96%)', amount: '₹1,74,000 / yr', isCredit: true, notes: 'Lifelong fixed income guarantee' }
+];
+
+const relatedTools = [
+  {
+    title: 'Maturity Calculator',
+    description: 'Check how much maturity corpus your savings plan will generate.',
+    url: '/lic-maturity-calculator',
+    category: 'Corpus'
+  },
+  {
+    title: 'Policy Loan Calculator',
+    description: 'Borrow against policy surrender value before retirement.',
+    url: '/lic-loan-calculator',
+    category: 'Liquidity'
+  }
+];
+---
+
+<CalculatorShell
+  title={seoData.seoTitle}
+  description={seoData.metaDescription}
+  calculatorTitle={seoData.h1}
+  calculatorSubtitle={seoData.subtitle}
+  category={seoData.category}
+  lastReviewedDate={seoData.lastReviewedDate}
+  sources={seoData.sources}
+  faqs={seoData.faqs}
+  breadcrumbs={breadcrumbs}
+>
+  <div slot="inputs" class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 shadow-card">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+      <h2 class="text-base font-bold text-slate-900">Retirement Corpus Parameters</h2>
+      <ResetButton />
+    </div>
+
+    <form class="space-y-5">
+      <CurrencyInput
+        id="purchasePrice"
+        name="purchasePrice"
+        label="Purchase Price / Retirement Corpus"
+        value={2500000}
+        placeholder="e.g. 2500000"
+        min={100000}
+        required
+        helpText="Minimum purchase price is ₹1,00,000"
+      />
+      <RangeInput
+        id="age"
+        name="age"
+        label="Annuitant Entry Age"
+        value={60}
+        min={30}
+        max={85}
+        unit="Years"
+        required
+      />
+      <div class="pt-2">
+        <CalculateButton text="Calculate Monthly Pension" />
+      </div>
+    </form>
+  </div>
+
+  <div slot="results">
+    <ResultCard
+      headline="Guaranteed Monthly Pension"
+      amount="₹14,500 / month"
+      subtitle="Estimated Annuity Rate ~6.96% p.a. (Annual: ₹1,74,000/yr)"
+      stats={[
+        { label: 'Purchase Price', value: '₹25,00,000' },
+        { label: 'Annual Pension', value: '₹1,74,000' },
+        { label: 'Return of Purchase Price', value: 'Option Available' },
+        { label: 'Pension Frequency', value: 'Monthly (NEFT)' }
+      ]}
+    />
+  </div>
+
+  <div slot="breakdown">
+    <ResultBreakdown
+      title="Pension Payout & Corpus Breakdown"
+      subtitle="Sample illustration for ₹25,00,000 lump sum purchase price"
+      items={breakdownItems}
+      totalLabel="Estimated Guaranteed Annual Income"
+      totalAmount="₹1,74,000 / yr"
+    />
+  </div>
+
+  <div slot="explanation">
+    <CalculationExplanation
+      title={seoData.howItWorks.title}
+      steps={seoData.howItWorks.steps}
+      notes={seoData.assumptionsAndLimitations.notes}
+    />
+  </div>
+
+  <div slot="related">
+    <RelatedCalculatorCard tools={relatedTools} />
+  </div>
+</CalculatorShell>

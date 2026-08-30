@@ -1,0 +1,225 @@
+---
+import CalculatorShell from '@/components/calculator/CalculatorShell.astro';
+import PlanSelector from '@/components/calculator/PlanSelector.astro';
+import CurrencyInput from '@/components/calculator/CurrencyInput.astro';
+import RangeInput from '@/components/calculator/RangeInput.astro';
+import CalculateButton from '@/components/calculator/CalculateButton.astro';
+import ResetButton from '@/components/calculator/ResetButton.astro';
+import ResultCard from '@/components/ui/ResultCard.astro';
+import ResultBreakdown from '@/components/calculator/ResultBreakdown.astro';
+import PolicyComparisonTable from '@/components/calculator/PolicyComparisonTable.astro';
+import CalculationExplanation from '@/components/calculator/CalculationExplanation.astro';
+import RelatedCalculatorCard from '@/components/calculator/RelatedCalculatorCard.astro';
+import AIExplanationCard from '@/components/ai/AIExplanationCard.astro';
+import { CALCULATOR_SEO_DATA } from '@/lib/seo/calculator-content';
+
+const seoData = CALCULATOR_SEO_DATA['lic-surrender-loss-calculator'];
+
+const breadcrumbs = [
+  { name: 'Calculators', url: '/calculators' },
+  { name: 'Surrender Loss Calculator', url: '/lic-surrender-loss-calculator' }
+];
+
+const breakdownItems = [
+  { id: '1', label: 'Total Premiums Deposited', amount: '₹1,25,000', notes: '5 years of premium payments' },
+  { id: '2', label: 'Cash Surrender Proceeds Returned', amount: '₹68,750', isCredit: false, notes: 'Estimated payout upon immediate surrender' },
+  { id: '3', label: 'Estimated Monetary Difference (Capital Shortfall)', amount: '₹56,250', isCredit: true, notes: '45.0% reduction from total capital paid' }
+];
+
+const relatedTools = [
+  {
+    title: 'Surrender Value Calculator',
+    description: 'Detailed GSV and SSV factor comparison for your policy tenure.',
+    url: '/lic-surrender-value-calculator',
+    category: 'Surrender'
+  },
+  {
+    title: 'Advanced Surrender Decision Analysis',
+    description: '3-way numerical comparison: Surrender Now vs. Make Paid-Up vs. Continue.',
+    url: '/lic-surrender-analysis',
+    category: 'Decision'
+  },
+  {
+    title: 'Policy Loan Calculator',
+    description: 'Check loan eligibility to meet cash needs without forfeiting capital.',
+    url: '/lic-loan-calculator',
+    category: 'Liquidity'
+  }
+];
+---
+
+<CalculatorShell
+  title={seoData.seoTitle}
+  description={seoData.metaDescription}
+  calculatorTitle={seoData.h1}
+  calculatorSubtitle={seoData.subtitle}
+  category={seoData.category}
+  lastReviewedDate={seoData.lastReviewedDate}
+  sources={seoData.sources}
+  faqs={seoData.faqs}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Form Inputs Slot -->
+  <div slot="inputs" class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 shadow-card">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+      <h2 class="text-base font-bold text-slate-900">Surrender Loss Parameters</h2>
+      <ResetButton />
+    </div>
+
+    <div id="calc-error-banner" class="hidden mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200/80 text-rose-700 text-xs font-semibold" role="alert"></div>
+
+    <form id="lic-surrender-loss-form" class="space-y-5">
+      <PlanSelector
+        id="planTableNo"
+        name="planTableNo"
+        label="Select LIC Plan"
+        defaultValue={914}
+        required
+      />
+
+      <CurrencyInput
+        id="sumAssured"
+        name="sumAssured"
+        label="Original Sum Assured"
+        min={100000}
+        max={100000000}
+        step={25000}
+        value={500000}
+        required
+      />
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <RangeInput
+          id="policyTerm"
+          name="policyTerm"
+          label="Original Policy Term"
+          min={10}
+          max={35}
+          step={1}
+          value={20}
+          unit="Years"
+          required
+        />
+
+        <RangeInput
+          id="completedYears"
+          name="completedYears"
+          label="Completed Years Paid"
+          min={1}
+          max={35}
+          step={1}
+          value={5}
+          unit="Years"
+          required
+        />
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <CurrencyInput
+          id="annualPremium"
+          name="annualPremium"
+          label="Annual Premium (Excl. Tax)"
+          min={1000}
+          max={5000000}
+          step={1000}
+          value={25000}
+          required
+        />
+
+        <CurrencyInput
+          id="totalPremiumsPaid"
+          name="totalPremiumsPaid"
+          label="Total Premiums Paid to Date"
+          min={1000}
+          max={50000000}
+          step={5000}
+          value={125000}
+          required
+        />
+      </div>
+
+      <div class="pt-2">
+        <CalculateButton text="Calculate Surrender Shortfall" />
+      </div>
+    </form>
+  </div>
+
+  <!-- Results Slot -->
+  <div slot="results" id="calc-result-container">
+    <div class="space-y-4">
+      <ResultCard
+        headline="Estimated Net Capital Shortfall"
+        amount="₹56,250"
+        subtitle="You receive ₹68,750 cash back from ₹1,25,000 total premiums paid."
+        stats={[
+          { label: 'Total Paid In', value: '₹1,25,000' },
+          { label: 'Cash Value Returned', value: '₹68,750' },
+          { label: 'Monetary Shortfall', value: '₹56,250' },
+          { label: 'Capital Loss %', value: '45.0%' }
+        ]}
+      />
+
+      <div id="calc-rule-source-badge" class="text-xs text-slate-500 bg-slate-50 border border-slate-200/60 p-2.5 rounded-xl text-center">
+        Rule Version: SYNTHETIC_2024.1 (Verified Rule Set Table 914)
+      </div>
+
+      <button
+        type="button"
+        id="explain-ai-btn"
+        class="w-full py-2.5 px-4 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-sm hover:shadow transition-all flex items-center justify-center gap-2 cursor-pointer"
+      >
+        <span>✨</span>
+        <span>Explain this shortfall calculation with AI</span>
+      </button>
+
+      <AIExplanationCard calculatorId="lic-surrender-loss-calculator" />
+    </div>
+  </div>
+
+  <!-- Bottom Slots -->
+  <div slot="breakdown">
+    <ResultBreakdown
+      title="Surrender Loss Financial Breakdown"
+      subtitle="Detailed comparison between invested capital and surrender payout"
+      items={breakdownItems}
+      totalLabel="Net Capital Deduction"
+      totalAmount="₹56,250"
+    />
+  </div>
+
+  <div slot="comparison">
+    <div class="space-y-4">
+      <PolicyComparisonTable
+        title="3-Way Decision Comparison: Surrender vs. Paid-Up vs. Continue"
+        subtitle="Numerical projection of your 3 primary financial alternatives before submitting surrender paperwork."
+      />
+    </div>
+  </div>
+
+  <div slot="explanation">
+    <CalculationExplanation
+      title={seoData.howItWorks.title}
+      steps={seoData.howItWorks.steps}
+      notes={seoData.assumptionsAndLimitations.notes}
+    />
+  </div>
+
+  <div slot="related">
+    <RelatedCalculatorCard tools={relatedTools} />
+  </div>
+</CalculatorShell>
+
+<div id="calc-live-announcer" class="sr-only" aria-live="polite"></div>
+
+<script>
+  import { initCalculatorForm } from '@/lib/client/calculator-client';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initCalculatorForm({
+      formId: 'lic-surrender-loss-form',
+      apiEndpoint: '/api/calculators/surrender-loss',
+      calculatorId: 'lic-surrender-loss-calculator',
+      calculatorName: 'LIC Surrender Loss Calculator'
+    });
+  });
+</script>

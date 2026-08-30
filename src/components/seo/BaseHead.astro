@@ -1,0 +1,71 @@
+---
+import type { SeoMetaProps } from '@/types/seo';
+import { getHreflangList } from '@/lib/i18n';
+
+interface Props extends SeoMetaProps {
+  currentPath?: string;
+}
+
+const {
+  title,
+  description,
+  canonicalUrl,
+  ogType = 'website',
+  ogImage = '/images/og-default.png',
+  twitterCard = 'summary_large_image',
+  noIndex = false,
+  publishedTime,
+  modifiedTime,
+  locale = 'en'
+} = Astro.props;
+
+const siteUrl = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://lic-calculators.com';
+const canonical = canonicalUrl || new URL(Astro.url.pathname, siteUrl).toString();
+const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+const fullTitle = title.includes('LIC Calculator') ? title : `${title} | LIC Calculator`;
+const hreflangList = getHreflangList(Astro.url.pathname);
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonical} />
+
+<!-- Multilingual Hreflang Tags -->
+{
+  hreflangList.map((entry) => (
+    <link rel="alternate" hreflang={entry.hreflang} href={entry.href} />
+  ))
+}
+
+<!-- Primary Meta Tags -->
+<title>{fullTitle}</title>
+<meta name="title" content={fullTitle} />
+<meta name="description" content={description} />
+{noIndex && <meta name="robots" content="noindex, nofollow" />}
+{!noIndex && <meta name="robots" content="index, follow, max-image-preview:large" />}
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={fullOgImage} />
+<meta property="og:site_name" content="LIC Calculator" />
+<meta property="og:locale" content={locale === 'en' ? 'en_IN' : `${locale}_IN`} />
+{publishedTime && <meta property="article:published_time" content={publishedTime} />}
+{modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content={twitterCard} />
+<meta name="twitter:url" content={canonical} />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={fullOgImage} />
+
+<!-- Independent Platform Notice for Bots & Search Crawlers -->
+<meta name="disclaimer" content="Independent informational platform not affiliated with Life Insurance Corporation of India (LIC)." />

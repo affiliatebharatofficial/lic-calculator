@@ -1,0 +1,79 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro';
+
+const plans = [
+  { tableNo: 914, planCode: '914', name: 'New Endowment Plan', category: 'Endowment', status: 'active', minAge: 8, maxAge: 55, minTerm: 12, maxTerm: 35, rulesCount: 2 },
+  { tableNo: 915, planCode: '915', name: 'New Jeevan Anand', category: 'Endowment + Whole Life', status: 'active', minAge: 18, maxAge: 50, minTerm: 15, maxTerm: 35, rulesCount: 1 },
+  { tableNo: 936, planCode: '936', name: 'Jeevan Labh', category: 'Limited Premium Endowment', status: 'active', minAge: 8, maxAge: 59, minTerm: 16, maxTerm: 25, rulesCount: 1 },
+  { tableNo: 945, planCode: '945', name: 'Jeevan Umang', category: 'Whole Life 8% Survival', status: 'active', minAge: 0, maxAge: 55, minTerm: 15, maxTerm: 30, rulesCount: 1 },
+  { tableNo: 855, planCode: '855', name: 'Tech Term', category: 'Pure Term Assurance', status: 'active', minAge: 18, maxAge: 65, minTerm: 10, maxTerm: 40, rulesCount: 1 },
+  { tableNo: 857, planCode: '857', name: 'Saral Pension', category: 'Standard Immediate Annuity', status: 'active', minAge: 40, maxAge: 80, minTerm: 1, maxTerm: 1, rulesCount: 1 }
+];
+---
+
+<AdminLayout title="LIC Plans Management" activeSection="plans">
+  <div class="space-y-6 max-w-7xl mx-auto">
+    <!-- Header with Create Plan Action -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <h2 class="text-xl font-bold text-white tracking-tight">Active Plan Directory</h2>
+        <p class="text-xs text-slate-400">Manage official policy table numbers, age constraints, and assigned calculation rules.</p>
+      </div>
+
+      <button
+        type="button"
+        class="px-4 py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs rounded-xl shadow-sm transition-colors cursor-pointer"
+      >
+        + Add New Plan Record
+      </button>
+    </div>
+
+    <!-- Plans Table -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-950/60 border-b border-slate-800 text-slate-400">
+            <tr>
+              <th class="py-3.5 px-4 font-semibold">Table No</th>
+              <th class="py-3.5 px-4 font-semibold">Plan Name</th>
+              <th class="py-3.5 px-4 font-semibold">Category</th>
+              <th class="py-3.5 px-4 font-semibold">Entry Age</th>
+              <th class="py-3.5 px-4 font-semibold">Term Range</th>
+              <th class="py-3.5 px-4 font-semibold">Status</th>
+              <th class="py-3.5 px-4 font-semibold">Rules</th>
+              <th class="py-3.5 px-4 font-semibold text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800 text-slate-300">
+            {
+              plans.map((p) => (
+                <tr class="hover:bg-slate-800/40 transition-colors">
+                  <td class="py-3.5 px-4 font-mono font-bold text-white">Table {p.tableNo}</td>
+                  <td class="py-3.5 px-4 font-sans font-bold text-white">{p.name}</td>
+                  <td class="py-3.5 px-4 text-slate-400">{p.category}</td>
+                  <td class="py-3.5 px-4 font-mono">{p.minAge} - {p.maxAge} Yrs</td>
+                  <td class="py-3.5 px-4 font-mono">{p.minTerm} - {p.maxTerm} Yrs</td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase">
+                      {p.status}
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-4">
+                    <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px]">
+                      {p.rulesCount} active
+                    </span>
+                  </td>
+                  <td class="py-3.5 px-4 text-right space-x-2">
+                    <a href={`/admin/rules?planCode=${p.planCode}`} class="text-xs text-brand-400 hover:underline">
+                      Rules &rarr;
+                    </a>
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</AdminLayout>

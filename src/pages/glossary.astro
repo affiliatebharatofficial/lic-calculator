@@ -1,0 +1,35 @@
+---
+import ContentLayout from '@/layouts/ContentLayout.astro';
+import Card from '@/components/ui/Card.astro';
+
+const breadcrumbs = [{ name: 'Glossary', url: '/glossary' }];
+
+const terms = [
+  { term: 'Sum Assured', def: 'The guaranteed minimum sum guaranteed to be paid upon policy maturity or on death of the life assured.' },
+  { term: 'Premium Paying Term (PPT)', def: 'The total duration in years for which premiums are required to be paid.' },
+  { term: 'Guaranteed Surrender Value (GSV)', def: 'The contractual minimum surrender value payable after paying premiums for a minimum specified number of years.' },
+  { term: 'Special Surrender Value (SSV)', def: 'An actuarially discounted surrender value calculated based on paid-up value plus vested bonuses.' },
+  { term: 'Paid-Up Policy', def: 'A policy status where future premiums are stopped, but reduced proportional life cover continues till maturity.' },
+  { term: 'Simple Reversionary Bonus', def: 'An annual bonus declared per thousand sum assured by LIC that vests in the policy.' },
+  { term: 'Final Additional Bonus (FAB)', def: 'A one-time bonus paid on death or maturity for policies that have run for long terms (typically 15+ years).' }
+];
+---
+
+<ContentLayout
+  title="Insurance Glossary - Important Policy Terms Explained"
+  description="Definitions of common insurance and LIC policy terms: Sum Assured, PPT, GSV, SSV, Paid-Up, Bonus, and FAB."
+  pageTitle="Insurance & Policy Glossary"
+  pageSubtitle="A comprehensive reference for technical terms used across LIC policy documents and calculators."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {
+      terms.map((item) => (
+        <Card class="p-5">
+          <h2 class="text-sm font-bold text-brand-900 mb-1">{item.term}</h2>
+          <p class="text-xs text-slate-600 leading-relaxed">{item.def}</p>
+        </Card>
+      ))
+    }
+  </div>
+</ContentLayout>

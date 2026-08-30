@@ -1,0 +1,183 @@
+---
+import CalculatorShell from '@/components/calculator/CalculatorShell.astro';
+import PlanSelector from '@/components/calculator/PlanSelector.astro';
+import RangeInput from '@/components/calculator/RangeInput.astro';
+import CurrencyInput from '@/components/calculator/CurrencyInput.astro';
+import CalculateButton from '@/components/calculator/CalculateButton.astro';
+import ResetButton from '@/components/calculator/ResetButton.astro';
+import ResultCard from '@/components/ui/ResultCard.astro';
+import ResultBreakdown from '@/components/calculator/ResultBreakdown.astro';
+import CalculationExplanation from '@/components/calculator/CalculationExplanation.astro';
+import RelatedCalculatorCard from '@/components/calculator/RelatedCalculatorCard.astro';
+import AIExplanationCard from '@/components/ai/AIExplanationCard.astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import { getCalculatorSeoData } from '@/lib/seo/calculator-content';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+const seoData = getCalculatorSeoData('lic-bonus-calculator', locale);
+
+const breadcrumbs = [
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
+  { name: t(locale, 'nav.bonusCalculator'), url: getLocalizedPath('/lic-bonus-calculator', locale) }
+];
+
+const breakdownItems = [
+  { id: '1', label: 'Simple Reversionary Bonus (₹42/th x 20 yrs)', amount: '₹4,20,000', notes: 'Vests annually at ₹21,000/yr' },
+  { id: '2', label: 'Final Additional Bonus (FAB @ ₹70/th)', amount: '₹35,000', notes: 'One-time loyalty terminal bonus' },
+  { id: '3', label: 'Total Projected Bonus Accumulation', amount: '₹4,55,000', notes: 'Payable with Sum Assured upon maturity' }
+];
+
+const relatedTools = [
+  {
+    title: t(locale, 'nav.maturityCalculator'),
+    description: 'Project combined maturity value including base Sum Assured and bonuses.',
+    url: getLocalizedPath('/lic-maturity-calculator', locale),
+    category: 'Maturity'
+  },
+  {
+    title: t(locale, 'nav.premiumCalculator'),
+    description: 'Calculate installment costs and explore mode rebate savings.',
+    url: getLocalizedPath('/lic-premium-calculator', locale),
+    category: 'Premium'
+  }
+];
+---
+
+<CalculatorShell
+  title={seoData.seoTitle}
+  description={seoData.metaDescription}
+  calculatorTitle={seoData.h1}
+  calculatorSubtitle={seoData.subtitle}
+  category={seoData.category}
+  lastReviewedDate={seoData.lastReviewedDate}
+  sources={seoData.sources}
+  faqs={seoData.faqs}
+  locale={locale}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Form Inputs Slot -->
+  <div slot="inputs" class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 shadow-card">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+      <h2 class="text-base font-bold text-slate-900">{t(locale, 'common.assumptions')}</h2>
+      <ResetButton />
+    </div>
+
+    <!-- Error Banner -->
+    <div id="calc-error-banner" class="hidden mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200/80 text-rose-700 text-xs font-semibold" role="alert"></div>
+
+    <form id="lic-bonus-form" class="space-y-5">
+      <PlanSelector
+        id="planTableNo"
+        name="planTableNo"
+        label="Select LIC Plan"
+        defaultValue={914}
+        required
+      />
+
+      <CurrencyInput
+        id="sumAssured"
+        name="sumAssured"
+        label={t(locale, 'common.sumAssured')}
+        min={100000}
+        max={100000000}
+        step={25000}
+        value={500000}
+        required
+      />
+
+      <RangeInput
+        id="policyTerm"
+        name="policyTerm"
+        label={t(locale, 'common.policyTerm')}
+        min={12}
+        max={35}
+        step={1}
+        value={20}
+        unit={t(locale, 'common.years')}
+        required
+      />
+
+      <div class="pt-2">
+        <CalculateButton text={t(locale, 'common.calculate')} />
+      </div>
+    </form>
+  </div>
+
+  <!-- Results Slot -->
+  <div slot="results" id="calc-result-container">
+    <div class="space-y-4">
+      <ResultCard
+        headline="Estimated Total Bonus Accrual"
+        amount="₹4,55,000"
+        subtitle="₹4,20,000 Simple Reversionary Bonus + ₹35,000 Final Additional Bonus"
+        stats={[
+          { label: t(locale, 'common.sumAssured'), value: '₹5,00,000' },
+          { label: t(locale, 'common.policyTerm'), value: `20 ${t(locale, 'common.years')}` },
+          { label: 'Annual Bonus', value: '₹21,000 / yr' },
+          { label: 'Bonus Rate', value: '₹42 / th / yr' }
+        ]}
+      />
+
+      <div id="calc-rule-source-badge" class="text-xs text-slate-500 bg-slate-50 border border-slate-200/60 p-2.5 rounded-xl text-center">
+        {t(locale, 'common.verifiedDataBadge')}: Table 914
+      </div>
+
+      <button
+        type="button"
+        id="explain-ai-btn"
+        class="w-full py-2.5 px-4 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-sm hover:shadow transition-all flex items-center justify-center gap-2 cursor-pointer"
+      >
+        <span>✨</span>
+        <span>{t(locale, 'common.explainAiBtn')}</span>
+      </button>
+
+      <AIExplanationCard calculatorId="lic-bonus-calculator" />
+    </div>
+  </div>
+
+  <!-- Bottom Slots -->
+  <div slot="breakdown">
+    <ResultBreakdown
+      title={t(locale, 'common.breakdown')}
+      subtitle="Accrual schedule for ₹5,00,000 Sum Assured under Table 914"
+      items={breakdownItems}
+      totalLabel="Total Projected Bonus Accumulation"
+      totalAmount="₹4,55,000"
+    />
+  </div>
+
+  <div slot="explanation">
+    <CalculationExplanation
+      title={seoData.howItWorks.title}
+      steps={seoData.howItWorks.steps}
+      notes={seoData.assumptionsAndLimitations.notes}
+    />
+  </div>
+
+  <div slot="related">
+    <RelatedCalculatorCard tools={relatedTools} />
+  </div>
+</CalculatorShell>
+
+<div id="calc-live-announcer" class="sr-only" aria-live="polite"></div>
+
+<script>
+  import { initCalculatorForm } from '@/lib/client/calculator-client';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initCalculatorForm({
+      formId: 'lic-bonus-form',
+      apiEndpoint: '/api/calculators/bonus',
+      calculatorId: 'lic-bonus-calculator',
+      calculatorName: 'LIC Bonus Calculator'
+    });
+  });
+</script>

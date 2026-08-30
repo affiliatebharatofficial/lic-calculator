@@ -1,0 +1,52 @@
+---
+import ContentLayout from '@/layouts/ContentLayout.astro';
+import Input from '@/components/ui/Input.astro';
+import Button from '@/components/ui/Button.astro';
+import Card from '@/components/ui/Card.astro';
+
+const breadcrumbs = [{ name: 'Contact', url: '/contact' }];
+---
+
+<ContentLayout
+  title="Contact Us | LIC Calculator"
+  description="Get in touch with the LIC Calculator team for questions, feedback, or calculator feature requests."
+  pageTitle="Contact & Feedback"
+  pageSubtitle="Have a question, suggestion, or calculation feedback? Reach out to our team."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+    <div class="md:col-span-7 bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+      <form class="space-y-4">
+        <Input id="name" name="name" label="Your Name" placeholder="e.g. Rahul Sharma" required />
+        <Input id="email" name="email" type="email" label="Email Address" placeholder="rahul@example.com" required />
+        <div>
+          <label for="message" class="block text-sm font-medium text-slate-700 mb-1">Message / Inquiry</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            required
+            class="block w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-brand-600 focus:ring-1 focus:ring-brand-600 sm:text-sm"
+            placeholder="How can we help you?"
+          ></textarea>
+        </div>
+        <Button variant="primary" type="button" class="w-full">
+          Send Message
+        </Button>
+      </form>
+    </div>
+
+    <div class="md:col-span-5 space-y-4">
+      <Card title="Important Note">
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Please note that we are an independent calculator platform. We cannot assist with official LIC policy claims, address changes, or direct branch operations. For official requests, contact LIC directly.
+        </p>
+      </Card>
+      <Card title="Email Support">
+        <p class="text-xs text-slate-600">
+          Email: <span class="text-brand-700 font-mono">support@lic-calculators.com</span>
+        </p>
+      </Card>
+    </div>
+  </div>
+</ContentLayout>

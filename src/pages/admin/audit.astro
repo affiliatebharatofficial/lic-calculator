@@ -1,0 +1,67 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro';
+import { AuditLogger } from '@/lib/admin';
+
+const logs = AuditLogger.getLogs({ limit: 100 });
+---
+
+<AdminLayout title="Immutable Audit Trail" activeSection="audit">
+  <div class="space-y-6 max-w-7xl mx-auto">
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-xl font-bold text-white tracking-tight">Security & Operation Audit Records</h2>
+        <p class="text-xs text-slate-400">Append-only audit trail. Records cannot be edited or purged by administrators.</p>
+      </div>
+
+      <span class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300">
+        {logs.length} Total Events Logged
+      </span>
+    </div>
+
+    <!-- Logs Table -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-950/60 border-b border-slate-800 text-slate-400">
+            <tr>
+              <th class="py-3.5 px-4 font-semibold">Timestamp (UTC)</th>
+              <th class="py-3.5 px-4 font-semibold">Actor</th>
+              <th class="py-3.5 px-4 font-semibold">Role</th>
+              <th class="py-3.5 px-4 font-semibold">Action / Event</th>
+              <th class="py-3.5 px-4 font-semibold">Target Entity</th>
+              <th class="py-3.5 px-4 font-semibold">Target ID</th>
+              <th class="py-3.5 px-4 font-semibold">IP Address</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800 text-slate-300 font-mono text-[11px]">
+            {
+              logs.length === 0 ? (
+                <tr>
+                  <td colspan="7" class="py-8 text-center text-slate-500 font-sans">
+                    No audit records in memory.
+                  </td>
+                </tr>
+              ) : (
+                logs.map((log) => (
+                  <tr class="hover:bg-slate-800/40 transition-colors">
+                    <td class="py-3 px-4 text-slate-400">{log.createdAt.replace('T', ' ').slice(0, 19)}</td>
+                    <td class="py-3 px-4 font-sans font-bold text-white">{log.actorName}</td>
+                    <td class="py-3 px-4 text-slate-400 capitalize">{log.actorRole.replace('_', ' ')}</td>
+                    <td class="py-3 px-4">
+                      <span class="px-2 py-0.5 rounded bg-brand-950 border border-brand-800 text-brand-300 text-[10px] font-bold">
+                        {log.eventType}
+                      </span>
+                    </td>
+                    <td class="py-3 px-4 text-slate-400 font-sans">{log.targetEntity}</td>
+                    <td class="py-3 px-4 text-slate-500 truncate max-w-xs">{log.targetId}</td>
+                    <td class="py-3 px-4 text-slate-500">{log.ipAddress || '—'}</td>
+                  </tr>
+                ))
+              )
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</AdminLayout>

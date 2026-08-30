@@ -1,0 +1,28 @@
+name = "lic-calculators"
+main = "./dist/_worker.js/index.js"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+
+# ==========================================
+# Cloudflare D1 Database Binding
+# ==========================================
+[[d1_databases]]
+binding = "DB"
+database_name = "lic_calculators_db"
+database_id = "56b2ab57-2856-4da2-9eb3-32dc679e3804"
+migrations_dir = "db/migrations"
+
+# ==========================================
+# Cloudflare R2 Bucket Binding
+# ==========================================
+[[r2_buckets]]
+binding = "DOCS_BUCKET"
+bucket_name = "lic-calculator-docs"
+
+[vars]
+ENVIRONMENT = "production"
+SITE_URL = "https://lic-calculators.com"

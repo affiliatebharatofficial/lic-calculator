@@ -1,0 +1,37 @@
+---
+interface Props {
+  status?: 'verified' | 'partial' | 'unavailable';
+  class?: string;
+}
+
+const {
+  status = 'verified',
+  class: className = ''
+} = Astro.props;
+
+const config = {
+  verified: {
+    label: 'Verified Rule Data',
+    dotColor: 'bg-emerald-500',
+    containerClass: 'bg-emerald-50 text-emerald-800 border-emerald-200/80',
+    icon: '✓'
+  },
+  partial: {
+    label: 'Partial Data (Some Rules Estimated)',
+    dotColor: 'bg-amber-500',
+    containerClass: 'bg-amber-50 text-amber-800 border-amber-200/80',
+    icon: '!'
+  },
+  unavailable: {
+    label: 'Verified Rules Unavailable',
+    dotColor: 'bg-rose-500',
+    containerClass: 'bg-rose-50 text-rose-800 border-rose-200/80',
+    icon: '✕'
+  }
+}[status];
+---
+
+<div class={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border ${config.containerClass} ${className}`}>
+  <span class={`w-1.5 h-1.5 rounded-full ${config.dotColor} animate-pulse`}></span>
+  <span>{config.label}</span>
+</div>

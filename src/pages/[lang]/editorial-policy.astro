@@ -1,0 +1,56 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+
+const breadcrumbs = [
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
+  { name: 'Editorial & Actuarial Policy', url: getLocalizedPath('/editorial-policy', locale) }
+];
+---
+
+<BaseLayout
+  title={`Editorial & Actuarial Policy - ${t(locale, 'site.name')}`}
+  description="Learn about our rigorous actuarial research, source verification, peer-review standards, and transparent correction processes."
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+>
+  <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        E-E-A-T Standards & Editorial Integrity
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Editorial & Actuarial Verification Policy
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        LIC Calculator (lic-calculators.com) is an independent financial technology platform dedicated to providing deterministic, transparent, and accurate policy calculation tools for policyholders across India.
+      </p>
+    </div>
+
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. Independent Platform Charter</h2>
+      <p>
+        We are an independent informational and calculation platform. We are <strong>NOT</strong> affiliated with, owned by, endorsed by, or operating on behalf of the Life Insurance Corporation of India (LIC) or any governmental entity. Our tools are built solely to help consumers evaluate policy numbers, surrender values, paid-up scenarios, and loan limits objectively.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Actuarial Source Verification Standards</h2>
+      <p>
+        Every formula, tabular rate, Guaranteed Surrender Value (GSV) factor, Special Surrender Value (SSV) factor, and bonus matrix implemented in our calculation engines must be grounded in official documentary sources.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Card -->
+    <AuthorReviewerCard />
+  </div>
+</BaseLayout>

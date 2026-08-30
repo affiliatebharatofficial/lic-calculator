@@ -1,0 +1,32 @@
+---
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  description?: string;
+  checked?: boolean;
+  value?: string;
+  class?: string;
+}
+
+const { id, name, label, description, checked = false, value = 'true', class: className = '' } = Astro.props;
+---
+
+<div class={`relative flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50/70 transition-colors cursor-pointer ${className}`}>
+  <div class="flex h-5 items-center">
+    <input
+      id={id}
+      name={name}
+      type="checkbox"
+      value={value}
+      checked={checked}
+      class="h-4 w-4 rounded border-slate-300 text-brand-700 focus:ring-brand-500 cursor-pointer"
+    />
+  </div>
+  <div class="text-xs select-none">
+    <label for={id} class="font-semibold text-slate-800 cursor-pointer">
+      {label}
+    </label>
+    {description && <p class="text-slate-500 mt-0.5">{description}</p>}
+  </div>
+</div>

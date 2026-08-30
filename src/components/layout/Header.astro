@@ -1,0 +1,95 @@
+---
+import type { Locale } from '@/types/i18n';
+import { t, getLocalizedPath } from '@/lib/i18n';
+import LanguageSelector from './LanguageSelector.astro';
+import MobileNavigation from './MobileNavigation.astro';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+---
+
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm transition-all">
+  <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-14 sm:h-16">
+      <!-- Logo / Brand -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <a href={getLocalizedPath('/', locale)} class="flex items-center gap-2 sm:gap-2.5 group focus:outline-none focus:ring-2 focus:ring-brand-500 rounded-lg">
+          <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-brand-700 text-white flex items-center justify-center font-bold text-sm sm:text-base shadow-sm group-hover:bg-brand-800 transition-colors shrink-0">
+            <span class="tracking-tighter font-mono">LC</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-extrabold text-slate-900 text-sm sm:text-base leading-tight tracking-tight flex items-center gap-1">
+              LIC <span class="text-brand-600">Calculator</span>
+            </span>
+            <span class="text-[9px] sm:text-[10px] text-slate-500 font-medium tracking-tight truncate max-w-[120px] sm:max-w-none">
+              Independent Tools
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium text-slate-700">
+        <a href={getLocalizedPath('/calculators', locale)} class="hover:text-brand-700 transition-colors">
+          {t(locale, 'nav.calculators')}
+        </a>
+        <a
+          href={getLocalizedPath('/lic-surrender-value-calculator', locale)}
+          class="hover:text-amber-800 text-amber-900 font-semibold transition-colors flex items-center gap-1.5 bg-amber-50/80 px-2.5 py-1 rounded-lg border border-amber-200/80"
+        >
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+          {t(locale, 'nav.surrenderCalculator')}
+        </a>
+        <a href={getLocalizedPath('/plans', locale)} class="hover:text-brand-700 transition-colors">
+          {t(locale, 'nav.plans')}
+        </a>
+        <a href={getLocalizedPath('/guides', locale)} class="hover:text-brand-700 transition-colors">
+          {t(locale, 'nav.guides')}
+        </a>
+        <a
+          href="/#ai-assistant"
+          class="inline-flex items-center gap-1.5 text-slate-500 hover:text-slate-700 transition-colors"
+        >
+          <span>AI Assistant</span>
+          <span class="bg-brand-100 text-brand-700 text-[10px] font-bold px-1.5 py-0.5 rounded">Preview</span>
+        </a>
+      </nav>
+
+      <!-- Right Desktop Actions & Mobile Menu Toggle -->
+      <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+        <!-- Language Selector -->
+        <div class="hidden sm:block">
+          <LanguageSelector currentLocale={locale} />
+        </div>
+
+        <!-- Primary CTA Button -->
+        <a
+          href={getLocalizedPath('/calculators', locale)}
+          class="hidden md:inline-flex items-center justify-center min-h-[40px] px-3.5 py-2 rounded-lg text-xs font-semibold text-white bg-brand-700 hover:bg-brand-800 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+        >
+          {t(locale, 'home.exploreCalculators')}
+        </a>
+
+        <!-- Mobile Menu Hamburger Button (Accessible 44x44px touch target) -->
+        <button
+          type="button"
+          id="mobile-menu-open-btn"
+          class="lg:hidden min-w-[44px] min-h-[44px] p-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 active:bg-slate-200 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-brand-500"
+          aria-label="Open mobile navigation menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu-drawer"
+        >
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Slideover Navigation Drawer -->
+  <MobileNavigation locale={locale} />
+</header>

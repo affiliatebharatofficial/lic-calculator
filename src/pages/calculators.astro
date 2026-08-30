@@ -1,0 +1,186 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import Badge from '@/components/ui/Badge.astro';
+import CalculatorSearch from '@/components/search/CalculatorSearch.astro';
+import { ALL_CALCULATORS } from '@/lib/calculators/registry';
+import { t } from '@/lib/i18n';
+
+const locale = 'en';
+const breadcrumbs = [{ name: 'Calculators', url: '/calculators' }];
+
+const categories = ['All', 'Surrender', 'General', 'Protection', 'Retirement'];
+---
+
+<BaseLayout
+  title="All LIC Calculators - Premium, Surrender Value, Maturity & Loan"
+  description="Explore our complete collection of independent financial calculators for LIC policy estimation, surrender values, maturity benefits, and loan eligibility."
+  breadcrumbs={breadcrumbs}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12" data-directory-container>
+    <Breadcrumbs items={breadcrumbs} />
+
+    <!-- Page Header -->
+    <div class="border-b border-slate-200/80 pb-8 mb-8 mt-2 flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-700 mb-1 block">
+          Complete Directory
+        </span>
+        <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          LIC Policy Calculators Directory
+        </h1>
+        <p class="text-sm sm:text-base text-slate-600 mt-2">
+          Select a tool below to estimate premiums, evaluate surrender values, project maturity amounts, or check loan eligibility.
+        </p>
+      </div>
+
+      <!-- Quick Search Bar in Directory Header -->
+      <div class="w-full md:w-72 shrink-0">
+        <CalculatorSearch variant="inline" placeholder="Filter calculators..." />
+      </div>
+    </div>
+
+    <!-- Featured Flagship Banner: Surrender Analysis -->
+    <div class="mb-8 p-6 sm:p-7 rounded-2xl bg-gradient-to-r from-navy-950 via-slate-900 to-navy-900 text-white shadow-xl border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div class="space-y-2 max-w-2xl">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-400 text-navy-950 uppercase tracking-wider">
+            Flagship Experience
+          </span>
+          <span class="text-xs text-slate-400">3-Way Decision Model</span>
+        </div>
+        <h2 class="text-xl sm:text-2xl font-extrabold text-white">
+          Advanced Surrender Analysis & Comparison
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300">
+          Quantify your exact capital shortfall, cash payout (GSV vs SSV), and compare <strong>Surrender vs. Paid-Up vs. Continuing</strong> your policy before taking action.
+        </p>
+      </div>
+      <a
+        href="/lic-surrender-analysis"
+        class="inline-flex items-center justify-center px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-amber-400 text-navy-950 hover:bg-amber-300 transition-colors shadow-lg shrink-0"
+      >
+        Open Surrender Analysis &rarr;
+      </a>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-8" role="tablist">
+      {
+        categories.map((cat, idx) => (
+          <button
+            type="button"
+            class={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shrink-0 border ${
+              idx === 0
+                ? 'bg-brand-700 text-white border-brand-700 shadow-sm'
+                : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+            }`}
+            data-filter-tab={cat.toLowerCase()}
+          >
+            {cat} Tools
+          </button>
+        ))
+      }
+    </div>
+
+    <!-- Calculators Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-calc-grid>
+      {
+        ALL_CALCULATORS.map((calc) => {
+          const isSurrender = calc.category === 'surrender';
+          return (
+            <div
+              class={`rounded-2xl border p-6 flex flex-col justify-between shadow-card transition-all ${
+                isSurrender
+                  ? 'bg-gradient-to-br from-amber-500/5 via-white to-white border-amber-300 hover:border-amber-400 hover:shadow-card-hover'
+                  : calc.isAvailable
+                  ? 'bg-white border-slate-200 hover:border-brand-300 hover:shadow-card-hover'
+                  : 'bg-slate-50 border-slate-200 opacity-75'
+              }`}
+              data-calc-card
+              data-category={calc.category}
+            >
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                    {calc.category}
+                  </span>
+                  {isSurrender ? (
+                    <Badge type="warning">Key Tool</Badge>
+                  ) : calc.isAvailable ? (
+                    <Badge type="success">Active</Badge>
+                  ) : (
+                    <Badge type="default">Coming Soon</Badge>
+                  )}
+                </div>
+
+                <h2 class="text-base sm:text-lg font-bold text-slate-900 mb-2">
+                  {t(locale, calc.titleKey)}
+                </h2>
+
+                <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                  {t(locale, calc.descriptionKey)}
+                </p>
+
+                {calc.fields.length > 0 && (
+                  <div class="text-[11px] text-slate-500 bg-slate-50 p-3 rounded-xl mb-4 border border-slate-100/80">
+                    <strong class="text-slate-700">Inputs:</strong> {calc.fields.map((f) => f.label).slice(0, 3).join(', ')}
+                    {calc.fields.length > 3 ? '...' : ''}
+                  </div>
+                )}
+              </div>
+
+              <div class="pt-4 border-t border-slate-100">
+                {calc.isAvailable ? (
+                  <a
+                    href={`/${calc.slug}`}
+                    class={`inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs font-bold text-white transition-colors shadow-sm ${
+                      isSurrender
+                        ? 'bg-amber-700 hover:bg-amber-800'
+                        : 'bg-brand-700 hover:bg-brand-800'
+                    }`}
+                  >
+                    Open Calculator &rarr;
+                  </a>
+                ) : (
+                  <span class="block text-center text-xs font-medium text-slate-400 py-2.5 bg-slate-100 rounded-xl">
+                    In Development
+                  </span>
+                )}
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('[data-filter-tab]');
+    const cards = document.querySelectorAll('[data-calc-card]');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const cat = tab.getAttribute('data-filter-tab');
+
+        tabs.forEach((t) => {
+          t.classList.remove('bg-brand-700', 'text-white', 'border-brand-700', 'shadow-sm');
+          t.classList.add('bg-white', 'text-slate-700', 'border-slate-200');
+        });
+        tab.classList.remove('bg-white', 'text-slate-700', 'border-slate-200');
+        tab.classList.add('bg-brand-700', 'text-white', 'border-brand-700', 'shadow-sm');
+
+        cards.forEach((card) => {
+          const cardCat = card.getAttribute('data-category');
+          if (cat === 'all' || cardCat === cat) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  });
+</script>

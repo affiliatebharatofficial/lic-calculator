@@ -1,0 +1,227 @@
+---
+import CalculatorShell from '@/components/calculator/CalculatorShell.astro';
+import PlanSelector from '@/components/calculator/PlanSelector.astro';
+import SelectInput from '@/components/calculator/SelectInput.astro';
+import CurrencyInput from '@/components/calculator/CurrencyInput.astro';
+import RangeInput from '@/components/calculator/RangeInput.astro';
+import CheckboxInput from '@/components/calculator/CheckboxInput.astro';
+import CalculateButton from '@/components/calculator/CalculateButton.astro';
+import ResetButton from '@/components/calculator/ResetButton.astro';
+import ResultCard from '@/components/ui/ResultCard.astro';
+import ResultBreakdown from '@/components/calculator/ResultBreakdown.astro';
+import CalculationExplanation from '@/components/calculator/CalculationExplanation.astro';
+import RelatedCalculatorCard from '@/components/calculator/RelatedCalculatorCard.astro';
+import AIExplanationCard from '@/components/ai/AIExplanationCard.astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import { getCalculatorSeoData } from '@/lib/seo/calculator-content';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+const seoData = getCalculatorSeoData('lic-premium-calculator', locale);
+
+const breadcrumbs = [
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
+  { name: t(locale, 'nav.premiumCalculator'), url: getLocalizedPath('/lic-premium-calculator', locale) }
+];
+
+const frequencyOptions = [
+  { label: t(locale, 'frequency.yearly'), value: 'yearly' },
+  { label: t(locale, 'frequency.halfYearly'), value: 'half-yearly' },
+  { label: t(locale, 'frequency.quarterly'), value: 'quarterly' },
+  { label: t(locale, 'frequency.monthly'), value: 'monthly' }
+];
+
+const breakdownItems = [
+  { id: '1', label: 'Basic Tabular Premium', amount: '₹24,850', notes: 'Table 914, Age 30, Term 20' },
+  { id: '2', label: 'High Sum Assured Rebate (₹5L+)', amount: '-₹750', isCredit: false, notes: '₹1.50 per ₹1,000 SA' },
+  { id: '3', label: 'Payment Mode Rebate (Yearly 2%)', amount: '-₹482', isCredit: false, notes: '2% discount on tabular' },
+  { id: '4', label: 'GST (4.5% 1st Year / 2.25% Renewal)', amount: '₹1,063', isCredit: true, notes: 'Statutory GST' }
+];
+
+const relatedTools = [
+  {
+    title: t(locale, 'nav.maturityCalculator'),
+    description: 'Calculate maturity payouts with bonus and loyalty additions.',
+    url: getLocalizedPath('/lic-maturity-calculator', locale),
+    category: 'Maturity'
+  },
+  {
+    title: t(locale, 'nav.bonusCalculator'),
+    description: 'Project total bonus accumulation over your chosen term.',
+    url: getLocalizedPath('/lic-bonus-calculator', locale),
+    category: 'Bonus'
+  },
+  {
+    title: t(locale, 'nav.surrenderCalculator'),
+    description: 'Check how much cash value builds up after 2+ policy years.',
+    url: getLocalizedPath('/lic-surrender-value-calculator', locale),
+    category: 'Surrender'
+  }
+];
+---
+
+<CalculatorShell
+  title={seoData.seoTitle}
+  description={seoData.metaDescription}
+  calculatorTitle={seoData.h1}
+  calculatorSubtitle={seoData.subtitle}
+  category={seoData.category}
+  lastReviewedDate={seoData.lastReviewedDate}
+  sources={seoData.sources}
+  faqs={seoData.faqs}
+  locale={locale}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Form Inputs Slot -->
+  <div slot="inputs" class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 shadow-card">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+      <h2 class="text-base font-bold text-slate-900">{t(locale, 'common.assumptions')}</h2>
+      <ResetButton />
+    </div>
+
+    <!-- Error Banner -->
+    <div id="calc-error-banner" class="hidden mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200/80 text-rose-700 text-xs font-semibold" role="alert"></div>
+
+    <form id="lic-premium-form" class="space-y-5">
+      <PlanSelector
+        id="planTableNo"
+        name="planTableNo"
+        label="Select LIC Plan"
+        defaultValue={914}
+        required
+      />
+
+      <RangeInput
+        id="age"
+        name="age"
+        label={t(locale, 'common.age')}
+        min={8}
+        max={55}
+        step={1}
+        value={30}
+        unit={t(locale, 'common.years')}
+        required
+      />
+
+      <RangeInput
+        id="policyTerm"
+        name="policyTerm"
+        label={t(locale, 'common.policyTerm')}
+        min={12}
+        max={35}
+        step={1}
+        value={20}
+        unit={t(locale, 'common.years')}
+        required
+      />
+
+      <CurrencyInput
+        id="sumAssured"
+        name="sumAssured"
+        label={t(locale, 'common.sumAssured')}
+        min={100000}
+        max={100000000}
+        step={25000}
+        value={500000}
+        required
+      />
+
+      <SelectInput
+        id="premiumFrequency"
+        name="premiumFrequency"
+        label={t(locale, 'common.frequency')}
+        options={frequencyOptions}
+        value="yearly"
+        required
+      />
+
+      <CheckboxInput
+        id="includeAccidentalRider"
+        name="includeAccidentalRider"
+        label={t(locale, 'common.includeAccidentalRider')}
+        checked={false}
+      />
+
+      <div class="pt-2">
+        <CalculateButton text={t(locale, 'common.calculate')} />
+      </div>
+    </form>
+  </div>
+
+  <!-- Results Slot -->
+  <div slot="results" id="calc-result-container">
+    <div class="space-y-4">
+      <ResultCard
+        headline="Estimated 1st Year Premium"
+        amount="₹24,681"
+        subtitle="Including 4.5% 1st Year GST (Renewal approx. ₹24,150/yr @ 2.25% GST)"
+        stats={[
+          { label: t(locale, 'common.sumAssured'), value: '₹5,00,000' },
+          { label: t(locale, 'common.policyTerm'), value: `20 ${t(locale, 'common.years')}` },
+          { label: 'Mode Rebate', value: '2% (Yearly)' },
+          { label: 'High SA Rebate', value: '₹1.50 / th' }
+        ]}
+      />
+
+      <div id="calc-rule-source-badge" class="text-xs text-slate-500 bg-slate-50 border border-slate-200/60 p-2.5 rounded-xl text-center">
+        {t(locale, 'common.verifiedDataBadge')}: Table 914
+      </div>
+
+      <button
+        type="button"
+        id="explain-ai-btn"
+        class="w-full py-2.5 px-4 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-sm hover:shadow transition-all flex items-center justify-center gap-2 cursor-pointer"
+      >
+        <span>✨</span>
+        <span>{t(locale, 'common.explainAiBtn')}</span>
+      </button>
+
+      <AIExplanationCard calculatorId="lic-premium-calculator" />
+    </div>
+  </div>
+
+  <!-- Bottom Slots -->
+  <div slot="breakdown">
+    <ResultBreakdown
+      title={t(locale, 'common.breakdown')}
+      subtitle="Table 914 (₹5,00,000 Sum Assured)"
+      items={breakdownItems}
+      totalLabel="Total 1st Year Premium Payable"
+      totalAmount="₹24,681"
+    />
+  </div>
+
+  <div slot="explanation">
+    <CalculationExplanation
+      title={seoData.howItWorks.title}
+      steps={seoData.howItWorks.steps}
+      notes={seoData.assumptionsAndLimitations.notes}
+    />
+  </div>
+
+  <div slot="related">
+    <RelatedCalculatorCard tools={relatedTools} />
+  </div>
+</CalculatorShell>
+
+<div id="calc-live-announcer" class="sr-only" aria-live="polite"></div>
+
+<script>
+  import { initCalculatorForm } from '@/lib/client/calculator-client';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initCalculatorForm({
+      formId: 'lic-premium-form',
+      apiEndpoint: '/api/calculators/premium',
+      calculatorId: 'lic-premium-calculator',
+      calculatorName: 'LIC Premium Calculator'
+    });
+  });
+</script>

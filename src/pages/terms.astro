@@ -1,0 +1,35 @@
+---
+import ContentLayout from '@/layouts/ContentLayout.astro';
+
+const breadcrumbs = [{ name: 'Terms of Service', url: '/terms' }];
+---
+
+<ContentLayout
+  title="Terms of Service | LIC Calculator"
+  description="Terms and conditions governing the use of lic-calculators.com."
+  pageTitle="Terms of Service"
+  pageSubtitle="Last updated: August 2026"
+  breadcrumbs={breadcrumbs}
+>
+  <div class="space-y-6 text-sm text-slate-700 leading-relaxed">
+    <h2 class="text-lg font-bold text-slate-900">1. Acceptance of Terms</h2>
+    <p>
+      By accessing or using lic-calculators.com, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, please do not use our services.
+    </p>
+
+    <h2 class="text-lg font-bold text-slate-900">2. Informational Purpose Only</h2>
+    <p>
+      The calculations and content on this website are provided solely for informational and educational estimation purposes. They do not constitute financial, legal, investment, or insurance advice.
+    </p>
+
+    <h2 class="text-lg font-bold text-slate-900">3. Non-Affiliation</h2>
+    <p>
+      This platform is an independent service provider and is in no way connected to Life Insurance Corporation of India (LIC).
+    </p>
+
+    <h2 class="text-lg font-bold text-slate-900">4. Modifications to Service</h2>
+    <p>
+      We reserve the right to modify, update, or discontinue any calculator or feature at any time without prior notice.
+    </p>
+  </div>
+</ContentLayout>

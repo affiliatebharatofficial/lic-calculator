@@ -1,0 +1,81 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import Alert from '@/components/ui/Alert.astro';
+import type { BreadcrumbItem } from '@/types/seo';
+import type { Locale } from '@/types/i18n';
+import { t, detectLocaleFromPath } from '@/lib/i18n';
+
+interface Props {
+  title: string;
+  description: string;
+  calculatorTitle: string;
+  calculatorSubtitle: string;
+  breadcrumbs?: BreadcrumbItem[];
+  locale?: Locale;
+}
+
+const {
+  title,
+  description,
+  calculatorTitle,
+  calculatorSubtitle,
+  breadcrumbs = [],
+  locale: explicitLocale
+} = Astro.props;
+
+const locale = explicitLocale || detectLocaleFromPath(Astro.url.pathname);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+  jsonLdType="FinancialProduct"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <!-- Calculator Page Header Section -->
+    <div class="mb-8">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-100 text-brand-800">
+          Financial Tool
+        </span>
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">
+          Independent Calculator
+        </span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        {calculatorTitle}
+      </h1>
+      <p class="text-sm sm:text-base text-slate-600 mt-1.5 max-w-3xl">
+        {calculatorSubtitle}
+      </p>
+    </div>
+
+    <!-- Phase 1 Architecture Notice -->
+    <Alert type="info" title="Phase 1 Architectural Foundation" class="mb-8">
+      {t(locale, 'common.phase1Notice')} All UI inputs, type validations, and deterministic engines are established.
+    </Alert>
+
+    <!-- Calculator Main Layout (2 Columns on Desktop) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Left Column: Inputs Form -->
+      <div class="lg:col-span-7">
+        <slot name="inputs" />
+      </div>
+
+      <!-- Right Column: Results & Projections -->
+      <div class="lg:col-span-5 space-y-6">
+        <slot name="results" />
+      </div>
+    </div>
+
+    <!-- Secondary Explanations, Tables, and FAQs -->
+    <div class="mt-12 space-y-12">
+      <slot name="details" />
+    </div>
+  </div>
+</BaseLayout>

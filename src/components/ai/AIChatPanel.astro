@@ -1,0 +1,173 @@
+---
+import SuggestedQuestions from './SuggestedQuestions.astro';
+
+interface Props {
+  title?: string;
+  calculatorType?: 'premium' | 'maturity' | 'surrender' | 'loan' | 'general';
+  class?: string;
+}
+
+const {
+  title = 'AI Policy Assistant',
+  calculatorType = 'general',
+  class: className = ''
+} = Astro.props;
+---
+
+<div class={`bg-white rounded-2xl border border-slate-200/90 shadow-card flex flex-col overflow-hidden ${className}`} id="ai-chat-panel">
+  <!-- Header -->
+  <div class="px-5 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+    <div class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-lg bg-brand-700 text-white flex items-center justify-center font-bold text-xs shadow-sm">
+        AI
+      </div>
+      <div>
+        <h3 class="text-sm font-bold text-slate-900">{title}</h3>
+        <div class="text-[10px] text-slate-500">Deterministic calculation interpretation</div>
+      </div>
+    </div>
+    <div class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/60">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+      Online
+    </div>
+  </div>
+
+  <!-- Messages Stream -->
+  <div id="ai-chat-messages" class="p-5 space-y-4 max-h-96 overflow-y-auto bg-slate-50/40" aria-live="polite">
+    <!-- Initial Assistant Welcome -->
+    <div class="flex items-start gap-3">
+      <div class="w-7 h-7 rounded-full bg-brand-700 text-white flex items-center justify-center font-bold text-[10px] shrink-0">
+        AI
+      </div>
+      <div class="bg-white border border-slate-200 rounded-2xl rounded-tl-sm p-3.5 shadow-sm max-w-[85%] text-left">
+        <p class="text-xs text-slate-800 leading-relaxed">
+          Hello! I am your AI Policy Assistant. Ask me any question about LIC rules, calculation terminology, or click a suggested question below.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Suggested Questions Area -->
+  <div class="px-5 py-2.5 bg-slate-50/80 border-t border-slate-100">
+    <SuggestedQuestions calculatorType={calculatorType} />
+  </div>
+
+  <!-- Input Area -->
+  <div class="p-4 border-t border-slate-200 bg-white">
+    <form id="ai-chat-form" class="flex gap-2">
+      <input
+        type="text"
+        id="ai-chat-input"
+        class="flex-1 px-4 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition-all text-slate-900 placeholder:text-slate-400 outline-none"
+        placeholder="Ask a question about your policy or calculation..."
+        maxlength="500"
+        required
+      />
+      <button
+        type="submit"
+        id="ai-chat-send-btn"
+        class="px-4 py-2.5 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-bold text-xs rounded-xl shadow-sm transition-all shrink-0 flex items-center gap-1"
+      >
+        <span>Ask</span>
+        <span>→</span>
+      </button>
+    </form>
+    <div class="text-[10px] text-slate-400 text-center mt-2">
+      AI assistant is informational and does not provide financial advice. Calculations are authoritative.
+    </div>
+  </div>
+</div>
+
+<script>
+  import { AIClient } from '@/lib/client/ai-client';
+
+  const form = document.getElementById('ai-chat-form') as HTMLFormElement | null;
+  const input = document.getElementById('ai-chat-input') as HTMLInputElement | null;
+  const messagesContainer = document.getElementById('ai-chat-messages');
+  const sendBtn = document.getElementById('ai-chat-send-btn') as HTMLButtonElement | null;
+
+  async function handleUserQuestion(message: string) {
+    if (!message || !messagesContainer) return;
+
+    // 1. Append User Message
+    const userMsgHtml = `
+      <div class="flex items-start justify-end gap-3">
+        <div class="bg-brand-600 text-white rounded-2xl rounded-tr-sm p-3.5 shadow-sm max-w-[85%] text-left">
+          <p class="text-xs leading-relaxed">${escapeHtml(message)}</p>
+        </div>
+      </div>
+    `;
+    messagesContainer.insertAdjacentHTML('beforeend', userMsgHtml);
+
+    // 2. Append Thinking Indicator
+    const thinkingId = `ai-thinking-${Date.now()}`;
+    const thinkingHtml = `
+      <div id="${thinkingId}" class="flex items-start gap-3">
+        <div class="w-7 h-7 rounded-full bg-brand-700 text-white flex items-center justify-center font-bold text-[10px] shrink-0">AI</div>
+        <div class="bg-white border border-slate-200 rounded-2xl rounded-tl-sm p-3 shadow-sm text-xs text-slate-500 flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-bounce"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-bounce" style="animation-delay: 0.15s"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-bounce" style="animation-delay: 0.3s"></span>
+          <span class="text-[11px]">Thinking...</span>
+        </div>
+      </div>
+    `;
+    messagesContainer.insertAdjacentHTML('beforeend', thinkingHtml);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    if (input) input.value = '';
+    if (sendBtn) sendBtn.disabled = true;
+
+    // 3. Send to API
+    const res = await AIClient.askChat({ message });
+
+    // Remove thinking
+    const thinkingEl = document.getElementById(thinkingId);
+    if (thinkingEl) thinkingEl.remove();
+    if (sendBtn) sendBtn.disabled = false;
+
+    if (res.success && res.data) {
+      const points = (res.data.keyPoints || []).map((p) => `<li class="text-[11px] text-slate-600">• ${escapeHtml(p)}</li>`).join('');
+      const replyHtml = `
+        <div class="flex items-start gap-3">
+          <div class="w-7 h-7 rounded-full bg-brand-700 text-white flex items-center justify-center font-bold text-[10px] shrink-0">AI</div>
+          <div class="bg-white border border-slate-200 rounded-2xl rounded-tl-sm p-3.5 shadow-sm max-w-[85%] text-left space-y-2">
+            <p class="text-xs text-slate-800 leading-relaxed">${escapeHtml(res.data.answer)}</p>
+            ${points ? `<ul class="space-y-1 pt-1 border-t border-slate-100">${points}</ul>` : ''}
+          </div>
+        </div>
+      `;
+      messagesContainer.insertAdjacentHTML('beforeend', replyHtml);
+    } else {
+      const errHtml = `
+        <div class="flex items-start gap-3">
+          <div class="w-7 h-7 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-[10px] shrink-0">!</div>
+          <div class="bg-red-50 border border-red-200 text-red-800 rounded-2xl rounded-tl-sm p-3 shadow-sm text-xs">
+            ${escapeHtml(res.error || 'AI assistant is temporarily unavailable.')}
+          </div>
+        </div>
+      `;
+      messagesContainer.insertAdjacentHTML('beforeend', errHtml);
+    }
+
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const query = input?.value.trim();
+    if (query) handleUserQuestion(query);
+  });
+
+  // Suggested questions listener
+  document.querySelectorAll('.suggested-q-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const q = btn.getAttribute('data-question');
+      if (q) handleUserQuestion(q);
+    });
+  });
+
+  function escapeHtml(str: string): string {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+  }
+</script>

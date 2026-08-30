@@ -1,0 +1,42 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Server Error (500)', url: '/500' }
+];
+---
+
+<BaseLayout
+  title="Server Error (500) - LIC Calculator"
+  description="An unexpected server error occurred. Our engineering team has been automatically alerted."
+  breadcrumbs={breadcrumbs}
+  noIndex={true}
+>
+  <div class="max-w-xl mx-auto py-16 px-4 sm:px-6 text-center space-y-6">
+    <span class="px-3.5 py-1 rounded-full text-xs font-mono font-bold bg-rose-50 text-rose-700 border border-rose-200">
+      HTTP 500 • Internal System Error
+    </span>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+      Something Went Temporarily Wrong
+    </h1>
+    <p class="text-sm text-slate-600 leading-relaxed">
+      We experienced an issue processing your request. Zero private calculation data was compromised. Please refresh or try again in a few moments.
+    </p>
+
+    <div class="pt-4 flex justify-center gap-3">
+      <a
+        href="/"
+        class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs transition-colors shadow-sm"
+      >
+        Return to Homepage
+      </a>
+      <a
+        href="/contact"
+        class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors border border-slate-200"
+      >
+        Contact Support
+      </a>
+    </div>
+  </div>
+</BaseLayout>

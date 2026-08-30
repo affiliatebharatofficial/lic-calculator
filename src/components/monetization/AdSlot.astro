@@ -1,0 +1,28 @@
+---
+interface Props {
+  slotType?: 'horizontal_banner' | 'medium_rectangle' | 'in_content';
+  slotId?: string;
+}
+
+const { slotType = 'horizontal_banner', slotId = 'ad-default' } = Astro.props;
+
+const heightClass =
+  slotType === 'medium_rectangle' ? 'min-h-[250px] w-full max-w-[300px]' : 'min-h-[90px] w-full';
+---
+
+<div class={`my-8 flex flex-col items-center justify-center ${heightClass}`}>
+  <div class="w-full flex items-center justify-between px-1 pb-1">
+    <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+      Advertisement
+    </span>
+    <span class="text-[10px] text-slate-400">Sponsored</span>
+  </div>
+
+  <div
+    id={slotId}
+    class="w-full h-full rounded-2xl border border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center p-4 text-center text-xs text-slate-400"
+  >
+    <span class="font-medium">Ad Space Reserved</span>
+    <span class="text-[10px] text-slate-400">Layout-stable placeholder (0 CLS)</span>
+  </div>
+</div>

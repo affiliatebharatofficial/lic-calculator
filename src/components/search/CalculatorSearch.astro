@@ -1,0 +1,243 @@
+---
+import { ALL_CALCULATORS } from '@/lib/calculators/registry';
+
+interface Props {
+  variant?: 'modal' | 'inline';
+  placeholder?: string;
+  class?: string;
+}
+
+const { variant = 'modal', placeholder = 'Search calculators (e.g. Surrender, Premium, Table 914)...', class: className = '' } = Astro.props;
+
+const searchItems = [
+  ...ALL_CALCULATORS.map(calc => ({
+    title: calc.titleKey === 'nav.surrenderCalculator' ? 'LIC Surrender Value Calculator' :
+           calc.titleKey === 'nav.premiumCalculator' ? 'LIC Premium Calculator' :
+           calc.titleKey === 'nav.maturityCalculator' ? 'LIC Maturity Calculator' :
+           calc.titleKey === 'nav.bonusCalculator' ? 'LIC Bonus Calculator' :
+           calc.titleKey === 'nav.loanCalculator' ? 'LIC Policy Loan Calculator' :
+           calc.slug.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' '),
+    url: `/${calc.slug}`,
+    category: 'Calculator',
+    badge: calc.category,
+    keywords: `${calc.slug} ${calc.category} estimate calculate`
+  })),
+  { title: 'Table 914: LIC New Endowment Plan', url: '/lic-premium-calculator?plan=914', category: 'Plan', badge: 'Endowment', keywords: '914 endowment savings' },
+  { title: 'Table 915: LIC New Jeevan Anand', url: '/lic-premium-calculator?plan=915', category: 'Plan', badge: 'Whole Life', keywords: '915 jeevan anand' },
+  { title: 'Table 936: LIC Jeevan Labh', url: '/lic-premium-calculator?plan=936', category: 'Plan', badge: 'Limited PPT', keywords: '936 jeevan labh' },
+  { title: 'Table 945: LIC Jeevan Umang', url: '/lic-premium-calculator?plan=945', category: 'Plan', badge: 'Guaranteed 8%', keywords: '945 umang pension' },
+  { title: 'Surrender vs. Continue vs. Paid-Up Analysis', url: '/lic-surrender-value-calculator#comparison', category: 'Guide', badge: 'Decision Tool', keywords: 'surrender loss paid-up vs surrender' },
+  { title: 'Policy Loan Eligibility Calculator', url: '/lic-loan-calculator', category: 'Calculator', badge: 'Loan', keywords: 'loan against policy interest' },
+];
+---
+
+{variant === 'inline' ? (
+  <div class={`relative w-full max-w-xl mx-auto ${className}`} data-search-container>
+    <div class="relative flex items-center">
+      <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
+        <svg class="h-4 w-4 text-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <input
+        type="search"
+        placeholder={placeholder}
+        class="block w-full rounded-xl border border-slate-300 bg-white py-3 pl-10 pr-20 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+        data-search-input
+        autocomplete="off"
+      />
+      <div class="absolute inset-y-0 right-0 flex items-center pr-2">
+        <kbd class="hidden sm:inline-flex items-center px-2 py-0.5 text-[10px] font-mono font-medium text-slate-400 bg-slate-100 border border-slate-200 rounded">
+          /
+        </kbd>
+      </div>
+    </div>
+
+    <!-- Dropdown Results -->
+    <div class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl border border-slate-200 shadow-modal z-50 overflow-hidden max-h-80 overflow-y-auto" data-search-results>
+      <div class="p-2 space-y-1" data-results-list></div>
+    </div>
+  </div>
+) : (
+  <!-- Modal Trigger Button -->
+  <button
+    type="button"
+    class={`flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50/80 hover:bg-slate-100 hover:border-slate-300 text-xs text-slate-500 transition-colors shadow-sm ${className}`}
+    data-search-modal-trigger
+    aria-label="Search calculators and plans"
+  >
+    <svg class="h-3.5 w-3.5 text-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+    </svg>
+    <span class="hidden sm:inline">Search calculators...</span>
+    <span class="sm:hidden">Search</span>
+    <kbd class="hidden md:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-slate-400 bg-white border border-slate-200 rounded">
+      ⌘K
+    </kbd>
+  </button>
+
+  <!-- Search Modal Overlay -->
+  <div class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-start justify-center p-4 sm:p-6 md:p-20 overflow-y-auto" data-search-modal>
+    <div class="relative w-full max-w-xl bg-white rounded-2xl shadow-modal border border-slate-200 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+      <!-- Search Input Header -->
+      <div class="relative flex items-center border-b border-slate-200 px-4 py-3">
+        <svg class="h-5 w-5 text-slate-400 mr-3 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+        </svg>
+        <input
+          type="search"
+          placeholder="Search all calculators, surrender tools, LIC plans..."
+          class="w-full bg-transparent text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none py-1"
+          data-modal-search-input
+          autocomplete="off"
+        />
+        <button
+          type="button"
+          class="text-xs text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 px-2 py-1 rounded"
+          data-search-modal-close
+        >
+          ESC
+        </button>
+      </div>
+
+      <!-- Quick Popular Shortcuts -->
+      <div class="px-4 py-2.5 bg-slate-50 border-b border-slate-100 flex items-center gap-1.5 overflow-x-auto text-[11px] text-slate-500">
+        <span class="font-medium text-slate-400">Popular:</span>
+        <a href="/lic-surrender-value-calculator" class="bg-amber-100 text-amber-900 px-2 py-0.5 rounded hover:bg-amber-200 transition-colors font-medium">Surrender Value</a>
+        <a href="/lic-premium-calculator" class="bg-white border border-slate-200 px-2 py-0.5 rounded hover:bg-slate-100 transition-colors">Premium</a>
+        <a href="/lic-maturity-calculator" class="bg-white border border-slate-200 px-2 py-0.5 rounded hover:bg-slate-100 transition-colors">Maturity</a>
+        <a href="/lic-loan-calculator" class="bg-white border border-slate-200 px-2 py-0.5 rounded hover:bg-slate-100 transition-colors">Policy Loan</a>
+      </div>
+
+      <!-- Results Container -->
+      <div class="p-3 max-h-96 overflow-y-auto" data-modal-results-list>
+        <!-- Injected via client script -->
+      </div>
+
+      <!-- Footer Info -->
+      <div class="px-4 py-2.5 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+        <span>Press <kbd class="font-mono bg-white px-1 py-0.5 border rounded">↑</kbd> <kbd class="font-mono bg-white px-1 py-0.5 border rounded">↓</kbd> to navigate</span>
+        <span class="text-brand-700 font-medium">Independent LIC Calculator</span>
+      </div>
+    </div>
+  </div>
+)}
+
+<script is:inline define:vars={{ searchItems }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Modal trigger and close logic
+    const modal = document.querySelector('[data-search-modal]');
+    const modalTriggers = document.querySelectorAll('[data-search-modal-trigger]');
+    const modalCloses = document.querySelectorAll('[data-search-modal-close]');
+    const modalInput = document.querySelector('[data-modal-search-input]');
+    const modalResults = document.querySelector('[data-modal-results-list]');
+
+    function openModal() {
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => modalInput?.focus(), 50);
+      renderResults('', modalResults);
+    }
+
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    modalTriggers.forEach(t => t.addEventListener('click', openModal));
+    modalCloses.forEach(c => c.addEventListener('click', closeModal));
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+    }
+
+    // Keyboard shortcut (⌘K or Ctrl+K or '/')
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        if (modal?.classList.contains('hidden')) openModal();
+        else closeModal();
+      } else if (e.key === '/' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        openModal();
+      } else if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
+
+    // 2. Search filtering logic
+    function renderResults(query, container) {
+      if (!container) return;
+      const q = query.toLowerCase().trim();
+      const filtered = q === ''
+        ? searchItems.slice(0, 6)
+        : searchItems.filter(item =>
+            item.title.toLowerCase().includes(q) ||
+            item.keywords.toLowerCase().includes(q) ||
+            item.badge.toLowerCase().includes(q)
+          );
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="py-8 text-center text-xs text-slate-400">
+            <p>No calculators found matching "<strong>${query}</strong>"</p>
+            <p class="mt-1 text-slate-500">Try searching for "Surrender", "Premium", "Loan", or "Bonus".</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map((item, idx) => `
+        <a
+          href="${item.url}"
+          class="flex items-center justify-between p-2.5 rounded-lg hover:bg-slate-100 transition-colors group ${idx === 0 ? 'bg-slate-50' : ''}"
+        >
+          <div class="flex items-center gap-3">
+            <div class="w-7 h-7 rounded bg-brand-50 text-brand-700 flex items-center justify-center font-bold text-xs group-hover:bg-brand-600 group-hover:text-white transition-colors">
+              #
+            </div>
+            <div>
+              <div class="text-xs font-semibold text-slate-900 group-hover:text-brand-700">${item.title}</div>
+              <div class="text-[10px] text-slate-400">${item.category}</div>
+            </div>
+          </div>
+          <span class="inline-flex items-center text-[10px] font-medium px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">
+            ${item.badge}
+          </span>
+        </a>
+      `).join('');
+    }
+
+    modalInput?.addEventListener('input', (e) => {
+      renderResults(e.target.value, modalResults);
+    });
+
+    // 3. Inline search container handling
+    const inlineContainer = document.querySelector('[data-search-container]');
+    const inlineInput = inlineContainer?.querySelector('[data-search-input]');
+    const inlineResults = inlineContainer?.querySelector('[data-search-results]');
+    const inlineList = inlineContainer?.querySelector('[data-results-list]');
+
+    if (inlineInput && inlineResults && inlineList) {
+      inlineInput.addEventListener('focus', () => {
+        inlineResults.classList.remove('hidden');
+        renderResults(inlineInput.value, inlineList);
+      });
+
+      inlineInput.addEventListener('input', () => {
+        inlineResults.classList.remove('hidden');
+        renderResults(inlineInput.value, inlineList);
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!inlineContainer.contains(e.target)) {
+          inlineResults.classList.add('hidden');
+        }
+      });
+    }
+  });
+</script>

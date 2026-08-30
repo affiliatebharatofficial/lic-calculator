@@ -1,0 +1,168 @@
+---
+import CalculatorShell from '@/components/calculator/CalculatorShell.astro';
+import PlanSelector from '@/components/calculator/PlanSelector.astro';
+import CurrencyInput from '@/components/calculator/CurrencyInput.astro';
+import CheckboxInput from '@/components/calculator/CheckboxInput.astro';
+import CalculateButton from '@/components/calculator/CalculateButton.astro';
+import ResetButton from '@/components/calculator/ResetButton.astro';
+import ResultCard from '@/components/ui/ResultCard.astro';
+import ResultBreakdown from '@/components/calculator/ResultBreakdown.astro';
+import CalculationExplanation from '@/components/calculator/CalculationExplanation.astro';
+import RelatedCalculatorCard from '@/components/calculator/RelatedCalculatorCard.astro';
+import AIExplanationCard from '@/components/ai/AIExplanationCard.astro';
+import { CALCULATOR_SEO_DATA } from '@/lib/seo/calculator-content';
+
+const seoData = CALCULATOR_SEO_DATA['lic-loan-calculator'];
+
+const breadcrumbs = [
+  { name: 'Calculators', url: '/calculators' },
+  { name: 'Policy Loan Calculator', url: '/lic-loan-calculator' }
+];
+
+const breakdownItems = [
+  { id: '1', label: 'Current Cash Surrender Value', amount: '₹2,00,000', notes: 'Surrender value benchmark' },
+  { id: '2', label: 'Maximum Borrowing Limit (90% In-Force)', amount: '₹1,80,000', isCredit: true, notes: 'Max loan amount available' },
+  { id: '3', label: 'Annual Interest Cost (9.50% p.a.)', amount: '₹17,100 / yr', isCredit: false, notes: 'Payable semi-annually (₹8,550 every 6 months)' }
+];
+
+const relatedTools = [
+  {
+    title: 'Surrender Value Calculator',
+    description: 'Calculate your policy surrender value to determine loan eligibility.',
+    url: '/lic-surrender-value-calculator',
+    category: 'Surrender'
+  },
+  {
+    title: 'Surrender Loss Calculator',
+    description: 'Compare loan interest costs against the capital loss of surrendering.',
+    url: '/lic-surrender-loss-calculator',
+    category: 'Surrender'
+  }
+];
+---
+
+<CalculatorShell
+  title={seoData.seoTitle}
+  description={seoData.metaDescription}
+  calculatorTitle={seoData.h1}
+  calculatorSubtitle={seoData.subtitle}
+  category={seoData.category}
+  lastReviewedDate={seoData.lastReviewedDate}
+  sources={seoData.sources}
+  faqs={seoData.faqs}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Form Inputs Slot -->
+  <div slot="inputs" class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 shadow-card">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+      <h2 class="text-base font-bold text-slate-900">Loan Parameters</h2>
+      <ResetButton />
+    </div>
+
+    <div id="calc-error-banner" class="hidden mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200/80 text-rose-700 text-xs font-semibold" role="alert"></div>
+
+    <form id="lic-loan-form" class="space-y-5">
+      <PlanSelector
+        id="planTableNo"
+        name="planTableNo"
+        label="Select LIC Plan"
+        defaultValue={914}
+        required
+      />
+
+      <CurrencyInput
+        id="surrenderValue"
+        name="surrenderValue"
+        label="Current Estimated Surrender Value"
+        min={10000}
+        max={50000000}
+        step={5000}
+        value={200000}
+        required
+        helpText="Enter the cash surrender value acquired by your policy."
+      />
+
+      <CheckboxInput
+        id="isPaidUp"
+        name="isPaidUp"
+        label="Policy is Paid-Up (Max 80% Loan)"
+        description="Check if you stopped paying premiums and converted to paid-up."
+        checked={false}
+      />
+
+      <div class="pt-2">
+        <CalculateButton text="Calculate Loan Eligibility" />
+      </div>
+    </form>
+  </div>
+
+  <!-- Results Slot -->
+  <div slot="results" id="calc-result-container">
+    <div class="space-y-4">
+      <ResultCard
+        headline="Maximum Eligible Loan Limit"
+        amount="₹1,80,000"
+        subtitle="Up to 90% of your ₹2,00,000 Surrender Value for in-force policy"
+        stats={[
+          { label: 'Surrender Value', value: '₹2,00,000' },
+          { label: 'Max Loan (90%)', value: '₹1,80,000' },
+          { label: 'Interest Rate', value: '9.50% p.a.' },
+          { label: 'Half-Yearly Interest', value: '₹8,550' }
+        ]}
+      />
+
+      <div id="calc-rule-source-badge" class="text-xs text-slate-500 bg-slate-50 border border-slate-200/60 p-2.5 rounded-xl text-center">
+        Rule Version: SYNTHETIC_2024.1 (Verified Rule Set Table 914)
+      </div>
+
+      <button
+        type="button"
+        id="explain-ai-btn"
+        class="w-full py-2.5 px-4 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-sm hover:shadow transition-all flex items-center justify-center gap-2 cursor-pointer"
+      >
+        <span>✨</span>
+        <span>Explain this loan calculation with AI</span>
+      </button>
+
+      <AIExplanationCard calculatorId="lic-loan-calculator" />
+    </div>
+  </div>
+
+  <!-- Bottom Slots -->
+  <div slot="breakdown">
+    <ResultBreakdown
+      title="Loan Eligibility & Interest Breakdown"
+      subtitle="Computed against ₹2,00,000 Surrender Value"
+      items={breakdownItems}
+      totalLabel="Max Borrowing Limit"
+      totalAmount="₹1,80,000"
+    />
+  </div>
+
+  <div slot="explanation">
+    <CalculationExplanation
+      title={seoData.howItWorks.title}
+      steps={seoData.howItWorks.steps}
+      notes={seoData.assumptionsAndLimitations.notes}
+    />
+  </div>
+
+  <div slot="related">
+    <RelatedCalculatorCard tools={relatedTools} />
+  </div>
+</CalculatorShell>
+
+<div id="calc-live-announcer" class="sr-only" aria-live="polite"></div>
+
+<script>
+  import { initCalculatorForm } from '@/lib/client/calculator-client';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initCalculatorForm({
+      formId: 'lic-loan-form',
+      apiEndpoint: '/api/calculators/loan',
+      calculatorId: 'lic-loan-calculator',
+      calculatorName: 'LIC Policy Loan Calculator'
+    });
+  });
+</script>

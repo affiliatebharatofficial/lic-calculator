@@ -1,0 +1,85 @@
+---
+interface Option {
+  label: string;
+  value: string | number;
+}
+
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  options: Option[];
+  value?: string | number;
+  required?: boolean;
+  helpText?: string;
+  error?: string;
+  placeholder?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  id,
+  name,
+  label,
+  options = [],
+  value,
+  required = false,
+  helpText,
+  error,
+  placeholder,
+  class: className = '',
+  ...rest
+} = Astro.props;
+---
+
+<div class={`w-full ${className}`}>
+  <div class="flex justify-between items-center mb-1">
+    <label for={id} class="block text-sm font-medium text-slate-700">
+      {label}
+      {required && <span class="text-rose-500 ml-0.5" title="Required">*</span>}
+    </label>
+  </div>
+
+  <div class="relative rounded-lg shadow-sm">
+    <select
+      id={id}
+      name={name}
+      required={required}
+      class={`block w-full rounded-lg border text-slate-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-600 focus:border-brand-600 sm:text-sm py-2.5 pl-3.5 pr-10 bg-white appearance-none ${
+        error
+          ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/20'
+          : 'border-slate-300'
+      }`}
+      aria-invalid={error ? 'true' : 'false'}
+      aria-describedby={error ? `${id}-error` : helpText ? `${id}-description` : undefined}
+      {...rest}
+    >
+      {placeholder && <option value="" disabled selected={!value}>{placeholder}</option>}
+      {
+        options.map((opt) => (
+          <option value={opt.value} selected={value !== undefined && String(value) === String(opt.value)}>
+            {opt.label}
+          </option>
+        ))
+      }
+    </select>
+    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+      <svg class="h-4 w-4 text-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+      </svg>
+    </div>
+  </div>
+
+  {
+    error ? (
+      <p id={`${id}-error`} class="mt-1.5 text-xs text-rose-600 font-medium">
+        {error}
+      </p>
+    ) : helpText ? (
+      <p id={`${id}-description`} class="mt-1.5 text-xs text-slate-500">
+        {helpText}
+      </p>
+    ) : null
+  }
+</div>

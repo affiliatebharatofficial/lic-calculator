@@ -1,0 +1,77 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import type { Locale } from '@/types/i18n';
+
+export const GUIDE_ITEMS = [
+  {
+    slug: 'what-is-lic-surrender-value',
+    title: 'What is LIC Surrender Value? Calculation Guide & GSV/SSV Rules',
+    desc: 'Understand how LIC policy surrender value is calculated, the difference between GSV and SSV, and 2-year vesting rules.'
+  },
+  {
+    slug: 'lic-paid-up-vs-surrender',
+    title: 'LIC Paid-Up vs. Surrender: Which Option is Financially Better?',
+    desc: 'Comparing financial trade-offs between converting an LIC policy into a reduced Paid-Up policy vs immediate cash Surrender.'
+  },
+  {
+    slug: 'how-lic-bonus-is-calculated',
+    title: 'How is LIC Bonus Calculated? Simple Reversionary & FAB Rates Guide',
+    desc: 'Actuarial guide explaining simple reversionary bonuses per ₹1,000 Sum Assured and Final Additional Bonus rules.'
+  },
+  {
+    slug: 'lic-policy-loan-rules',
+    title: 'LIC Policy Loan Rules, Interest Rate & Repayment Guide',
+    desc: 'Learn how much you can borrow against your LIC policy without losing life cover.'
+  }
+];
+
+export function getStaticPaths() {
+  const nonDefaultLocales = LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE);
+  const paths: any[] = [];
+
+  for (const lang of nonDefaultLocales) {
+    for (const guide of GUIDE_ITEMS) {
+      paths.push({
+        params: { lang, slug: guide.slug },
+        props: { guide }
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { lang } = Astro.params;
+const { guide } = Astro.props;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+
+const breadcrumbs = [
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
+  { name: 'Guides', url: getLocalizedPath('/guides', locale) },
+  { name: guide.title, url: getLocalizedPath(`/guides/${guide.slug}`, locale) }
+];
+---
+
+<BaseLayout
+  title={`${guide.title} - ${t(locale, 'site.name')}`}
+  description={guide.desc}
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+>
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">{guide.title}</h1>
+      <p class="text-base text-slate-600 leading-relaxed">{guide.desc}</p>
+    </div>
+
+    <ContextualLinks currentPath={`/guides/${guide.slug}`} />
+
+    <AuthorReviewerCard />
+  </article>
+</BaseLayout>

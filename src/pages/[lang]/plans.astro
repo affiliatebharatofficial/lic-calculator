@@ -1,0 +1,93 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import Card from '@/components/ui/Card.astro';
+import Badge from '@/components/ui/Badge.astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+
+const breadcrumbs = [
+  { name: t(locale, 'nav.plans'), url: getLocalizedPath('/plans', locale) }
+];
+
+const samplePlans = [
+  { tableNo: 914, name: 'New Endowment Plan', category: 'Endowment', minAge: 8, maxAge: 55, minTerm: 12, maxTerm: 35, status: 'Active' },
+  { tableNo: 915, name: 'New Jeevan Anand', category: 'Endowment + Whole Life', minAge: 18, maxAge: 50, minTerm: 15, maxTerm: 35, status: 'Active' },
+  { tableNo: 936, name: 'Jeevan Labh', category: 'Limited Premium Endowment', minAge: 8, maxAge: 59, minTerm: 16, maxTerm: 25, status: 'Active' },
+  { tableNo: 945, name: 'Jeevan Umang', category: 'Whole Life 8% Survival', minAge: 0, maxAge: 55, minTerm: 15, maxTerm: 30, status: 'Active' },
+  { tableNo: 855, name: 'Tech Term', category: 'Pure Term Assurance', minAge: 18, maxAge: 65, minTerm: 10, maxTerm: 40, status: 'Active' },
+  { tableNo: 857, name: 'Saral Pension', category: 'Standard Immediate Annuity', minAge: 40, maxAge: 80, minTerm: 1, maxTerm: 1, status: 'Active' }
+];
+---
+
+<BaseLayout
+  title={`${t(locale, 'nav.plans')} - ${t(locale, 'site.name')}`}
+  description={t(locale, 'site.description')}
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <div class="border-b border-slate-200 pb-6 mb-8 mt-2">
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        {t(locale, 'nav.plans')}
+      </h1>
+      <p class="text-base text-slate-600 mt-2 max-w-3xl">
+        Informational reference directory of major LIC policy table numbers with basic eligibility rules and associated calculation tools.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        samplePlans.map((plan) => (
+          <Card class="hover:border-brand-300 transition-all flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-xs font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded">
+                  Table {plan.tableNo}
+                </span>
+                <Badge type="success">{plan.status}</Badge>
+              </div>
+
+              <h2 class="text-base font-bold text-slate-900 mt-1">
+                {plan.name}
+              </h2>
+
+              <p class="text-xs text-slate-500 mb-3">{plan.category}</p>
+
+              <div class="space-y-1.5 text-xs text-slate-600 border-t border-slate-100 pt-3">
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Entry Age:</span>
+                  <span class="font-medium">{plan.minAge} to {plan.maxAge} Years</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-400">Policy Term:</span>
+                  <span class="font-medium">{plan.minTerm} to {plan.maxTerm} Years</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <a
+                href={getLocalizedPath('/lic-premium-calculator', locale)}
+                class="text-xs font-bold text-brand-700 hover:text-brand-900 transition-colors"
+              >
+                {t(locale, 'common.calculate')} &rarr;
+              </a>
+            </div>
+          </Card>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

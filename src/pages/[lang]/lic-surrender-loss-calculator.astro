@@ -1,0 +1,233 @@
+---
+import CalculatorShell from '@/components/calculator/CalculatorShell.astro';
+import PlanSelector from '@/components/calculator/PlanSelector.astro';
+import CurrencyInput from '@/components/calculator/CurrencyInput.astro';
+import RangeInput from '@/components/calculator/RangeInput.astro';
+import CalculateButton from '@/components/calculator/CalculateButton.astro';
+import ResetButton from '@/components/calculator/ResetButton.astro';
+import ResultCard from '@/components/ui/ResultCard.astro';
+import ResultBreakdown from '@/components/calculator/ResultBreakdown.astro';
+import PolicyComparisonTable from '@/components/calculator/PolicyComparisonTable.astro';
+import CalculationExplanation from '@/components/calculator/CalculationExplanation.astro';
+import RelatedCalculatorCard from '@/components/calculator/RelatedCalculatorCard.astro';
+import AIExplanationCard from '@/components/ai/AIExplanationCard.astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import { getCalculatorSeoData } from '@/lib/seo/calculator-content';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+const seoData = getCalculatorSeoData('lic-surrender-loss-calculator', locale);
+
+const breadcrumbs = [
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
+  { name: t(locale, 'nav.surrenderLoss'), url: getLocalizedPath('/lic-surrender-loss-calculator', locale) }
+];
+
+const breakdownItems = [
+  { id: '1', label: 'Total Base Premiums Paid In', amount: '₹1,25,000', notes: '5 years of premium payments' },
+  { id: '2', label: 'Estimated Cash Surrender Payout', amount: '₹68,750', notes: 'Payable via Special Surrender Value' },
+  { id: '3', label: 'Net Monetary Difference (Shortfall)', amount: '₹56,250', isCredit: true, notes: '45.0% capital reduction' },
+  { id: '4', label: 'Forfeited Future Maturity Returns', amount: '₹9,55,000', notes: 'Full Sum Assured and accrued bonuses forfeited' }
+];
+
+const relatedTools = [
+  {
+    title: t(locale, 'nav.surrenderAnalysis'),
+    description: 'Comprehensive 3-way decision comparison: Surrender vs Paid-Up vs Continue.',
+    url: getLocalizedPath('/lic-surrender-analysis', locale),
+    category: 'Analysis'
+  },
+  {
+    title: t(locale, 'nav.surrenderCalculator'),
+    description: 'Calculate detailed breakdown between GSV and SSV factor tables.',
+    url: getLocalizedPath('/lic-surrender-value-calculator', locale),
+    category: 'Surrender'
+  },
+  {
+    title: t(locale, 'nav.loanCalculator'),
+    description: 'Borrow money against your policy without taking a surrender loss.',
+    url: getLocalizedPath('/lic-loan-calculator', locale),
+    category: 'Loan'
+  }
+];
+---
+
+<CalculatorShell
+  title={seoData.seoTitle}
+  description={seoData.metaDescription}
+  calculatorTitle={seoData.h1}
+  calculatorSubtitle={seoData.subtitle}
+  category={seoData.category}
+  lastReviewedDate={seoData.lastReviewedDate}
+  sources={seoData.sources}
+  faqs={seoData.faqs}
+  locale={locale}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Form Inputs Slot -->
+  <div slot="inputs" class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 shadow-card">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+      <h2 class="text-base font-bold text-slate-900">{t(locale, 'common.assumptions')}</h2>
+      <ResetButton />
+    </div>
+
+    <!-- Error Banner -->
+    <div id="calc-error-banner" class="hidden mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200/80 text-rose-700 text-xs font-semibold" role="alert"></div>
+
+    <form id="lic-surrender-loss-form" class="space-y-5">
+      <PlanSelector
+        id="planTableNo"
+        name="planTableNo"
+        label="Select LIC Plan"
+        defaultValue={914}
+        required
+      />
+
+      <CurrencyInput
+        id="sumAssured"
+        name="sumAssured"
+        label={t(locale, 'common.sumAssured')}
+        min={100000}
+        max={100000000}
+        step={25000}
+        value={500000}
+        required
+      />
+
+      <RangeInput
+        id="policyTerm"
+        name="policyTerm"
+        label={t(locale, 'common.policyTerm')}
+        min={12}
+        max={35}
+        step={1}
+        value={20}
+        unit={t(locale, 'common.years')}
+        required
+      />
+
+      <RangeInput
+        id="completedYears"
+        name="completedYears"
+        label={t(locale, 'common.completedYears')}
+        min={1}
+        max={35}
+        step={1}
+        value={5}
+        unit={t(locale, 'common.years')}
+        required
+      />
+
+      <CurrencyInput
+        id="totalPremiumsPaid"
+        name="totalPremiumsPaid"
+        label={t(locale, 'common.totalPremiumsPaid')}
+        min={1000}
+        max={50000000}
+        step={5000}
+        value={125000}
+        required
+      />
+
+      <CurrencyInput
+        id="accruedBonus"
+        name="accruedBonus"
+        label={t(locale, 'common.accruedBonus')}
+        min={0}
+        max={50000000}
+        step={5000}
+        value={0}
+      />
+
+      <div class="pt-2">
+        <CalculateButton text={t(locale, 'common.calculate')} />
+      </div>
+    </form>
+  </div>
+
+  <!-- Results Slot -->
+  <div slot="results" id="calc-result-container">
+    <div class="space-y-4">
+      <ResultCard
+        headline="Estimated Difference (Capital Shortfall)"
+        amount="₹56,250"
+        subtitle="45.0% of total deposited premiums forfeited upon immediate surrender"
+        stats={[
+          { label: t(locale, 'common.totalPremiumsPaid'), value: '₹1,25,000' },
+          { label: 'Surrender Payout', value: '₹68,750' },
+          { label: 'Difference Amount', value: '₹56,250' },
+          { label: 'Shortfall %', value: '45.0%' }
+        ]}
+      />
+
+      <div id="calc-rule-source-badge" class="text-xs text-slate-500 bg-slate-50 border border-slate-200/60 p-2.5 rounded-xl text-center">
+        {t(locale, 'common.verifiedDataBadge')}: Table 914
+      </div>
+
+      <button
+        type="button"
+        id="explain-ai-btn"
+        class="w-full py-2.5 px-4 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-sm hover:shadow transition-all flex items-center justify-center gap-2 cursor-pointer"
+      >
+        <span>✨</span>
+        <span>{t(locale, 'common.explainAiBtn')}</span>
+      </button>
+
+      <AIExplanationCard calculatorId="lic-surrender-loss-calculator" />
+    </div>
+  </div>
+
+  <!-- Bottom Slots -->
+  <div slot="breakdown">
+    <ResultBreakdown
+      title={t(locale, 'common.breakdown')}
+      subtitle="Quantification of premium capital versus cash return for 5 years on Table 914"
+      items={breakdownItems}
+      totalLabel="Net Estimated Monetary Difference"
+      totalAmount="₹56,250"
+    />
+  </div>
+
+  <div slot="comparison">
+    <div class="space-y-4">
+      <PolicyComparisonTable
+        title="3-Way Decision Comparison: Surrender vs. Paid-Up vs. Continue"
+        subtitle="Numerical projection of your 3 primary financial alternatives before submitting surrender paperwork."
+      />
+    </div>
+  </div>
+
+  <div slot="explanation">
+    <CalculationExplanation
+      title={seoData.howItWorks.title}
+      steps={seoData.howItWorks.steps}
+      notes={seoData.assumptionsAndLimitations.notes}
+    />
+  </div>
+
+  <div slot="related">
+    <RelatedCalculatorCard tools={relatedTools} />
+  </div>
+</CalculatorShell>
+
+<div id="calc-live-announcer" class="sr-only" aria-live="polite"></div>
+
+<script>
+  import { initCalculatorForm } from '@/lib/client/calculator-client';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initCalculatorForm({
+      formId: 'lic-surrender-loss-form',
+      apiEndpoint: '/api/calculators/surrender-loss',
+      calculatorId: 'lic-surrender-loss-calculator',
+      calculatorName: 'LIC Surrender Loss Calculator'
+    });
+  });
+</script>

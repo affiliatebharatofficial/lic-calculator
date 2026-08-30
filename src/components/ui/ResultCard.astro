@@ -1,0 +1,57 @@
+---
+import Badge from './Badge.astro';
+
+interface Stat {
+  label: string;
+  value: string;
+  badge?: string;
+  badgeType?: 'default' | 'success' | 'warning' | 'danger' | 'info';
+}
+
+interface Props {
+  headline: string;
+  amount: string;
+  subtitle?: string;
+  stats?: Stat[];
+  class?: string;
+}
+
+const { headline, amount, subtitle, stats = [], class: className = '' } = Astro.props;
+---
+
+<div class={`bg-gradient-to-b from-brand-900 to-slate-900 text-white rounded-2xl p-6 sm:p-8 shadow-result border border-brand-800 ${className}`}>
+  <div class="flex items-center justify-between gap-4">
+    <span class="text-xs font-semibold uppercase tracking-wider text-brand-300">
+      {headline}
+    </span>
+    <span class="inline-flex items-center rounded-full bg-brand-500/20 px-2.5 py-0.5 text-xs font-medium text-brand-200 border border-brand-400/30">
+      Estimated Result
+    </span>
+  </div>
+
+  <div class="mt-4">
+    <div class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-mono break-words" style="overflow-wrap: anywhere;">
+      {amount}
+    </div>
+    {subtitle && <p class="mt-1 text-xs sm:text-sm text-slate-300 leading-snug">{subtitle}</p>}
+  </div>
+
+  {
+    stats.length > 0 && (
+      <div class="mt-6 pt-6 border-t border-brand-800/80 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+        {stats.map((st) => (
+          <div>
+            <div class="text-xs text-slate-400 font-medium">{st.label}</div>
+            <div class="text-sm sm:text-lg font-semibold text-white mt-0.5 font-mono break-words" style="overflow-wrap: anywhere;">{st.value}</div>
+            {st.badge && <Badge type={st.badgeType || 'info'} class="mt-1">{st.badge}</Badge>}
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  <div class="mt-6 pt-4 border-t border-brand-800/50 flex items-center justify-between text-xs text-slate-400">
+    <span>Deterministic Calculation Engine</span>
+    <span class="text-amber-300 font-medium">Independent Platform</span>
+  </div>
+</div>

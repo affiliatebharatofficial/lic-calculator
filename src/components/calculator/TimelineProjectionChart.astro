@@ -1,0 +1,88 @@
+---
+interface TimelinePoint {
+  year: number;
+  premiumsPaid: string;
+  surrenderValue: string;
+  surrenderLossPercent: string;
+  maturityValue?: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  points?: TimelinePoint[];
+  class?: string;
+}
+
+const defaultPoints: TimelinePoint[] = [
+  { year: 3, premiumsPaid: '₹75,000', surrenderValue: '₹22,500', surrenderLossPercent: '70% Loss' },
+  { year: 5, premiumsPaid: '₹1,25,000', surrenderValue: '₹62,500', surrenderLossPercent: '50% Loss' },
+  { year: 10, premiumsPaid: '₹2,50,000', surrenderValue: '₹1,87,500', surrenderLossPercent: '25% Loss' },
+  { year: 15, premiumsPaid: '₹3,75,000', surrenderValue: '₹3,56,000', surrenderLossPercent: '5% Loss' },
+  { year: 20, premiumsPaid: '₹5,00,000', surrenderValue: '₹9,80,000 (Maturity)', surrenderLossPercent: '+96% Gain', maturityValue: '₹9,80,000' }
+];
+
+const {
+  title = 'Policy Value Progression Timeline',
+  subtitle = 'Observe how surrender loss diminishes over time until full maturity profit is reached.',
+  points = defaultPoints,
+  class: className = ''
+} = Astro.props;
+---
+
+<div class={`bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-8 shadow-card space-y-6 ${className}`}>
+  <div>
+    <h3 class="text-lg font-bold text-slate-900 tracking-tight">{title}</h3>
+    <p class="text-xs sm:text-sm text-slate-500 mt-1">{subtitle}</p>
+  </div>
+
+  <div class="relative pt-4 pb-2">
+    <!-- Horizontal Timeline Line -->
+    <div class="hidden md:block absolute top-8 left-6 right-6 h-1 bg-slate-200 -z-0"></div>
+
+    <!-- Timeline Grid Points -->
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative z-10">
+      {
+        points.map((pt, idx) => {
+          const isFinal = idx === points.length - 1;
+          return (
+            <div class={`p-4 rounded-xl border flex flex-col justify-between space-y-2 ${
+              isFinal ? 'bg-emerald-50/70 border-emerald-300' : 'bg-slate-50/70 border-slate-200'
+            }`}>
+              <div class="flex items-center justify-between">
+                <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-brand-700 text-white font-bold text-xs">
+                  Y{pt.year}
+                </span>
+                <span class={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                  isFinal ? 'bg-emerald-200 text-emerald-900' : 'bg-rose-100 text-rose-800'
+                }`}>
+                  {pt.surrenderLossPercent}
+                </span>
+              </div>
+
+              <div class="space-y-1 text-xs">
+                <div>
+                  <span class="text-slate-400 block text-[10px]">Total Paid:</span>
+                  <span class="font-mono font-semibold text-slate-800">{pt.premiumsPaid}</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[10px]">
+                    {isFinal ? 'Full Maturity Payout:' : 'Est. Cash Surrender:'}
+                  </span>
+                  <span class={`font-mono font-bold ${isFinal ? 'text-emerald-700 text-sm' : 'text-slate-900'}`}>
+                    {pt.surrenderValue}
+                  </span>
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+
+  <div class="text-[11px] text-slate-400 bg-slate-50 p-3 rounded-lg border border-slate-200/60 flex items-center justify-between">
+    <span>* Illustration of standard 20-year endowment progression.</span>
+    <span class="font-medium text-slate-600">Pure CSS/SVG UI Foundation</span>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+---
+interface TimelineMilestone {
+  year: number;
+  label: string;
+  description: string;
+  isCurrent?: boolean;
+  isPassed?: boolean;
+}
+
+interface Props {
+  milestones?: TimelineMilestone[];
+  completedYears?: number;
+  policyTerm?: number;
+  class?: string;
+}
+
+const {
+  completedYears = 5,
+  policyTerm = 20,
+  milestones = [
+    { year: 0, label: 'Policy Start', description: 'Commenced coverage', isPassed: true },
+    { year: 2, label: 'Surrender Threshold', description: 'Acquires cash value', isPassed: completedYears >= 2 },
+    { year: completedYears, label: `Year ${completedYears}`, description: 'Current status', isCurrent: true, isPassed: true },
+    { year: policyTerm, label: 'Maturity', description: `Full term (${policyTerm} yrs)`, isPassed: false }
+  ],
+  class: className = ''
+} = Astro.props;
+---
+
+<div class={`bg-slate-50 border border-slate-200/80 rounded-2xl p-5 sm:p-6 ${className}`}>
+  <div class="border-b border-slate-200 pb-3 mb-5">
+    <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+      <svg class="w-4 h-4 text-navy-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      Policy Timeline & Surrender Milestones
+    </h3>
+    <p class="text-xs text-slate-500 mt-0.5">
+      Key duration benchmarks and acquisition threshold markers for your policy.
+    </p>
+  </div>
+
+  <!-- Responsive Timeline -->
+  <div class="relative">
+    <div class="hidden sm:block absolute top-1/2 left-4 right-4 h-0.5 bg-slate-200 -translate-y-1/2 z-0"></div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 relative z-10">
+      {milestones.map((m) => (
+        <div class={`p-3 rounded-xl border transition-all ${
+          m.isCurrent
+            ? 'bg-navy-900 text-white border-navy-800 shadow-md ring-2 ring-navy-600/30'
+            : m.isPassed
+              ? 'bg-white text-slate-900 border-slate-200'
+              : 'bg-white/60 text-slate-500 border-dashed border-slate-200'
+        }`}>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
+              m.isCurrent
+                ? 'bg-amber-400 text-navy-950'
+                : m.isPassed
+                  ? 'bg-emerald-100 text-emerald-800'
+                  : 'bg-slate-100 text-slate-600'
+            }`}>
+              Year {m.year}
+            </span>
+            {m.isCurrent && (
+              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-300 animate-pulse">
+                Current
+              </span>
+            )}
+          </div>
+          <div class={`text-xs font-bold ${m.isCurrent ? 'text-white' : 'text-slate-900'}`}>
+            {m.label}
+          </div>
+          <div class={`text-[11px] mt-0.5 ${m.isCurrent ? 'text-slate-300' : 'text-slate-500'}`}>
+            {m.description}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <p class="text-[11px] text-slate-500 mt-4 text-center sm:text-left">
+    * Cash surrender value becomes available only after completing 2 full policy years.
+  </p>
+</div>

@@ -1,0 +1,98 @@
+---
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  type?: 'text' | 'number' | 'date' | 'email';
+  value?: string | number;
+  placeholder?: string;
+  required?: boolean;
+  min?: number | string;
+  max?: number | string;
+  step?: number | string;
+  helpText?: string;
+  error?: string;
+  prefix?: string;
+  suffix?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  id,
+  name,
+  label,
+  type = 'text',
+  value,
+  placeholder,
+  required = false,
+  min,
+  max,
+  step,
+  helpText,
+  error,
+  prefix,
+  suffix,
+  class: className = '',
+  ...rest
+} = Astro.props;
+---
+
+<div class={`w-full ${className}`}>
+  <div class="flex justify-between items-center mb-1">
+    <label for={id} class="block text-sm font-medium text-slate-700">
+      {label}
+      {required && <span class="text-rose-500 ml-0.5" title="Required">*</span>}
+    </label>
+  </div>
+
+  <div class="relative rounded-lg shadow-sm">
+    {
+      prefix && (
+        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+          <span class="text-slate-500 sm:text-sm font-medium">{prefix}</span>
+        </div>
+      )
+    }
+    <input
+      id={id}
+      name={name}
+      type={type}
+      value={value}
+      placeholder={placeholder}
+      required={required}
+      min={min}
+      max={max}
+      step={step}
+      class={`block w-full rounded-lg border text-slate-900 shadow-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-600 focus:border-brand-600 sm:text-sm py-2.5 ${
+        prefix ? 'pl-8' : 'pl-3.5'
+      } ${suffix ? 'pr-12' : 'pr-3.5'} ${
+        error
+          ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-500 bg-rose-50/20'
+          : 'border-slate-300 bg-white'
+      }`}
+      aria-invalid={error ? 'true' : 'false'}
+      aria-describedby={error ? `${id}-error` : helpText ? `${id}-description` : undefined}
+      {...rest}
+    />
+    {
+      suffix && (
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+          <span class="text-slate-500 sm:text-sm">{suffix}</span>
+        </div>
+      )
+    }
+  </div>
+
+  {
+    error ? (
+      <p id={`${id}-error`} class="mt-1.5 text-xs text-rose-600 font-medium">
+        {error}
+      </p>
+    ) : helpText ? (
+      <p id={`${id}-description`} class="mt-1.5 text-xs text-slate-500">
+        {helpText}
+      </p>
+    ) : null
+  }
+</div>

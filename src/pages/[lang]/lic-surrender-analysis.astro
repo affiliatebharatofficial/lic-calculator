@@ -1,0 +1,292 @@
+---
+import CalculatorShell from '@/components/calculator/CalculatorShell.astro';
+import PlanSelector from '@/components/calculator/PlanSelector.astro';
+import CurrencyInput from '@/components/calculator/CurrencyInput.astro';
+import RangeInput from '@/components/calculator/RangeInput.astro';
+import SelectInput from '@/components/calculator/SelectInput.astro';
+import CalculateButton from '@/components/calculator/CalculateButton.astro';
+import ResetButton from '@/components/calculator/ResetButton.astro';
+import ResultBreakdown from '@/components/calculator/ResultBreakdown.astro';
+import PolicyComparisonTable from '@/components/calculator/PolicyComparisonTable.astro';
+import SurrenderTimeline from '@/components/calculator/SurrenderTimeline.astro';
+import DataQualityBadge from '@/components/calculator/DataQualityBadge.astro';
+import CalculationExplanation from '@/components/calculator/CalculationExplanation.astro';
+import RelatedCalculatorCard from '@/components/calculator/RelatedCalculatorCard.astro';
+import AIExplanationCard from '@/components/ai/AIExplanationCard.astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import { getCalculatorSeoData } from '@/lib/seo/calculator-content';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+const seoData = getCalculatorSeoData('lic-surrender-analysis', locale);
+
+const breadcrumbs = [
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
+  { name: t(locale, 'nav.surrenderAnalysis'), url: getLocalizedPath('/lic-surrender-analysis', locale) }
+];
+
+const frequencyOptions = [
+  { label: t(locale, 'frequency.yearly'), value: 'yearly' },
+  { label: t(locale, 'frequency.halfYearly'), value: 'half-yearly' },
+  { label: t(locale, 'frequency.quarterly'), value: 'quarterly' },
+  { label: t(locale, 'frequency.monthly'), value: 'monthly' }
+];
+
+const breakdownItems = [
+  { id: '1', label: 'Total Premiums Deposited', amount: '₹1,25,000', notes: '5 years of premium payments' },
+  { id: '2', label: 'Guaranteed Surrender Value (GSV @ 50%)', amount: '₹50,000', notes: 'Statutory minimum cash value formula' },
+  { id: '3', label: 'Special Surrender Value (SSV @ 55%)', amount: '₹68,750', notes: 'Actuarial paid-up discounted value' },
+  { id: '4', label: 'Estimated Monetary Difference (Capital Shortfall)', amount: '₹56,250', isCredit: true, notes: '45.0% reduction from total capital paid' },
+  { id: '5', label: 'Paid-Up Cover Alternative', amount: '₹1,25,000', notes: 'Life insurance cover retained if you stop paying' }
+];
+
+const relatedTools = [
+  {
+    title: t(locale, 'nav.surrenderCalculator'),
+    description: 'Quick estimation of statutory GSV and Special Surrender Value (SSV).',
+    url: getLocalizedPath('/lic-surrender-value-calculator', locale),
+    category: 'Surrender'
+  },
+  {
+    title: t(locale, 'nav.surrenderLoss'),
+    description: 'Dedicated financial calculator focusing on capital shortfall and forfeited bonus.',
+    url: getLocalizedPath('/lic-surrender-loss-calculator', locale),
+    category: 'Loss Analysis'
+  },
+  {
+    title: t(locale, 'nav.loanCalculator'),
+    description: 'Calculate borrowing limits against your policy without losing life insurance cover.',
+    url: getLocalizedPath('/lic-loan-calculator', locale),
+    category: 'Policy Loan'
+  },
+  {
+    title: t(locale, 'nav.maturityCalculator'),
+    description: 'Project total maturity benefits with accrued reversionary and final bonuses.',
+    url: getLocalizedPath('/lic-maturity-calculator', locale),
+    category: 'Maturity'
+  }
+];
+---
+
+<CalculatorShell
+  title={seoData.seoTitle}
+  description={seoData.metaDescription}
+  calculatorTitle={seoData.h1}
+  calculatorSubtitle={seoData.subtitle}
+  category={seoData.category}
+  lastReviewedDate={seoData.lastReviewedDate}
+  sources={seoData.sources}
+  faqs={seoData.faqs}
+  locale={locale}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Form Inputs Slot -->
+  <div slot="inputs" class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 shadow-card">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+      <div>
+        <h2 class="text-base font-bold text-slate-900">{t(locale, 'common.assumptions')}</h2>
+      </div>
+      <ResetButton />
+    </div>
+
+    <!-- Error Banner -->
+    <div id="calc-error-banner" class="hidden mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200/80 text-rose-700 text-xs font-semibold" role="alert"></div>
+
+    <form id="lic-surrender-analysis-form" class="space-y-5">
+      <PlanSelector
+        id="planTableNo"
+        name="planTableNo"
+        label="Select LIC Plan"
+        defaultValue={914}
+        required
+      />
+
+      <CurrencyInput
+        id="sumAssured"
+        name="sumAssured"
+        label={t(locale, 'common.sumAssured')}
+        min={100000}
+        max={100000000}
+        step={25000}
+        value={500000}
+        required
+      />
+
+      <RangeInput
+        id="policyTerm"
+        name="policyTerm"
+        label={t(locale, 'common.policyTerm')}
+        min={12}
+        max={35}
+        step={1}
+        value={20}
+        unit={t(locale, 'common.years')}
+        required
+      />
+
+      <RangeInput
+        id="completedYears"
+        name="completedYears"
+        label={t(locale, 'common.completedYears')}
+        min={1}
+        max={35}
+        step={1}
+        value={5}
+        unit={t(locale, 'common.years')}
+        required
+      />
+
+      <CurrencyInput
+        id="totalPremiumsPaid"
+        name="totalPremiumsPaid"
+        label={t(locale, 'common.totalPremiumsPaid')}
+        min={1000}
+        max={50000000}
+        step={5000}
+        value={125000}
+        required
+      />
+
+      <CurrencyInput
+        id="accruedBonus"
+        name="accruedBonus"
+        label={t(locale, 'common.accruedBonus')}
+        min={0}
+        max={50000000}
+        step={5000}
+        value={0}
+      />
+
+      <SelectInput
+        id="premiumFrequency"
+        name="premiumFrequency"
+        label={t(locale, 'common.frequency')}
+        options={frequencyOptions}
+        value="yearly"
+      />
+
+      <div class="pt-2">
+        <CalculateButton text={t(locale, 'common.calculate')} />
+      </div>
+    </form>
+  </div>
+
+  <!-- Results Slot -->
+  <div slot="results" id="calc-result-container">
+    <div class="space-y-4">
+      <!-- Dominant Visual Summary Card -->
+      <div class="bg-gradient-to-br from-navy-950 via-slate-900 to-navy-900 text-white rounded-2xl p-6 sm:p-7 shadow-result border border-slate-800 space-y-5">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3.5">
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-400">
+            Estimated Cash Surrender Payout
+          </span>
+          <DataQualityBadge status="verified" />
+        </div>
+
+        <div>
+          <span class="text-xs text-slate-400 font-medium block">
+            Estimated Cash Value (Higher of GSV / SSV):
+          </span>
+          <div id="calc-primary-result-amount" class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-mono text-emerald-400 mt-1">
+            ₹68,750
+          </div>
+          <p class="text-xs text-slate-300 mt-1">
+            Special Surrender Value (SSV) applies as it exceeds Guaranteed Surrender Value (₹50,000).
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-slate-800/80">
+          <div class="bg-white/5 rounded-xl p-3 border border-white/5">
+            <span class="text-[11px] text-slate-400 block font-medium">Total Paid In</span>
+            <span class="text-sm sm:text-base font-bold text-white font-mono mt-0.5 block">₹1,25,000</span>
+          </div>
+          <div class="bg-white/5 rounded-xl p-3 border border-white/5">
+            <span class="text-[11px] text-slate-400 block font-medium">Surrender Payout</span>
+            <span class="text-sm sm:text-base font-bold text-emerald-400 font-mono mt-0.5 block">₹68,750</span>
+          </div>
+          <div class="bg-rose-500/10 rounded-xl p-3 border border-rose-500/20">
+            <span class="text-[11px] text-rose-300 block font-medium">Capital Shortfall</span>
+            <span class="text-sm sm:text-base font-bold text-rose-400 font-mono mt-0.5 block">₹56,250</span>
+          </div>
+          <div class="bg-rose-500/10 rounded-xl p-3 border border-rose-500/20">
+            <span class="text-[11px] text-rose-300 block font-medium">Shortfall %</span>
+            <span class="text-sm sm:text-base font-bold text-rose-400 font-mono mt-0.5 block">45.0%</span>
+          </div>
+        </div>
+
+        <div id="calc-rule-source-badge" class="text-[11px] text-slate-400 bg-black/30 border border-slate-800 p-2.5 rounded-xl text-center">
+          {t(locale, 'common.verifiedDataBadge')}: Table 914
+        </div>
+      </div>
+
+      <!-- Policy Timeline Component -->
+      <SurrenderTimeline completedYears={5} policyTerm={20} />
+
+      <!-- Explain with AI Action & Card -->
+      <button
+        type="button"
+        id="explain-ai-btn"
+        class="w-full py-3 px-4 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-sm hover:shadow transition-all flex items-center justify-center gap-2 cursor-pointer"
+      >
+        <span>✨</span>
+        <span>{t(locale, 'common.explainAiBtn')}</span>
+      </button>
+
+      <AIExplanationCard calculatorId="lic-surrender-analysis" />
+    </div>
+  </div>
+
+  <!-- Bottom Slots -->
+  <div slot="comparison">
+    <div class="space-y-4">
+      <PolicyComparisonTable
+        title="3-Way Decision Comparison: Surrender vs. Paid-Up vs. Continue"
+        subtitle="Objective numerical projection of your 3 primary financial options before taking action."
+      />
+    </div>
+  </div>
+
+  <div slot="breakdown">
+    <ResultBreakdown
+      title={t(locale, 'common.breakdown')}
+      subtitle="Complete accounting of premiums deposited, cash factors, and capital difference"
+      items={breakdownItems}
+      totalLabel="Net Estimated Capital Difference"
+      totalAmount="₹56,250"
+    />
+  </div>
+
+  <div slot="explanation">
+    <CalculationExplanation
+      title={seoData.howItWorks.title}
+      steps={seoData.howItWorks.steps}
+      notes={seoData.assumptionsAndLimitations.notes}
+    />
+  </div>
+
+  <div slot="related">
+    <RelatedCalculatorCard tools={relatedTools} />
+  </div>
+</CalculatorShell>
+
+<div id="calc-live-announcer" class="sr-only" aria-live="polite"></div>
+
+<script>
+  import { initCalculatorForm } from '@/lib/client/calculator-client';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initCalculatorForm({
+      formId: 'lic-surrender-analysis-form',
+      apiEndpoint: '/api/calculators/surrender-analysis',
+      calculatorId: 'lic-surrender-analysis',
+      calculatorName: 'Advanced Surrender Analysis'
+    });
+  });
+</script>

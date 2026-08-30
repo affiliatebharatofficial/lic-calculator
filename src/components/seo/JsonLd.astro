@@ -1,0 +1,79 @@
+---
+import type { BreadcrumbItem } from '@/types/seo';
+
+interface Props {
+  type?: 'WebSite' | 'WebPage' | 'FinancialProduct' | 'SoftwareApplication' | 'FAQPage';
+  title: string;
+  description: string;
+  url?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  faqs?: Array<{ question: string; answer: string }>;
+}
+
+const { type = 'WebSite', title, description, url, breadcrumbs = [], faqs = [] } = Astro.props;
+
+const siteUrl = 'https://lic-calculators.com';
+const currentUrl = url || siteUrl;
+
+const schemaList: Record<string, unknown>[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'LIC Calculator',
+    url: siteUrl,
+    description: 'Independent policy & financial calculators for LIC policyholders in India.',
+    publisher: {
+      '@type': 'Organization',
+      name: 'LIC Calculator Platform',
+      url: siteUrl
+    }
+  }
+];
+
+if (type === 'SoftwareApplication' || type === 'FinancialProduct') {
+  schemaList.push({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: title,
+    url: currentUrl,
+    description: description,
+    applicationCategory: 'FinanceApplication',
+    operatingSystem: 'All',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'INR'
+    }
+  });
+}
+
+if (breadcrumbs && breadcrumbs.length > 0) {
+  schemaList.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((crumb, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: crumb.name,
+      item: crumb.url.startsWith('http') ? crumb.url : `${siteUrl}${crumb.url}`
+    }))
+  });
+}
+
+if (faqs && faqs.length > 0) {
+  schemaList.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer
+      }
+    }))
+  });
+}
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schemaList.length === 1 ? schemaList[0] : schemaList)} />

@@ -1,0 +1,199 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+
+export const VERIFIED_PLANS = [
+  {
+    slug: '914-new-endowment-plan',
+    tableNo: 914,
+    name: 'LIC New Endowment Plan (Table 914)',
+    category: 'Endowment Assurance',
+    minAge: 8,
+    maxAge: 55,
+    minTerm: 12,
+    maxTerm: 35,
+    minSumAssured: '₹1,00,000',
+    description: 'A participating non-linked individual life insurance savings plan offering guaranteed financial protection alongside accrued annual simple reversionary bonuses and terminal loyalty additions upon maturity.',
+    eligibility: [
+      { param: 'Minimum Age at Entry', value: '8 Years completed' },
+      { param: 'Maximum Age at Entry', value: '55 Years (nearer birthday)' },
+      { param: 'Minimum Policy Term', value: '12 Years' },
+      { param: 'Maximum Policy Term', value: '35 Years' },
+      { param: 'Maximum Maturity Age', value: '75 Years' },
+      { param: 'Minimum Basic Sum Assured', value: '₹1,00,000 (No upper limit)' }
+    ],
+    calculatorUrl: '/lic-premium-calculator',
+    surrenderUrl: '/lic-surrender-value-calculator'
+  },
+  {
+    slug: '915-new-jeevan-anand',
+    tableNo: 915,
+    name: 'LIC New Jeevan Anand (Table 915)',
+    category: 'Endowment + Lifetime Whole Life Cover',
+    minAge: 18,
+    maxAge: 50,
+    minTerm: 15,
+    maxTerm: 35,
+    minSumAssured: '₹1,00,000',
+    description: 'Double benefit plan providing maturity proceeds (Sum Assured + Bonus) at the end of the policy term, plus lifelong financial death cover continuing until death at any age thereafter.',
+    eligibility: [
+      { param: 'Minimum Age at Entry', value: '18 Years completed' },
+      { param: 'Maximum Age at Entry', value: '50 Years' },
+      { param: 'Minimum Policy Term', value: '15 Years' },
+      { param: 'Maximum Policy Term', value: '35 Years' },
+      { param: 'Maximum Maturity Age', value: '75 Years' },
+      { param: 'Life Cover Post-Maturity', value: '100% Basic Sum Assured continues for life' }
+    ],
+    calculatorUrl: '/lic-premium-calculator',
+    surrenderUrl: '/lic-surrender-value-calculator'
+  },
+  {
+    slug: '936-jeevan-labh',
+    tableNo: 936,
+    name: 'LIC Jeevan Labh (Table 936)',
+    category: 'Limited Premium Paying Endowment',
+    minAge: 8,
+    maxAge: 59,
+    minTerm: 16,
+    maxTerm: 25,
+    minSumAssured: '₹2,00,000',
+    description: 'High-bonus limited premium paying endowment plan where premiums are payable for only 10, 15, or 16 years while coverage and returns extend for full 16, 21, or 25-year terms.',
+    eligibility: [
+      { param: 'Terms / PPT Combinations', value: '16/10, 21/15, 25/16 (Term / PPT in Years)' },
+      { param: 'Minimum Age at Entry', value: '8 Years completed' },
+      { param: 'Maximum Age at Entry', value: '59 Years (for 16-yr term)' },
+      { param: 'Minimum Sum Assured', value: '₹2,00,000' }
+    ],
+    calculatorUrl: '/lic-premium-calculator',
+    surrenderUrl: '/lic-surrender-value-calculator'
+  },
+  {
+    slug: '945-jeevan-umang',
+    tableNo: 945,
+    name: 'LIC Jeevan Umang (Table 945)',
+    category: 'Whole Life 8% Guaranteed Survival Income',
+    minAge: 0,
+    maxAge: 55,
+    minTerm: 15,
+    maxTerm: 30,
+    minSumAssured: '₹2,00,000',
+    description: 'Whole-life assurance plan offering annual guaranteed survival benefits of 8% of Sum Assured every year from the end of premium paying term until age 99, plus lump sum at 100.',
+    eligibility: [
+      { param: 'Premium Paying Terms (PPT)', value: '15, 20, 25, 30 Years' },
+      { param: 'Annual Survival Benefit', value: '8% of Basic Sum Assured per year post-PPT' },
+      { param: 'Lump Sum Maturity', value: 'Sum Assured + Vested Bonus + FAB at Age 100' }
+    ],
+    calculatorUrl: '/lic-premium-calculator',
+    surrenderUrl: '/lic-surrender-value-calculator'
+  }
+];
+
+export function getStaticPaths() {
+  return VERIFIED_PLANS.map((plan) => ({
+    params: { slug: plan.slug },
+    props: { plan }
+  }));
+}
+
+const { plan } = Astro.props;
+const siteUrl = 'https://lic-calculators.com';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'LIC Plans Directory', url: '/plans' },
+  { name: plan.name, url: `/lic-plans/${plan.slug}` }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: `${plan.name} - Benefits, Eligibility & Calculator`,
+  description: plan.description,
+  url: `${siteUrl}/lic-plans/${plan.slug}`,
+  publishedDate: '2026-01-01T00:00:00Z',
+  modifiedDate: '2026-01-20T00:00:00Z',
+  author: {
+    slug: 'rajesh-sharma',
+    name: 'Rajesh Sharma, FIAI',
+    title: 'Lead Actuarial Researcher',
+    role: 'Chief Actuary & Author',
+    biography: 'Actuarial researcher specializing in LIC valuation.',
+    qualifications: ['FIAI'],
+    experienceYears: 16,
+    expertiseAreas: ['LIC Valuation'],
+    photoUrl: '/images/authors/rajesh-sharma.jpg',
+    socialLinks: {},
+    isReviewer: true,
+    isFactChecker: true,
+    updatedAt: '2026-01-01'
+  }
+});
+---
+
+<BaseLayout
+  title={`${plan.name} - Eligibility, Benefits & Calculators | LIC Calculator`}
+  description={plan.description}
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <!-- Header -->
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <div class="flex items-center gap-2">
+        <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+          Table {plan.tableNo}
+        </span>
+        <span class="text-xs text-slate-500 font-semibold">{plan.category}</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">{plan.name}</h1>
+      <p class="text-base text-slate-600 leading-relaxed">{plan.description}</p>
+    </div>
+
+    <!-- Quick Tool Action Banner -->
+    <div class="bg-gradient-to-r from-brand-600 to-indigo-700 rounded-3xl p-7 sm:p-8 text-white shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="space-y-1 text-center sm:text-left">
+        <h2 class="text-xl font-bold">Calculate Quotes & Surrender Value for Table {plan.tableNo}</h2>
+        <p class="text-xs text-brand-100">Deterministic quotes computed using official IRDAI & LIC factor tables.</p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-2.5 sm:gap-3 w-full sm:w-auto shrink-0">
+        <a
+          href={plan.calculatorUrl}
+          class="min-h-[44px] px-5 py-2.5 rounded-xl bg-white text-brand-700 font-bold text-xs hover:bg-brand-50 transition-colors shadow-sm flex items-center justify-center"
+        >
+          Premium Calculator &rarr;
+        </a>
+        <a
+          href={plan.surrenderUrl}
+          class="min-h-[44px] px-5 py-2.5 rounded-xl bg-brand-800/80 hover:bg-brand-800 text-white font-bold text-xs border border-brand-400/40 transition-colors flex items-center justify-center"
+        >
+          Surrender Value &rarr;
+        </a>
+      </div>
+    </div>
+
+    <!-- Eligibility Constraints Table -->
+    <div class="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-card">
+      <div class="p-6 border-b border-slate-100 bg-slate-50/60">
+        <h2 class="text-base font-bold text-slate-900">Table {plan.tableNo} Eligibility & Policy Parameters</h2>
+        <p class="text-xs text-slate-500">Official statutory limits defined under LIC product documentation.</p>
+      </div>
+
+      <div class="divide-y divide-slate-100">
+        {plan.eligibility.map((row) => (
+          <div class="p-4 sm:px-6 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
+            <span class="font-bold text-slate-700">{row.param}</span>
+            <span class="font-mono text-slate-900 font-semibold sm:text-right">{row.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Contextual Links to Surrender & Loss Tools -->
+    <ContextualLinks currentPath={`/lic-plans/${plan.slug}`} />
+
+    <!-- Author & Reviewer Card -->
+    <AuthorReviewerCard />
+  </div>
+</BaseLayout>

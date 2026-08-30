@@ -1,0 +1,72 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { VERIFIED_AUTHORS } from '@/lib/editorial';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  const nonDefaultLocales = LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE);
+  const paths: any[] = [];
+
+  for (const lang of nonDefaultLocales) {
+    for (const author of VERIFIED_AUTHORS) {
+      paths.push({
+        params: { lang, slug: author.slug },
+        props: { author }
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { lang } = Astro.params;
+const { author } = Astro.props;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+
+const personSchema = StructuredDataGenerator.generatePerson(author);
+
+const breadcrumbs = [
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
+  { name: 'Authors', url: getLocalizedPath('/editorial-policy', locale) },
+  { name: author.name, url: getLocalizedPath(`/author/${author.slug}`, locale) }
+];
+---
+
+<BaseLayout
+  title={`${author.name} - ${author.title} | ${t(locale, 'site.name')}`}
+  description={author.biography}
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+  <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <!-- Profile Header Card -->
+    <div class="bg-white rounded-3xl border border-slate-200/90 p-8 sm:p-10 shadow-card flex flex-col sm:flex-row gap-8 items-start">
+      <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-brand-100 border border-brand-200 flex items-center justify-center font-extrabold text-brand-700 text-3xl sm:text-4xl shrink-0 shadow-sm">
+        {author.name.slice(0, 2).toUpperCase()}
+      </div>
+
+      <div class="space-y-3 flex-1">
+        <div class="space-y-1">
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-brand-50 text-brand-700 border border-brand-200 uppercase tracking-wider">
+            {author.role}
+          </span>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">{author.name}</h1>
+          <p class="text-sm font-semibold text-slate-600">{author.title}</p>
+        </div>
+
+        <p class="text-sm text-slate-700 leading-relaxed pt-1">{author.biography}</p>
+
+        <!-- Experience and Qualifications Badges -->
+        <div class="flex flex-wrap gap-2 pt-2">
+          <span class="px-3 py-1 rounded-xl bg-slate-100 text-slate-800 text-xs font-semibold">
+            ⏳ {author.experienceYears}+ Years Actuarial Experience
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
