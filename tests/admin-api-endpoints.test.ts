@@ -4,6 +4,7 @@ import { GET as meRoute } from '@/pages/api/admin/auth/me';
 import { POST as rulesCreateRoute } from '@/pages/api/admin/rules/index';
 import { POST as previewRoute } from '@/pages/api/admin/rules/preview';
 import { POST as aiTranslateRoute } from '@/pages/api/admin/translations/ai-translate';
+import { GET as seoIntentsGetRoute, POST as seoIntentsPostRoute, DELETE as seoIntentsDeleteRoute } from '@/pages/api/admin/seo/intents';
 
 describe('Admin API Endpoints Integration', () => {
   let sessionToken = '';
@@ -125,5 +126,43 @@ describe('Admin API Endpoints Integration', () => {
     expect(json.data.translations.bn).toBeDefined();
     expect(json.data.translations.ta).toBeDefined();
     expect(json.data.translations.te).toBeDefined();
+  });
+
+  it('GET and POST /api/admin/seo/intents manages dynamic search intents', async () => {
+    // 1. GET intents
+    const getRes = await seoIntentsGetRoute({} as any);
+    expect(getRes.status).toBe(200);
+    const getJson = await getRes.json();
+    expect(getJson.success).toBe(true);
+    expect(getJson.data.intents.length).toBeGreaterThan(0);
+
+    // 2. POST create new intent
+    const postReq = new Request('https://lic-calculators.com/api/admin/seo/intents', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        clusterId: 'cluster_pension',
+        clusterName: 'LIC Pension & Immediate Annuity Valuation',
+        primaryKeyword: 'lic pension plan return calculator',
+        canonicalPath: '/lic-pension-calculator',
+        primaryIntent: 'Calculate monthly pension returns',
+        isPillar: true
+      })
+    });
+
+    const postRes = await seoIntentsPostRoute({ request: postReq } as any);
+    expect(postRes.status).toBe(200);
+    const postJson = await postRes.json();
+    expect(postJson.success).toBe(true);
+    expect(postJson.data.entry.primaryKeyword).toBe('lic pension plan return calculator');
+
+    // 3. DELETE intent
+    const deleteReq = new Request('https://lic-calculators.com/api/admin/seo/intents?keyword=lic%20pension%20plan%20return%20calculator', {
+      method: 'DELETE'
+    });
+    const deleteRes = await seoIntentsDeleteRoute({ request: deleteReq } as any);
+    expect(deleteRes.status).toBe(200);
+    const deleteJson = await deleteRes.json();
+    expect(deleteJson.success).toBe(true);
   });
 });
