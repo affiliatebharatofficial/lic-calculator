@@ -4,9 +4,36 @@ import { getAIProvider, RateLimiter } from '@/lib/ai';
 import { GLOSSARY_TERMS } from '@/lib/i18n/glossary';
 import { LOCALE_CODES, DEFAULT_LOCALE } from '@/lib/i18n';
 import { CALCULATOR_SEO_DATA, getCalculatorSeoData, type CalculatorId } from '@/lib/seo/calculator-content';
+import { LOCALIZED_CALCULATOR_OVERLAYS } from '@/lib/seo/calculator-i18n';
 import type { Locale } from '@/types/i18n';
 
 export const prerender = false;
+
+// Robust JSON extractor for LLMs (handles DeepSeek reasoning tags, Markdown code fences, and arbitrary wrapping text)
+function extractCleanJson(rawText: string): any {
+  if (!rawText || typeof rawText !== 'string') return null;
+
+  // 1. Strip DeepSeek `<think>...</think>` reasoning blocks
+  let text = rawText.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+
+  // 2. Strip markdown backticks
+  text = text.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
+
+  // 3. Try direct JSON parse
+  try {
+    return JSON.parse(text);
+  } catch {}
+
+  // 4. Try extracting the first valid JSON block via regex
+  const match = text.match(/\{[\s\S]*\}/);
+  if (match) {
+    try {
+      return JSON.parse(match[0]);
+    } catch {}
+  }
+
+  return null;
+}
 
 // Modern colloquial dictionary mappings for instant natural substitutions
 const COMMON_PHRASES: Record<string, Record<Locale, string>> = {
@@ -153,9 +180,9 @@ ${faqsJson}
 
 Return a valid JSON object matching this schema:
 {
-  "h1": "Natural translated H1",
-  "subtitle": "Natural translated Subtitle",
-  "metaDescription": "Natural translated Meta Description",
+  "h1": "Natural translated H1 in ${targetLocale.toUpperCase()}",
+  "subtitle": "Natural translated Subtitle in ${targetLocale.toUpperCase()}",
+  "metaDescription": "Natural translated Meta Description in ${targetLocale.toUpperCase()}",
   "faqs": [
     {
       "question": "Natural translated question in ${targetLocale.toUpperCase()}",
@@ -170,17 +197,25 @@ Return a valid JSON object matching this schema:
         });
 
         if (aiAnswer.success && aiAnswer.data?.answer) {
-          const cleanJson = aiAnswer.data.answer.replace(/```json/g, '').replace(/```/g, '').trim();
-          const parsed = JSON.parse(cleanJson);
-          if (parsed.h1) translatedResult.h1 = parsed.h1;
-          if (parsed.subtitle) translatedResult.subtitle = parsed.subtitle;
-          if (parsed.metaDescription) translatedResult.metaDescription = parsed.metaDescription;
-          if (Array.isArray(parsed.faqs) && parsed.faqs.length > 0) {
-            translatedResult.faqs = parsed.faqs;
+          const parsed = extractCleanJson(aiAnswer.data.answer);
+          if (parsed) {
+            if (parsed.h1) translatedResult.h1 = parsed.h1;
+            if (parsed.subtitle) translatedResult.subtitle = parsed.subtitle;
+            if (parsed.metaDescription) translatedResult.metaDescription = parsed.metaDescription;
+            if (Array.isArray(parsed.faqs) && parsed.faqs.length > 0) {
+              translatedResult.faqs = parsed.faqs;
+            }
           }
         }
       } catch {
-        // Fallback to verified dictionary overlay if offline or mock
+        // Fallback to verified localized data already loaded in translatedResult
+      }
+
+      // If FAQs still match English or empty, ensure localized database overlay is used
+      if (translatedResult.faqs.length === 0 || translatedResult.faqs[0]?.question === englishOriginal.faqs[0]?.question) {
+        if (localizedData.faqs && localizedData.faqs.length > 0) {
+          translatedResult.faqs = localizedData.faqs;
+        }
       }
 
       return createSuccessResponse({
@@ -212,7 +247,27 @@ Return a valid JSON object matching this schema:
       const a = String(body.faqItem.answer || '');
       const targetLocale = (body.targetLocale || 'hi') as Locale;
 
-      const aiPrompt = `Translate this FAQ question and answer into natural, everyday conversational ${targetLocale.toUpperCase()}.
+      let transQ = '';
+      let transA = '';
+
+      // First check if this FAQ exists in our localized repository
+      const allCalculators = Object.keys(CALCULATOR_SEO_DATA) as CalculatorId[];
+      for (const cId of allCalculators) {
+        const engData = CALCULATOR_SEO_DATA[cId];
+        const matchIdx = engData.faqs.findIndex(f => f.question.trim().toLowerCase() === q.trim().toLowerCase());
+        if (matchIdx !== -1) {
+          const locFaqs = LOCALIZED_CALCULATOR_OVERLAYS[targetLocale]?.[cId]?.faqs;
+          if (locFaqs && locFaqs[matchIdx]) {
+            transQ = locFaqs[matchIdx].question;
+            transA = locFaqs[matchIdx].answer;
+            break;
+          }
+        }
+      }
+
+      // If AI provider is available, attempt dynamic AI translation
+      try {
+        const aiPrompt = `Translate this FAQ question and answer into natural, everyday conversational ${targetLocale.toUpperCase()}.
 ${NATURAL_LANGUAGE_INSTRUCTIONS}
 
 Question: ${q}
@@ -224,22 +279,23 @@ Return ONLY valid JSON:
   "answer": "Natural translated answer in ${targetLocale.toUpperCase()}"
 }`;
 
-      const aiAnswer = await provider.answerQuestion({
-        message: aiPrompt,
-        language: 'en'
-      });
+        const aiAnswer = await provider.answerQuestion({
+          message: aiPrompt,
+          language: 'en'
+        });
 
-      let transQ = q;
-      let transA = a;
+        if (aiAnswer.success && aiAnswer.data?.answer) {
+          const parsed = extractCleanJson(aiAnswer.data.answer);
+          if (parsed?.question && parsed?.answer) {
+            transQ = parsed.question;
+            transA = parsed.answer;
+          }
+        }
+      } catch {}
 
-      if (aiAnswer.success && aiAnswer.data?.answer) {
-        try {
-          const cleanJson = aiAnswer.data.answer.replace(/```json/g, '').replace(/```/g, '').trim();
-          const parsed = JSON.parse(cleanJson);
-          if (parsed.question) transQ = parsed.question;
-          if (parsed.answer) transA = parsed.answer;
-        } catch {}
-      }
+      // Ultimate fallback if untranslated
+      if (!transQ) transQ = q;
+      if (!transA) transA = a;
 
       return createSuccessResponse({
         mode: 'faq',
@@ -284,26 +340,25 @@ Schema:
   ${targetLocales.map(l => `"${l}": "Natural translated text in ${l}"`).join(',\n  ')}
 }`;
 
-    const aiResult = await provider.answerQuestion({
-      message: promptMessage,
-      language: 'en'
-    });
-
     const translations: Record<string, string> = {};
 
-    if (aiResult.success && aiResult.data?.answer) {
-      try {
-        const rawJson = aiResult.data.answer.replace(/```json/g, '').replace(/```/g, '').trim();
-        const parsed = JSON.parse(rawJson);
-        for (const loc of targetLocales) {
-          if (parsed[loc]) {
-            translations[loc] = parsed[loc];
+    try {
+      const aiResult = await provider.answerQuestion({
+        message: promptMessage,
+        language: 'en'
+      });
+
+      if (aiResult.success && aiResult.data?.answer) {
+        const parsed = extractCleanJson(aiResult.data.answer);
+        if (parsed) {
+          for (const loc of targetLocales) {
+            if (parsed[loc]) {
+              translations[loc] = parsed[loc];
+            }
           }
         }
-      } catch {
-        // Fallback below
       }
-    }
+    } catch {}
 
     for (const loc of targetLocales) {
       if (!translations[loc]) {

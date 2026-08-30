@@ -11,6 +11,8 @@ import type {
   StructuredExplanation,
   StructuredChatAnswer
 } from '../types';
+import { LOCALIZED_CALCULATOR_OVERLAYS } from '@/lib/seo/calculator-i18n';
+import type { Locale } from '@/types/i18n';
 
 export class MockAIProvider implements AIProvider {
   public readonly providerType = 'mock';
@@ -84,7 +86,84 @@ export class MockAIProvider implements AIProvider {
     request: ChatRequest
   ): Promise<AIResponse<StructuredChatAnswer>> {
     const startTime = Date.now();
-    const query = (request.message || '').toLowerCase();
+    const rawMsg = request.message || '';
+    const query = rawMsg.toLowerCase();
+
+    // 1. Check if this is a translation prompt
+    if (query.includes('translate the following lic calculator content') || query.includes('faqs to translate') || query.includes('return a valid json object matching this schema')) {
+      // Find target locale from message
+      const locMatch = rawMsg.match(/in (HI|MR|GU|BN|TA|TE)/i) || rawMsg.match(/spoken (HI|MR|GU|BN|TA|TE)/i);
+      const targetLoc = (locMatch ? locMatch[1].toLowerCase() : 'hi') as Locale;
+
+      // Extract calculator tool ID hint if present
+      let matchedToolId = 'lic-surrender-value-calculator';
+      if (rawMsg.includes('Maturity') || rawMsg.includes('Returns')) matchedToolId = 'lic-maturity-calculator';
+      else if (rawMsg.includes('Premium') || rawMsg.includes('Mode Rebate')) matchedToolId = 'lic-premium-calculator';
+      else if (rawMsg.includes('Bonus') || rawMsg.includes('Accrual')) matchedToolId = 'lic-bonus-calculator';
+      else if (rawMsg.includes('Loan') || rawMsg.includes('Interest')) matchedToolId = 'lic-loan-calculator';
+      else if (rawMsg.includes('Paid-Up Analysis') || rawMsg.includes('Surrender vs')) matchedToolId = 'lic-surrender-analysis';
+      else if (rawMsg.includes('Loss Calculator') || rawMsg.includes('Shortfall')) matchedToolId = 'lic-surrender-loss-calculator';
+      else if (rawMsg.includes('Pension') || rawMsg.includes('Annuity')) matchedToolId = 'lic-pension-calculator';
+      else if (rawMsg.includes('Term Insurance') || rawMsg.includes('Pure Protection')) matchedToolId = 'lic-term-insurance-calculator';
+
+      const overlay = LOCALIZED_CALCULATOR_OVERLAYS[targetLoc]?.[matchedToolId as any] || LOCALIZED_CALCULATOR_OVERLAYS['hi']?.[matchedToolId as any];
+
+      const jsonResp = {
+        h1: overlay?.h1 || 'कैलकुलेटर',
+        subtitle: overlay?.subtitle || 'पॉलिसी विवरण',
+        metaDescription: overlay?.metaDescription || 'ऑनलाइन गणना',
+        faqs: overlay?.faqs || []
+      };
+
+      return {
+        success: true,
+        data: {
+          answer: JSON.stringify(jsonResp, null, 2),
+          keyPoints: ['Deterministic localized translation mock response'],
+          assumptions: [],
+          sources: ['Localized Knowledge Repository'],
+          suggestedFollowUps: []
+        },
+        meta: {
+          provider: this.providerType,
+          model: this.model,
+          latencyMs: Date.now() - startTime,
+          timestamp: new Date().toISOString()
+        }
+      };
+    }
+
+    if (query.includes('translate this faq') || query.includes('question:') && query.includes('answer:')) {
+      const locMatch = rawMsg.match(/in (HI|MR|GU|BN|TA|TE)/i);
+      const targetLoc = (locMatch ? locMatch[1].toLowerCase() : 'hi') as Locale;
+
+      const qMatch = rawMsg.match(/Question:\s*(.+)/i);
+      const aMatch = rawMsg.match(/Answer:\s*(.+)/i);
+      const origQ = qMatch ? qMatch[1].trim() : '';
+      const origA = aMatch ? aMatch[1].trim() : '';
+
+      const jsonResp = {
+        question: `[${targetLoc.toUpperCase()}] ${origQ}`,
+        answer: `[${targetLoc.toUpperCase()}] ${origA}`
+      };
+
+      return {
+        success: true,
+        data: {
+          answer: JSON.stringify(jsonResp, null, 2),
+          keyPoints: ['FAQ Translation Response'],
+          assumptions: [],
+          sources: ['Localized FAQ Repository'],
+          suggestedFollowUps: []
+        },
+        meta: {
+          provider: this.providerType,
+          model: this.model,
+          latencyMs: Date.now() - startTime,
+          timestamp: new Date().toISOString()
+        }
+      };
+    }
 
     let answer = 'LIC Calculator provides independent, deterministic mathematical evaluations for LIC policies. How can I help you understand your policy parameters?';
     let keyPoints = [
