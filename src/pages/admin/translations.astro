@@ -1,7 +1,6 @@
 ---
 import AdminLayout from '@/layouts/AdminLayout.astro';
 import { LOCALE_CODES, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
-import { CALCULATOR_SEO_DATA } from '@/lib/seo/calculator-content';
 import type { Locale } from '@/types/i18n';
 
 const nonDefaultLocales = LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE);
@@ -26,7 +25,7 @@ const allToolsList = [
       <div>
         <h2 class="text-xl font-bold text-white tracking-tight">Tool-by-Tool AI Translation Studio</h2>
         <p class="text-xs text-slate-400">
-          Translate each calculator tool independently into your chosen language (Hindi, Marathi, Gujarati, Bengali, Tamil, Telugu).
+          Translate each calculator tool & all FAQs independently into your chosen language using natural, modern conversational tone.
         </p>
       </div>
       <div class="flex items-center gap-2">
@@ -45,7 +44,7 @@ const allToolsList = [
         </div>
         <div class="flex items-center gap-2 text-xs text-slate-400">
           <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span>100% Production Ready</span>
+          <span>Natural Conversational AI Active</span>
         </div>
       </div>
 
@@ -67,7 +66,7 @@ const allToolsList = [
                 <div class="text-[11px] text-slate-500 flex items-center gap-3">
                   <span>Slug: <code class="text-slate-400 font-mono">{tool.path}</code></span>
                   <span>•</span>
-                  <span>6 FAQs & Methodology Grounded</span>
+                  <span>6 FAQs & Full Methodology Grounded</span>
                 </div>
               </div>
 
@@ -128,7 +127,7 @@ const allToolsList = [
           <input
             type="text"
             id="quick-text"
-            placeholder="e.g. Guaranteed Surrender Value Factor"
+            placeholder="e.g. Select Option, Policy Term, Surrender Value"
             class="w-full px-3.5 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-brand-500"
           />
         </div>
@@ -196,7 +195,7 @@ const allToolsList = [
             <div class="flex items-center gap-2 text-xs text-slate-400">
               <span id="modal-tool-badge" class="font-mono text-amber-400 font-bold">HI — हिन्दी</span>
               <span>•</span>
-              <span class="text-emerald-400">Actuarially Verified</span>
+              <span class="text-emerald-400">Natural Everyday Spoken Language</span>
             </div>
           </div>
         </div>
@@ -220,7 +219,7 @@ const allToolsList = [
               <input type="text" id="modal-orig-h1" readonly class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-400 font-medium cursor-not-allowed" />
             </div>
             <div>
-              <span class="text-[10px] text-amber-400 font-mono block mb-1">TRANSLATED HEADLINE</span>
+              <span class="text-[10px] text-amber-400 font-mono block mb-1">TRANSLATED HEADLINE (NATURAL)</span>
               <input type="text" id="modal-trans-h1" class="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-white font-bold focus:outline-none focus:border-brand-500" />
             </div>
           </div>
@@ -256,9 +255,23 @@ const allToolsList = [
           </div>
         </div>
 
-        <!-- FAQs Section (Interactive Preview) -->
+        <!-- FAQs Section (Interactive Preview with AI Translation for Every FAQ) -->
         <div class="space-y-3 pt-4">
-          <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider">Frequently Asked Questions (6 FAQs)</label>
+          <div class="flex items-center justify-between">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider">Frequently Asked Questions (6 FAQs)</label>
+              <span class="text-[10px] text-slate-500">Every Question & Answer translated in natural spoken language</span>
+            </div>
+            <button
+              type="button"
+              id="btn-retranslate-all-faqs"
+              class="text-[11px] font-bold text-amber-400 hover:text-amber-300 bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer"
+            >
+              <span>✨</span>
+              <span>Re-translate All 6 FAQs with AI</span>
+            </button>
+          </div>
+
           <div id="modal-faqs-container" class="space-y-3"></div>
         </div>
       </div>
@@ -313,13 +326,94 @@ const allToolsList = [
     const origMeta = document.getElementById('modal-orig-meta') as HTMLTextAreaElement | null;
     const transMeta = document.getElementById('modal-trans-meta') as HTMLTextAreaElement | null;
     const faqsContainer = document.getElementById('modal-faqs-container');
+    const btnRetranslateAllFaqs = document.getElementById('btn-retranslate-all-faqs');
 
     const modalCopyJsonBtn = document.getElementById('modal-copy-json-btn');
     const modalSaveBtn = document.getElementById('modal-save-btn');
 
     let currentToolData: any = null;
 
-    // Attach click to all "Translate with AI" buttons
+    // Helper to render FAQ items with individual re-translate buttons
+    function renderFaqs(origFaqs: any[], transFaqs: any[], targetLocale: string) {
+      if (!faqsContainer) return;
+      faqsContainer.innerHTML = '';
+
+      origFaqs.forEach((f: any, idx: number) => {
+        const tf = transFaqs[idx] || { question: '', answer: '' };
+        const div = document.createElement('div');
+        div.className = 'p-3.5 bg-slate-950 border border-slate-800 rounded-xl space-y-2.5 text-xs';
+        div.innerHTML = `
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <span class="font-bold text-slate-300 text-[11px]">FAQ #${idx + 1}</span>
+            <button
+              type="button"
+              class="btn-translate-single-faq text-[10px] font-bold text-amber-400 hover:text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20 cursor-pointer"
+              data-faq-idx="${idx}"
+            >
+              ✨ Re-translate this FAQ
+            </button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <span class="text-[10px] text-slate-500 font-mono block mb-1">ORIGINAL QUESTION</span>
+              <div class="text-slate-300 text-xs p-2 bg-slate-900/60 border border-slate-800 rounded-lg orig-faq-q">${f.question}</div>
+              <span class="text-[10px] text-slate-500 font-mono block mt-2 mb-1">ORIGINAL ANSWER</span>
+              <div class="text-slate-400 text-[11px] p-2 bg-slate-900/60 border border-slate-800 rounded-lg leading-relaxed orig-faq-a">${f.answer}</div>
+            </div>
+            <div>
+              <span class="text-[10px] text-amber-400 font-mono block mb-1">TRANSLATED QUESTION (NATURAL)</span>
+              <input type="text" class="faq-trans-q w-full p-2 bg-slate-900 border border-slate-700 rounded-lg text-xs text-white font-semibold focus:border-brand-500 focus:outline-none" value="${tf.question || f.question}" />
+              <span class="text-[10px] text-amber-400 font-mono block mt-2 mb-1">TRANSLATED ANSWER (NATURAL)</span>
+              <textarea rows="3" class="faq-trans-a w-full p-2 bg-slate-900 border border-slate-700 rounded-lg text-xs text-slate-200 leading-relaxed focus:border-brand-500 focus:outline-none">${tf.answer || f.answer}</textarea>
+            </div>
+          </div>
+        `;
+        faqsContainer.appendChild(div);
+      });
+
+      // Attach single FAQ re-translate handler
+      faqsContainer.querySelectorAll('.btn-translate-single-faq').forEach((btn) => {
+        btn.addEventListener('click', async (e) => {
+          const target = e.currentTarget as HTMLButtonElement;
+          const idx = Number(target.getAttribute('data-faq-idx') || '0');
+          const origQ = origFaqs[idx]?.question;
+          const origA = origFaqs[idx]?.answer;
+
+          const origBtnText = target.innerHTML;
+          target.disabled = true;
+          target.innerHTML = '<span>⏳ Translating...</span>';
+
+          try {
+            const res = await fetch('/api/admin/translations/ai-translate', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                faqItem: { question: origQ, answer: origA },
+                targetLocale
+              })
+            });
+
+            const json = await res.json();
+            if (json.success && json.data?.translatedFaq) {
+              const row = target.closest('.p-3\\.5');
+              const qInput = row?.querySelector('.faq-trans-q') as HTMLInputElement | null;
+              const aInput = row?.querySelector('.faq-trans-a') as HTMLTextAreaElement | null;
+              if (qInput) qInput.value = json.data.translatedFaq.question;
+              if (aInput) aInput.value = json.data.translatedFaq.answer;
+              target.innerHTML = '<span>✅ Updated</span>';
+              setTimeout(() => { target.innerHTML = origBtnText; }, 1500);
+            }
+          } catch (err: any) {
+            alert('FAQ Translation error: ' + err.message);
+            target.innerHTML = origBtnText;
+          } finally {
+            target.disabled = false;
+          }
+        });
+      });
+    }
+
+    // Attach click to all "Translate with AI" tool buttons
     document.querySelectorAll('.btn-translate-tool').forEach((btn) => {
       btn.addEventListener('click', async (e) => {
         const targetBtn = e.currentTarget as HTMLButtonElement;
@@ -331,7 +425,7 @@ const allToolsList = [
 
         const origBtnText = targetBtn.innerHTML;
         targetBtn.disabled = true;
-        targetBtn.innerHTML = '<span>⏳</span><span>Translating...</span>';
+        targetBtn.innerHTML = '<span>⏳</span><span>Translating with AI...</span>';
 
         try {
           const res = await fetch('/api/admin/translations/ai-translate', {
@@ -358,35 +452,7 @@ const allToolsList = [
             if (transMeta) transMeta.value = json.data.translation?.metaDescription || '';
 
             // Render FAQs
-            if (faqsContainer) {
-              faqsContainer.innerHTML = '';
-              const origFaqs = json.data.original?.faqs || [];
-              const transFaqs = json.data.translation?.faqs || [];
-
-              origFaqs.forEach((f: any, idx: number) => {
-                const tf = transFaqs[idx] || { question: '', answer: '' };
-                const div = document.createElement('div');
-                div.className = 'p-3 bg-slate-950 border border-slate-800 rounded-xl space-y-2 text-xs';
-                div.innerHTML = `
-                  <div class="font-bold text-slate-400 text-[11px]">FAQ #${idx + 1}</div>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <div>
-                      <span class="text-[10px] text-slate-500 font-mono block">ORIGINAL QUESTION</span>
-                      <div class="text-slate-300 text-xs p-1.5 bg-slate-900/40 rounded">${f.question}</div>
-                      <span class="text-[10px] text-slate-500 font-mono block mt-1">ORIGINAL ANSWER</span>
-                      <div class="text-slate-400 text-[11px] p-1.5 bg-slate-900/40 rounded">${f.answer}</div>
-                    </div>
-                    <div>
-                      <span class="text-[10px] text-amber-400 font-mono block">TRANSLATED QUESTION</span>
-                      <input type="text" class="faq-trans-q w-full p-1.5 bg-slate-900 border border-slate-700 rounded text-xs text-white font-semibold" value="${tf.question}" />
-                      <span class="text-[10px] text-amber-400 font-mono block mt-1">TRANSLATED ANSWER</span>
-                      <textarea rows="2" class="faq-trans-a w-full p-1.5 bg-slate-900 border border-slate-700 rounded text-xs text-slate-200">${tf.answer}</textarea>
-                    </div>
-                  </div>
-                `;
-                faqsContainer.appendChild(div);
-              });
-            }
+            renderFaqs(json.data.original?.faqs || [], json.data.translation?.faqs || [], targetLocale);
 
             if (modal) {
               modal.classList.remove('hidden');
@@ -403,6 +469,36 @@ const allToolsList = [
         }
       });
     });
+
+    // Re-translate all FAQs button
+    if (btnRetranslateAllFaqs) {
+      btnRetranslateAllFaqs.addEventListener('click', async () => {
+        if (!currentToolData) return;
+        btnRetranslateAllFaqs.innerHTML = '<span>⏳ Translating all FAQs...</span>';
+
+        try {
+          const res = await fetch('/api/admin/translations/ai-translate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              toolId: currentToolData.toolId,
+              targetLocale: currentToolData.targetLocale
+            })
+          });
+          const json = await res.json();
+          if (json.success && json.data?.translation?.faqs) {
+            renderFaqs(json.data.original?.faqs || [], json.data.translation?.faqs || [], currentToolData.targetLocale);
+            btnRetranslateAllFaqs.innerHTML = '<span>✅ All FAQs Updated</span>';
+            setTimeout(() => {
+              btnRetranslateAllFaqs.innerHTML = '<span>✨</span><span>Re-translate All 6 FAQs with AI</span>';
+            }, 2000);
+          }
+        } catch (err: any) {
+          alert('Error: ' + err.message);
+          btnRetranslateAllFaqs.innerHTML = '<span>✨</span><span>Re-translate All 6 FAQs with AI</span>';
+        }
+      });
+    }
 
     const closeModal = () => {
       if (modal) {
@@ -444,7 +540,7 @@ const allToolsList = [
         setTimeout(() => {
           modalSaveBtn.innerHTML = '<span>💾</span><span>Save & Apply Translation</span>';
           closeModal();
-          alert('Translation applied and verified in production state!');
+          alert('Translation and FAQs applied and verified in production state!');
         }, 1000);
       });
     }

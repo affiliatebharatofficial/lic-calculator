@@ -128,6 +128,44 @@ describe('Admin API Endpoints Integration', () => {
     expect(json.data.translations.te).toBeDefined();
   });
 
+  it('POST /api/admin/translations/ai-translate supports tool and FAQ translation', async () => {
+    // 1. Tool mode translation
+    const toolReq = new Request('https://lic-calculators.com/api/admin/translations/ai-translate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        toolId: 'lic-surrender-value-calculator',
+        targetLocale: 'hi'
+      })
+    });
+    const toolRes = await aiTranslateRoute({ request: toolReq, clientAddress: '127.0.0.1' } as any);
+    expect(toolRes.status).toBe(200);
+    const toolJson = await toolRes.json();
+    expect(toolJson.success).toBe(true);
+    expect(toolJson.data.mode).toBe('tool');
+    expect(toolJson.data.translation.h1).toBeDefined();
+    expect(toolJson.data.translation.faqs.length).toBeGreaterThan(0);
+
+    // 2. Single FAQ mode translation
+    const faqReq = new Request('https://lic-calculators.com/api/admin/translations/ai-translate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        faqItem: {
+          question: 'Can I surrender my policy before 2 years?',
+          answer: 'No, LIC requires at least 2 consecutive years of premium payments.'
+        },
+        targetLocale: 'hi'
+      })
+    });
+    const faqRes = await aiTranslateRoute({ request: faqReq, clientAddress: '127.0.0.1' } as any);
+    expect(faqRes.status).toBe(200);
+    const faqJson = await faqRes.json();
+    expect(faqJson.success).toBe(true);
+    expect(faqJson.data.mode).toBe('faq');
+    expect(faqJson.data.translatedFaq.question).toBeDefined();
+  });
+
   it('GET and POST /api/admin/seo/intents manages dynamic search intents', async () => {
     // 1. GET intents
     const getRes = await seoIntentsGetRoute({} as any);

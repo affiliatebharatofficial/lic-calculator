@@ -83,8 +83,9 @@ CRITICAL NATURAL / COLLOQUIAL CONVERSATIONAL GUIDELINES:
    - "Details" -> Use "डिटेल्स".
    - "Steps" -> Use "स्टेप्स".
    - "Benefit" -> Use "बेनिफिट / फायदा".
-3. Apply this same natural, user-friendly, spoken-style standard across ALL supported languages (Hindi, Marathi, Gujarati, Bengali, Tamil, Telugu).
-4. Preserve all numbers, percentages (%), and currency symbols (₹) exactly.`;
+3. FAQs TRANSLATION: Translate every FAQ Question and Answer into natural, easily understandable language.
+4. Apply this same natural, user-friendly, spoken-style standard across ALL supported languages (Hindi, Marathi, Gujarati, Bengali, Tamil, Telugu).
+5. Preserve all numbers, percentages (%), and currency symbols (₹) exactly.`;
 
 export const POST: APIRoute = async ({ request, locals, clientAddress }) => {
   try {
@@ -110,7 +111,7 @@ export const POST: APIRoute = async ({ request, locals, clientAddress }) => {
     const env = (locals as any)?.runtime?.env || (process as any).env;
     const provider = getAIProvider(env);
 
-    // MODE A: Full Tool Page Translation
+    // MODE A: Full Tool Page Translation (including all FAQs)
     if (body?.toolId) {
       const toolId = String(body.toolId) as CalculatorId;
       const targetLocale = (body.targetLocale || 'hi') as Locale;
@@ -134,42 +135,52 @@ export const POST: APIRoute = async ({ request, locals, clientAddress }) => {
         category: localizedData.category,
         howItWorksTitle: localizedData.howItWorks.title,
         howItWorksDescription: localizedData.howItWorks.description,
-        faqs: localizedData.faqs
+        faqs: localizedData.faqs.map(f => ({ ...f }))
       };
 
-      // If AI provider is available (e.g. DeepSeek, OpenAI, Gemini), prompt for natural spoken tone
-      if (provider.providerType !== 'mock') {
-        try {
-          const aiPrompt = `Translate the following LIC calculator content into natural, conversational, everyday spoken ${targetLocale.toUpperCase()}.
+      // Prompt AI model for full tool + FAQ translation
+      try {
+        const faqsJson = JSON.stringify(englishOriginal.faqs.slice(0, 6));
+        const aiPrompt = `Translate the following LIC calculator content and ALL FAQs into natural, everyday spoken ${targetLocale.toUpperCase()}.
 ${NATURAL_LANGUAGE_INSTRUCTIONS}
 
 Source Content (English):
 H1: ${englishOriginal.h1}
 Subtitle: ${englishOriginal.subtitle}
 Meta Description: ${englishOriginal.metaDescription}
+FAQs to translate:
+${faqsJson}
 
 Return a valid JSON object matching this schema:
 {
   "h1": "Natural translated H1",
   "subtitle": "Natural translated Subtitle",
-  "metaDescription": "Natural translated Meta Description"
+  "metaDescription": "Natural translated Meta Description",
+  "faqs": [
+    {
+      "question": "Natural translated question in ${targetLocale.toUpperCase()}",
+      "answer": "Natural translated answer in ${targetLocale.toUpperCase()}"
+    }
+  ]
 }`;
 
-          const aiAnswer = await provider.answerQuestion({
-            message: aiPrompt,
-            language: 'en'
-          });
+        const aiAnswer = await provider.answerQuestion({
+          message: aiPrompt,
+          language: 'en'
+        });
 
-          if (aiAnswer.success && aiAnswer.data?.answer) {
-            const cleanJson = aiAnswer.data.answer.replace(/```json/g, '').replace(/```/g, '').trim();
-            const parsed = JSON.parse(cleanJson);
-            if (parsed.h1) translatedResult.h1 = parsed.h1;
-            if (parsed.subtitle) translatedResult.subtitle = parsed.subtitle;
-            if (parsed.metaDescription) translatedResult.metaDescription = parsed.metaDescription;
+        if (aiAnswer.success && aiAnswer.data?.answer) {
+          const cleanJson = aiAnswer.data.answer.replace(/```json/g, '').replace(/```/g, '').trim();
+          const parsed = JSON.parse(cleanJson);
+          if (parsed.h1) translatedResult.h1 = parsed.h1;
+          if (parsed.subtitle) translatedResult.subtitle = parsed.subtitle;
+          if (parsed.metaDescription) translatedResult.metaDescription = parsed.metaDescription;
+          if (Array.isArray(parsed.faqs) && parsed.faqs.length > 0) {
+            translatedResult.faqs = parsed.faqs;
           }
-        } catch {
-          // Fallback to verified dictionary overlay
         }
+      } catch {
+        // Fallback to verified dictionary overlay if offline or mock
       }
 
       return createSuccessResponse({
@@ -195,7 +206,52 @@ Return a valid JSON object matching this schema:
       });
     }
 
-    // MODE B: Single Text / Snippet Translation
+    // MODE B: Single FAQ or Single Text Translation
+    if (body?.faqItem) {
+      const q = String(body.faqItem.question || '');
+      const a = String(body.faqItem.answer || '');
+      const targetLocale = (body.targetLocale || 'hi') as Locale;
+
+      const aiPrompt = `Translate this FAQ question and answer into natural, everyday conversational ${targetLocale.toUpperCase()}.
+${NATURAL_LANGUAGE_INSTRUCTIONS}
+
+Question: ${q}
+Answer: ${a}
+
+Return ONLY valid JSON:
+{
+  "question": "Natural translated question in ${targetLocale.toUpperCase()}",
+  "answer": "Natural translated answer in ${targetLocale.toUpperCase()}"
+}`;
+
+      const aiAnswer = await provider.answerQuestion({
+        message: aiPrompt,
+        language: 'en'
+      });
+
+      let transQ = q;
+      let transA = a;
+
+      if (aiAnswer.success && aiAnswer.data?.answer) {
+        try {
+          const cleanJson = aiAnswer.data.answer.replace(/```json/g, '').replace(/```/g, '').trim();
+          const parsed = JSON.parse(cleanJson);
+          if (parsed.question) transQ = parsed.question;
+          if (parsed.answer) transA = parsed.answer;
+        } catch {}
+      }
+
+      return createSuccessResponse({
+        mode: 'faq',
+        targetLocale,
+        translatedFaq: {
+          question: transQ,
+          answer: transA
+        }
+      });
+    }
+
+    // MODE C: Single Text / Snippet Translation
     const text = body?.text?.trim();
     if (!text || typeof text !== 'string') {
       return createErrorResponse('VALIDATION_ERROR', 'Input "text" or "toolId" is required.', 422);
