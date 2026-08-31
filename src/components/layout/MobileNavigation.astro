@@ -1,13 +1,13 @@
 ---
 import type { Locale } from '@/types/i18n';
-import { t, getLocalizedPath } from '@/lib/i18n';
-import LanguageSelector from './LanguageSelector.astro';
+import { t, getLocalizedPath, SUPPORTED_LOCALES, LOCALE_CODES } from '@/lib/i18n';
 
 interface Props {
   locale?: Locale;
 }
 
 const { locale = 'en' } = Astro.props;
+const currentPath = Astro.url.pathname;
 ---
 
 <!-- Mobile Drawer Backdrop & Menu Container (Fixed over entire screen, high z-index) -->
@@ -177,7 +177,31 @@ const { locale = 'en' } = Astro.props;
         <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2.5">
           Language / भाषा
         </h4>
-        <LanguageSelector currentLocale={locale} />
+        <div class="grid grid-cols-2 gap-2">
+          {
+            LOCALE_CODES.map((loc) => {
+              const locInfo = SUPPORTED_LOCALES[loc];
+              const targetUrl = getLocalizedPath(currentPath, loc);
+              const isCurrent = loc === locale;
+              return (
+                <a
+                  href={targetUrl}
+                  hreflang={loc}
+                  class={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-colors border ${
+                    isCurrent
+                      ? 'bg-accent-500 text-navy-950 font-bold border-accent-600 shadow-xs'
+                      : 'bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-navy-900 border-slate-200'
+                  }`}
+                >
+                  <span>{locInfo.nativeName}</span>
+                  <span class={`text-[10px] font-mono uppercase ${isCurrent ? 'text-navy-950 font-bold' : 'text-slate-400'}`}>
+                    {loc}
+                  </span>
+                </a>
+              );
+            })
+          }
+        </div>
       </div>
     </div>
 
