@@ -49,8 +49,8 @@ const { guide } = Astro.props;
 const locale = (lang as Locale) || DEFAULT_LOCALE;
 
 const breadcrumbs = [
-  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
-  { name: 'Guides', url: getLocalizedPath('/guides', locale) },
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators/', locale) },
+  { name: 'Guides', url: getLocalizedPath('/guides/', locale) },
   { name: guide.title, url: getLocalizedPath(`/guides/${guide.slug}`, locale) }
 ];
 ---

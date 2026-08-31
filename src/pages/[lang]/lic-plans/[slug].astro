@@ -27,8 +27,8 @@ const { plan } = Astro.props;
 const locale = (lang as Locale) || DEFAULT_LOCALE;
 
 const breadcrumbs = [
-  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
-  { name: 'Plans', url: getLocalizedPath('/plans', locale) },
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators/', locale) },
+  { name: 'Plans', url: getLocalizedPath('/plans/', locale) },
   { name: plan.name, url: getLocalizedPath(`/lic-plans/${plan.slug}`, locale) }
 ];
 ---

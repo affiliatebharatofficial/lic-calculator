@@ -23,8 +23,8 @@ const locale = (lang as Locale) || DEFAULT_LOCALE;
 const seoData = getCalculatorSeoData('lic-late-fee-calculator', locale);
 
 const breadcrumbs = [
-  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
-  { name: t(locale, 'nav.lateFeeCalculator'), url: getLocalizedPath('/lic-late-fee-calculator', locale) }
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators/', locale) },
+  { name: t(locale, 'nav.lateFeeCalculator'), url: getLocalizedPath('/lic-late-fee-calculator/', locale) }
 ];
 
 const breakdownItems = [
@@ -37,13 +37,13 @@ const relatedTools = [
   {
     title: t(locale, 'nav.loanCalculator'),
     description: t(locale, 'tools.loanDesc'),
-    url: getLocalizedPath('/lic-loan-calculator', locale),
+    url: getLocalizedPath('/lic-loan-calculator/', locale),
     category: 'Loan'
   },
   {
     title: t(locale, 'nav.surrenderCalculator'),
     description: t(locale, 'tools.surrenderDesc'),
-    url: getLocalizedPath('/lic-surrender-value-calculator', locale),
+    url: getLocalizedPath('/lic-surrender-value-calculator/', locale),
     category: 'Surrender'
   }
 ];

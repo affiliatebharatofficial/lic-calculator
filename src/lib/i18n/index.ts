@@ -59,13 +59,12 @@ export function t(
   return result;
 }
 
-/**
- * Returns a localized path URL for navigation.
- * Example: getLocalizedPath('/calculators', 'hi') => '/hi/calculators'
- * For default locale 'en', returns '/calculators'
- */
 export function getLocalizedPath(path: string, locale: Locale = DEFAULT_LOCALE): string {
-  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  // Handle hash fragments and query strings
+  const [baseAndQuery, hash] = path.split('#');
+  const [basePath, queryString] = baseAndQuery.split('?');
+
+  const cleanPath = basePath.startsWith('/') ? basePath : `/${basePath}`;
 
   // Remove any existing locale prefix
   const pathSegments = cleanPath.split('/').filter(Boolean);
@@ -77,11 +76,22 @@ export function getLocalizedPath(path: string, locale: Locale = DEFAULT_LOCALE):
     if (strippedPath === '') strippedPath = '/';
   }
 
-  if (locale === DEFAULT_LOCALE) {
-    return strippedPath;
+  // Preserve trailing slash if present on input and not root
+  const hasTrailingSlash = cleanPath.endsWith('/') && cleanPath !== '/';
+  if (hasTrailingSlash && !strippedPath.endsWith('/')) {
+    strippedPath = `${strippedPath}/`;
   }
 
-  return `/${locale}${strippedPath === '/' ? '' : strippedPath}`;
+  let finalPath: string;
+  if (locale === DEFAULT_LOCALE) {
+    finalPath = strippedPath;
+  } else {
+    finalPath = `/${locale}${strippedPath === '/' ? '' : strippedPath}`;
+  }
+
+  const queryPart = queryString ? `?${queryString}` : '';
+  const hashPart = hash ? `#${hash}` : '';
+  return `${finalPath}${queryPart}${hashPart}`;
 }
 
 /**

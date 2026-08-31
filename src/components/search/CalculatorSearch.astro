@@ -25,12 +25,12 @@ const searchItems = [
     badge: calc.category,
     keywords: `${calc.slug} ${calc.category} estimate calculate`
   })),
-  { title: 'Table 914: LIC New Endowment Plan', url: getLocalizedPath('/lic-premium-calculator?plan=914', locale), category: 'Plan', badge: 'Endowment', keywords: '914 endowment savings' },
-  { title: 'Table 915: LIC New Jeevan Anand', url: getLocalizedPath('/lic-premium-calculator?plan=915', locale), category: 'Plan', badge: 'Whole Life', keywords: '915 jeevan anand' },
-  { title: 'Table 936: LIC Jeevan Labh', url: getLocalizedPath('/lic-premium-calculator?plan=936', locale), category: 'Plan', badge: 'Limited PPT', keywords: '936 jeevan labh' },
-  { title: 'Table 945: LIC Jeevan Umang', url: getLocalizedPath('/lic-premium-calculator?plan=945', locale), category: 'Plan', badge: 'Guaranteed 8%', keywords: '945 umang pension' },
+  { title: 'Table 914: LIC New Endowment Plan', url: getLocalizedPath('/lic-premium-calculator/?plan=914', locale), category: 'Plan', badge: 'Endowment', keywords: '914 endowment savings' },
+  { title: 'Table 915: LIC New Jeevan Anand', url: getLocalizedPath('/lic-premium-calculator/?plan=915', locale), category: 'Plan', badge: 'Whole Life', keywords: '915 jeevan anand' },
+  { title: 'Table 936: LIC Jeevan Labh', url: getLocalizedPath('/lic-premium-calculator/?plan=936', locale), category: 'Plan', badge: 'Limited PPT', keywords: '936 jeevan labh' },
+  { title: 'Table 945: LIC Jeevan Umang', url: getLocalizedPath('/lic-premium-calculator/?plan=945', locale), category: 'Plan', badge: 'Guaranteed 8%', keywords: '945 umang pension' },
   { title: 'Surrender vs. Continue vs. Paid-Up Analysis', url: getLocalizedPath('/lic-surrender-value-calculator#comparison', locale), category: 'Guide', badge: 'Decision Tool', keywords: 'surrender loss paid-up vs surrender' },
-  { title: 'Policy Loan Eligibility Calculator', url: getLocalizedPath('/lic-loan-calculator', locale), category: 'Calculator', badge: 'Loan', keywords: 'loan against policy interest' },
+  { title: 'Policy Loan Eligibility Calculator', url: getLocalizedPath('/lic-loan-calculator/', locale), category: 'Calculator', badge: 'Loan', keywords: 'loan against policy interest' },
 ];
 ---
 
@@ -106,10 +106,10 @@ const searchItems = [
       <!-- Quick Popular Shortcuts -->
       <div class="px-4 py-2.5 bg-slate-50 border-b border-slate-100 flex items-center gap-1.5 overflow-x-auto text-[11px] text-slate-500">
         <span class="font-medium text-slate-400">Popular:</span>
-        <a href="/lic-surrender-value-calculator" class="bg-amber-100 text-amber-900 px-2 py-0.5 rounded hover:bg-amber-200 transition-colors font-medium">Surrender Value</a>
-        <a href="/lic-premium-calculator" class="bg-white border border-slate-200 px-2 py-0.5 rounded hover:bg-slate-100 transition-colors">Premium</a>
-        <a href="/lic-maturity-calculator" class="bg-white border border-slate-200 px-2 py-0.5 rounded hover:bg-slate-100 transition-colors">Maturity</a>
-        <a href="/lic-loan-calculator" class="bg-white border border-slate-200 px-2 py-0.5 rounded hover:bg-slate-100 transition-colors">Policy Loan</a>
+        <a href="/lic-surrender-value-calculator/" class="bg-amber-100 text-amber-900 px-2 py-0.5 rounded hover:bg-amber-200 transition-colors font-medium">Surrender Value</a>
+        <a href="/lic-premium-calculator/" class="bg-white border border-slate-200 px-2 py-0.5 rounded hover:bg-slate-100 transition-colors">Premium</a>
+        <a href="/lic-maturity-calculator/" class="bg-white border border-slate-200 px-2 py-0.5 rounded hover:bg-slate-100 transition-colors">Maturity</a>
+        <a href="/lic-loan-calculator/" class="bg-white border border-slate-200 px-2 py-0.5 rounded hover:bg-slate-100 transition-colors">Policy Loan</a>
       </div>
 
       <!-- Results Container -->

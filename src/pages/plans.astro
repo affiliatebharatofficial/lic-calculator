@@ -4,7 +4,7 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
 import Card from '@/components/ui/Card.astro';
 import Badge from '@/components/ui/Badge.astro';
 
-const breadcrumbs = [{ name: 'Plans', url: '/plans' }];
+const breadcrumbs = [{ name: 'Plans', url: '/plans/' }];
 
 const samplePlans = [
   { tableNo: 914, name: 'New Endowment Plan', category: 'Endowment', minAge: 8, maxAge: 55, minTerm: 12, maxTerm: 35, status: 'Active' },
@@ -65,7 +65,7 @@ const samplePlans = [
 
             <div class="mt-5 pt-3 border-t border-slate-100">
               <a
-                href="/lic-premium-calculator"
+                href="/lic-premium-calculator/"
                 class="text-xs font-semibold text-brand-700 hover:text-brand-800 flex items-center justify-between"
               >
                 <span>Calculate Premium</span>

@@ -26,8 +26,8 @@ const locale = (lang as Locale) || DEFAULT_LOCALE;
 const seoData = getCalculatorSeoData('lic-surrender-loss-calculator', locale);
 
 const breadcrumbs = [
-  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
-  { name: t(locale, 'nav.surrenderLoss'), url: getLocalizedPath('/lic-surrender-loss-calculator', locale) }
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators/', locale) },
+  { name: t(locale, 'nav.surrenderLoss'), url: getLocalizedPath('/lic-surrender-loss-calculator/', locale) }
 ];
 
 const breakdownItems = [
@@ -41,19 +41,19 @@ const relatedTools = [
   {
     title: t(locale, 'nav.surrenderAnalysis'),
     description: 'Comprehensive 3-way decision comparison: Surrender vs Paid-Up vs Continue.',
-    url: getLocalizedPath('/lic-surrender-analysis', locale),
+    url: getLocalizedPath('/lic-surrender-analysis/', locale),
     category: 'Analysis'
   },
   {
     title: t(locale, 'nav.surrenderCalculator'),
     description: 'Calculate detailed breakdown between GSV and SSV factor tables.',
-    url: getLocalizedPath('/lic-surrender-value-calculator', locale),
+    url: getLocalizedPath('/lic-surrender-value-calculator/', locale),
     category: 'Surrender'
   },
   {
     title: t(locale, 'nav.loanCalculator'),
     description: 'Borrow money against your policy without taking a surrender loss.',
-    url: getLocalizedPath('/lic-loan-calculator', locale),
+    url: getLocalizedPath('/lic-loan-calculator/', locale),
     category: 'Loan'
   }
 ];

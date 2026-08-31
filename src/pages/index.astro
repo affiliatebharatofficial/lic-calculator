@@ -12,10 +12,10 @@ import { t } from '@/lib/i18n';
 const locale = 'en';
 
 const popularPlans = [
-  { tableNo: 914, name: 'New Endowment Plan', category: 'Endowment', minAge: 8, maxAge: 55, minTerm: 12, maxTerm: 35, slug: 'lic-premium-calculator?plan=914' },
-  { tableNo: 915, name: 'New Jeevan Anand', category: 'Endowment + Whole Life', minAge: 18, maxAge: 50, minTerm: 15, maxTerm: 35, slug: 'lic-premium-calculator?plan=915' },
-  { tableNo: 936, name: 'Jeevan Labh', category: 'Limited Premium', minAge: 8, maxAge: 59, minTerm: 16, maxTerm: 25, slug: 'lic-premium-calculator?plan=936' },
-  { tableNo: 945, name: 'Jeevan Umang', category: 'Whole Life 8% Survival', minAge: 0, maxAge: 55, minTerm: 15, maxTerm: 30, slug: 'lic-premium-calculator?plan=945' },
+  { tableNo: 914, name: 'New Endowment Plan', category: 'Endowment', minAge: 8, maxAge: 55, minTerm: 12, maxTerm: 35, slug: 'lic-premium-calculator/?plan=914' },
+  { tableNo: 915, name: 'New Jeevan Anand', category: 'Endowment + Whole Life', minAge: 18, maxAge: 50, minTerm: 15, maxTerm: 35, slug: 'lic-premium-calculator/?plan=915' },
+  { tableNo: 936, name: 'Jeevan Labh', category: 'Limited Premium', minAge: 8, maxAge: 59, minTerm: 16, maxTerm: 25, slug: 'lic-premium-calculator/?plan=936' },
+  { tableNo: 945, name: 'Jeevan Umang', category: 'Whole Life 8% Survival', minAge: 0, maxAge: 55, minTerm: 15, maxTerm: 30, slug: 'lic-premium-calculator/?plan=945' },
   { tableNo: 855, name: 'Tech Term', category: 'Pure Term Cover', minAge: 18, maxAge: 65, minTerm: 10, maxTerm: 40, slug: 'lic-term-insurance-calculator' },
   { tableNo: 857, name: 'Saral Pension', category: 'Immediate Annuity', minAge: 40, maxAge: 80, minTerm: 1, maxTerm: 1, slug: 'lic-pension-calculator' }
 ];
@@ -76,13 +76,13 @@ const faqs = [
 
       <!-- Hero Call-to-Action Buttons -->
       <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3.5">
-        <Button variant="primary" size="lg" href="/calculators" class="w-full sm:w-auto shadow-sm">
+        <Button variant="primary" size="lg" href="/calculators/" class="w-full sm:w-auto shadow-sm">
           {t(locale, 'home.exploreCalculators')}
         </Button>
         <Button
           variant="secondary"
           size="lg"
-          href="/lic-surrender-value-calculator"
+          href="/lic-surrender-value-calculator/"
           class="w-full sm:w-auto border-accent-300 text-navy-800 hover:bg-accent-50 font-bold"
         >
           <span class="w-2 h-2 rounded-full bg-accent-500 mr-2"></span>
@@ -117,7 +117,7 @@ const faqs = [
             Instant, transparent, and accurate tools to plan your policy lifecycle.
           </p>
         </div>
-        <a href="/calculators" class="text-xs font-bold text-navy-800 hover:text-amber-700 mt-3 sm:mt-0 flex items-center gap-1">
+        <a href="/calculators/" class="text-xs font-bold text-navy-800 hover:text-amber-700 mt-3 sm:mt-0 flex items-center gap-1">
           View All Calculators &rarr;
         </a>
       </div>
@@ -162,7 +162,7 @@ const faqs = [
                 Calculate Surrender Proceeds & Loss
               </span>
               <a
-                href="/lic-surrender-value-calculator"
+                href="/lic-surrender-value-calculator/"
                 class="inline-flex items-center justify-center px-4 py-2 rounded-xl text-xs font-bold text-navy-800 bg-accent-500 hover:bg-accent-600 active:bg-accent-700 transition-colors shadow-sm border border-accent-600/30"
               >
                 Launch Calculator &rarr;
@@ -174,7 +174,7 @@ const faqs = [
         <!-- Secondary Calculators Grid (4 Tools) -->
         <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
           <!-- 1. Premium -->
-          <a href="/lic-premium-calculator" class="p-5 bg-white rounded-xl border border-slate-200/90 shadow-card hover:border-accent-400 hover:shadow-card-hover transition-all group flex flex-col justify-between">
+          <a href="/lic-premium-calculator/" class="p-5 bg-white rounded-xl border border-slate-200/90 shadow-card hover:border-accent-400 hover:shadow-card-hover transition-all group flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-2">
                 <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Savings & Protection</span>
@@ -193,7 +193,7 @@ const faqs = [
           </a>
 
           <!-- 2. Maturity -->
-          <a href="/lic-maturity-calculator" class="p-5 bg-white rounded-xl border border-slate-200/90 shadow-card hover:border-accent-400 hover:shadow-card-hover transition-all group flex flex-col justify-between">
+          <a href="/lic-maturity-calculator/" class="p-5 bg-white rounded-xl border border-slate-200/90 shadow-card hover:border-accent-400 hover:shadow-card-hover transition-all group flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-2">
                 <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Lump Sum Return</span>
@@ -212,7 +212,7 @@ const faqs = [
           </a>
 
           <!-- 3. Policy Loan -->
-          <a href="/lic-loan-calculator" class="p-5 bg-white rounded-xl border border-slate-200/90 shadow-card hover:border-accent-400 hover:shadow-card-hover transition-all group flex flex-col justify-between">
+          <a href="/lic-loan-calculator/" class="p-5 bg-white rounded-xl border border-slate-200/90 shadow-card hover:border-accent-400 hover:shadow-card-hover transition-all group flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-2">
                 <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Liquidity Option</span>
@@ -231,7 +231,7 @@ const faqs = [
           </a>
 
           <!-- 4. Bonus -->
-          <a href="/lic-bonus-calculator" class="p-5 bg-white rounded-xl border border-slate-200/90 shadow-card hover:border-accent-400 hover:shadow-card-hover transition-all group flex flex-col justify-between">
+          <a href="/lic-bonus-calculator/" class="p-5 bg-white rounded-xl border border-slate-200/90 shadow-card hover:border-accent-400 hover:shadow-card-hover transition-all group flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-2">
                 <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Valuation Addition</span>
@@ -297,10 +297,10 @@ const faqs = [
           </div>
 
           <div class="pt-4 flex flex-wrap items-center gap-3">
-            <Button variant="primary" href="/lic-surrender-value-calculator">
+            <Button variant="primary" href="/lic-surrender-value-calculator/">
               Calculate Surrender Value
             </Button>
-            <Button variant="secondary" href="/lic-surrender-loss-calculator" class="border-slate-300 text-navy-800 hover:bg-slate-100">
+            <Button variant="secondary" href="/lic-surrender-loss-calculator/" class="border-slate-300 text-navy-800 hover:bg-slate-100">
               Analyze Surrender Loss
             </Button>
           </div>
@@ -404,7 +404,7 @@ const faqs = [
             Browse major endowment, money back, whole life, and pension plans.
           </p>
         </div>
-        <a href="/plans" class="text-xs font-bold text-navy-800 hover:text-amber-700 mt-3 sm:mt-0">
+        <a href="/plans/" class="text-xs font-bold text-navy-800 hover:text-amber-700 mt-3 sm:mt-0">
           View All Plans &rarr;
         </a>
       </div>
@@ -527,7 +527,7 @@ const faqs = [
             Clear, unbiased articles on policy lifecycle rules, surrender factors, and bonus additions.
           </p>
         </div>
-        <a href="/guides" class="text-xs font-bold text-navy-800 hover:text-amber-700 mt-3 sm:mt-0">
+        <a href="/guides/" class="text-xs font-bold text-navy-800 hover:text-amber-700 mt-3 sm:mt-0">
           All Guides &rarr;
         </a>
       </div>
@@ -541,7 +541,7 @@ const faqs = [
               How Guaranteed Surrender Value (GSV) and Special Surrender Value (SSV) factors are determined.
             </p>
           </div>
-          <a href="/lic-surrender-value-calculator" class="text-xs font-bold text-navy-800 hover:text-amber-700 mt-4 pt-3 border-t border-slate-200">
+          <a href="/lic-surrender-value-calculator/" class="text-xs font-bold text-navy-800 hover:text-amber-700 mt-4 pt-3 border-t border-slate-200">
             Read Guide &rarr;
           </a>
         </div>
@@ -554,7 +554,7 @@ const faqs = [
               How Simple Reversionary Bonuses and Final Additional Bonuses accumulate toward maturity.
             </p>
           </div>
-          <a href="/lic-maturity-calculator" class="text-xs font-bold text-navy-800 hover:text-amber-700 mt-4 pt-3 border-t border-slate-200">
+          <a href="/lic-maturity-calculator/" class="text-xs font-bold text-navy-800 hover:text-amber-700 mt-4 pt-3 border-t border-slate-200">
             Read Guide &rarr;
           </a>
         </div>
@@ -567,7 +567,7 @@ const faqs = [
               Borrowing rules against policy surrender values, interest calculation, and repayment terms.
             </p>
           </div>
-          <a href="/lic-loan-calculator" class="text-xs font-bold text-navy-800 hover:text-amber-700 mt-4 pt-3 border-t border-slate-200">
+          <a href="/lic-loan-calculator/" class="text-xs font-bold text-navy-800 hover:text-amber-700 mt-4 pt-3 border-t border-slate-200">
             Read Guide &rarr;
           </a>
         </div>
@@ -580,7 +580,7 @@ const faqs = [
               Understanding actuarial valuation declarations per thousand sum assured for participating plans.
             </p>
           </div>
-          <a href="/lic-bonus-calculator" class="text-xs font-bold text-navy-800 hover:text-amber-700 mt-4 pt-3 border-t border-slate-200">
+          <a href="/lic-bonus-calculator/" class="text-xs font-bold text-navy-800 hover:text-amber-700 mt-4 pt-3 border-t border-slate-200">
             Read Guide &rarr;
           </a>
         </div>
@@ -632,7 +632,7 @@ const faqs = [
         </p>
         <div class="pt-2">
           <a
-            href="/disclaimer"
+            href="/disclaimer/"
             class="text-xs font-bold text-navy-800 hover:text-amber-800 underline"
           >
             Read Our Full Legal Disclaimer & Transparency Statement &rarr;

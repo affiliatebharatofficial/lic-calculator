@@ -167,10 +167,10 @@ export const PRIVACY_POLICY_CONTENT: Record<Locale, PrivacyPolicyPageData> = {
     ],
     relatedLinksHeading: 'Related Legal & Platform Resources',
     relatedLinks: [
-      { label: 'Legal Disclaimer', url: '/disclaimer', description: 'Review our non-affiliation notice, calculation estimates, and liability limits.' },
-      { label: 'Terms of Service', url: '/terms', description: 'Read the terms governing access and use of our financial calculation platform.' },
-      { label: 'About Us', url: '/about', description: 'Learn about our editorial mission, authors, and independent financial tools.' },
-      { label: 'Contact Us', url: '/contact', description: 'Reach out to our technical support team for inquiries or feedback.' }
+      { label: 'Legal Disclaimer', url: '/disclaimer/', description: 'Review our non-affiliation notice, calculation estimates, and liability limits.' },
+      { label: 'Terms of Service', url: '/terms/', description: 'Read the terms governing access and use of our financial calculation platform.' },
+      { label: 'About Us', url: '/about/', description: 'Learn about our editorial mission, authors, and independent financial tools.' },
+      { label: 'Contact Us', url: '/contact/', description: 'Reach out to our technical support team for inquiries or feedback.' }
     ]
   },
   hi: {
@@ -264,10 +264,10 @@ export const PRIVACY_POLICY_CONTENT: Record<Locale, PrivacyPolicyPageData> = {
     ],
     relatedLinksHeading: 'संबंधित कानूनी व नीतिगत संसाधन',
     relatedLinks: [
-      { label: 'कानूनी अस्वीकरण (Disclaimer)', url: '/disclaimer', description: 'कैलकुलेटर अनुमानों, गैर-संबद्धता और दायित्व सीमाओं की जानकारी पढ़ें।' },
-      { label: 'उपयोग की शर्तें (Terms of Service)', url: '/terms', description: 'वेबसाइट उपयोग के नियम और दिशा-निर्देश देखें।' },
-      { label: 'हमारे बारे में (About Us)', url: '/about', description: 'हमारी संपादकीय टीम और स्वतंत्र मिशन के बारे में जानें।' },
-      { label: 'संपर्क करें (Contact Us)', url: '/contact', description: 'तकनीकी सहायता या प्रतिक्रिया के लिए हमारी टीम से संपर्क करें।' }
+      { label: 'कानूनी अस्वीकरण (Disclaimer)', url: '/disclaimer/', description: 'कैलकुलेटर अनुमानों, गैर-संबद्धता और दायित्व सीमाओं की जानकारी पढ़ें।' },
+      { label: 'उपयोग की शर्तें (Terms of Service)', url: '/terms/', description: 'वेबसाइट उपयोग के नियम और दिशा-निर्देश देखें।' },
+      { label: 'हमारे बारे में (About Us)', url: '/about/', description: 'हमारी संपादकीय टीम और स्वतंत्र मिशन के बारे में जानें।' },
+      { label: 'संपर्क करें (Contact Us)', url: '/contact/', description: 'तकनीकी सहायता या प्रतिक्रिया के लिए हमारी टीम से संपर्क करें।' }
     ]
   },
   mr: {
@@ -313,10 +313,10 @@ export const PRIVACY_POLICY_CONTENT: Record<Locale, PrivacyPolicyPageData> = {
     ],
     relatedLinksHeading: 'संबंधित कायदेशीर साधने',
     relatedLinks: [
-      { label: 'कायदेशीर अस्वीकरण (Disclaimer)', url: '/disclaimer', description: 'अंदाजांच्या मर्यादा आणि अस्वीकरण वाचा.' },
-      { label: 'वापराच्या अटी (Terms of Service)', url: '/terms', description: 'वापराचे नियम व अटी जाणून घ्या.' },
-      { label: 'आमच्याबद्दल (About Us)', url: '/about', description: 'आमच्या मिशनबद्दल माहिती मिळवा.' },
-      { label: 'संपर्क (Contact Us)', url: '/contact', description: 'आमच्याशी संपर्क साधा.' }
+      { label: 'कायदेशीर अस्वीकरण (Disclaimer)', url: '/disclaimer/', description: 'अंदाजांच्या मर्यादा आणि अस्वीकरण वाचा.' },
+      { label: 'वापराच्या अटी (Terms of Service)', url: '/terms/', description: 'वापराचे नियम व अटी जाणून घ्या.' },
+      { label: 'आमच्याबद्दल (About Us)', url: '/about/', description: 'आमच्या मिशनबद्दल माहिती मिळवा.' },
+      { label: 'संपर्क (Contact Us)', url: '/contact/', description: 'आमच्याशी संपर्क साधा.' }
     ]
   },
   gu: {
@@ -356,10 +356,10 @@ export const PRIVACY_POLICY_CONTENT: Record<Locale, PrivacyPolicyPageData> = {
     ],
     relatedLinksHeading: 'સંબંધિત કાનૂની સંસાધનો',
     relatedLinks: [
-      { label: 'કાનૂની અસ્વીકરણ (Disclaimer)', url: '/disclaimer', description: 'અંદાજો અને જવાબદારીની મર્યાદાઓ.' },
-      { label: 'ઉપયોગની શરતો (Terms of Service)', url: '/terms', description: 'વેબસાઇટના નિયમો અને શરતો.' },
-      { label: 'અમારા વિશે (About Us)', url: '/about', description: 'અમારા મિશન વિશે જાણો.' },
-      { label: 'સંપર્ક કરો (Contact Us)', url: '/contact', description: 'અમારો સંપર્ક કરો.' }
+      { label: 'કાનૂની અસ્વીકરણ (Disclaimer)', url: '/disclaimer/', description: 'અંદાજો અને જવાબદારીની મર્યાદાઓ.' },
+      { label: 'ઉપયોગની શરતો (Terms of Service)', url: '/terms/', description: 'વેબસાઇટના નિયમો અને શરતો.' },
+      { label: 'અમારા વિશે (About Us)', url: '/about/', description: 'અમારા મિશન વિશે જાણો.' },
+      { label: 'સંપર્ક કરો (Contact Us)', url: '/contact/', description: 'અમારો સંપર્ક કરો.' }
     ]
   },
   bn: {
@@ -399,10 +399,10 @@ export const PRIVACY_POLICY_CONTENT: Record<Locale, PrivacyPolicyPageData> = {
     ],
     relatedLinksHeading: 'সম্পর্কিত আইনি তথ্য',
     relatedLinks: [
-      { label: 'দাবিত্যাগ (Disclaimer)', url: '/disclaimer', description: 'ক্যালকুলেটর সীমাবদ্ধতা ও দাবিত্যাগ দেখুন।' },
-      { label: 'ব্যবহারের শর্তাবলী (Terms of Service)', url: '/terms', description: 'ব্যবহারের নিয়মাবলী পড়ুন।' },
-      { label: 'আমাদের সম্পর্কে (About Us)', url: '/about', description: 'আমাদের মিশন সম্পর্কে বিস্তারিত জানুন।' },
-      { label: 'যোগাযোগ (Contact Us)', url: '/contact', description: 'আমাদের সাথে যোগাযোগ করুন।' }
+      { label: 'দাবিত্যাগ (Disclaimer)', url: '/disclaimer/', description: 'ক্যালকুলেটর সীমাবদ্ধতা ও দাবিত্যাগ দেখুন।' },
+      { label: 'ব্যবহারের শর্তাবলী (Terms of Service)', url: '/terms/', description: 'ব্যবহারের নিয়মাবলী পড়ুন।' },
+      { label: 'আমাদের সম্পর্কে (About Us)', url: '/about/', description: 'আমাদের মিশন সম্পর্কে বিস্তারিত জানুন।' },
+      { label: 'যোগাযোগ (Contact Us)', url: '/contact/', description: 'আমাদের সাথে যোগাযোগ করুন।' }
     ]
   },
   ta: {
@@ -442,10 +442,10 @@ export const PRIVACY_POLICY_CONTENT: Record<Locale, PrivacyPolicyPageData> = {
     ],
     relatedLinksHeading: 'தொடர்புடைய சட்ட வளங்கள்',
     relatedLinks: [
-      { label: 'பொறுப்புத் துறப்பு (Disclaimer)', url: '/disclaimer', description: 'மதிப்பீட்டு வரம்புகள் மற்றும் பொறுப்புத் துறப்பு.' },
-      { label: 'பயன்பாட்டு விதிமுறைகள் (Terms of Service)', url: '/terms', description: 'விதிமுறைகள் மற்றும் நிபந்தனைகள்.' },
-      { label: 'எங்களைப் பற்றி (About Us)', url: '/about', description: 'எங்கள் நோக்கம் மற்றும் குழுவைப் பற்றி அறியவும்.' },
-      { label: 'தொடர்பு கொள்ள (Contact Us)', url: '/contact', description: 'எங்களைத் தொடர்பு கொள்ளவும்.' }
+      { label: 'பொறுப்புத் துறப்பு (Disclaimer)', url: '/disclaimer/', description: 'மதிப்பீட்டு வரம்புகள் மற்றும் பொறுப்புத் துறப்பு.' },
+      { label: 'பயன்பாட்டு விதிமுறைகள் (Terms of Service)', url: '/terms/', description: 'விதிமுறைகள் மற்றும் நிபந்தனைகள்.' },
+      { label: 'எங்களைப் பற்றி (About Us)', url: '/about/', description: 'எங்கள் நோக்கம் மற்றும் குழுவைப் பற்றி அறியவும்.' },
+      { label: 'தொடர்பு கொள்ள (Contact Us)', url: '/contact/', description: 'எங்களைத் தொடர்பு கொள்ளவும்.' }
     ]
   },
   te: {
@@ -485,10 +485,10 @@ export const PRIVACY_POLICY_CONTENT: Record<Locale, PrivacyPolicyPageData> = {
     ],
     relatedLinksHeading: 'సంబంధిత చట్టపరమైన వనరులు',
     relatedLinks: [
-      { label: 'డిస్క్లైమర్ (Disclaimer)', url: '/disclaimer', description: 'అంచనాలు మరియు బాధ్యత పరిమితులు.' },
-      { label: 'వినియోగ నిబంధనలు (Terms of Service)', url: '/terms', description: 'వినియోగ నిబంధనలను చదవండి.' },
-      { label: 'మా గురించి (About Us)', url: '/about', description: 'మా స్వతంత్ర లక్ష్యం గురించి తెలుసుకోండి.' },
-      { label: 'సంప్రదించండి (Contact Us)', url: '/contact', description: 'మా బృందాన్ని సంప్రదించండి.' }
+      { label: 'డిస్క్లైమర్ (Disclaimer)', url: '/disclaimer/', description: 'అంచనాలు మరియు బాధ్యత పరిమితులు.' },
+      { label: 'వినియోగ నిబంధనలు (Terms of Service)', url: '/terms/', description: 'వినియోగ నిబంధనలను చదవండి.' },
+      { label: 'మా గురించి (About Us)', url: '/about/', description: 'మా స్వతంత్ర లక్ష్యం గురించి తెలుసుకోండి.' },
+      { label: 'సంప్రదించండి (Contact Us)', url: '/contact/', description: 'మా బృందాన్ని సంప్రదించండి.' }
     ]
   }
 };

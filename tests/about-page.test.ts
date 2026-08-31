@@ -44,7 +44,7 @@ describe('About Page Full Audit & E-E-A-T Compliance', () => {
   it('contains valid internal navigation links in related links box', () => {
     for (const locale of LOCALE_CODES) {
       const data = getAboutContent(locale);
-      const urls = data.relatedLinks.map((l) => l.url);
+      const urls = data.relatedLinks.map((l) => l.url.replace(/\/$/, ''));
       expect(urls).toContain('/calculators');
       expect(urls).toContain('/disclaimer');
       expect(urls).toContain('/privacy-policy');

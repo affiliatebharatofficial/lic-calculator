@@ -42,7 +42,7 @@ describe('Terms of Service Page Full Audit & Compliance', () => {
   it('contains valid internal navigation links in related links box', () => {
     for (const locale of LOCALE_CODES) {
       const data = getTermsContent(locale);
-      const urls = data.relatedLinks.map((l) => l.url);
+      const urls = data.relatedLinks.map((l) => l.url.replace(/\/$/, ''));
       expect(urls).toContain('/privacy-policy');
       expect(urls).toContain('/disclaimer');
       expect(urls).toContain('/about');

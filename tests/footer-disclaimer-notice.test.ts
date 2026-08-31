@@ -26,7 +26,7 @@ describe('Footer Independent Platform Notice Verification', () => {
 
     // Call to action link
     expect(footerContent).toContain('Read Full Disclaimer');
-    expect(footerContent).toContain("getLocalizedPath('/disclaimer', locale)");
+    expect(footerContent).toMatch(/getLocalizedPath\('\/disclaimer\/?', locale\)/);
   });
 
   it('verifies that there are no localhost URLs in the layout or footer components', () => {

@@ -23,8 +23,8 @@ const locale = (lang as Locale) || DEFAULT_LOCALE;
 const seoData = getCalculatorSeoData('lic-hlv-calculator', locale);
 
 const breadcrumbs = [
-  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
-  { name: t(locale, 'nav.hlvCalculator'), url: getLocalizedPath('/lic-hlv-calculator', locale) }
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators/', locale) },
+  { name: t(locale, 'nav.hlvCalculator'), url: getLocalizedPath('/lic-hlv-calculator/', locale) }
 ];
 
 const breakdownItems = [
@@ -37,13 +37,13 @@ const relatedTools = [
   {
     title: t(locale, 'nav.termCalculator'),
     description: t(locale, 'tools.termDesc'),
-    url: getLocalizedPath('/lic-term-insurance-calculator', locale),
+    url: getLocalizedPath('/lic-term-insurance-calculator/', locale),
     category: 'Protection'
   },
   {
     title: t(locale, 'nav.deathBenefitCalculator'),
     description: t(locale, 'tools.deathBenefitDesc'),
-    url: getLocalizedPath('/lic-death-benefit-calculator', locale),
+    url: getLocalizedPath('/lic-death-benefit-calculator/', locale),
     category: 'Claims'
   }
 ];

@@ -25,8 +25,8 @@ const locale = (lang as Locale) || DEFAULT_LOCALE;
 const seoData = getCalculatorSeoData('lic-bonus-calculator', locale);
 
 const breadcrumbs = [
-  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
-  { name: t(locale, 'nav.bonusCalculator'), url: getLocalizedPath('/lic-bonus-calculator', locale) }
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators/', locale) },
+  { name: t(locale, 'nav.bonusCalculator'), url: getLocalizedPath('/lic-bonus-calculator/', locale) }
 ];
 
 const breakdownItems = [
@@ -39,13 +39,13 @@ const relatedTools = [
   {
     title: t(locale, 'nav.maturityCalculator'),
     description: 'Project combined maturity value including base Sum Assured and bonuses.',
-    url: getLocalizedPath('/lic-maturity-calculator', locale),
+    url: getLocalizedPath('/lic-maturity-calculator/', locale),
     category: 'Maturity'
   },
   {
     title: t(locale, 'nav.premiumCalculator'),
     description: 'Calculate installment costs and explore mode rebate savings.',
-    url: getLocalizedPath('/lic-premium-calculator', locale),
+    url: getLocalizedPath('/lic-premium-calculator/', locale),
     category: 'Premium'
   }
 ];

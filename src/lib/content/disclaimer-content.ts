@@ -139,10 +139,10 @@ export const DISCLAIMER_CONTENT: Record<Locale, DisclaimerPageData> = {
     ],
     relatedLinksHeading: 'Related Legal & Financial Resources',
     relatedLinks: [
-      { label: 'Privacy Policy', url: '/privacy-policy', description: 'Understand how we protect your privacy with zero personal data storage.' },
-      { label: 'Terms of Service', url: '/terms', description: 'Review our terms governing calculator use and acceptable conduct.' },
-      { label: 'About Our Platform', url: '/about', description: 'Learn about our editorial team, methodology, and independent mission.' },
-      { label: 'All Financial Calculators', url: '/calculators', description: 'Explore our complete suite of 16 independent LIC calculators.' }
+      { label: 'Privacy Policy', url: '/privacy-policy/', description: 'Understand how we protect your privacy with zero personal data storage.' },
+      { label: 'Terms of Service', url: '/terms/', description: 'Review our terms governing calculator use and acceptable conduct.' },
+      { label: 'About Our Platform', url: '/about/', description: 'Learn about our editorial team, methodology, and independent mission.' },
+      { label: 'All Financial Calculators', url: '/calculators/', description: 'Explore our complete suite of 16 independent LIC calculators.' }
     ]
   },
   hi: {
@@ -254,10 +254,10 @@ export const DISCLAIMER_CONTENT: Record<Locale, DisclaimerPageData> = {
     ],
     relatedLinksHeading: 'संबंधित कानूनी व वित्तीय संसाधन',
     relatedLinks: [
-      { label: 'गोपनीयता नीति (Privacy Policy)', url: '/privacy-policy', description: 'जानें कि हम बिना व्यक्तिगत डेटा स्टोर किए आपकी गोपनीयता कैसे सुरक्षित रखते हैं।' },
-      { label: 'उपयोग की शर्तें (Terms of Service)', url: '/terms', description: 'कैलकुलेटर के उपयोग और नियमों से संबंधित शर्तें पढ़ें।' },
-      { label: 'हमारे बारे में (About Us)', url: '/about', description: 'हमारी संपादकीय टीम और स्वतंत्र मिशन के बारे में जानें।' },
-      { label: 'सभी वित्तीय कैलकुलेटर', url: '/calculators', description: 'हमारे सभी 16 स्वतंत्र बीमा कैलकुलेटर एक्सप्लोर करें।' }
+      { label: 'गोपनीयता नीति (Privacy Policy)', url: '/privacy-policy/', description: 'जानें कि हम बिना व्यक्तिगत डेटा स्टोर किए आपकी गोपनीयता कैसे सुरक्षित रखते हैं।' },
+      { label: 'उपयोग की शर्तें (Terms of Service)', url: '/terms/', description: 'कैलकुलेटर के उपयोग और नियमों से संबंधित शर्तें पढ़ें।' },
+      { label: 'हमारे बारे में (About Us)', url: '/about/', description: 'हमारी संपादकीय टीम और स्वतंत्र मिशन के बारे में जानें।' },
+      { label: 'सभी वित्तीय कैलकुलेटर', url: '/calculators/', description: 'हमारे सभी 16 स्वतंत्र बीमा कैलकुलेटर एक्सप्लोर करें।' }
     ]
   },
   mr: {
@@ -326,10 +326,10 @@ export const DISCLAIMER_CONTENT: Record<Locale, DisclaimerPageData> = {
     ],
     relatedLinksHeading: 'संबंधित कायदेशीर संसाधने',
     relatedLinks: [
-      { label: 'गोपनीयता धोरण (Privacy Policy)', url: '/privacy-policy', description: 'आम्ही वैयक्तिक डेटा कसा सुरक्षित ठेवतो ते जाणून घ्या.' },
-      { label: 'वापराच्या अटी (Terms of Service)', url: '/terms', description: 'कॅल्क्युलेटर वापराच्या अटी वाचा.' },
-      { label: 'आमच्याबद्दल (About Us)', url: '/about', description: 'आमच्या स्वतंत्र मिशनबद्दल जाणून घ्या.' },
-      { label: 'सर्व कॅल्क्युलेटर', url: '/calculators', description: 'आमचे सर्व १६ कॅल्क्युलेटर एक्सप्लोर करा.' }
+      { label: 'गोपनीयता धोरण (Privacy Policy)', url: '/privacy-policy/', description: 'आम्ही वैयक्तिक डेटा कसा सुरक्षित ठेवतो ते जाणून घ्या.' },
+      { label: 'वापराच्या अटी (Terms of Service)', url: '/terms/', description: 'कॅल्क्युलेटर वापराच्या अटी वाचा.' },
+      { label: 'आमच्याबद्दल (About Us)', url: '/about/', description: 'आमच्या स्वतंत्र मिशनबद्दल जाणून घ्या.' },
+      { label: 'सर्व कॅल्क्युलेटर', url: '/calculators/', description: 'आमचे सर्व १६ कॅल्क्युलेटर एक्सप्लोर करा.' }
     ]
   },
   gu: {
@@ -383,10 +383,10 @@ export const DISCLAIMER_CONTENT: Record<Locale, DisclaimerPageData> = {
     ],
     relatedLinksHeading: 'સંબંધિત કાનૂની સંસાધનો',
     relatedLinks: [
-      { label: 'ગોપનીયતા નીતિ (Privacy Policy)', url: '/privacy-policy', description: 'અમારી ડેટા સુરક્ષા નીતિ જુઓ.' },
-      { label: 'ઉપયોગની શરતો (Terms of Service)', url: '/terms', description: 'ઉપયોગ સંબંધિત શરતો વાંચો.' },
-      { label: 'અમારા વિશે (About Us)', url: '/about', description: 'અમારા મિશન વિશે જાણો.' },
-      { label: 'બધા કેલ્ક્યુલેટર', url: '/calculators', description: 'તમામ ૧૬ કેલ્ક્યુલેટર જુઓ.' }
+      { label: 'ગોપનીયતા નીતિ (Privacy Policy)', url: '/privacy-policy/', description: 'અમારી ડેટા સુરક્ષા નીતિ જુઓ.' },
+      { label: 'ઉપયોગની શરતો (Terms of Service)', url: '/terms/', description: 'ઉપયોગ સંબંધિત શરતો વાંચો.' },
+      { label: 'અમારા વિશે (About Us)', url: '/about/', description: 'અમારા મિશન વિશે જાણો.' },
+      { label: 'બધા કેલ્ક્યુલેટર', url: '/calculators/', description: 'તમામ ૧૬ કેલ્ક્યુલેટર જુઓ.' }
     ]
   },
   bn: {
@@ -440,10 +440,10 @@ export const DISCLAIMER_CONTENT: Record<Locale, DisclaimerPageData> = {
     ],
     relatedLinksHeading: 'সম্পর্কিত আইনি সংস্থান',
     relatedLinks: [
-      { label: 'গোপনীয়তা নীতি (Privacy Policy)', url: '/privacy-policy', description: 'আমরা কীভাবে ডেটা সুরক্ষিত রাখি তা জানুন।' },
-      { label: 'ব্যবহারের শর্তাবলী (Terms of Service)', url: '/terms', description: 'ওয়েবসাইট ব্যবহারের শর্তাবলী পড়ুন।' },
-      { label: 'আমাদের সম্পর্কে (About Us)', url: '/about', description: 'আমাদের মিশন সম্পর্কে বিস্তারিত জানুন।' },
-      { label: 'সকল ক্যালকুলেটর', url: '/calculators', description: 'আমাদের ১৬টি বীমা ক্যালকুলেটর দেখুন।' }
+      { label: 'গোপনীয়তা নীতি (Privacy Policy)', url: '/privacy-policy/', description: 'আমরা কীভাবে ডেটা সুরক্ষিত রাখি তা জানুন।' },
+      { label: 'ব্যবহারের শর্তাবলী (Terms of Service)', url: '/terms/', description: 'ওয়েবসাইট ব্যবহারের শর্তাবলী পড়ুন।' },
+      { label: 'আমাদের সম্পর্কে (About Us)', url: '/about/', description: 'আমাদের মিশন সম্পর্কে বিস্তারিত জানুন।' },
+      { label: 'সকল ক্যালকুলেটর', url: '/calculators/', description: 'আমাদের ১৬টি বীমা ক্যালকুলেটর দেখুন।' }
     ]
   },
   ta: {
@@ -497,10 +497,10 @@ export const DISCLAIMER_CONTENT: Record<Locale, DisclaimerPageData> = {
     ],
     relatedLinksHeading: 'தொடர்புடைய சட்ட வளங்கள்',
     relatedLinks: [
-      { label: 'தனியுரிமைக் கொள்கை (Privacy Policy)', url: '/privacy-policy', description: 'தரவு பாதுகாப்பு நடைமுறைகளைப் பார்க்கவும்.' },
-      { label: 'பயன்பாட்டு விதிமுறைகள் (Terms of Service)', url: '/terms', description: 'பயன்பாட்டு விதிகளைப் படிக்கவும்.' },
-      { label: 'எங்களைப் பற்றி (About Us)', url: '/about', description: 'எங்கள் குழு மற்றும் நோக்கத்தை அறியவும்.' },
-      { label: 'அனைத்து கால்குலேட்டர்கள்', url: '/calculators', description: 'எங்கள் 16 கால்குலேட்டர்களை ஆராயுங்கள்.' }
+      { label: 'தனியுரிமைக் கொள்கை (Privacy Policy)', url: '/privacy-policy/', description: 'தரவு பாதுகாப்பு நடைமுறைகளைப் பார்க்கவும்.' },
+      { label: 'பயன்பாட்டு விதிமுறைகள் (Terms of Service)', url: '/terms/', description: 'பயன்பாட்டு விதிகளைப் படிக்கவும்.' },
+      { label: 'எங்களைப் பற்றி (About Us)', url: '/about/', description: 'எங்கள் குழு மற்றும் நோக்கத்தை அறியவும்.' },
+      { label: 'அனைத்து கால்குலேட்டர்கள்', url: '/calculators/', description: 'எங்கள் 16 கால்குலேட்டர்களை ஆராயுங்கள்.' }
     ]
   },
   te: {
@@ -554,10 +554,10 @@ export const DISCLAIMER_CONTENT: Record<Locale, DisclaimerPageData> = {
     ],
     relatedLinksHeading: 'సంబంధిత చట్టపరమైన వనరులు',
     relatedLinks: [
-      { label: 'గోప్యతా విధానం (Privacy Policy)', url: '/privacy-policy', description: 'మేము డేటాను ఎలా సురక్షితంగా ఉంచుతామో చూడండి.' },
-      { label: 'వినియోగ నిబంధనలు (Terms of Service)', url: '/terms', description: 'వినియోగ నిబంధనలను చదవండి.' },
-      { label: 'మా గురించి (About Us)', url: '/about', description: 'మా స్వతంత్ర లక్ష్యం గురించి తెలుసుకోండి.' },
-      { label: 'అన్ని కాలిక్యులేటర్లు', url: '/calculators', description: 'మా 16 కాలిక్యులేటర్లను చూడండి.' }
+      { label: 'గోప్యతా విధానం (Privacy Policy)', url: '/privacy-policy/', description: 'మేము డేటాను ఎలా సురక్షితంగా ఉంచుతామో చూడండి.' },
+      { label: 'వినియోగ నిబంధనలు (Terms of Service)', url: '/terms/', description: 'వినియోగ నిబంధనలను చదవండి.' },
+      { label: 'మా గురించి (About Us)', url: '/about/', description: 'మా స్వతంత్ర లక్ష్యం గురించి తెలుసుకోండి.' },
+      { label: 'అన్ని కాలిక్యులేటర్లు', url: '/calculators/', description: 'మా 16 కాలిక్యులేటర్లను చూడండి.' }
     ]
   }
 };

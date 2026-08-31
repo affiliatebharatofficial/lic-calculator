@@ -49,7 +49,7 @@ const isGuidesActive = currentPath.includes('/guides') || currentPath.includes('
       <!-- Desktop Navigation -->
       <nav class="hidden lg:flex items-center space-x-5 text-sm font-medium text-slate-700" aria-label="Main Navigation">
         <a
-          href={getLocalizedPath('/calculators', locale)}
+          href={getLocalizedPath('/calculators/', locale)}
           class={`px-3 py-1.5 rounded-lg transition-colors ${
             isCalculatorsActive
               ? 'text-navy-900 font-bold bg-slate-100 border-b-2 border-accent-500'
@@ -61,7 +61,7 @@ const isGuidesActive = currentPath.includes('/guides') || currentPath.includes('
 
         <!-- Highlighted Surrender Value Tool Link -->
         <a
-          href={getLocalizedPath('/lic-surrender-value-calculator', locale)}
+          href={getLocalizedPath('/lic-surrender-value-calculator/', locale)}
           class={`px-3 py-1.5 rounded-lg font-semibold transition-colors flex items-center gap-1.5 ${
             isSurrenderActive
               ? 'text-amber-950 bg-amber-100 border border-amber-300 font-bold'
@@ -73,7 +73,7 @@ const isGuidesActive = currentPath.includes('/guides') || currentPath.includes('
         </a>
 
         <a
-          href={getLocalizedPath('/plans', locale)}
+          href={getLocalizedPath('/plans/', locale)}
           class={`px-3 py-1.5 rounded-lg transition-colors ${
             isPlansActive
               ? 'text-navy-900 font-bold bg-slate-100 border-b-2 border-accent-500'
@@ -84,7 +84,7 @@ const isGuidesActive = currentPath.includes('/guides') || currentPath.includes('
         </a>
 
         <a
-          href={getLocalizedPath('/guides', locale)}
+          href={getLocalizedPath('/guides/', locale)}
           class={`px-3 py-1.5 rounded-lg transition-colors ${
             isGuidesActive
               ? 'text-navy-900 font-bold bg-slate-100 border-b-2 border-accent-500'
@@ -112,7 +112,7 @@ const isGuidesActive = currentPath.includes('/guides') || currentPath.includes('
 
         <!-- Primary Yellow-Accent CTA Button (High Contrast WCAG AAA compliant text #172033 on #F4C430) -->
         <a
-          href={getLocalizedPath('/calculators', locale)}
+          href={getLocalizedPath('/calculators/', locale)}
           class="hidden md:inline-flex items-center justify-center min-h-[40px] px-4 py-2 rounded-xl text-xs font-bold text-navy-800 bg-accent-500 hover:bg-accent-600 active:bg-accent-700 transition-all shadow-xs border border-accent-600/30 focus:outline-none focus:ring-2 focus:ring-accent-500"
         >
           {t(locale, 'home.exploreCalculators')}

@@ -74,7 +74,7 @@ const reviewerSocials = reviewer ? AuthorManager.sanitizeSocialLinks(reviewer.so
         <span class="text-[10px] font-bold tracking-wider text-amber-800 uppercase block">
           {locale === 'en' ? 'Written By' : t(locale, 'editorial.writtenBy')}
         </span>
-        <a href={getLocalizedPath(`/author/${author.slug}`, locale)} class="font-bold text-navy-800 text-sm hover:text-amber-700 transition-colors block">
+        <a href={getLocalizedPath(`/author/${author.slug}/`, locale)} class="font-bold text-navy-800 text-sm hover:text-amber-700 transition-colors block">
           {author.name}
         </a>
         <span class="text-slate-600 block text-[11px] font-medium">{author.title}</span>
@@ -150,7 +150,7 @@ const reviewerSocials = reviewer ? AuthorManager.sanitizeSocialLinks(reviewer.so
           <span class="text-[10px] font-bold tracking-wider text-indigo-700 uppercase block">
             {locale === 'en' ? 'Actuarial Review' : t(locale, 'editorial.reviewedBy')}
           </span>
-          <a href={getLocalizedPath(`/author/${reviewer.slug}`, locale)} class="font-bold text-slate-900 text-sm hover:text-indigo-600 transition-colors block">
+          <a href={getLocalizedPath(`/author/${reviewer.slug}/`, locale)} class="font-bold text-slate-900 text-sm hover:text-indigo-600 transition-colors block">
             {reviewer.name}
           </a>
           <span class="text-slate-600 block text-[11px] font-medium">{reviewer.title}</span>
@@ -227,9 +227,9 @@ const reviewerSocials = reviewer ? AuthorManager.sanitizeSocialLinks(reviewer.so
   <!-- Correction Prompt & Independent Disclaimer -->
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[11px] text-slate-500 pt-2 border-t border-slate-200/80">
     <span>
-      Found an error or outdated rate? <a href={getLocalizedPath('/contact/correction', locale)} class="text-brand-600 font-semibold hover:underline">Submit a correction report</a>.
+      Found an error or outdated rate? <a href={getLocalizedPath('/contact/correction/', locale)} class="text-brand-600 font-semibold hover:underline">Submit a correction report</a>.
     </span>
-    <a href={getLocalizedPath('/editorial-policy', locale)} class="text-slate-600 hover:text-slate-900 font-semibold underline">
+    <a href={getLocalizedPath('/editorial-policy/', locale)} class="text-slate-600 hover:text-slate-900 font-semibold underline">
       Read Editorial Policy &rarr;
     </a>
   </div>

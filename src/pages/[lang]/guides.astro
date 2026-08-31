@@ -15,7 +15,7 @@ const { lang } = Astro.params;
 const locale = (lang as Locale) || DEFAULT_LOCALE;
 
 const breadcrumbs = [
-  { name: 'Guides', url: getLocalizedPath('/guides', locale) }
+  { name: 'Guides', url: getLocalizedPath('/guides/', locale) }
 ];
 
 const guides = [

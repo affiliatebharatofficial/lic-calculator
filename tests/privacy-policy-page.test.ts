@@ -62,7 +62,7 @@ describe('Privacy Policy Page Full Audit & Compliance', () => {
   it('contains valid internal navigation links in related links box', () => {
     for (const locale of LOCALE_CODES) {
       const data = getPrivacyPolicyContent(locale);
-      const urls = data.relatedLinks.map((l) => l.url);
+      const urls = data.relatedLinks.map((l) => l.url.replace(/\/$/, ''));
       expect(urls).toContain('/disclaimer');
       expect(urls).toContain('/terms');
       expect(urls).toContain('/about');

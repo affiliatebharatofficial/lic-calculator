@@ -75,75 +75,75 @@ const { locale = 'en' } = Astro.props;
         </h4>
         <nav class="space-y-1 text-sm font-medium">
           <a
-            href={getLocalizedPath('/lic-surrender-value-calculator', locale)}
+            href={getLocalizedPath('/lic-surrender-value-calculator/', locale)}
             class="flex items-center justify-between min-h-[44px] px-3.5 py-2.5 rounded-xl text-amber-950 bg-accent-50 hover:bg-accent-100 font-semibold transition-colors border border-accent-200/80"
           >
             <span>{t(locale, 'nav.surrenderCalculator')}</span>
             <span class="text-[10px] bg-accent-400 text-navy-900 font-bold px-2 py-0.5 rounded-full">Core</span>
           </a>
           <a
-            href={getLocalizedPath('/lic-surrender-analysis', locale)}
+            href={getLocalizedPath('/lic-surrender-analysis/', locale)}
             class="flex items-center justify-between min-h-[44px] px-3.5 py-2.5 rounded-xl text-navy-900 bg-slate-100 hover:bg-slate-200 font-semibold transition-colors"
           >
             <span>{t(locale, 'nav.surrenderAnalysis')}</span>
             <span class="text-[10px] bg-slate-200 text-slate-800 font-bold px-2 py-0.5 rounded-full">3-Way</span>
           </a>
           <a
-            href={getLocalizedPath('/lic-surrender-loss-calculator', locale)}
+            href={getLocalizedPath('/lic-surrender-loss-calculator/', locale)}
             class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
           >
             {t(locale, 'nav.surrenderLoss')}
           </a>
           <a
-            href={getLocalizedPath('/lic-premium-calculator', locale)}
+            href={getLocalizedPath('/lic-premium-calculator/', locale)}
             class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
           >
             {t(locale, 'nav.premiumCalculator')}
           </a>
           <a
-            href={getLocalizedPath('/lic-maturity-calculator', locale)}
+            href={getLocalizedPath('/lic-maturity-calculator/', locale)}
             class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
           >
             {t(locale, 'nav.maturityCalculator')}
           </a>
           <a
-            href={getLocalizedPath('/lic-paid-up-calculator', locale)}
+            href={getLocalizedPath('/lic-paid-up-calculator/', locale)}
             class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
           >
             {t(locale, 'nav.paidUpCalculator')}
           </a>
           <a
-            href={getLocalizedPath('/lic-return-calculator', locale)}
+            href={getLocalizedPath('/lic-return-calculator/', locale)}
             class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
           >
             {t(locale, 'nav.returnRoiCalculator')}
           </a>
           <a
-            href={getLocalizedPath('/lic-bonus-calculator', locale)}
+            href={getLocalizedPath('/lic-bonus-calculator/', locale)}
             class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
           >
             {t(locale, 'nav.bonusCalculator')}
           </a>
           <a
-            href={getLocalizedPath('/lic-loan-calculator', locale)}
+            href={getLocalizedPath('/lic-loan-calculator/', locale)}
             class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
           >
             {t(locale, 'nav.loanCalculator')}
           </a>
           <a
-            href={getLocalizedPath('/lic-late-fee-calculator', locale)}
+            href={getLocalizedPath('/lic-late-fee-calculator/', locale)}
             class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
           >
             {t(locale, 'nav.lateFeeCalculator')}
           </a>
           <a
-            href={getLocalizedPath('/lic-hlv-calculator', locale)}
+            href={getLocalizedPath('/lic-hlv-calculator/', locale)}
             class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
           >
             {t(locale, 'nav.hlvCalculator')}
           </a>
           <a
-            href={getLocalizedPath('/calculators', locale)}
+            href={getLocalizedPath('/calculators/', locale)}
             class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-navy-900 font-bold bg-amber-50/60 hover:bg-amber-100/80 transition-colors text-center border border-amber-200"
           >
             {t(locale, 'home.exploreCalculators')} &rarr;
@@ -157,16 +157,16 @@ const { locale = 'en' } = Astro.props;
           {t(locale, 'nav.guides')}
         </h4>
         <nav class="space-y-1 text-sm font-medium">
-          <a href={getLocalizedPath('/plans', locale)} class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors">
+          <a href={getLocalizedPath('/plans/', locale)} class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors">
             {t(locale, 'nav.plans')}
           </a>
-          <a href={getLocalizedPath('/guides', locale)} class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors">
+          <a href={getLocalizedPath('/guides/', locale)} class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors">
             {t(locale, 'nav.guides')}
           </a>
-          <a href={getLocalizedPath('/faq', locale)} class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors">
+          <a href={getLocalizedPath('/faq/', locale)} class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors">
             FAQs
           </a>
-          <a href={getLocalizedPath('/glossary', locale)} class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors">
+          <a href={getLocalizedPath('/glossary/', locale)} class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors">
             Insurance Glossary
           </a>
         </nav>
@@ -184,11 +184,11 @@ const { locale = 'en' } = Astro.props;
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-slate-200 bg-slate-50 text-xs text-slate-500 space-y-2 shrink-0">
       <div class="flex items-center justify-around text-xs font-medium">
-        <a href={getLocalizedPath('/about', locale)} class="hover:underline p-1.5">{t(locale, 'footer.aboutTitle')}</a>
+        <a href={getLocalizedPath('/about/', locale)} class="hover:underline p-1.5">{t(locale, 'footer.aboutTitle')}</a>
         <span class="text-slate-300">•</span>
-        <a href={getLocalizedPath('/contact', locale)} class="hover:underline p-1.5">Contact</a>
+        <a href={getLocalizedPath('/contact/', locale)} class="hover:underline p-1.5">Contact</a>
         <span class="text-slate-300">•</span>
-        <a href={getLocalizedPath('/disclaimer', locale)} class="text-amber-900 font-semibold hover:underline p-1.5">{t(locale, 'footer.disclaimerPage')}</a>
+        <a href={getLocalizedPath('/disclaimer/', locale)} class="text-amber-900 font-semibold hover:underline p-1.5">{t(locale, 'footer.disclaimerPage')}</a>
       </div>
       <p class="text-[10px] text-slate-400 text-center leading-tight">
         Independent educational tools • Not affiliated with LIC of India

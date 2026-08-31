@@ -17,7 +17,7 @@ const { lang } = Astro.params;
 const locale = (lang as Locale) || DEFAULT_LOCALE;
 
 const breadcrumbs = [
-  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) }
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators/', locale) }
 ];
 ---
 
@@ -68,7 +68,7 @@ const breadcrumbs = [
         </p>
       </div>
       <a
-        href={getLocalizedPath('/lic-surrender-analysis', locale)}
+        href={getLocalizedPath('/lic-surrender-analysis/', locale)}
         class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-accent-500 hover:bg-accent-400 active:bg-accent-600 text-navy-900 font-bold text-xs sm:text-sm shadow-md transition-all shrink-0 cursor-pointer border border-accent-600/30"
       >
         <span>{t(locale, 'home.calculateSurrender')}</span>

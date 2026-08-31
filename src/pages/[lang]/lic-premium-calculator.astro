@@ -27,8 +27,8 @@ const locale = (lang as Locale) || DEFAULT_LOCALE;
 const seoData = getCalculatorSeoData('lic-premium-calculator', locale);
 
 const breadcrumbs = [
-  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
-  { name: t(locale, 'nav.premiumCalculator'), url: getLocalizedPath('/lic-premium-calculator', locale) }
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators/', locale) },
+  { name: t(locale, 'nav.premiumCalculator'), url: getLocalizedPath('/lic-premium-calculator/', locale) }
 ];
 
 const frequencyOptions = [
@@ -49,19 +49,19 @@ const relatedTools = [
   {
     title: t(locale, 'nav.maturityCalculator'),
     description: 'Calculate maturity payouts with bonus and loyalty additions.',
-    url: getLocalizedPath('/lic-maturity-calculator', locale),
+    url: getLocalizedPath('/lic-maturity-calculator/', locale),
     category: 'Maturity'
   },
   {
     title: t(locale, 'nav.bonusCalculator'),
     description: 'Project total bonus accumulation over your chosen term.',
-    url: getLocalizedPath('/lic-bonus-calculator', locale),
+    url: getLocalizedPath('/lic-bonus-calculator/', locale),
     category: 'Bonus'
   },
   {
     title: t(locale, 'nav.surrenderCalculator'),
     description: 'Estimate surrender payout value and evaluate early exit terms.',
-    url: getLocalizedPath('/lic-surrender-value-calculator', locale),
+    url: getLocalizedPath('/lic-surrender-value-calculator/', locale),
     category: 'Surrender'
   }
 ];

@@ -141,10 +141,10 @@ export const ABOUT_CONTENT: Record<Locale, AboutPageData> = {
     editorialSubtext: 'Our calculation methodologies and informational guides are authored, peer-reviewed, and fact-checked by experienced actuarial researchers and financial professionals.',
     relatedLinksHeading: 'Related Legal & Platform Resources',
     relatedLinks: [
-      { label: 'All Financial Calculators', url: '/calculators', description: 'Explore our complete suite of 16 independent LIC calculators.' },
-      { label: 'Legal Disclaimer', url: '/disclaimer', description: 'Review our non-affiliation notice, calculation estimates, and liability limits.' },
-      { label: 'Privacy Policy', url: '/privacy-policy', description: 'Understand how we protect your privacy with zero personal data storage.' },
-      { label: 'Terms of Service', url: '/terms', description: 'Read the terms governing access and use of our calculation tools.' }
+      { label: 'All Financial Calculators', url: '/calculators/', description: 'Explore our complete suite of 16 independent LIC calculators.' },
+      { label: 'Legal Disclaimer', url: '/disclaimer/', description: 'Review our non-affiliation notice, calculation estimates, and liability limits.' },
+      { label: 'Privacy Policy', url: '/privacy-policy/', description: 'Understand how we protect your privacy with zero personal data storage.' },
+      { label: 'Terms of Service', url: '/terms/', description: 'Read the terms governing access and use of our calculation tools.' }
     ]
   },
   hi: {
@@ -216,10 +216,10 @@ export const ABOUT_CONTENT: Record<Locale, AboutPageData> = {
     editorialSubtext: 'हमारी सभी गणना विधियां और गाइड योग्य बीमा व वित्तीय विशेषज्ञों द्वारा सत्यापित की जाती हैं।',
     relatedLinksHeading: 'संबंधित कानूनी व वित्तीय संसाधन',
     relatedLinks: [
-      { label: 'सभी वित्तीय कैलकुलेटर', url: '/calculators', description: 'हमारे सभी 16 स्वतंत्र कैलकुलेटर एक्सप्लोर करें।' },
-      { label: 'कानूनी अस्वीकरण (Disclaimer)', url: '/disclaimer', description: 'कैलकुलेटर अनुमानों और गैर-संबद्धता की जानकारी पढ़ें।' },
-      { label: 'गोपनीयता नीति (Privacy Policy)', url: '/privacy-policy', description: 'जानें कि हम बिना डेटा स्टोर किए आपकी गोपनीयता कैसे सुरक्षित रखते हैं।' },
-      { label: 'उपयोग की शर्तें (Terms of Service)', url: '/terms', description: 'वेबसाइट उपयोग के नियम और शर्तें पढ़ें।' }
+      { label: 'सभी वित्तीय कैलकुलेटर', url: '/calculators/', description: 'हमारे सभी 16 स्वतंत्र कैलकुलेटर एक्सप्लोर करें।' },
+      { label: 'कानूनी अस्वीकरण (Disclaimer)', url: '/disclaimer/', description: 'कैलकुलेटर अनुमानों और गैर-संबद्धता की जानकारी पढ़ें।' },
+      { label: 'गोपनीयता नीति (Privacy Policy)', url: '/privacy-policy/', description: 'जानें कि हम बिना डेटा स्टोर किए आपकी गोपनीयता कैसे सुरक्षित रखते हैं।' },
+      { label: 'उपयोग की शर्तें (Terms of Service)', url: '/terms/', description: 'वेबसाइट उपयोग के नियम और शर्तें पढ़ें।' }
     ]
   },
   mr: {
@@ -273,10 +273,10 @@ export const ABOUT_CONTENT: Record<Locale, AboutPageData> = {
     editorialSubtext: 'आमची माहिती विमा तज्ज्ञांद्वारे तपासली जाते.',
     relatedLinksHeading: 'संबंधित संसाधने',
     relatedLinks: [
-      { label: 'सर्व कॅल्क्युलेटर', url: '/calculators', description: 'आमचे सर्व १६ कॅल्क्युलेटर एक्सप्लोर करा.' },
-      { label: 'कायदेशीर अस्वीकरण (Disclaimer)', url: '/disclaimer', description: 'अस्वीकरण आणि मर्यादा वाचा.' },
-      { label: 'गोपनीयता धोरण (Privacy Policy)', url: '/privacy-policy', description: 'डेटा सुरक्षा धोरण जाणून घ्या.' },
-      { label: 'वापराच्या अटी (Terms of Service)', url: '/terms', description: 'वापराच्या अटी वाचा.' }
+      { label: 'सर्व कॅल्क्युलेटर', url: '/calculators/', description: 'आमचे सर्व १६ कॅल्क्युलेटर एक्सप्लोर करा.' },
+      { label: 'कायदेशीर अस्वीकरण (Disclaimer)', url: '/disclaimer/', description: 'अस्वीकरण आणि मर्यादा वाचा.' },
+      { label: 'गोपनीयता धोरण (Privacy Policy)', url: '/privacy-policy/', description: 'डेटा सुरक्षा धोरण जाणून घ्या.' },
+      { label: 'वापराच्या अटी (Terms of Service)', url: '/terms/', description: 'वापराच्या अटी वाचा.' }
     ]
   },
   gu: {
@@ -330,10 +330,10 @@ export const ABOUT_CONTENT: Record<Locale, AboutPageData> = {
     editorialSubtext: 'અમારી સામગ્રી નાણાકીય નિષ્ણાતો દ્વારા ચકાસાયેલ છે.',
     relatedLinksHeading: 'સંબંધિત કાનૂની સંસાધનો',
     relatedLinks: [
-      { label: 'બધા કેલ્ક્યુલેટર', url: '/calculators', description: 'તમામ ૧૬ કેલ્ક્યુલેટર જુઓ.' },
-      { label: 'કાનૂની અસ્વીકરણ (Disclaimer)', url: '/disclaimer', description: 'અંદાજો અને જવાબદારીની મર્યાદાઓ.' },
-      { label: 'ગોપનીયતા નીતિ (Privacy Policy)', url: '/privacy-policy', description: 'ડેટા સુરક્ષા નીતિ જુઓ.' },
-      { label: 'ઉપયોગની શરતો (Terms of Service)', url: '/terms', description: 'વેબસાઇટના નિયમો અને શરતો.' }
+      { label: 'બધા કેલ્ક્યુલેટર', url: '/calculators/', description: 'તમામ ૧૬ કેલ્ક્યુલેટર જુઓ.' },
+      { label: 'કાનૂની અસ્વીકરણ (Disclaimer)', url: '/disclaimer/', description: 'અંદાજો અને જવાબદારીની મર્યાદાઓ.' },
+      { label: 'ગોપનીયતા નીતિ (Privacy Policy)', url: '/privacy-policy/', description: 'ડેટા સુરક્ષા નીતિ જુઓ.' },
+      { label: 'ઉપયોગની શરતો (Terms of Service)', url: '/terms/', description: 'વેબસાઇટના નિયમો અને શરતો.' }
     ]
   },
   bn: {
@@ -387,10 +387,10 @@ export const ABOUT_CONTENT: Record<Locale, AboutPageData> = {
     editorialSubtext: 'আমাদের তথ্য বীমা ও আর্থিক বিশেষজ্ঞদের দ্বারা যাচাইকৃত।',
     relatedLinksHeading: 'সম্পর্কিত আইনি তথ্য',
     relatedLinks: [
-      { label: 'সকল ক্যালকুলেটর', url: '/calculators', description: 'আমাদের ১৬টি বীমা ক্যালকুলেটর দেখুন।' },
-      { label: 'দাবিত্যাগ (Disclaimer)', url: '/disclaimer', description: 'ক্যালকুলেটর সীমাবদ্ধতা ও দাবিত্যাগ দেখুন।' },
-      { label: 'গোপনীয়তা নীতি (Privacy Policy)', url: '/privacy-policy', description: 'আমরা কীভাবে ডেটা সুরক্ষিত রাখি তা জানুন।' },
-      { label: 'ব্যবহারের শর্তাবলী (Terms of Service)', url: '/terms', description: 'ব্যবহারের নিয়মাবলী পড়ুন।' }
+      { label: 'সকল ক্যালকুলেটর', url: '/calculators/', description: 'আমাদের ১৬টি বীমা ক্যালকুলেটর দেখুন।' },
+      { label: 'দাবিত্যাগ (Disclaimer)', url: '/disclaimer/', description: 'ক্যালকুলেটর সীমাবদ্ধতা ও দাবিত্যাগ দেখুন।' },
+      { label: 'গোপনীয়তা নীতি (Privacy Policy)', url: '/privacy-policy/', description: 'আমরা কীভাবে ডেটা সুরক্ষিত রাখি তা জানুন।' },
+      { label: 'ব্যবহারের শর্তাবলী (Terms of Service)', url: '/terms/', description: 'ব্যবহারের নিয়মাবলী পড়ুন।' }
     ]
   },
   ta: {
@@ -444,10 +444,10 @@ export const ABOUT_CONTENT: Record<Locale, AboutPageData> = {
     editorialSubtext: 'எங்கள் உள்ளடக்கம் நிதி நிபுணர்களால் மதிப்பாய்வு செய்யப்படுகிறது.',
     relatedLinksHeading: 'தொடர்புடைய சட்ட வளங்கள்',
     relatedLinks: [
-      { label: 'அனைத்து கால்குலேட்டர்கள்', url: '/calculators', description: 'எங்கள் 16 கால்குலேட்டர்களை ஆராயுங்கள்.' },
-      { label: 'பொறுப்புத் துறப்பு (Disclaimer)', url: '/disclaimer', description: 'மதிப்பீட்டு வரம்புகள் மற்றும் பொறுப்புத் துறப்பு.' },
-      { label: 'தனியுரிமைக் கொள்கை (Privacy Policy)', url: '/privacy-policy', description: 'தரவு பாதுகாப்பு நடைமுறைகளைப் பார்க்கவும்.' },
-      { label: 'பயன்பாட்டு விதிமுறைகள் (Terms of Service)', url: '/terms', description: 'விதிமுறைகள் மற்றும் நிபந்தனைகள்.' }
+      { label: 'அனைத்து கால்குலேட்டர்கள்', url: '/calculators/', description: 'எங்கள் 16 கால்குலேட்டர்களை ஆராயுங்கள்.' },
+      { label: 'பொறுப்புத் துறப்பு (Disclaimer)', url: '/disclaimer/', description: 'மதிப்பீட்டு வரம்புகள் மற்றும் பொறுப்புத் துறப்பு.' },
+      { label: 'தனியுரிமைக் கொள்கை (Privacy Policy)', url: '/privacy-policy/', description: 'தரவு பாதுகாப்பு நடைமுறைகளைப் பார்க்கவும்.' },
+      { label: 'பயன்பாட்டு விதிமுறைகள் (Terms of Service)', url: '/terms/', description: 'விதிமுறைகள் மற்றும் நிபந்தனைகள்.' }
     ]
   },
   te: {
@@ -501,10 +501,10 @@ export const ABOUT_CONTENT: Record<Locale, AboutPageData> = {
     editorialSubtext: 'మా కంటెంట్ ఆర్థిక నిపుణులచే ధృవీకరించబడింది.',
     relatedLinksHeading: 'సంబంధిత చట్టపరమైన వనరులు',
     relatedLinks: [
-      { label: 'అన్ని కాలిక్యులేటర్లు', url: '/calculators', description: 'మా 16 కాలిక్యులేటర్లను చూడండి.' },
-      { label: 'డిస్క్లైమర్ (Disclaimer)', url: '/disclaimer', description: 'అంచనాలు మరియు బాధ్యత పరిమితులు.' },
-      { label: 'గోప్యతా విధానం (Privacy Policy)', url: '/privacy-policy', description: 'డేటా భద్రత గురించి తెలుసుకోండి.' },
-      { label: 'వినియోగ నిబంధనలు (Terms of Service)', url: '/terms', description: 'వినియోగ నిబంధనలను చదవండి.' }
+      { label: 'అన్ని కాలిక్యులేటర్లు', url: '/calculators/', description: 'మా 16 కాలిక్యులేటర్లను చూడండి.' },
+      { label: 'డిస్క్లైమర్ (Disclaimer)', url: '/disclaimer/', description: 'అంచనాలు మరియు బాధ్యత పరిమితులు.' },
+      { label: 'గోప్యతా విధానం (Privacy Policy)', url: '/privacy-policy/', description: 'డేటా భద్రత గురించి తెలుసుకోండి.' },
+      { label: 'వినియోగ నిబంధనలు (Terms of Service)', url: '/terms/', description: 'వినియోగ నిబంధనలను చదవండి.' }
     ]
   }
 };

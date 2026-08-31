@@ -24,8 +24,8 @@ const locale = (lang as Locale) || DEFAULT_LOCALE;
 const seoData = getCalculatorSeoData('lic-loan-calculator', locale);
 
 const breadcrumbs = [
-  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
-  { name: t(locale, 'nav.loanCalculator'), url: getLocalizedPath('/lic-loan-calculator', locale) }
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators/', locale) },
+  { name: t(locale, 'nav.loanCalculator'), url: getLocalizedPath('/lic-loan-calculator/', locale) }
 ];
 
 const policyStatusOptions = [
@@ -44,13 +44,13 @@ const relatedTools = [
   {
     title: t(locale, 'nav.surrenderCalculator'),
     description: 'Calculate your policy exact cash value to determine maximum borrowing limits.',
-    url: getLocalizedPath('/lic-surrender-value-calculator', locale),
+    url: getLocalizedPath('/lic-surrender-value-calculator/', locale),
     category: 'Surrender'
   },
   {
     title: t(locale, 'nav.premiumCalculator'),
     description: 'Check renewal premium costs to keep your life coverage in force.',
-    url: getLocalizedPath('/lic-premium-calculator', locale),
+    url: getLocalizedPath('/lic-premium-calculator/', locale),
     category: 'Premium'
   }
 ];

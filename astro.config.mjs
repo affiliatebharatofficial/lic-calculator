@@ -8,6 +8,7 @@ const siteUrl = process.env.SITE_URL || 'https://lic-calculators.com';
 // https://astro.build/config
 export default defineConfig({
   site: siteUrl,
+  trailingSlash: 'always',
   output: 'static',
   adapter: cloudflare({
     imageService: 'cloudflare',

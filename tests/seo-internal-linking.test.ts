@@ -14,6 +14,6 @@ describe('Contextual Internal Linking Engine', () => {
   it('provides safe fallback links for unmapped routes', () => {
     const fallbackLinks = InternalLinkingEngine.getRelatedLinks('/some-random-unmapped-page');
     expect(fallbackLinks.length).toBeGreaterThan(0);
-    expect(fallbackLinks[0]?.url).toBe('/lic-premium-calculator');
+    expect(fallbackLinks[0]?.url.replace(/\/$/, '')).toBe('/lic-premium-calculator');
   });
 });

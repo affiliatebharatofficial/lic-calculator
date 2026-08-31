@@ -25,8 +25,8 @@ const locale = (lang as Locale) || DEFAULT_LOCALE;
 const seoData = getCalculatorSeoData('lic-surrender-value-calculator', locale);
 
 const breadcrumbs = [
-  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
-  { name: t(locale, 'nav.surrenderCalculator'), url: getLocalizedPath('/lic-surrender-value-calculator', locale) }
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators/', locale) },
+  { name: t(locale, 'nav.surrenderCalculator'), url: getLocalizedPath('/lic-surrender-value-calculator/', locale) }
 ];
 
 const breakdownItems = [
@@ -40,19 +40,19 @@ const relatedTools = [
   {
     title: t(locale, 'nav.surrenderLoss'),
     description: 'Quantify your exact monetary difference and percentage capital loss before surrendering.',
-    url: getLocalizedPath('/lic-surrender-loss-calculator', locale),
+    url: getLocalizedPath('/lic-surrender-loss-calculator/', locale),
     category: 'Surrender Loss'
   },
   {
     title: t(locale, 'nav.loanCalculator'),
     description: 'Borrow up to 90% of your surrender value without losing life cover or canceling your policy.',
-    url: getLocalizedPath('/lic-loan-calculator', locale),
+    url: getLocalizedPath('/lic-loan-calculator/', locale),
     category: 'Loan'
   },
   {
     title: t(locale, 'nav.surrenderAnalysis'),
     description: 'Compare 3-way alternatives: Surrender Now vs Make Paid-Up vs Continue Policy.',
-    url: getLocalizedPath('/lic-surrender-analysis', locale),
+    url: getLocalizedPath('/lic-surrender-analysis/', locale),
     category: 'Analysis'
   }
 ];

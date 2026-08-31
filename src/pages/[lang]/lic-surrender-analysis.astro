@@ -28,8 +28,8 @@ const locale = (lang as Locale) || DEFAULT_LOCALE;
 const seoData = getCalculatorSeoData('lic-surrender-analysis', locale);
 
 const breadcrumbs = [
-  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
-  { name: t(locale, 'nav.surrenderAnalysis'), url: getLocalizedPath('/lic-surrender-analysis', locale) }
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators/', locale) },
+  { name: t(locale, 'nav.surrenderAnalysis'), url: getLocalizedPath('/lic-surrender-analysis/', locale) }
 ];
 
 const frequencyOptions = [
@@ -51,25 +51,25 @@ const relatedTools = [
   {
     title: t(locale, 'nav.surrenderCalculator'),
     description: 'Quick estimation of statutory GSV and Special Surrender Value (SSV).',
-    url: getLocalizedPath('/lic-surrender-value-calculator', locale),
+    url: getLocalizedPath('/lic-surrender-value-calculator/', locale),
     category: 'Surrender'
   },
   {
     title: t(locale, 'nav.surrenderLoss'),
     description: 'Dedicated financial calculator focusing on capital shortfall and forfeited bonus.',
-    url: getLocalizedPath('/lic-surrender-loss-calculator', locale),
+    url: getLocalizedPath('/lic-surrender-loss-calculator/', locale),
     category: 'Loss Analysis'
   },
   {
     title: t(locale, 'nav.loanCalculator'),
     description: 'Calculate borrowing limits against your policy without losing life insurance cover.',
-    url: getLocalizedPath('/lic-loan-calculator', locale),
+    url: getLocalizedPath('/lic-loan-calculator/', locale),
     category: 'Policy Loan'
   },
   {
     title: t(locale, 'nav.maturityCalculator'),
     description: 'Project total maturity benefits with accrued reversionary and final bonuses.',
-    url: getLocalizedPath('/lic-maturity-calculator', locale),
+    url: getLocalizedPath('/lic-maturity-calculator/', locale),
     category: 'Maturity'
   }
 ];

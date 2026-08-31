@@ -28,8 +28,8 @@ const locale = (lang as Locale) || DEFAULT_LOCALE;
 const personSchema = StructuredDataGenerator.generatePerson(author);
 
 const breadcrumbs = [
-  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
-  { name: 'Authors', url: getLocalizedPath('/editorial-policy', locale) },
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators/', locale) },
+  { name: 'Authors', url: getLocalizedPath('/editorial-policy/', locale) },
   { name: author.name, url: getLocalizedPath(`/author/${author.slug}`, locale) }
 ];
 ---

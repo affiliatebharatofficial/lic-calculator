@@ -15,14 +15,14 @@ const personSchema = StructuredDataGenerator.generatePerson(author);
 
 const breadcrumbs = [
   { name: 'Home', url: '/' },
-  { name: 'Authors & Reviewers', url: '/editorial-policy' },
+  { name: 'Authors & Reviewers', url: '/editorial-policy/' },
   { name: author.name, url: `/author/${author.slug}` }
 ];
 
 const authoredItems = [
   {
     title: 'LIC Surrender Value Calculator & Methodology',
-    url: '/lic-surrender-value-calculator',
+    url: '/lic-surrender-value-calculator/',
     type: 'Calculator Engine',
     desc: 'Deterministic Guaranteed Surrender Value (GSV) and Special Surrender Value (SSV) calculation matrix.'
   },
