@@ -14,7 +14,14 @@ describe('Multilingual Translation & Localization Audit', () => {
     'lic-bonus-calculator',
     'lic-loan-calculator',
     'lic-pension-calculator',
-    'lic-term-insurance-calculator'
+    'lic-term-insurance-calculator',
+    'lic-annuity-calculator',
+    'lic-death-benefit-calculator',
+    'lic-paid-up-calculator',
+    'lic-return-calculator',
+    'lic-premium-frequency-calculator',
+    'lic-late-fee-calculator',
+    'lic-hlv-calculator'
   ];
 
   it('should support all 7 required Indian languages with LTR configuration', () => {
