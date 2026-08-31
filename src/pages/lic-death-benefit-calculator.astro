@@ -1,0 +1,158 @@
+---
+import CalculatorShell from '@/components/calculator/CalculatorShell.astro';
+import CurrencyInput from '@/components/calculator/CurrencyInput.astro';
+import RangeInput from '@/components/calculator/RangeInput.astro';
+import CalculateButton from '@/components/calculator/CalculateButton.astro';
+import ResetButton from '@/components/calculator/ResetButton.astro';
+import ResultCard from '@/components/ui/ResultCard.astro';
+import ResultBreakdown from '@/components/calculator/ResultBreakdown.astro';
+import CalculationExplanation from '@/components/calculator/CalculationExplanation.astro';
+import RelatedCalculatorCard from '@/components/calculator/RelatedCalculatorCard.astro';
+import { CALCULATOR_SEO_DATA } from '@/lib/seo/calculator-content';
+
+const seoData = CALCULATOR_SEO_DATA['lic-death-benefit-calculator'];
+
+const breadcrumbs = [
+  { name: 'Calculators', url: '/calculators' },
+  { name: 'Death Benefit Claim Calculator', url: '/lic-death-benefit-calculator' }
+];
+
+const breakdownItems = [
+  { id: '1', label: 'Guaranteed Base Sum Assured on Death', amount: '₹10,00,000', notes: 'Life cover guarantee' },
+  { id: '2', label: 'Vested Simple Reversionary Bonuses (10 Yrs)', amount: '₹4,60,000', isCredit: true, notes: 'Accumulated bonus' },
+  { id: '3', label: 'Final Additional Bonus (FAB)', amount: '₹0', isCredit: true, notes: 'Applicable for 15+ years duration' },
+  { id: '4', label: 'Less: Outstanding Loan Deductions', amount: '₹0', isCredit: false, notes: 'Zero loan outstanding' }
+];
+
+const relatedTools = [
+  {
+    title: 'Term Insurance Calculator',
+    description: 'Calculate affordable pure protection life cover premiums.',
+    url: '/lic-term-insurance-calculator',
+    category: 'Protection'
+  },
+  {
+    title: 'Maturity Calculator',
+    description: 'Calculate full maturity benefits upon policy survival.',
+    url: '/lic-maturity-calculator',
+    category: 'Returns'
+  }
+];
+---
+
+<CalculatorShell
+  title={seoData.seoTitle}
+  description={seoData.metaDescription}
+  calculatorTitle={seoData.h1}
+  calculatorSubtitle={seoData.subtitle}
+  category={seoData.category}
+  lastReviewedDate={seoData.lastReviewedDate}
+  sources={seoData.sources}
+  faqs={seoData.faqs}
+  breadcrumbs={breadcrumbs}
+>
+  <div slot="inputs" class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 shadow-card">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+      <h2 class="text-base font-bold text-slate-900">Policy & Claim Parameters</h2>
+      <ResetButton />
+    </div>
+
+    <form class="space-y-5" id="deathBenefitForm">
+      <div class="space-y-1.5">
+        <label for="planTableNo" class="block text-xs font-semibold text-slate-700">LIC Plan Table</label>
+        <select
+          id="planTableNo"
+          name="planTableNo"
+          class="w-full h-11 px-3.5 text-xs font-medium text-slate-800 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500"
+        >
+          <option value="914">Table 914 - New Endowment Plan</option>
+          <option value="915">Table 915 - New Jeevan Anand</option>
+          <option value="936">Table 936 - Jeevan Labh</option>
+          <option value="945">Table 945 - Jeevan Umang</option>
+        </select>
+      </div>
+      <CurrencyInput
+        id="sumAssured"
+        name="sumAssured"
+        label="Basic Sum Assured"
+        value={1000000}
+        placeholder="e.g. 1000000"
+        min={50000}
+        required
+        helpText="Minimum life cover is ₹50,000"
+      />
+      <RangeInput
+        id="policyTerm"
+        name="policyTerm"
+        label="Original Policy Term"
+        value={20}
+        min={5}
+        max={40}
+        unit="Years"
+        required
+      />
+      <RangeInput
+        id="completedYears"
+        name="completedYears"
+        label="Policy Years Completed Before Demise"
+        value={10}
+        min={1}
+        max={40}
+        unit="Years"
+        required
+      />
+      <CurrencyInput
+        id="outstandingLoan"
+        name="outstandingLoan"
+        label="Outstanding Policy Loan / Deductions (if any)"
+        value={0}
+        placeholder="e.g. 0"
+        min={0}
+      />
+      <div class="pt-2">
+        <CalculateButton text="Calculate Total Death Claim Payout" />
+      </div>
+    </form>
+  </div>
+
+  <div slot="results">
+    <ResultCard
+      headline="Net Tax-Free Death Claim"
+      amount="₹14,60,000"
+      subtitle="100% Tax-Exempt under Section 10(10D) of Income Tax Act"
+      stats={[
+        { label: 'Basic Sum Assured', value: '₹10,00,000' },
+        { label: 'Vested Bonus', value: '₹4,60,000' },
+        { label: 'Terminal Bonus (FAB)', value: '₹0' },
+        { label: 'Claim Type', value: 'Direct NEFT to Nominee' }
+      ]}
+    />
+  </div>
+
+  <div slot="breakdown">
+    <ResultBreakdown
+      title="Death Benefit Proceeds Structure"
+      items={breakdownItems}
+      totalLabel="Net Claim Payable to Nominee"
+      totalAmount="₹14,60,000"
+      summaryNotes="The claim proceeds are 100% tax-free under Section 10(10D)."
+    />
+  </div>
+
+  <div slot="explanation">
+    <CalculationExplanation
+      howItWorks={seoData.howItWorks}
+      inputsGuide={seoData.inputsGuide}
+      resultsGuide={seoData.resultsGuide}
+      assumptions={seoData.assumptionsAndLimitations}
+    />
+  </div>
+
+  <div slot="related">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {relatedTools.map((tool) => (
+        <RelatedCalculatorCard {...tool} />
+      ))}
+    </div>
+  </div>
+</CalculatorShell>

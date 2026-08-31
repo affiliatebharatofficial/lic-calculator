@@ -1,0 +1,159 @@
+---
+import CalculatorShell from '@/components/calculator/CalculatorShell.astro';
+import CurrencyInput from '@/components/calculator/CurrencyInput.astro';
+import RangeInput from '@/components/calculator/RangeInput.astro';
+import CalculateButton from '@/components/calculator/CalculateButton.astro';
+import ResetButton from '@/components/calculator/ResetButton.astro';
+import ResultCard from '@/components/ui/ResultCard.astro';
+import ResultBreakdown from '@/components/calculator/ResultBreakdown.astro';
+import CalculationExplanation from '@/components/calculator/CalculationExplanation.astro';
+import RelatedCalculatorCard from '@/components/calculator/RelatedCalculatorCard.astro';
+import { getCalculatorSeoData } from '@/lib/seo/calculator-content';
+import { LOCALE_CODES, DEFAULT_LOCALE, getLocalizedPath, t } from '@/lib/i18n';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+const seoData = getCalculatorSeoData('lic-death-benefit-calculator', locale);
+
+const breadcrumbs = [
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
+  { name: t(locale, 'nav.deathBenefitCalculator'), url: getLocalizedPath('/lic-death-benefit-calculator', locale) }
+];
+
+const breakdownItems = [
+  { id: '1', label: t(locale, 'common.baseSumAssured'), amount: '₹10,00,000', notes: 'Life cover' },
+  { id: '2', label: t(locale, 'common.accruedBonus'), amount: '₹4,60,000', isCredit: true, notes: 'Bonus' },
+  { id: '3', label: t(locale, 'common.finalAdditionalBonus'), amount: '₹0', isCredit: true, notes: 'Terminal' }
+];
+
+const relatedTools = [
+  {
+    title: t(locale, 'nav.termCalculator'),
+    description: t(locale, 'tools.termDesc'),
+    url: getLocalizedPath('/lic-term-insurance-calculator', locale),
+    category: 'Protection'
+  },
+  {
+    title: t(locale, 'nav.maturityCalculator'),
+    description: t(locale, 'tools.maturityDesc'),
+    url: getLocalizedPath('/lic-maturity-calculator', locale),
+    category: 'Returns'
+  }
+];
+---
+
+<CalculatorShell
+  title={seoData.seoTitle}
+  description={seoData.metaDescription}
+  calculatorTitle={seoData.h1}
+  calculatorSubtitle={seoData.subtitle}
+  category={seoData.category}
+  lastReviewedDate={seoData.lastReviewedDate}
+  sources={seoData.sources}
+  faqs={seoData.faqs}
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+>
+  <div slot="inputs" class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 shadow-card">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+      <h2 class="text-base font-bold text-slate-900">{t(locale, 'nav.deathBenefitCalculator')}</h2>
+      <ResetButton locale={locale} />
+    </div>
+
+    <form class="space-y-5" id="deathBenefitForm">
+      <div class="space-y-1.5">
+        <label for="planTableNo" class="block text-xs font-semibold text-slate-700">{t(locale, 'common.selectPlan')}</label>
+        <select
+          id="planTableNo"
+          name="planTableNo"
+          class="w-full h-11 px-3.5 text-xs font-medium text-slate-800 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500"
+        >
+          <option value="914">Table 914 - New Endowment Plan</option>
+          <option value="915">Table 915 - New Jeevan Anand</option>
+          <option value="936">Table 936 - Jeevan Labh</option>
+          <option value="945">Table 945 - Jeevan Umang</option>
+        </select>
+      </div>
+      <CurrencyInput
+        id="sumAssured"
+        name="sumAssured"
+        label={t(locale, 'common.sumAssured')}
+        value={1000000}
+        placeholder="e.g. 1000000"
+        min={50000}
+        required
+        locale={locale}
+      />
+      <RangeInput
+        id="policyTerm"
+        name="policyTerm"
+        label={t(locale, 'common.policyTerm')}
+        value={20}
+        min={5}
+        max={40}
+        unit={t(locale, 'common.years')}
+        required
+      />
+      <RangeInput
+        id="completedYears"
+        name="completedYears"
+        label={t(locale, 'common.completedYears')}
+        value={10}
+        min={1}
+        max={40}
+        unit={t(locale, 'common.years')}
+        required
+      />
+      <div class="pt-2">
+        <CalculateButton text={t(locale, 'common.calculate')} />
+      </div>
+    </form>
+  </div>
+
+  <div slot="results">
+    <ResultCard
+      headline="Net Tax-Free Death Claim"
+      amount="₹14,60,000"
+      subtitle="Section 10(10D) Tax-Free"
+      stats={[
+        { label: t(locale, 'common.sumAssured'), value: '₹10,00,000' },
+        { label: t(locale, 'common.accruedBonus'), value: '₹4,60,000' },
+        { label: 'Mode', value: 'NEFT to Nominee' }
+      ]}
+    />
+  </div>
+
+  <div slot="breakdown">
+    <ResultBreakdown
+      title={t(locale, 'common.breakdown')}
+      items={breakdownItems}
+      totalLabel="Net Claim Payable"
+      totalAmount="₹14,60,000"
+      summaryNotes="Section 10(10D)."
+    />
+  </div>
+
+  <div slot="explanation">
+    <CalculationExplanation
+      howItWorks={seoData.howItWorks}
+      inputsGuide={seoData.inputsGuide}
+      resultsGuide={seoData.resultsGuide}
+      assumptions={seoData.assumptionsAndLimitations}
+    />
+  </div>
+
+  <div slot="related">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {relatedTools.map((tool) => (
+        <RelatedCalculatorCard {...tool} />
+      ))}
+    </div>
+  </div>
+</CalculatorShell>

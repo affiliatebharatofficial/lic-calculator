@@ -66,7 +66,9 @@ export type CalculatorId =
   | 'lic-bonus-calculator'
   | 'lic-loan-calculator'
   | 'lic-pension-calculator'
-  | 'lic-term-insurance-calculator';
+  | 'lic-term-insurance-calculator'
+  | 'lic-annuity-calculator'
+  | 'lic-death-benefit-calculator';
 
 export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
   'lic-surrender-value-calculator': {
@@ -943,6 +945,201 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
       {
         question: 'What income documents are required to buy an LIC term plan of ₹1 Crore?',
         answer: 'To purchase a ₹1 Crore term plan, you typically need to provide the last 3 years of Income Tax Returns (ITR) with computation of income, Form 16, latest 6 months salary slips, and 6 months bank statements.'
+      }
+    ]
+  },
+  'lic-annuity-calculator': {
+    id: 'lic-annuity-calculator',
+    slug: 'lic-annuity-calculator',
+    seoTitle: 'LIC Annuity Calculator | Compare Immediate & Deferred Pension Plans',
+    metaDescription: 'Calculate guaranteed lifelong annuity pension for LIC Jeevan Akshay VII and Saral Pension. Compare Life Annuity vs Return of Purchase Price options.',
+    h1: 'LIC Annuity Calculator',
+    subtitle: 'Estimate guaranteed lifelong retirement pension across flexible annuity and return of purchase price options.',
+    category: 'Retirement Planning',
+    lastReviewedDate: 'August 2026',
+    introParagraphs: [
+      'The LIC Annuity Calculator helps retirees, senior citizens, and long-term financial planners estimate guaranteed, lifelong fixed pension income generated from a single lump-sum purchase price or accumulated superannuation corpus.',
+      'Under standard Life Insurance Corporation of India (LIC) annuity framework, annuity rates are contractually locked on the purchase date for the entire remaining lifetime of the policyholder. LIC provides multiple versatile options, including Life Annuity without return of corpus (Option A - providing the highest recurring income), Life Annuity with 100% Return of Purchase Price to legal nominees upon the annuitants demise (Option F - preserving family wealth), and Joint Life Annuity ensuring ongoing pension security for the surviving spouse (Option J).',
+      'This calculation tool accurately incorporates prevailing LIC annuity rate slabs, modal incentives for large purchase corpus amounts, and standard statutory Goods and Services Tax (GST) provisions applicable on single premium retirement annuity contracts.'
+    ],
+    howItWorks: {
+      title: 'How LIC Annuity Rates & Payouts Are Calculated',
+      description: 'Annuity rates are fixed contractually at the time of purchase and remain locked for the lifetime of the annuitant without fluctuation.',
+      steps: [
+        {
+          number: 1,
+          title: 'Input One-Time Retirement Corpus',
+          description: 'Specify your one-time retirement investment corpus or maturity proceeds (minimum statutory threshold is ₹1,00,000 with no maximum ceiling).',
+          formulaSnippet: 'Net Investable Corpus = Gross Purchase Price / (1 + 0.018 GST)'
+        },
+        {
+          number: 2,
+          title: 'Select Age Tier & Annuity Option',
+          description: 'Choose your entry age (between 30 and 85 years) and preferred option: Option A (Pure Life), Option F (Return of Purchase Price), or Option J (Joint Life).',
+          formulaSnippet: 'Effective Annuity Rate % = Base Age Rate × Option Specific Multiplier'
+        },
+        {
+          number: 3,
+          title: 'Project Periodic Guaranteed Payouts',
+          description: 'Calculates yearly, half-yearly, quarterly, and monthly direct bank transfers credited automatically via National Electronic Funds Transfer (NEFT).',
+          formulaSnippet: 'Monthly Pension = (Net Corpus × Effective Annuity Rate) / 12'
+        }
+      ]
+    },
+    inputsGuide: {
+      title: 'Annuity Input Parameters & Eligibility Guide',
+      items: [
+        { label: 'Purchase Price / Corpus', explanation: 'The total lump-sum amount allocated towards purchasing the lifelong annuity plan (minimum ₹1 Lakh).' },
+        { label: 'Annuitant Entry Age', explanation: 'Current completed age of the primary annuitant at the time of annuity commencement (eligible range: 30 to 85 years).' },
+        { label: 'Annuity Option', explanation: 'Choose between pure life payout for maximum income, return of capital on death for nominee security, or joint life cover for spouse continuation.' },
+        { label: 'Payout Frequency Mode', explanation: 'Select your preferred pension disbursement schedule: Monthly, Quarterly, Half-Yearly, or Annually.' }
+      ]
+    },
+    resultsGuide: {
+      title: 'Understanding Your Guaranteed Annuity Quotation',
+      explanation: 'Key income figures provided in your comprehensive retirement quotation.',
+      metrics: [
+        { name: 'Guaranteed Monthly Pension', meaning: 'The regular monthly pension credited directly via NEFT into your verified bank account on a fixed date every month.' },
+        { name: 'Annual Annuity Payout', meaning: 'The cumulative 12-month pension guaranteed for life without market volatility risk.' },
+        { name: 'Return of Purchase Price', meaning: 'The 100% principal corpus refund payable to legal heirs or nominees upon the demise of the annuitant.' },
+        { name: 'Effective Yield on Capital', meaning: 'The annualized cash flow percentage generated relative to the initial purchase price.' }
+      ]
+    },
+    assumptionsAndLimitations: {
+      title: 'Annuity Plan Regulations & Tax Considerations',
+      notes: [
+        'Annuity payments are fixed at inception and cannot be changed, revised, or surrendered during the annuitants lifetime except under critical illness provisions of Saral Pension.',
+        'Annuity income is treated as unearned income and is taxable in the hands of the pensioner as per their applicable income tax slab rates.',
+        'Concessional GST of 1.8% applies on immediate annuity purchase price under Ministry of Finance insurance guidelines.',
+        'Joint life options cover spouse with 100% annuity continuation upon the death of the primary annuitant.'
+      ]
+    },
+    sources: [
+      { title: 'LIC Jeevan Akshay VII (Plan 857) Circular & Annuity Rate Tables', publisher: 'Life Insurance Corporation of India', reference: 'CO/MKTG/857/2023' },
+      { title: 'IRDAI Standard Individual Immediate Annuity Product Regulations', publisher: 'IRDAI', reference: 'IRDAI/ANNUITY/2022' }
+    ],
+    faqs: [
+      {
+        question: 'What is the difference between Option A (Life Annuity) and Option F (Return of Purchase Price)?',
+        answer: 'Option A provides the highest possible regular monthly pension for your lifetime, but all payouts cease upon death with zero corpus refunded to nominees. Option F pays a slightly lower pension (approximately 10% to 15% lower) but returns 100% of the original purchase price corpus to your nominee upon demise.'
+      },
+      {
+        question: 'Is there any minimum or maximum purchase price for LIC Annuity plans?',
+        answer: 'Yes, the minimum purchase price for LIC Jeevan Akshay VII and Saral Pension is ₹1,00,000 (with a minimum annuity requirement of ₹1,000 per month), and there is no upper ceiling on the maximum investment amount.'
+      },
+      {
+        question: 'Can I surrender an LIC annuity plan or withdraw my corpus early?',
+        answer: 'Traditional immediate annuity plans like Jeevan Akshay VII cannot be surrendered. However, under standard Saral Pension (Plan 862), surrender is permitted with a 95% return of purchase price if the annuitant or spouse is diagnosed with specified critical illnesses.'
+      },
+      {
+        question: 'Is annuity income received from LIC taxable in India?',
+        answer: 'Yes. Unlike life insurance maturity proceeds under Section 10(10D), annuity pension payouts are fully taxable as regular income under the head "Income from Other Sources" or "Salaries" according to the pensioners income tax slab.'
+      },
+      {
+        question: 'How is the monthly pension credited to the pensioner?',
+        answer: 'LIC credits monthly, quarterly, or yearly annuity payouts directly to the annuitants verified bank savings account via electronic NEFT/NACH direct mandate on a predetermined day each month.'
+      },
+      {
+        question: 'What is the minimum age to purchase an immediate annuity in LIC?',
+        answer: 'The minimum entry age is 30 years for standard immediate annuity plans (and 40 years for standard Saral Pension), extending up to a maximum entry age of 85 years.'
+      }
+    ]
+  },
+  'lic-death-benefit-calculator': {
+    id: 'lic-death-benefit-calculator',
+    slug: 'lic-death-benefit-calculator',
+    seoTitle: 'LIC Death Benefit Claim Calculator | Estimate Nominee Claim Payout',
+    metaDescription: 'Calculate the total death claim benefit payable to nominees under LIC endowment and whole life plans. Includes Sum Assured, vested bonuses, and FAB.',
+    h1: 'LIC Death Benefit Claim Calculator',
+    subtitle: 'Estimate total tax-free claim proceeds payable to nominees including Sum Assured, accrued bonuses, and terminal additions.',
+    category: 'Protection & Claims',
+    lastReviewedDate: 'August 2026',
+    introParagraphs: [
+      'The LIC Death Benefit Claim Calculator helps policyholders, family beneficiaries, and nominees estimate the exact financial claim proceeds payable by the Life Insurance Corporation of India (LIC) upon the unfortunate demise of the life assured during the policy tenure.',
+      'Under traditional participating endowment, money back, and whole life assurance plans (such as Tables 914, 915, 936, and 945), the death claim payout comprises the contractually Guaranteed Sum Assured on Death plus all Simple Reversionary Bonuses accrued up to the policy year of demise, plus Final Additional Bonus (FAB) for policies active for 15 or more years, less any outstanding policy loan principal and unpaid interest charges.',
+      'This calculation tool follows verified statutory guidelines mandated by the Insurance Regulatory and Development Authority of India (IRDAI) to provide full clarity and transparency on claim entitlements.'
+    ],
+    howItWorks: {
+      title: 'How LIC Death Claim Benefit is Computed',
+      description: 'The net death claim amount is calculated following standard actuarial claim settlement rules and policy conditions.',
+      steps: [
+        {
+          number: 1,
+          title: 'Determine Guaranteed Sum Assured on Death',
+          description: 'Calculates the highest of Basic Sum Assured or 7 times annualized premium (ensuring a minimum of 105% of total premiums paid).',
+          formulaSnippet: 'Death Sum Assured = max(Basic SA, 7 × Annual Premium, 1.05 × Total Premiums)'
+        },
+        {
+          number: 2,
+          title: 'Add Accrued Simple Reversionary Bonuses',
+          description: 'Aggregates all simple reversionary bonuses declared annually by LIC and vested into the policy bond up to the date of death.',
+          formulaSnippet: 'Vested Bonus = (Sum Assured / 1000) × Declared Bonus Rate × Completed Years'
+        },
+        {
+          number: 3,
+          title: 'Calculate Terminal Additions & Deduct Liabilities',
+          description: 'Adds applicable Final Additional Bonus (FAB) and Accidental Death Rider proceeds, and deducts outstanding loans or interest.',
+          formulaSnippet: 'Net Claim = (Death SA + Vested Bonus + FAB + Rider) - Outstanding Loan'
+        }
+      ]
+    },
+    inputsGuide: {
+      title: 'Death Benefit Input Fields & Documentation Guide',
+      items: [
+        { label: 'Basic Sum Assured', explanation: 'The core life cover figure stated on the first schedule page of the original LIC policy bond.' },
+        { label: 'LIC Plan Table Number', explanation: 'Select the specific plan (e.g., Table 914 New Endowment, Table 915 Jeevan Anand, Table 936 Jeevan Labh).' },
+        { label: 'Original Policy Term', explanation: 'The total contractual tenure of the policy established at policy commencement.' },
+        { label: 'Policy Years Completed', explanation: 'The number of full years the policy was maintained with active premium payments before demise.' },
+        { label: 'Outstanding Policy Loan', explanation: 'Any unpaid policy loan principal or accrued interest currently outstanding on the policy.' }
+      ]
+    },
+    resultsGuide: {
+      title: 'Understanding Your Death Claim Statement',
+      explanation: 'Clear breakdown of all claim components payable to the registered legal nominee.',
+      metrics: [
+        { name: 'Net Claim Payable', meaning: 'The total final tax-free funds transferred directly into the nominees bank account via electronic NEFT.' },
+        { name: 'Vested Bonus Component', meaning: 'The cumulative simple reversionary bonuses accumulated over the active policy duration.' },
+        { name: 'Final Additional Bonus (FAB)', meaning: 'One-time loyalty terminal bonus granted to policies of long duration (15+ years).' },
+        { name: 'Accidental Rider Benefit', meaning: 'Additional lump-sum life cover paid if the demise was caused by an accidental event and rider was active.' }
+      ]
+    },
+    assumptionsAndLimitations: {
+      title: 'Claim Settlement Guidelines & Nominee Protocol',
+      notes: [
+        'Death claim proceeds received by the registered nominee under an LIC life insurance policy are 100% exempt from income tax under Section 10(10D).',
+        'If the policy was in a paid-up state (premiums ceased after 2+ years), a proportionate reduced paid-up death claim plus vested bonus is paid.',
+        'Nominees must submit Claim Form 3783, original policy bond, certified death certificate, NEFT mandate, and cancelled cheque to the servicing branch.',
+        'Claims occurring within the first 3 years of policy inception undergo standard early-claim verification as per Section 45 of Insurance Act.'
+      ]
+    },
+    sources: [
+      { title: 'LIC Claim Settlement Procedures & Operational Manual', publisher: 'Life Insurance Corporation of India', reference: 'CO/CLAIMS/MANUAL/2023' },
+      { title: 'IRDAI Policyholder Protection and Claim Settlement Guidelines', publisher: 'IRDAI', reference: 'IRDAI/PPR/REG/2022' }
+    ],
+    faqs: [
+      {
+        question: 'Are death benefit claim amounts taxable for the nominee in India?',
+        answer: 'No. Death claim proceeds received by the nominee under an LIC life insurance policy are 100% tax-free under Section 10(10D) of the Income Tax Act, with zero TDS deducted.'
+      },
+      {
+        question: 'What happens to the claim if a policy loan was active at the time of death?',
+        answer: 'If an outstanding policy loan exists at the time of death, LIC deducts the outstanding loan principal along with accrued interest up to the date of settlement from the gross claim amount, and remits the remaining net balance to the nominee.'
+      },
+      {
+        question: 'Is the death claim payable if the policyholder dies during the grace period?',
+        answer: 'Yes. If death occurs during the 30-day grace period (15 days for monthly mode) before premium payment, the full claim is honored and paid after deducting the unpaid installment premium.'
+      },
+      {
+        question: 'What is the role of Final Additional Bonus (FAB) in death claims?',
+        answer: 'Final Additional Bonus is an extra terminal loyalty addition paid per ₹1,000 sum assured for policies that have completed at least 15 continuous years before the death event.'
+      },
+      {
+        question: 'Which forms and documents are required by LIC to settle a death claim?',
+        answer: 'The nominee must submit Claim Form 3783 (Claim Intimation), original LIC policy bond, certified municipal death certificate, age proof of the deceased (if not previously admitted), NEFT mandate form with a cancelled bank cheque, and photo identity proof of the nominee.'
+      },
+      {
+        question: 'How long does LIC take to settle a death claim?',
+        answer: 'Under IRDAI regulations, non-investigative death claims with complete documentation must be settled within 30 days of receiving all required claim papers. If an investigation is required for early death (within 3 years of inception), the inquiry must conclude within 90 days.'
       }
     ]
   }

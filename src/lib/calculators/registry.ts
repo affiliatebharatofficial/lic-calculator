@@ -9,13 +9,146 @@ import { TermInsuranceCalculator } from './engines/insurance';
 import { PensionCalculator } from './engines/pension';
 import { PolicyComparisonEngine } from './engines/comparison';
 import { SurrenderAnalysisCalculator } from './engines/surrender-analysis';
+import { AnnuityCalculator } from './engines/annuity';
+import { DeathBenefitCalculator } from './engines/death-benefit';
 
 export const CALCULATOR_REGISTRY: Record<CalculatorType, CalculatorDefinition> = {
+  'surrender-value': {
+    id: 'surrender-value',
+    slug: 'lic-surrender-value-calculator',
+    titleKey: 'nav.surrenderCalculator',
+    descriptionKey: 'tools.surrenderDesc',
+    iconName: 'shield-alert',
+    category: 'surrender',
+    isAvailable: true,
+    fields: [
+      {
+        name: 'planTableNo',
+        label: 'Plan Table Number',
+        type: 'select',
+        required: true
+      },
+      {
+        name: 'sumAssured',
+        label: 'Sum Assured',
+        type: 'number',
+        required: true,
+        min: 50000,
+        unit: '₹'
+      },
+      {
+        name: 'policyTerm',
+        label: 'Policy Term',
+        type: 'number',
+        required: true,
+        min: 5,
+        max: 40,
+        unit: 'Years'
+      },
+      {
+        name: 'premiumsPaidCount',
+        label: 'Completed Years of Premium Paid',
+        type: 'number',
+        required: true,
+        min: 1,
+        max: 40,
+        unit: 'Years'
+      },
+      {
+        name: 'totalPremiumsPaid',
+        label: 'Total Premium Paid So Far (Excl. GST)',
+        type: 'number',
+        required: true,
+        min: 1000,
+        unit: '₹'
+      }
+    ]
+  },
+
+  'surrender-analysis': {
+    id: 'surrender-analysis',
+    slug: 'lic-surrender-analysis',
+    titleKey: 'nav.surrenderAnalysis',
+    descriptionKey: 'tools.surrenderAnalysisDesc',
+    iconName: 'arrows-split',
+    category: 'surrender',
+    isAvailable: true,
+    fields: [
+      {
+        name: 'planTableNo',
+        label: 'Plan Table Number',
+        type: 'select',
+        required: true
+      },
+      {
+        name: 'sumAssured',
+        label: 'Sum Assured',
+        type: 'number',
+        required: true,
+        min: 50000,
+        unit: '₹'
+      },
+      {
+        name: 'policyTerm',
+        label: 'Policy Term',
+        type: 'number',
+        required: true,
+        min: 5,
+        max: 40,
+        unit: 'Years'
+      },
+      {
+        name: 'premiumsPaidCount',
+        label: 'Years Paid',
+        type: 'number',
+        required: true,
+        min: 1,
+        max: 40,
+        unit: 'Years'
+      }
+    ]
+  },
+
+  'surrender-loss': {
+    id: 'surrender-loss',
+    slug: 'lic-surrender-loss-calculator',
+    titleKey: 'nav.surrenderLoss',
+    descriptionKey: 'tools.surrenderLossDesc',
+    iconName: 'trending-down',
+    category: 'surrender',
+    isAvailable: true,
+    fields: [
+      {
+        name: 'planTableNo',
+        label: 'Plan Table Number',
+        type: 'select',
+        required: true
+      },
+      {
+        name: 'totalPremiumsPaid',
+        label: 'Total Premium Paid',
+        type: 'number',
+        required: true,
+        min: 1000,
+        unit: '₹'
+      },
+      {
+        name: 'premiumsPaidCount',
+        label: 'Policy Year of Surrender',
+        type: 'number',
+        required: true,
+        min: 1,
+        max: 40,
+        unit: 'Years'
+      }
+    ]
+  },
+
   'premium': {
     id: 'premium',
     slug: 'lic-premium-calculator',
     titleKey: 'nav.premiumCalculator',
-    descriptionKey: 'home.featuredSubtitle',
+    descriptionKey: 'tools.premiumDesc',
     iconName: 'calculator',
     category: 'general',
     isAvailable: true,
@@ -77,7 +210,7 @@ export const CALCULATOR_REGISTRY: Record<CalculatorType, CalculatorDefinition> =
     id: 'maturity',
     slug: 'lic-maturity-calculator',
     titleKey: 'nav.maturityCalculator',
-    descriptionKey: 'home.featuredSubtitle',
+    descriptionKey: 'tools.maturityDesc',
     iconName: 'chart-bar',
     category: 'general',
     isAvailable: true,
@@ -122,7 +255,7 @@ export const CALCULATOR_REGISTRY: Record<CalculatorType, CalculatorDefinition> =
     id: 'bonus',
     slug: 'lic-bonus-calculator',
     titleKey: 'nav.bonusCalculator',
-    descriptionKey: 'home.featuredSubtitle',
+    descriptionKey: 'tools.bonusDesc',
     iconName: 'gift',
     category: 'general',
     isAvailable: true,
@@ -154,98 +287,11 @@ export const CALCULATOR_REGISTRY: Record<CalculatorType, CalculatorDefinition> =
     ]
   },
 
-  'surrender-value': {
-    id: 'surrender-value',
-    slug: 'lic-surrender-value-calculator',
-    titleKey: 'nav.surrenderCalculator',
-    descriptionKey: 'home.surrenderSpotlightDesc',
-    iconName: 'shield-alert',
-    category: 'surrender',
-    isAvailable: true,
-    fields: [
-      {
-        name: 'planTableNo',
-        label: 'Plan Table Number',
-        type: 'select',
-        required: true
-      },
-      {
-        name: 'sumAssured',
-        label: 'Sum Assured',
-        type: 'number',
-        required: true,
-        min: 50000,
-        unit: '₹'
-      },
-      {
-        name: 'policyTerm',
-        label: 'Policy Term',
-        type: 'number',
-        required: true,
-        min: 5,
-        max: 40,
-        unit: 'Years'
-      },
-      {
-        name: 'premiumsPaidCount',
-        label: 'Completed Years of Premium Paid',
-        type: 'number',
-        required: true,
-        min: 1,
-        max: 40,
-        unit: 'Years'
-      },
-      {
-        name: 'totalPremiumsPaid',
-        label: 'Total Premium Paid So Far (Excl. GST)',
-        type: 'number',
-        required: true,
-        min: 1000,
-        unit: '₹'
-      }
-    ]
-  },
-
-  'surrender-loss': {
-    id: 'surrender-loss',
-    slug: 'lic-surrender-loss-calculator',
-    titleKey: 'home.surrenderSpotlightTitle',
-    descriptionKey: 'home.surrenderSpotlightDesc',
-    iconName: 'trending-down',
-    category: 'surrender',
-    isAvailable: true,
-    fields: [
-      {
-        name: 'planTableNo',
-        label: 'Plan Table Number',
-        type: 'select',
-        required: true
-      },
-      {
-        name: 'totalPremiumsPaid',
-        label: 'Total Premium Paid',
-        type: 'number',
-        required: true,
-        min: 1000,
-        unit: '₹'
-      },
-      {
-        name: 'premiumsPaidCount',
-        label: 'Policy Year of Surrender',
-        type: 'number',
-        required: true,
-        min: 1,
-        max: 40,
-        unit: 'Years'
-      }
-    ]
-  },
-
   'loan': {
     id: 'loan',
     slug: 'lic-loan-calculator',
     titleKey: 'nav.loanCalculator',
-    descriptionKey: 'home.featuredSubtitle',
+    descriptionKey: 'tools.loanDesc',
     iconName: 'banknotes',
     category: 'general',
     isAvailable: true,
@@ -264,8 +310,8 @@ export const CALCULATOR_REGISTRY: Record<CalculatorType, CalculatorDefinition> =
   'term-insurance': {
     id: 'term-insurance',
     slug: 'lic-term-insurance-calculator',
-    titleKey: 'nav.calculators',
-    descriptionKey: 'home.featuredSubtitle',
+    titleKey: 'nav.termCalculator',
+    descriptionKey: 'tools.termDesc',
     iconName: 'shield-check',
     category: 'protection',
     isAvailable: true,
@@ -299,11 +345,55 @@ export const CALCULATOR_REGISTRY: Record<CalculatorType, CalculatorDefinition> =
     ]
   },
 
+  'death-benefit': {
+    id: 'death-benefit',
+    slug: 'lic-death-benefit-calculator',
+    titleKey: 'nav.deathBenefitCalculator',
+    descriptionKey: 'tools.deathBenefitDesc',
+    iconName: 'heart',
+    category: 'protection',
+    isAvailable: true,
+    fields: [
+      {
+        name: 'planTableNo',
+        label: 'Plan Table Number',
+        type: 'select',
+        required: true
+      },
+      {
+        name: 'sumAssured',
+        label: 'Basic Sum Assured',
+        type: 'number',
+        required: true,
+        min: 50000,
+        unit: '₹'
+      },
+      {
+        name: 'policyTerm',
+        label: 'Policy Term',
+        type: 'number',
+        required: true,
+        min: 5,
+        max: 40,
+        unit: 'Years'
+      },
+      {
+        name: 'completedYears',
+        label: 'Policy Years Completed',
+        type: 'number',
+        required: true,
+        min: 1,
+        max: 40,
+        unit: 'Years'
+      }
+    ]
+  },
+
   'pension': {
     id: 'pension',
     slug: 'lic-pension-calculator',
-    titleKey: 'nav.calculators',
-    descriptionKey: 'home.featuredSubtitle',
+    titleKey: 'nav.pensionCalculator',
+    descriptionKey: 'tools.pensionDesc',
     iconName: 'user-group',
     category: 'retirement',
     isAvailable: true,
@@ -331,30 +421,38 @@ export const CALCULATOR_REGISTRY: Record<CalculatorType, CalculatorDefinition> =
   'annuity': {
     id: 'annuity',
     slug: 'lic-annuity-calculator',
-    titleKey: 'nav.calculators',
-    descriptionKey: 'home.featuredSubtitle',
+    titleKey: 'nav.annuityCalculator',
+    descriptionKey: 'tools.annuityDesc',
     iconName: 'cash',
     category: 'retirement',
-    isAvailable: false,
-    fields: []
-  },
-
-  'death-benefit': {
-    id: 'death-benefit',
-    slug: 'lic-death-benefit-calculator',
-    titleKey: 'nav.calculators',
-    descriptionKey: 'home.featuredSubtitle',
-    iconName: 'heart',
-    category: 'protection',
-    isAvailable: false,
-    fields: []
+    isAvailable: true,
+    fields: [
+      {
+        name: 'purchasePrice',
+        label: 'Purchase Price / Corpus',
+        type: 'number',
+        required: true,
+        min: 100000,
+        unit: '₹'
+      },
+      {
+        name: 'age',
+        label: 'Annuitant Age',
+        type: 'number',
+        required: true,
+        min: 30,
+        max: 85,
+        unit: 'Years'
+      }
+    ]
   }
 };
 
 export const ALL_CALCULATORS = Object.values(CALCULATOR_REGISTRY);
 
 export function getCalculatorBySlug(slug: string): CalculatorDefinition | undefined {
-  return ALL_CALCULATORS.find((calc) => calc.slug === slug || `/${calc.slug}` === slug);
+  const cleanSlug = slug.replace(/^\//, '');
+  return ALL_CALCULATORS.find((calc) => calc.slug === cleanSlug || calc.id === cleanSlug);
 }
 
 // Engine instances singleton registry
@@ -368,5 +466,7 @@ export const ENGINES = {
   loan: new LoanCalculator(),
   termInsurance: new TermInsuranceCalculator(),
   pension: new PensionCalculator(),
+  annuity: new AnnuityCalculator(),
+  deathBenefit: new DeathBenefitCalculator(),
   comparison: new PolicyComparisonEngine()
 } as const;

@@ -1,0 +1,138 @@
+---
+import CalculatorShell from '@/components/calculator/CalculatorShell.astro';
+import CurrencyInput from '@/components/calculator/CurrencyInput.astro';
+import RangeInput from '@/components/calculator/RangeInput.astro';
+import CalculateButton from '@/components/calculator/CalculateButton.astro';
+import ResetButton from '@/components/calculator/ResetButton.astro';
+import ResultCard from '@/components/ui/ResultCard.astro';
+import ResultBreakdown from '@/components/calculator/ResultBreakdown.astro';
+import CalculationExplanation from '@/components/calculator/CalculationExplanation.astro';
+import RelatedCalculatorCard from '@/components/calculator/RelatedCalculatorCard.astro';
+import { CALCULATOR_SEO_DATA } from '@/lib/seo/calculator-content';
+
+const seoData = CALCULATOR_SEO_DATA['lic-annuity-calculator'];
+
+const breadcrumbs = [
+  { name: 'Calculators', url: '/calculators' },
+  { name: 'Annuity Calculator', url: '/lic-annuity-calculator' }
+];
+
+const breakdownItems = [
+  { id: '1', label: 'One-Time Purchase Price / Corpus', amount: '₹25,00,000', notes: 'Initial retirement investment' },
+  { id: '2', label: 'Concessional Annuity GST (1.8%)', amount: '₹44,204', isCredit: true, notes: 'Statutory tax' },
+  { id: '3', label: 'Guaranteed Annual Annuity (~7.12%)', amount: '₹1,78,000 / yr', isCredit: true, notes: 'Lifelong fixed income guarantee' }
+];
+
+const relatedTools = [
+  {
+    title: 'Pension Calculator',
+    description: 'Calculate guaranteed monthly pension for Saral Pension (Table 857).',
+    url: '/lic-pension-calculator',
+    category: 'Retirement'
+  },
+  {
+    title: 'Maturity Calculator',
+    description: 'Check how much maturity corpus your savings plan will generate.',
+    url: '/lic-maturity-calculator',
+    category: 'Corpus'
+  }
+];
+---
+
+<CalculatorShell
+  title={seoData.seoTitle}
+  description={seoData.metaDescription}
+  calculatorTitle={seoData.h1}
+  calculatorSubtitle={seoData.subtitle}
+  category={seoData.category}
+  lastReviewedDate={seoData.lastReviewedDate}
+  sources={seoData.sources}
+  faqs={seoData.faqs}
+  breadcrumbs={breadcrumbs}
+>
+  <div slot="inputs" class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 shadow-card">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+      <h2 class="text-base font-bold text-slate-900">Annuity Purchase Parameters</h2>
+      <ResetButton />
+    </div>
+
+    <form class="space-y-5" id="annuityForm">
+      <CurrencyInput
+        id="purchasePrice"
+        name="purchasePrice"
+        label="Purchase Price / Corpus"
+        value={2500000}
+        placeholder="e.g. 2500000"
+        min={100000}
+        required
+        helpText="Minimum purchase price is ₹1,00,000"
+      />
+      <RangeInput
+        id="age"
+        name="age"
+        label="Annuitant Entry Age"
+        value={60}
+        min={30}
+        max={85}
+        unit="Years"
+        required
+      />
+      <div class="space-y-1.5">
+        <label for="annuityOption" class="block text-xs font-semibold text-slate-700">Annuity Option</label>
+        <select
+          id="annuityOption"
+          name="annuityOption"
+          class="w-full h-11 px-3.5 text-xs font-medium text-slate-800 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500"
+        >
+          <option value="return_of_purchase_price">Option F: Life Annuity with 100% Return of Purchase Price (Recommended)</option>
+          <option value="life_only">Option A: Life Annuity without Return of Corpus (Higher Payout)</option>
+          <option value="joint_life_ropp">Option J: Joint Life Annuity (100% to spouse) with Return of Corpus</option>
+        </select>
+      </div>
+      <div class="pt-2">
+        <CalculateButton text="Calculate Annuity Income" />
+      </div>
+    </form>
+  </div>
+
+  <div slot="results">
+    <ResultCard
+      headline="Guaranteed Monthly Annuity"
+      amount="₹14,833 / month"
+      subtitle="Estimated Annuity Rate ~7.12% p.a. (Annual: ₹1,78,000/yr)"
+      stats={[
+        { label: 'Purchase Price', value: '₹25,00,000' },
+        { label: 'Annual Payout', value: '₹1,78,000' },
+        { label: 'Return of Corpus', value: '₹25,00,000 on Demise' },
+        { label: 'Mode', value: 'Monthly (NEFT Direct)' }
+      ]}
+    />
+  </div>
+
+  <div slot="breakdown">
+    <ResultBreakdown
+      title="Annuity Income Structure"
+      items={breakdownItems}
+      totalLabel="Guaranteed Annual Payout"
+      totalAmount="₹1,78,000 / yr"
+      summaryNotes="Rates are contractually locked upon purchase and guaranteed for life by LIC."
+    />
+  </div>
+
+  <div slot="explanation">
+    <CalculationExplanation
+      howItWorks={seoData.howItWorks}
+      inputsGuide={seoData.inputsGuide}
+      resultsGuide={seoData.resultsGuide}
+      assumptions={seoData.assumptionsAndLimitations}
+    />
+  </div>
+
+  <div slot="related">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {relatedTools.map((tool) => (
+        <RelatedCalculatorCard {...tool} />
+      ))}
+    </div>
+  </div>
+</CalculatorShell>
