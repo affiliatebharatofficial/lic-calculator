@@ -11,12 +11,15 @@ const { title, open = false, id, class: className = '' } = Astro.props;
 
 <details
   id={id}
-  class={`group bg-white rounded-xl border border-slate-200/90 shadow-card transition-all overflow-hidden ${className}`}
+  class={`group bg-white rounded-xl border border-slate-200/90 shadow-card transition-all overflow-hidden group-open:border-l-4 group-open:border-l-accent-500 ${className}`}
   open={open}
 >
-  <summary class="flex items-center justify-between p-4 sm:p-5 text-left text-sm sm:text-base font-bold text-slate-900 cursor-pointer select-none hover:text-brand-700 focus:outline-none focus:bg-slate-50/80 transition-colors">
-    <span>{title}</span>
-    <span class="ml-4 shrink-0 text-slate-400 group-hover:text-brand-600 transition-transform duration-200 group-open:rotate-180">
+  <summary class="flex items-center justify-between p-4 sm:p-5 text-left text-sm sm:text-base font-bold text-navy-800 cursor-pointer select-none hover:text-amber-700 focus:outline-none focus:bg-slate-50/80 transition-colors">
+    <span class="flex items-center gap-2.5">
+      <span class="w-1.5 h-1.5 rounded-full bg-accent-500 shrink-0 group-open:scale-125 transition-transform"></span>
+      <span>{title}</span>
+    </span>
+    <span class="ml-4 shrink-0 text-slate-400 group-hover:text-amber-600 transition-transform duration-200 group-open:rotate-180">
       <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
       </svg>

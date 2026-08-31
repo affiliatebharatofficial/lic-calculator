@@ -53,7 +53,7 @@ const reviewerSocials = reviewer ? AuthorManager.sanitizeSocialLinks(reviewer.so
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <!-- Written By -->
     <div class="flex flex-col sm:flex-row gap-3.5 sm:gap-4 items-start">
-      <div class="w-12 h-12 rounded-full bg-brand-100 border border-brand-200 flex items-center justify-center font-bold text-brand-700 text-sm shrink-0 overflow-hidden shadow-xs">
+      <div class="w-12 h-12 rounded-full bg-accent-100 border-2 border-accent-400 ring-2 ring-accent-100/80 flex items-center justify-center font-bold text-amber-950 text-sm shrink-0 overflow-hidden shadow-xs">
         {author.photoUrl ? (
           <img
             src={author.photoUrl}
@@ -71,10 +71,10 @@ const reviewerSocials = reviewer ? AuthorManager.sanitizeSocialLinks(reviewer.so
       </div>
 
       <div class="space-y-1 text-xs flex-1">
-        <span class="text-[10px] font-bold tracking-wider text-brand-700 uppercase block">
+        <span class="text-[10px] font-bold tracking-wider text-amber-800 uppercase block">
           {locale === 'en' ? 'Written By' : t(locale, 'editorial.writtenBy')}
         </span>
-        <a href={getLocalizedPath(`/author/${author.slug}`, locale)} class="font-bold text-slate-900 text-sm hover:text-brand-600 transition-colors block">
+        <a href={getLocalizedPath(`/author/${author.slug}`, locale)} class="font-bold text-navy-800 text-sm hover:text-amber-700 transition-colors block">
           {author.name}
         </a>
         <span class="text-slate-600 block text-[11px] font-medium">{author.title}</span>
@@ -94,7 +94,7 @@ const reviewerSocials = reviewer ? AuthorManager.sanitizeSocialLinks(reviewer.so
               href={authorSocials.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-1 text-[11px] font-semibold text-brand-700 hover:text-brand-800"
+              class="inline-flex items-center gap-1 text-[11px] font-semibold text-navy-800 hover:text-amber-700"
               aria-label={`${author.name} LinkedIn Profile`}
             >
               <span>LinkedIn &rarr;</span>
@@ -105,7 +105,7 @@ const reviewerSocials = reviewer ? AuthorManager.sanitizeSocialLinks(reviewer.so
               href={authorSocials.x}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-700 hover:text-slate-900"
+              class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-700 hover:text-navy-900"
               aria-label={`${author.name} on X (Twitter)`}
             >
               <span>X (Twitter) &rarr;</span>
@@ -116,7 +116,7 @@ const reviewerSocials = reviewer ? AuthorManager.sanitizeSocialLinks(reviewer.so
               href={authorSocials.website}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 hover:text-slate-800"
+              class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-600 hover:text-navy-900"
               aria-label={`${author.name} Website`}
             >
               <span>Profile &rarr;</span>
@@ -206,15 +206,16 @@ const reviewerSocials = reviewer ? AuthorManager.sanitizeSocialLinks(reviewer.so
 
   <!-- Sources Box -->
   {sources && sources.length > 0 && (
-    <div class="bg-white rounded-xl border border-slate-200/80 p-4 space-y-2">
-      <span class="text-[11px] font-bold text-slate-800 uppercase tracking-wider block">
+    <div class="bg-white rounded-xl border border-slate-200/80 p-4 space-y-2 relative overflow-hidden">
+      <div class="absolute top-0 left-0 bottom-0 w-1 bg-accent-500"></div>
+      <span class="text-[11px] font-bold text-slate-800 uppercase tracking-wider block pl-2">
         {locale === 'en' ? 'Primary Sources & Regulatory References' : t(locale, 'editorial.sourcesAndReferences')}
       </span>
-      <ul class="space-y-1.5 text-xs text-slate-600 divide-y divide-slate-100">
+      <ul class="space-y-1.5 text-xs text-slate-600 divide-y divide-slate-100 pl-2">
         {sources.map((src) => (
           <li class="pt-1.5 first:pt-0 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
             <span class="font-medium text-slate-800">{src.title}</span>
-            <span class="text-[10px] font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded shrink-0">
+            <span class="text-[10px] font-mono text-amber-950 bg-accent-100/70 border border-accent-200 px-2 py-0.5 rounded shrink-0">
               Ref: {src.reference} ({src.publisher})
             </span>
           </li>

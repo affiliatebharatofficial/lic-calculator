@@ -1,6 +1,6 @@
 ---
 interface Props {
-  type?: 'default' | 'success' | 'warning' | 'danger' | 'info';
+  type?: 'default' | 'success' | 'warning' | 'danger' | 'info' | 'accent';
   size?: 'sm' | 'md';
   class?: string;
 }
@@ -10,9 +10,10 @@ const { type = 'default', size = 'sm', class: className = '' } = Astro.props;
 const typeStyles = {
   default: 'bg-slate-100 text-slate-700 border-slate-200',
   success: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-  warning: 'bg-amber-50 text-amber-800 border-amber-200',
+  warning: 'bg-accent-50 text-amber-950 border-accent-300 font-semibold',
   danger: 'bg-rose-50 text-rose-700 border-rose-200',
-  info: 'bg-blue-50 text-blue-700 border-blue-200'
+  info: 'bg-blue-50 text-blue-700 border-blue-200',
+  accent: 'bg-accent-50 text-navy-800 border-accent-300 font-bold'
 };
 
 const sizeStyles = {
@@ -21,6 +22,6 @@ const sizeStyles = {
 };
 ---
 
-<span class={`inline-flex items-center font-medium rounded-md border ${typeStyles[type]} ${sizeStyles[size]} ${className}`}>
+<span class={`inline-flex items-center font-medium rounded-lg border ${typeStyles[type]} ${sizeStyles[size]} ${className}`}>
   <slot />
 </span>

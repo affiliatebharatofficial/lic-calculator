@@ -24,20 +24,26 @@ const { locale = 'en' } = Astro.props;
     aria-label="Mobile Navigation"
   >
     <!-- Drawer Header with safe-area padding -->
-    <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/50">
-      <div class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-lg bg-brand-700 text-white flex items-center justify-center font-bold text-sm shadow-sm">
-          LC
+    <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/70">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-xl bg-navy-800 text-white flex items-center justify-center font-bold text-sm shadow-sm border border-navy-700 relative overflow-hidden">
+          <span class="tracking-tighter font-mono font-extrabold text-accent-400">LC</span>
+          <div class="absolute bottom-0 right-0 w-1.5 h-1.5 bg-accent-500 rounded-tl-sm"></div>
         </div>
-        <span class="font-bold text-slate-900 text-sm">
-          LIC <span class="text-brand-600">Calculator</span>
-        </span>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-navy-800 text-sm">
+            LIC <span class="text-slate-900">Calculators</span>
+          </span>
+          <span class="text-[9px] text-slate-500 font-medium">
+            Independent Tools
+          </span>
+        </div>
       </div>
 
       <button
         type="button"
         id="mobile-menu-close-btn"
-        class="min-w-[44px] min-h-[44px] p-2.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 active:bg-slate-200 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-brand-500"
+        class="min-w-[44px] min-h-[44px] p-2.5 rounded-xl text-slate-500 hover:text-navy-900 hover:bg-slate-100 active:bg-slate-200 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent-500"
         aria-label="Close navigation menu"
       >
         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -53,7 +59,7 @@ const { locale = 'en' } = Astro.props;
         <button
           type="button"
           data-search-modal-trigger
-          class="w-full min-h-[44px] flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-medium text-slate-600 hover:bg-slate-100 active:bg-slate-200 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500"
+          class="w-full min-h-[44px] flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs font-medium text-slate-600 hover:bg-slate-100 active:bg-slate-200 transition-colors focus:outline-none focus:ring-2 focus:ring-accent-500"
         >
           <svg class="h-4 w-4 text-slate-400 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
@@ -65,22 +71,22 @@ const { locale = 'en' } = Astro.props;
       <!-- Core Calculators -->
       <div>
         <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
-          Core Calculators
+          Core Financial Calculators
         </h4>
         <nav class="space-y-1 text-sm font-medium">
           <a
             href={getLocalizedPath('/lic-surrender-value-calculator', locale)}
-            class="flex items-center justify-between min-h-[44px] px-3.5 py-2.5 rounded-xl text-amber-900 bg-amber-50/90 hover:bg-amber-100 font-semibold transition-colors border border-amber-200/60"
+            class="flex items-center justify-between min-h-[44px] px-3.5 py-2.5 rounded-xl text-amber-950 bg-accent-50 hover:bg-accent-100 font-semibold transition-colors border border-accent-200/80"
           >
             <span>Surrender Value</span>
-            <span class="text-[10px] bg-amber-200 text-amber-950 font-bold px-2 py-0.5 rounded-full">Core</span>
+            <span class="text-[10px] bg-accent-400 text-navy-900 font-bold px-2 py-0.5 rounded-full">Core</span>
           </a>
           <a
             href={getLocalizedPath('/lic-surrender-analysis', locale)}
             class="flex items-center justify-between min-h-[44px] px-3.5 py-2.5 rounded-xl text-navy-900 bg-slate-100 hover:bg-slate-200 font-semibold transition-colors"
           >
             <span>3-Way Surrender Analysis</span>
-            <span class="text-[10px] bg-brand-100 text-brand-800 font-bold px-2 py-0.5 rounded-full">Decision</span>
+            <span class="text-[10px] bg-slate-200 text-slate-800 font-bold px-2 py-0.5 rounded-full">Decision</span>
           </a>
           <a
             href={getLocalizedPath('/lic-surrender-loss-calculator', locale)}
@@ -114,7 +120,7 @@ const { locale = 'en' } = Astro.props;
           </a>
           <a
             href={getLocalizedPath('/calculators', locale)}
-            class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-brand-700 font-bold hover:bg-brand-50 transition-colors"
+            class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-navy-900 font-bold hover:bg-slate-100 transition-colors"
           >
             View All Calculators &rarr;
           </a>
@@ -156,7 +162,7 @@ const { locale = 'en' } = Astro.props;
       <div class="flex items-center justify-between text-xs font-medium">
         <a href={getLocalizedPath('/about', locale)} class="hover:underline p-1">About</a>
         <a href={getLocalizedPath('/contact', locale)} class="hover:underline p-1">Contact</a>
-        <a href={getLocalizedPath('/disclaimer', locale)} class="text-amber-800 font-semibold hover:underline p-1">Disclaimer</a>
+        <a href={getLocalizedPath('/disclaimer', locale)} class="text-amber-900 font-semibold hover:underline p-1">Disclaimer</a>
       </div>
       <p class="text-[10px] text-slate-400 text-center leading-tight">
         Independent educational tools • Not affiliated with LIC of India

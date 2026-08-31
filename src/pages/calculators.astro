@@ -23,10 +23,10 @@ const categories = ['All', 'Surrender', 'General', 'Protection', 'Retirement'];
     <!-- Page Header -->
     <div class="border-b border-slate-200/80 pb-8 mb-8 mt-2 flex flex-col md:flex-row md:items-end justify-between gap-6">
       <div class="max-w-2xl">
-        <span class="text-xs font-bold uppercase tracking-wider text-brand-700 mb-1 block">
+        <span class="text-xs font-bold uppercase tracking-wider text-amber-800 mb-1 block">
           Complete Directory
         </span>
-        <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        <h1 class="text-2xl sm:text-4xl font-extrabold text-navy-800 tracking-tight">
           LIC Policy Calculators Directory
         </h1>
         <p class="text-sm sm:text-base text-slate-600 mt-2">
@@ -36,15 +36,16 @@ const categories = ['All', 'Surrender', 'General', 'Protection', 'Retirement'];
 
       <!-- Quick Search Bar in Directory Header -->
       <div class="w-full md:w-72 shrink-0">
-        <CalculatorSearch variant="inline" placeholder="Filter calculators..." />
+        <CalculatorSearch variant="inline" placeholder="Filter calculators..." locale="en" />
       </div>
     </div>
 
     <!-- Featured Flagship Banner: Surrender Analysis -->
-    <div class="mb-8 p-6 sm:p-7 rounded-2xl bg-gradient-to-r from-navy-950 via-slate-900 to-navy-900 text-white shadow-xl border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+    <div class="mb-8 p-6 sm:p-7 rounded-2xl bg-gradient-to-r from-navy-950 via-slate-900 to-navy-900 text-white shadow-xl border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
+      <div class="absolute top-0 left-0 right-0 h-1 bg-accent-500"></div>
       <div class="space-y-2 max-w-2xl">
         <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-400 text-navy-950 uppercase tracking-wider">
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-accent-400 text-navy-950 uppercase tracking-wider">
             Flagship Experience
           </span>
           <span class="text-xs text-slate-400">3-Way Decision Model</span>
@@ -58,7 +59,7 @@ const categories = ['All', 'Surrender', 'General', 'Protection', 'Retirement'];
       </div>
       <a
         href="/lic-surrender-analysis"
-        class="inline-flex items-center justify-center px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-amber-400 text-navy-950 hover:bg-amber-300 transition-colors shadow-lg shrink-0"
+        class="inline-flex items-center justify-center px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-accent-500 text-navy-900 hover:bg-accent-400 active:bg-accent-600 transition-colors shadow-lg shrink-0 border border-accent-600/30"
       >
         Open Surrender Analysis &rarr;
       </a>
@@ -70,10 +71,10 @@ const categories = ['All', 'Surrender', 'General', 'Protection', 'Retirement'];
         categories.map((cat, idx) => (
           <button
             type="button"
-            class={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all shrink-0 border ${
+            class={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all shrink-0 border ${
               idx === 0
-                ? 'bg-brand-700 text-white border-brand-700 shadow-sm'
-                : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                ? 'bg-accent-500 text-navy-900 border-accent-600/30 shadow-xs'
+                : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300'
             }`}
             data-filter-tab={cat.toLowerCase()}
           >
@@ -88,25 +89,28 @@ const categories = ['All', 'Surrender', 'General', 'Protection', 'Retirement'];
       {
         ALL_CALCULATORS.map((calc) => {
           const isSurrender = calc.category === 'surrender';
+          const title = t(locale, calc.titleKey);
+          const description = t(locale, calc.descriptionKey);
           return (
             <div
               class={`rounded-2xl border p-6 flex flex-col justify-between shadow-card transition-all ${
                 isSurrender
-                  ? 'bg-gradient-to-br from-amber-500/5 via-white to-white border-amber-300 hover:border-amber-400 hover:shadow-card-hover'
+                  ? 'bg-gradient-to-br from-accent-50/40 via-white to-white border-accent-300 hover:border-accent-400 hover:shadow-card-hover'
                   : calc.isAvailable
-                  ? 'bg-white border-slate-200 hover:border-brand-300 hover:shadow-card-hover'
+                  ? 'bg-white border-slate-200 hover:border-accent-400 hover:shadow-card-hover'
                   : 'bg-slate-50 border-slate-200 opacity-75'
               }`}
               data-calc-card
-              data-category={calc.category}
+              data-calc-category={calc.category}
+              data-calc-name={title.toLowerCase()}
             >
               <div>
-                <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center justify-between gap-2 mb-3">
                   <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">
                     {calc.category}
                   </span>
                   {isSurrender ? (
-                    <Badge type="warning">Key Tool</Badge>
+                    <Badge type="warning" class="bg-accent-100 text-amber-950 font-bold border-accent-300">Popular</Badge>
                   ) : calc.isAvailable ? (
                     <Badge type="success">Active</Badge>
                   ) : (
@@ -114,38 +118,26 @@ const categories = ['All', 'Surrender', 'General', 'Protection', 'Retirement'];
                   )}
                 </div>
 
-                <h2 class="text-base sm:text-lg font-bold text-slate-900 mb-2">
-                  {t(locale, calc.titleKey)}
-                </h2>
+                <h3 class="text-base sm:text-lg font-bold text-navy-800 mb-2">
+                  {title}
+                </h3>
 
                 <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                  {t(locale, calc.descriptionKey)}
+                  {description}
                 </p>
-
-                {calc.fields.length > 0 && (
-                  <div class="text-[11px] text-slate-500 bg-slate-50 p-3 rounded-xl mb-4 border border-slate-100/80">
-                    <strong class="text-slate-700">Inputs:</strong> {calc.fields.map((f) => f.label).slice(0, 3).join(', ')}
-                    {calc.fields.length > 3 ? '...' : ''}
-                  </div>
-                )}
               </div>
 
-              <div class="pt-4 border-t border-slate-100">
+              <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
                 {calc.isAvailable ? (
                   <a
                     href={`/${calc.slug}`}
-                    class={`inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs font-bold text-white transition-colors shadow-sm ${
-                      isSurrender
-                        ? 'bg-amber-700 hover:bg-amber-800'
-                        : 'bg-brand-700 hover:bg-brand-800'
-                    }`}
+                    class="text-xs font-bold text-navy-800 hover:text-amber-700 flex items-center gap-1 group"
                   >
-                    Open Calculator &rarr;
+                    <span>Launch Calculator</span>
+                    <span class="group-hover:translate-x-0.5 transition-transform">&rarr;</span>
                   </a>
                 ) : (
-                  <span class="block text-center text-xs font-medium text-slate-400 py-2.5 bg-slate-100 rounded-xl">
-                    In Development
-                  </span>
+                  <span class="text-xs text-slate-400 font-medium">In Active Development</span>
                 )}
               </div>
             </div>
@@ -163,18 +155,16 @@ const categories = ['All', 'Surrender', 'General', 'Protection', 'Retirement'];
 
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
-        const cat = tab.getAttribute('data-filter-tab');
+        const category = tab.getAttribute('data-filter-tab');
 
         tabs.forEach((t) => {
-          t.classList.remove('bg-brand-700', 'text-white', 'border-brand-700', 'shadow-sm');
-          t.classList.add('bg-white', 'text-slate-700', 'border-slate-200');
+          t.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all shrink-0 border bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300';
         });
-        tab.classList.remove('bg-white', 'text-slate-700', 'border-slate-200');
-        tab.classList.add('bg-brand-700', 'text-white', 'border-brand-700', 'shadow-sm');
+        tab.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all shrink-0 border bg-accent-500 text-navy-900 border-accent-600/30 shadow-xs';
 
         cards.forEach((card) => {
-          const cardCat = card.getAttribute('data-category');
-          if (cat === 'all' || cardCat === cat) {
+          const cardCat = card.getAttribute('data-calc-category');
+          if (category === 'all' || cardCat === category) {
             card.classList.remove('hidden');
           } else {
             card.classList.add('hidden');

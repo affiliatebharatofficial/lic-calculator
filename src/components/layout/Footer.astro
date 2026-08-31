@@ -11,22 +11,24 @@ const { locale = 'en' } = Astro.props;
 
 <footer class="bg-slate-900 text-slate-400 mt-auto border-t border-slate-800 text-xs sm:text-sm">
   <!-- Independent Platform Notice Disclosure Box in Footer -->
-  <div class="border-b border-slate-800/80 bg-slate-950/70 py-6 sm:py-7">
+  <div class="border-b border-slate-800/80 bg-slate-950/80 py-6 sm:py-7">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-4 sm:p-5 text-xs leading-relaxed space-y-2">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <span class="text-xs font-bold text-slate-200 tracking-wide">
+      <div class="rounded-2xl bg-slate-900/90 border border-slate-800 p-4 sm:p-5 text-xs leading-relaxed space-y-2 relative overflow-hidden">
+        <div class="absolute top-0 left-0 bottom-0 w-1 bg-accent-500"></div>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pl-2">
+          <span class="text-xs font-bold text-slate-200 tracking-wide flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-400"></span>
             {locale === 'en' ? 'Independent Platform Notice' : t(locale, 'disclaimer.notice')}
           </span>
           <a
             href={getLocalizedPath('/disclaimer', locale)}
-            class="text-xs font-semibold text-brand-400 hover:text-brand-300 transition-colors inline-flex items-center gap-1 group w-fit"
+            class="text-xs font-semibold text-accent-400 hover:text-accent-300 transition-colors inline-flex items-center gap-1 group w-fit"
           >
             <span>{locale === 'en' ? 'Read Full Disclaimer' : t(locale, 'disclaimer.readFull')}</span>
             <span class="group-hover:translate-x-0.5 transition-transform">&rarr;</span>
           </a>
         </div>
-        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed pl-2">
           {locale === 'en' ? 'LIC Calculators is an independent informational and financial calculation platform. It is not affiliated with, authorized by, or endorsed by Life Insurance Corporation of India (LIC).' : t(locale, 'disclaimer.shortText')}
         </p>
       </div>
@@ -37,17 +39,18 @@ const { locale = 'en' } = Astro.props;
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
       <!-- Col 1: Platform Info -->
       <div class="space-y-3">
-        <div class="flex items-center gap-2 text-white font-bold text-base">
-          <div class="w-7 h-7 rounded-lg bg-brand-600 text-white flex items-center justify-center font-bold text-sm shadow-sm">
-            LC
+        <div class="flex items-center gap-2.5 text-white font-bold text-base">
+          <div class="w-7 h-7 rounded-lg bg-navy-800 text-white flex items-center justify-center font-bold text-xs shadow-sm border border-navy-700 relative overflow-hidden">
+            <span class="font-mono text-accent-400 font-extrabold">LC</span>
+            <div class="absolute bottom-0 right-0 w-1.5 h-1.5 bg-accent-500 rounded-tl-sm"></div>
           </div>
-          LIC Calculator
+          <span class="tracking-tight">LIC <span class="text-slate-200">Calculators</span></span>
         </div>
         <p class="text-xs text-slate-400 leading-relaxed">
           {t(locale, 'footer.aboutText')}
         </p>
         <span class="inline-block bg-slate-800 text-slate-300 font-medium px-2.5 py-1 rounded-lg text-[11px] border border-slate-700/60">
-          Independent Educational Platform
+          Independent Financial Tool Portal
         </span>
       </div>
 
@@ -58,7 +61,7 @@ const { locale = 'en' } = Astro.props;
         </h4>
         <ul class="space-y-2 text-xs">
           <li>
-            <a href={getLocalizedPath('/lic-surrender-value-calculator', locale)} class="hover:text-white transition-colors">
+            <a href={getLocalizedPath('/lic-surrender-value-calculator', locale)} class="text-accent-400 hover:text-accent-300 font-medium transition-colors">
               {t(locale, 'nav.surrenderCalculator')}
             </a>
           </li>
@@ -121,7 +124,7 @@ const { locale = 'en' } = Astro.props;
         </h4>
         <ul class="space-y-2 text-xs">
           <li>
-            <a href={getLocalizedPath('/disclaimer', locale)} class="text-amber-400 hover:text-amber-300 font-medium transition-colors">
+            <a href={getLocalizedPath('/disclaimer', locale)} class="text-accent-400 hover:text-accent-300 font-medium transition-colors">
               {t(locale, 'footer.disclaimerPage')}
             </a>
           </li>
@@ -154,7 +157,7 @@ const { locale = 'en' } = Astro.props;
       <div>
         © {new Date().getFullYear()} lic-calculators.com. {t(locale, 'footer.copyright')}
       </div>
-      <div>
+      <div class="text-slate-400">
         Independent Educational Platform • Not affiliated with LIC of India
       </div>
     </div>

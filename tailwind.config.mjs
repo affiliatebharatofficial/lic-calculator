@@ -11,17 +11,36 @@ export default {
           300: '#7cc5fb',
           400: '#38a5f6',
           500: '#0e86d4',
-          600: '#0369a1', // Deep trustworthy primary blue
+          600: '#0369a1', // Trustworthy secondary blue
           700: '#035382',
           800: '#07476e',
           900: '#082f49', // Navy base
           950: '#031b2e',
         },
+        accent: {
+          50: '#fffbeb',
+          100: '#fef3c7',
+          200: '#fde68a',
+          300: '#fcd34d',
+          400: '#fbbf24',
+          500: '#f4c430', // Primary Golden Yellow Accent (#F4C430)
+          600: '#d9a714',
+          700: '#b48508',
+          800: '#926a0a',
+          900: '#78550d',
+          950: '#452e03',
+        },
         navy: {
-          800: '#0f1f38',
-          850: '#0a1628',
-          900: '#070f1e',
-          950: '#040913',
+          700: '#1e293b',
+          800: '#172033', // Dark text (#172033)
+          850: '#0f172a',
+          900: '#0b1120',
+          950: '#060a12',
+        },
+        surface: {
+          DEFAULT: '#ffffff',
+          subtle: '#f8fafc',
+          muted: '#f1f5f9',
         },
         slate: {
           850: '#151e2e',
