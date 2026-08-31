@@ -6,8 +6,8 @@ import { StructuredDataGenerator } from '../src/lib/seo/structured-data';
 describe('Production SEO & Content Audit for All Calculators', () => {
   const calculatorKeys = Object.keys(CALCULATOR_SEO_DATA) as CalculatorId[];
 
-  it('should have complete SEO data for all 11 primary calculators', () => {
-    expect(calculatorKeys.length).toBe(11);
+  it('should have complete SEO data for all 16 primary calculators', () => {
+    expect(calculatorKeys.length).toBe(16);
     const expectedCalculators = [
       'lic-surrender-value-calculator',
       'lic-surrender-analysis',
@@ -19,7 +19,12 @@ describe('Production SEO & Content Audit for All Calculators', () => {
       'lic-pension-calculator',
       'lic-term-insurance-calculator',
       'lic-annuity-calculator',
-      'lic-death-benefit-calculator'
+      'lic-death-benefit-calculator',
+      'lic-paid-up-calculator',
+      'lic-return-calculator',
+      'lic-premium-frequency-calculator',
+      'lic-late-fee-calculator',
+      'lic-hlv-calculator'
     ];
 
     for (const key of expectedCalculators) {

@@ -68,7 +68,12 @@ export type CalculatorId =
   | 'lic-pension-calculator'
   | 'lic-term-insurance-calculator'
   | 'lic-annuity-calculator'
-  | 'lic-death-benefit-calculator';
+  | 'lic-death-benefit-calculator'
+  | 'lic-paid-up-calculator'
+  | 'lic-return-calculator'
+  | 'lic-premium-frequency-calculator'
+  | 'lic-late-fee-calculator'
+  | 'lic-hlv-calculator';
 
 export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
   'lic-surrender-value-calculator': {
@@ -1140,6 +1145,486 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
       {
         question: 'How long does LIC take to settle a death claim?',
         answer: 'Under IRDAI regulations, non-investigative death claims with complete documentation must be settled within 30 days of receiving all required claim papers. If an investigation is required for early death (within 3 years of inception), the inquiry must conclude within 90 days.'
+      }
+    ]
+  },
+  'lic-paid-up-calculator': {
+    id: 'lic-paid-up-calculator',
+    slug: 'lic-paid-up-calculator',
+    seoTitle: 'LIC Paid-Up Value Calculator | Calculate Reduced Sum Assured & Bonus',
+    metaDescription: 'Calculate your Reduced Paid-Up Sum Assured, vested bonuses, and paid-up maturity proceeds when stopping LIC premium payments after 2 or more years.',
+    h1: 'LIC Paid-Up Value Calculator',
+    subtitle: 'Determine your reduced paid-up life cover, accumulated bonus entitlements, and maturity value if you stop paying future premiums.',
+    category: 'Policy Discontinuation',
+    lastReviewedDate: 'August 2026',
+    introParagraphs: [
+      'The LIC Paid-Up Value Calculator helps policyholders who can no longer afford or choose not to continue paying policy premiums determine the exact reduced financial value of their life insurance policy.',
+      'Under standard Life Insurance Corporation of India (LIC) regulations, if a policyholder has paid premiums continuously for at least two full years (or three years for older non-linked plans), the policy does not lapse completely upon premium discontinuation. Instead, it automatically acquires a Reduced Paid-Up status.',
+      'Converting a policy to paid-up preserves your accrued reversionary bonuses and maintains a proportionate life cover until the contractual maturity date, eliminating the severe upfront capital losses associated with immediate policy surrender.'
+    ],
+    howItWorks: {
+      title: 'How Paid-Up Value & Reduced Benefits Are Calculated',
+      description: 'The reduction in sum assured follows a strict actuarial proportion based on the ratio of completed premium installments to the total contractual premium paying term.',
+      steps: [
+        {
+          number: 1,
+          title: 'Calculate Reduced Paid-Up Sum Assured',
+          description: 'Multiplies the Basic Sum Assured by the proportion of premiums paid relative to the total premium paying term (PPT).',
+          formulaSnippet: 'Paid-Up Sum Assured = Basic SA × (Number of Premiums Paid / Total PPT)'
+        },
+        {
+          number: 2,
+          title: 'Lock In Vested Simple Reversionary Bonuses',
+          description: 'Calculates simple reversionary bonuses accumulated during active premium paying years (no future bonuses accrue after paid-up date).',
+          formulaSnippet: 'Vested Bonus = (Basic SA / 1000) × Annual Bonus Rate × Completed Premium Years'
+        },
+        {
+          number: 3,
+          title: 'Compute Total Maturity & Death Entitlements',
+          description: 'Sums the reduced sum assured and vested bonuses payable either at policy maturity or upon demise during the remaining policy term.',
+          formulaSnippet: 'Total Paid-Up Payout = Reduced Paid-Up SA + Vested Bonuses'
+        }
+      ]
+    },
+    inputsGuide: {
+      title: 'Paid-Up Calculator Input Parameters',
+      items: [
+        { label: 'LIC Plan Table Number', explanation: 'Select your specific endowment, money-back, or whole life plan table.' },
+        { label: 'Basic Sum Assured', explanation: 'The life cover amount originally guaranteed on your policy bond schedule.' },
+        { label: 'Contractual Policy Term', explanation: 'The total duration in years from policy commencement to maturity.' },
+        { label: 'Completed Premium Years Paid', explanation: 'Number of full years of premiums successfully paid before discontinuation (minimum 2 years required).' }
+      ]
+    },
+    resultsGuide: {
+      title: 'Understanding Paid-Up Calculation Results',
+      explanation: 'Key values explaining what you receive upon making your policy paid-up.',
+      metrics: [
+        { name: 'Reduced Paid-Up Sum Assured', meaning: 'The proportionally reduced life cover guaranteed to remain active without paying any further premiums.' },
+        { name: 'Vested Reversionary Bonuses', meaning: 'All bonuses accumulated up to the paid-up date that remain safely locked in the policy bond.' },
+        { name: 'Total Paid-Up Maturity Payout', meaning: 'The lump-sum amount payable directly to you at the original contractual maturity date.' },
+        { name: 'Paid-Up Death Benefit', meaning: 'The total claim proceeds payable to nominees if the life assured passes away during the remaining term.' }
+      ]
+    },
+    assumptionsAndLimitations: {
+      title: 'Paid-Up Policy Regulations & Terms',
+      notes: [
+        'A minimum of 2 consecutive years of premium payments is mandatory to acquire paid-up status.',
+        'Once a policy becomes paid-up, it ceases to participate in future annual bonus declarations.',
+        'Riders (such as Accidental Death and Disability Benefit) lapse automatically upon conversion to paid-up.',
+        'The paid-up maturity and death proceeds remain 100% tax-exempt under Section 10(10D).'
+      ]
+    },
+    sources: [
+      { title: 'LIC Policy Conditions & Paid-Up Provisions (Circular 914/2020)', publisher: 'Life Insurance Corporation of India', reference: 'CO/ACT/PAIDUP/2020' },
+      { title: 'IRDAI Non-Linked Insurance Products Regulations (Paid-Up Rules)', publisher: 'IRDAI', reference: 'IRDAI/NLIP/REG/2019' }
+    ],
+    faqs: [
+      {
+        question: 'What is a Paid-Up policy in LIC?',
+        answer: 'A paid-up policy is an LIC policy where the policyholder stops paying future premiums after completing at least 2 full years. The life cover is proportionally reduced, but the policy remains in force until maturity without lapsing.'
+      },
+      {
+        question: 'Is making an LIC policy Paid-Up better than surrendering it?',
+        answer: 'In most cases, yes. Converting to paid-up protects 100% of your accrued bonuses and provides a higher guaranteed payout at maturity, whereas surrendering early typically results in severe penalty deductions of 20% to 50% of your paid premiums.'
+      },
+      {
+        question: 'Do paid-up policies continue to earn annual bonuses in LIC?',
+        answer: 'No. Bonuses already vested before the date of paid-up conversion remain locked and will be paid at maturity, but the policy will not participate in any future annual bonus declarations.'
+      },
+      {
+        question: 'Can I take a loan on an LIC paid-up policy?',
+        answer: 'Yes. You can avail a policy loan on a paid-up policy up to 80% to 90% of its acquired surrender value, provided the policy has a minimum surrender value of ₹5,000.'
+      },
+      {
+        question: 'What happens if the policyholder dies during the paid-up term?',
+        answer: 'If the life assured passes away after the policy has become paid-up, the registered nominee receives the full Reduced Paid-Up Sum Assured plus all vested bonuses accrued prior to paid-up conversion.'
+      },
+      {
+        question: 'Can a paid-up policy be revived back to full sum assured later?',
+        answer: 'Yes. An LIC policyholder can revive a paid-up policy within 5 consecutive years from the First Unpaid Premium (FUP) date by paying all overdue premiums with late fee interest and submitting proof of good health.'
+      }
+    ]
+  },
+  'lic-return-calculator': {
+    id: 'lic-return-calculator',
+    slug: 'lic-return-calculator',
+    seoTitle: 'LIC Policy Return Calculator | Internal Rate of Return (IRR & CAGR)',
+    metaDescription: 'Calculate the exact annual return (IRR / CAGR) on your LIC endowment and money-back policies. Compare real returns against inflation, PPF, and FDs.',
+    h1: 'LIC Policy Return / IRR Calculator',
+    subtitle: 'Determine the exact annualized Internal Rate of Return (IRR / CAGR) and inflation-adjusted yield of your LIC insurance policies.',
+    category: 'Financial Planning',
+    lastReviewedDate: 'August 2026',
+    introParagraphs: [
+      'The LIC Policy Return / IRR Calculator provides policyholders and financial planners with complete transparency on the true compounded annual rate of return (Internal Rate of Return / CAGR) generated by traditional life insurance plans.',
+      'Traditional participating insurance plans combine life risk protection with long-term guaranteed savings. Because premium cash outflows occur annually over 10 to 25 years while maturity proceeds are received as a lump sum at the end, standard percentage gain calculations are misleading. The Internal Rate of Return (IRR) solves the discounted cash-flow equation to reveal the exact annualized yield on your capital.',
+      'This calculation tool accurately maps periodic premium outlays, intermediary survival benefits, and final terminal payouts to determine your nominal and real inflation-adjusted yields.'
+    ],
+    howItWorks: {
+      title: 'How Internal Rate of Return (IRR) is Computed',
+      description: 'The calculator employs the Newton-Raphson numerical algorithm to find the exact discount rate that sets the Net Present Value (NPV) of all policy cash flows to zero.',
+      steps: [
+        {
+          number: 1,
+          title: 'Map Annual Premium Cash Outflows',
+          description: 'Records annual premium payments as negative cash flows from Year 0 through the end of the premium paying term.',
+          formulaSnippet: 'Cash Outflow (Years 0 to PPT-1) = -Annual Base Premium'
+        },
+        {
+          number: 2,
+          title: 'Input Maturity Payouts & Survival Benefits',
+          description: 'Records the expected lump-sum maturity proceeds (Sum Assured + Bonus + FAB) as a positive cash inflow at maturity year.',
+          formulaSnippet: 'Cash Inflow (Year Term) = +Total Expected Maturity Proceeds'
+        },
+        {
+          number: 3,
+          title: 'Solve Net Present Value Discount Equation',
+          description: 'Solves NPV = Sum(CF_t / (1 + r)^t) = 0 for rate r to compute the precise annualized Internal Rate of Return percentage.',
+          formulaSnippet: 'NPV = 0 => Solve for IRR (r) via Newton-Raphson Solver'
+        }
+      ]
+    },
+    inputsGuide: {
+      title: 'Return Calculator Input Parameters',
+      items: [
+        { label: 'Annual Premium', explanation: 'The yearly installment premium paid (excluding GST) towards your LIC policy.' },
+        { label: 'Policy Term & Premium Paying Term', explanation: 'Total contractual tenure of the policy and total years of premium payment.' },
+        { label: 'Expected Total Maturity Amount', explanation: 'The estimated lump-sum maturity payout (Sum Assured + Accrued Bonuses + FAB) payable at term end.' }
+      ]
+    },
+    resultsGuide: {
+      title: 'Understanding Policy Return Metrics',
+      explanation: 'Key metrics that reveal the true performance of your policy compared to alternative investment instruments.',
+      metrics: [
+        { name: 'Internal Rate of Return (IRR)', meaning: 'The true annualized compounding return rate on your invested premium cash flows.' },
+        { name: 'Nominal CAGR', meaning: 'The compound annual growth rate calculated between total cumulative premiums and final maturity corpus.' },
+        { name: 'Real Inflation-Adjusted Return', meaning: 'Your purchasing-power return after subtracting standard 5% long-term inflation benchmark.' },
+        { name: 'Net Monetary Gain', meaning: 'The total rupee profit generated above your cumulative invested capital.' }
+      ]
+    },
+    assumptionsAndLimitations: {
+      title: 'Return Calculation Assumptions',
+      notes: [
+        'Calculations assume annual premium payment mode made at the start of each policy year.',
+        'Traditional LIC participating policies historically generate nominal IRRs between 4.8% and 6.2% per annum.',
+        'Maturity returns under Section 10(10D) are 100% tax-free, making post-tax yields comparable to higher pre-tax fixed deposit rates.',
+        'The value of life cover protection during the term is not monetized in the pure savings IRR metric.'
+      ]
+    },
+    sources: [
+      { title: 'Actuarial Society of India — Financial Mathematics & Yield Evaluation Guidelines', publisher: 'Institute of Actuaries of India', reference: 'IAI/FM/2021' },
+      { title: 'IRDAI Master Circular on Life Insurance Product Illustrations & Disclosures', publisher: 'IRDAI', reference: 'IRDAI/ACT/CIR/2023' }
+    ],
+    faqs: [
+      {
+        question: 'What is the average rate of return (IRR) of an LIC policy in India?',
+        answer: 'Most traditional participating endowment plans (such as New Endowment Table 914, Jeevan Anand Table 915, and Jeevan Labh Table 936) deliver an annualized Internal Rate of Return (IRR) between 5.0% and 6.5% p.a., guaranteed by LIC and 100% tax-free under Section 10(10D).'
+      },
+      {
+        question: 'Why is IRR more accurate than simple percentage return for LIC policies?',
+        answer: 'Simple percentage return ignores the time value of money and assumes all money was invested on Day 1. Since you pay premiums annually over 15 to 25 years, IRR correctly discounts each yearly cash flow to calculate your true annualized return.'
+      },
+      {
+        question: 'Are returns from traditional LIC policies taxable in India?',
+        answer: 'No. Maturity proceeds from traditional life insurance policies issued with annual premiums below statutory limits (₹5 Lakhs for policies issued after April 1, 2023) are 100% tax-free under Section 10(10D).'
+      },
+      {
+        question: 'How do LIC policy returns compare against Public Provident Fund (PPF)?',
+        answer: 'PPF offers a floating sovereign interest rate (currently ~7.1% p.a. tax-free) with zero life insurance cover, whereas LIC plans deliver ~5.5% tax-free returns alongside continuous guaranteed life insurance protection.'
+      },
+      {
+        question: 'Does the return calculator factor in Goods and Services Tax (GST)?',
+        answer: 'The base return is calculated on net investable premium. Since GST (4.5% Year 1, 2.25% renewal) is a statutory tax and not invested into policy reserves, factoring GST reduces the effective overall IRR by approximately 0.15% to 0.25%.'
+      },
+      {
+        question: 'Can I calculate the return on Money Back policies with this tool?',
+        answer: 'Yes. Enter the total cumulative sum of all survival benefit milestones received plus the final maturity payout into the total expected returns field.'
+      }
+    ]
+  },
+  'lic-premium-frequency-calculator': {
+    id: 'lic-premium-frequency-calculator',
+    slug: 'lic-premium-frequency-calculator',
+    seoTitle: 'LIC Premium Payment Mode Calculator | Compare Yearly vs Monthly Rebates',
+    metaDescription: 'Compare LIC installment amounts across Yearly, Half-Yearly, Quarterly, and Monthly NACH modes. See exact 2% and 1% modal discounts and GST breakup.',
+    h1: 'LIC Premium Mode & Frequency Calculator',
+    subtitle: 'Compare installment amounts, modal rebates, and GST breakdown across Yearly, Half-Yearly, Quarterly, and Monthly payment frequencies.',
+    category: 'Premium & Payments',
+    lastReviewedDate: 'August 2026',
+    introParagraphs: [
+      'The LIC Premium Payment Mode & Frequency Calculator helps policyholders choose the most cost-effective installment schedule for their life insurance policies.',
+      'LIC rewards policyholders who pay premiums upfront in lump-sum intervals. Paying annually grants a 2% modal rebate on tabular premiums, while half-yearly payments receive a 1% rebate. Quarterly and monthly modes receive zero rebate and incur higher cumulative administrative processing costs.',
+      'This tool details the exact first-year GST (4.5%) versus renewal GST (2.25%) and shows the exact money saved by opting for annual or half-yearly premium payment modes.'
+    ],
+    howItWorks: {
+      title: 'How Modal Rebates & Installment Amounts Are Calculated',
+      description: 'The installment amount is determined by dividing the annual tabular premium by the mode frequency divider and applying statutory modal discounts.',
+      steps: [
+        {
+          number: 1,
+          title: 'Apply Modal Frequency Divider',
+          description: 'Divides the base annual premium by 1 (Yearly), 2 (Half-Yearly), 4 (Quarterly), or 12 (Monthly NACH).',
+          formulaSnippet: 'Raw Installment = Annual Base Premium / Frequency Divider'
+        },
+        {
+          number: 2,
+          title: 'Deduct Modal Rebate Discount',
+          description: 'Deducts 2% for Yearly mode and 1% for Half-Yearly mode from the raw installment amount.',
+          formulaSnippet: 'Net Installment = Raw Installment × (1 - Modal Rebate %)'
+        },
+        {
+          number: 3,
+          title: 'Add Goods and Services Tax (GST)',
+          description: 'Applies 4.5% GST for the first policy year and 2.25% concessional GST for subsequent renewal years.',
+          formulaSnippet: 'Final Installment = Net Installment + Statutory GST'
+        }
+      ]
+    },
+    inputsGuide: {
+      title: 'Premium Frequency Input Guide',
+      items: [
+        { label: 'Annual Base Premium', explanation: 'The basic annual premium before taxes and rebates quoted for your policy.' },
+        { label: 'Sum Assured (Optional)', explanation: 'Used to factor in high sum assured rebates where applicable.' }
+      ]
+    },
+    resultsGuide: {
+      title: 'Understanding Payment Mode Comparisons',
+      explanation: 'Side-by-side cost breakdown across all 4 premium frequencies.',
+      metrics: [
+        { name: 'Yearly Mode Installment', meaning: 'One-time annual payment featuring the highest 2% discount on basic premium.' },
+        { name: 'Half-Yearly Installment', meaning: 'Biannual payment featuring a 1% discount on basic premium.' },
+        { name: 'Monthly NACH Installment', meaning: 'Automated monthly bank deduction without modal rebate.' },
+        { name: 'Annual Savings vs Monthly', meaning: 'The total cash saved every year simply by switching from Monthly to Yearly mode.' }
+      ]
+    },
+    assumptionsAndLimitations: {
+      title: 'Payment Mode Regulations & Guidelines',
+      notes: [
+        'Monthly payment mode in LIC is available only through automated NACH / ECS bank mandates or salary savings scheme (SSS).',
+        'First-year GST on traditional insurance premiums is 4.5%, reducing to 2.25% in renewal policy years.',
+        'Grace period is 30 calendar days for Yearly, Half-Yearly, and Quarterly modes, and 15 days for Monthly mode.'
+      ]
+    },
+    sources: [
+      { title: 'LIC Premium Mode & Modal Rebate Rules Circular', publisher: 'Life Insurance Corporation of India', reference: 'CO/MKTG/MODAL/2021' },
+      { title: 'CBIC Insurance Services GST Notification (Rates of Tax on Life Insurance)', publisher: 'Ministry of Finance, Govt of India', reference: 'CBIC/GST/INS/2019' }
+    ],
+    faqs: [
+      {
+        question: 'What is the modal rebate in LIC premium payment?',
+        answer: 'LIC offers a discount called modal rebate for less frequent payment schedules: 2% discount on tabular premium for Yearly mode and 1% discount for Half-Yearly mode. Quarterly and Monthly modes do not receive any rebate.'
+      },
+      {
+        question: 'Is it cheaper to pay LIC premium yearly or monthly?',
+        answer: 'Paying yearly is significantly cheaper. You save 2% on the base premium and avoid 12 individual transaction overheads. Over a 20-year policy term, choosing yearly mode saves thousands of rupees in cumulative payments.'
+      },
+      {
+        question: 'What is the GST rate on LIC life insurance premiums?',
+        answer: 'For traditional life insurance policies, Goods and Services Tax (GST) is 4.5% in the first policy year and 2.25% in all subsequent renewal years. For pure term plans, GST is a flat 18%.'
+      },
+      {
+        question: 'Can I change my LIC premium payment frequency after buying the policy?',
+        answer: 'Yes. You can change your payment frequency (e.g., from Monthly to Yearly or vice-versa) on any policy anniversary by submitting a request letter along with the policy bond to your servicing branch.'
+      },
+      {
+        question: 'What is the grace period for monthly premium mode in LIC?',
+        answer: 'The grace period for monthly premium payment mode is 15 calendar days from the due date. For yearly, half-yearly, and quarterly modes, the grace period is 30 calendar days.'
+      },
+      {
+        question: 'Can I pay monthly LIC premiums via cash or credit card at branches?',
+        answer: 'No. Monthly mode premiums can only be paid via electronic auto-debit (NACH / e-Mandate) or Salary Savings Scheme (SSS) deducted directly from employee payroll.'
+      }
+    ]
+  },
+  'lic-late-fee-calculator': {
+    id: 'lic-late-fee-calculator',
+    slug: 'lic-late-fee-calculator',
+    seoTitle: 'LIC Late Fee & Policy Revival Calculator | Calculate Interest on Arrears',
+    metaDescription: 'Calculate overdue late fee interest at 9.5% p.a. compounded half-yearly and total arrears required to revive a lapsed LIC policy within 5 years.',
+    h1: 'LIC Late Fee & Policy Revival Calculator',
+    subtitle: 'Determine exact late fee interest, statutory taxes, and total arrears required to revive a lapsed policy and restore life cover.',
+    category: 'Policy Maintenance',
+    lastReviewedDate: 'August 2026',
+    introParagraphs: [
+      'The LIC Late Fee & Policy Revival Calculator helps policyholders who missed their premium due dates calculate the exact penalty interest and total arrears needed to bring their lapsed policies back to active status.',
+      'When an LIC premium is not paid within the statutory grace period (30 days for yearly/half-yearly/quarterly modes and 15 days for monthly mode), the policy lapses and life risk protection ceases. To restore coverage, the policyholder must pay all overdue premiums along with late fee interest compounded half-yearly at standard LIC rates (typically 9.5% p.a.).',
+      'Under current IRDAI and LIC regulations, lapsed policies can be revived within a maximum consecutive window of 5 years from the date of the First Unpaid Premium (FUP).'
+    ],
+    howItWorks: {
+      title: 'How Late Fee Penalty & Revival Arrears Are Calculated',
+      description: 'Late fee interest is computed on unpaid installment premiums for the full duration of overdue days past the original due date.',
+      steps: [
+        {
+          number: 1,
+          title: 'Verify Grace Period Status',
+          description: 'Checks whether payment is within 30 days (15 days for monthly). Payments within grace period incur zero late fee penalty.',
+          formulaSnippet: 'If Overdue Days <= Grace Period => Late Fee = ₹0'
+        },
+        {
+          number: 2,
+          title: 'Calculate Compounded Late Fee Interest',
+          description: 'Computes interest compounded half-yearly at standard 9.5% p.a. from the original due date (minimum statutory late fee ₹5).',
+          formulaSnippet: 'Interest = Unpaid Premium × [(1 + Rate/200)^(2 × Years) - 1]'
+        },
+        {
+          number: 3,
+          title: 'Add 18% GST & Sum Total Arrears',
+          description: 'Applies 18% GST on the late fee interest component and calculates the net payable amount to restore full life cover.',
+          formulaSnippet: 'Total Arrears = Unpaid Premium + Late Fee Interest + GST on Late Fee'
+        }
+      ]
+    },
+    inputsGuide: {
+      title: 'Late Fee Calculator Input Guide',
+      items: [
+        { label: 'Unpaid Installment Premium', explanation: 'The overdue premium amount for each pending installment.' },
+        { label: 'Days Past Due Date', explanation: 'Total calendar days elapsed since the original premium due date (1 to 1,825 days).' },
+        { label: 'Premium Payment Mode', explanation: 'Select your policy frequency to apply the appropriate 30-day or 15-day grace period.' }
+      ]
+    },
+    resultsGuide: {
+      title: 'Understanding Revival Cost Breakdown',
+      explanation: 'Itemized summary of funds required to restore your policy to in-force status.',
+      metrics: [
+        { name: 'Overdue Premium Principal', meaning: 'The original unpaid installment premium amount.' },
+        { name: 'Late Fee Interest Penalty', meaning: 'The interest accrued at 9.5% p.a. compounded half-yearly for the overdue duration.' },
+        { name: 'GST on Late Fee (18%)', meaning: 'Statutory Goods and Services Tax applicable strictly on the interest charge.' },
+        { name: 'Total Revival Arrears', meaning: 'The net total amount payable via online portal or branch cash counter to restore coverage.' }
+      ]
+    },
+    assumptionsAndLimitations: {
+      title: 'Policy Revival Rules & Terms',
+      notes: [
+        'Policies overdue for more than 5 consecutive years from FUP cannot be revived and must be settled via surrender/paid-up claim.',
+        'Revival after 6 months to 3 years requires submission of a Declaration of Good Health (Form 300 / 340).',
+        'Revival after 3 years may require a fresh medical examination at the policyholders expense.',
+        'LIC periodically launches Special Revival Campaigns offering 20% to 30% concessions on late fee interest.'
+      ]
+    },
+    sources: [
+      { title: 'LIC Policy Revival Manual & Interest Rules Circular', publisher: 'Life Insurance Corporation of India', reference: 'CO/CRM/REVIVAL/2022' },
+      { title: 'IRDAI Policyholder Protection (Grace Period & Revival) Guidelines', publisher: 'IRDAI', reference: 'IRDAI/PPR/REV/2020' }
+    ],
+    faqs: [
+      {
+        question: 'What is the rate of late fee interest charged by LIC for overdue premiums?',
+        answer: 'LIC charges late fee interest at 9.5% per annum, compounded half-yearly, calculated from the original due date of the unpaid premium with a minimum charge of ₹5.'
+      },
+      {
+        question: 'What is the grace period allowed for paying LIC premiums without penalty?',
+        answer: 'LIC allows a grace period of 30 calendar days for Yearly, Half-Yearly, and Quarterly payment modes, and 15 calendar days for Monthly mode. Payments made within the grace period incur zero late fee interest.'
+      },
+      {
+        question: 'How long after lapsing can an LIC policy be revived?',
+        answer: 'Under current IRDAI regulations, a lapsed LIC policy can be revived within a maximum period of 5 consecutive years from the date of the First Unpaid Premium (FUP).'
+      },
+      {
+        question: 'What documents are required to revive an overdue LIC policy?',
+        answer: 'For policies lapsed for less than 6 months, only payment of arrears with late fee is required. For policies lapsed over 6 months, a Declaration of Good Health (Form 300 / 340 / 353) is required, and medical check-ups may be required for large sum assured policies.'
+      },
+      {
+        question: 'Are there any discounts available on LIC late fee interest?',
+        answer: 'Yes. LIC periodically conducts Special Revival Campaigns (typically twice a year) offering 20% to 30% rebates on late fee interest (up to ₹3,000 to ₹5,000 max rebate) for eligible micro and traditional policies.'
+      },
+      {
+        question: 'What happens if death occurs while the policy is in a lapsed state?',
+        answer: 'If death occurs after the grace period in a lapsed policy that has run for less than 2 years, zero claim is payable. If premiums were paid for 2+ years, a reduced paid-up death claim is paid to nominees.'
+      }
+    ]
+  },
+  'lic-hlv-calculator': {
+    id: 'lic-hlv-calculator',
+    slug: 'lic-hlv-calculator',
+    seoTitle: 'LIC Human Life Value (HLV) Calculator | Calculate Ideal Life Cover',
+    metaDescription: 'Calculate your exact Human Life Value (HLV) and ideal life insurance cover based on income replacement, working years, liabilities, and liquid assets.',
+    h1: 'LIC Human Life Value (HLV) Calculator',
+    subtitle: 'Estimate the exact life insurance cover needed to secure your family against loss of future earning power and debt obligations.',
+    category: 'Protection Planning',
+    lastReviewedDate: 'August 2026',
+    introParagraphs: [
+      'The LIC Human Life Value (HLV) Calculator helps breadwinners and families determine the precise monetary life insurance coverage required to guarantee complete financial security in the event of untimely demise.',
+      'Human Life Value represents the capitalized present monetary value of a persons future earnings dedicated to supporting family dependents. Rather than relying on generic rules of thumb (such as 10x annual income), this calculator uses the actuarial Income Replacement Method, factoring in years to retirement, living expenses, outstanding mortgage debts, and existing liquid assets.',
+      'Calculating your true HLV ensures your family is neither dangerously under-insured nor burdened with excessive premium expenses for redundant coverage.'
+    ],
+    howItWorks: {
+      title: 'How Human Life Value (HLV) is Calculated',
+      description: 'The calculation calculates future family living costs until retirement, adds debt clearance liabilities, and offsets existing liquid wealth.',
+      steps: [
+        {
+          number: 1,
+          title: 'Calculate Family Dependent Income Need',
+          description: 'Subtracts personal living expenses (standard 30%) from annual income and multiplies by remaining working years to retirement.',
+          formulaSnippet: 'Income Replacement = (Annual Income × 0.70) × (Retirement Age - Current Age)'
+        },
+        {
+          number: 2,
+          title: 'Add Outstanding Debt Liabilities',
+          description: 'Adds outstanding home loans, personal loans, vehicle loans, and education commitments requiring immediate payoff upon demise.',
+          formulaSnippet: 'Gross Protection Need = Income Replacement + Total Debt Liabilities'
+        },
+        {
+          number: 3,
+          title: 'Offset Existing Assets & Life Cover',
+          description: 'Deducts existing term insurance cover, mutual funds, EPF, and fixed deposits to find your net life insurance gap.',
+          formulaSnippet: 'Net Life Cover Gap = Gross Need - (Existing Cover + Liquid Assets)'
+        }
+      ]
+    },
+    inputsGuide: {
+      title: 'HLV Input Parameters & Assessment Guide',
+      items: [
+        { label: 'Current Age & Retirement Age', explanation: 'Your present age (18 to 65) and planned retirement age (default: 60 years).' },
+        { label: 'Annual Take-Home Income', explanation: 'Your total annual net earning capacity from salary, professional practice, or business.' },
+        { label: 'Outstanding Liabilities', explanation: 'Total outstanding balances on home loans, personal loans, and credit cards.' },
+        { label: 'Existing Life Insurance & Savings', explanation: 'Total sum assured of all current active policies plus liquid mutual funds and savings.' }
+      ]
+    },
+    resultsGuide: {
+      title: 'Understanding Your Human Life Value Report',
+      explanation: 'Comprehensive breakdown of your family protection requirements.',
+      metrics: [
+        { name: 'Ideal Total Life Cover', meaning: 'The total financial safety net needed to sustain your familys lifestyle and clear all debts.' },
+        { name: 'Income Replacement Need', meaning: 'The corpus required to replace your monthly financial contribution until retirement.' },
+        { name: 'Debt Protection Requirement', meaning: 'The lump-sum funds allocated strictly towards eliminating outstanding loans.' },
+        { name: 'Net Life Cover Gap', meaning: 'The recommended additional term insurance cover you need to purchase today.' }
+      ]
+    },
+    assumptionsAndLimitations: {
+      title: 'HLV Calculation Guidelines & Underwriting Rules',
+      notes: [
+        'Underwriting maximum insurance cover limits: Up to 25x annual income for age <= 35, 20x for age 36-45, 15x for age 46-55, and 10x for age 56-65.',
+        'Calculations assume a standard 30% deduction for personal living expenses of the breadwinner.',
+        'Inflation and wage increases are balanced against the discount rate earned on invested claim proceeds.',
+        'High Sum Assured term insurance requires standard income documentation (ITR / Form 16).'
+      ]
+    },
+    sources: [
+      { title: 'Solomon S. Huebner Human Life Value Actuarial Model', publisher: 'American College of Financial Services', reference: 'HLV/ACT/HIST' },
+      { title: 'IRDAI Underwriting Guidelines on Maximum Insurable Sum Assured', publisher: 'IRDAI', reference: 'IRDAI/UW/FIN/2021' }
+    ],
+    faqs: [
+      {
+        question: 'What is Human Life Value (HLV) in life insurance?',
+        answer: 'Human Life Value (HLV) is the monetary measurement of the economic value an individual provides to their family dependents over their working lifetime. It represents the exact amount of life insurance needed to replace their income in case of unfortunate demise.'
+      },
+      {
+        question: 'How is Human Life Value calculated in LIC?',
+        answer: 'HLV is calculated by taking your annual take-home income, deducting personal expenses (~30%), multiplying by remaining working years to retirement, adding outstanding debt liabilities (like home loans), and deducting existing assets and life insurance cover.'
+      },
+      {
+        question: 'What is the maximum life insurance cover LIC allows based on income?',
+        answer: 'LIC underwriting rules generally permit maximum life cover multiples based on age: Up to 25 times annual income for ages 18–35, 20 times for ages 36–45, 15 times for ages 46–55, and 10 times for ages 56–65.'
+      },
+      {
+        question: 'Should home loans and personal loans be included in HLV calculation?',
+        answer: 'Yes, absolutely. Outstanding loans must be cleared immediately upon demise to prevent the family from losing residential property or facing debt recovery proceedings.'
+      },
+      {
+        question: 'Which LIC policy is best suited to cover Human Life Value?',
+        answer: 'Pure term insurance plans like LIC Tech Term (Table 854 / 855) or Yuva Term (Table 875) are ideal because they provide large life cover (₹50 Lakhs to ₹2+ Crores) at very affordable annual premiums.'
+      },
+      {
+        question: 'Does Human Life Value decrease as a person gets older?',
+        answer: 'Yes. As you approach retirement, the number of remaining working years decreases and accumulated savings typically increase, reducing the remaining income replacement liability.'
       }
     ]
   }

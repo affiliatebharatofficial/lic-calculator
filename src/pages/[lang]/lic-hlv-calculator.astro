@@ -1,0 +1,155 @@
+---
+import CalculatorShell from '@/components/calculator/CalculatorShell.astro';
+import CurrencyInput from '@/components/calculator/CurrencyInput.astro';
+import RangeInput from '@/components/calculator/RangeInput.astro';
+import CalculateButton from '@/components/calculator/CalculateButton.astro';
+import ResetButton from '@/components/calculator/ResetButton.astro';
+import ResultCard from '@/components/ui/ResultCard.astro';
+import ResultBreakdown from '@/components/calculator/ResultBreakdown.astro';
+import CalculationExplanation from '@/components/calculator/CalculationExplanation.astro';
+import RelatedCalculatorCard from '@/components/calculator/RelatedCalculatorCard.astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, getLocalizedPath, t } from '@/lib/i18n';
+import { getCalculatorSeoData } from '@/lib/seo/calculator-content';
+import type { Locale } from '@/types/i18n';
+
+export function getStaticPaths() {
+  return LOCALE_CODES.filter((l) => l !== DEFAULT_LOCALE).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const locale = (lang as Locale) || DEFAULT_LOCALE;
+const seoData = getCalculatorSeoData('lic-hlv-calculator', locale);
+
+const breadcrumbs = [
+  { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators', locale) },
+  { name: t(locale, 'nav.hlvCalculator'), url: getLocalizedPath('/lic-hlv-calculator', locale) }
+];
+
+const breakdownItems = [
+  { id: '1', label: 'Income Replacement', amount: '₹1,75,00,000', notes: 'Protection' },
+  { id: '2', label: 'Liabilities', amount: '₹35,00,000', isCredit: false, notes: 'Debts' },
+  { id: '3', label: 'Existing Assets', amount: '₹20,00,000', isCredit: false, notes: 'Savings' }
+];
+
+const relatedTools = [
+  {
+    title: t(locale, 'nav.termCalculator'),
+    description: t(locale, 'tools.termDesc'),
+    url: getLocalizedPath('/lic-term-insurance-calculator', locale),
+    category: 'Protection'
+  },
+  {
+    title: t(locale, 'nav.deathBenefitCalculator'),
+    description: t(locale, 'tools.deathBenefitDesc'),
+    url: getLocalizedPath('/lic-death-benefit-calculator', locale),
+    category: 'Claims'
+  }
+];
+---
+
+<CalculatorShell
+  title={seoData.seoTitle}
+  description={seoData.metaDescription}
+  calculatorTitle={seoData.h1}
+  calculatorSubtitle={seoData.subtitle}
+  category={seoData.category}
+  lastReviewedDate={seoData.lastReviewedDate}
+  sources={seoData.sources}
+  faqs={seoData.faqs}
+  breadcrumbs={breadcrumbs}
+  locale={locale}
+>
+  <div slot="inputs" class="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 shadow-card">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+      <h2 class="text-base font-bold text-slate-900">{t(locale, 'nav.hlvCalculator')}</h2>
+      <ResetButton locale={locale} />
+    </div>
+
+    <form class="space-y-5" id="hlvForm">
+      <RangeInput
+        id="currentAge"
+        name="currentAge"
+        label={t(locale, 'common.age')}
+        value={35}
+        min={18}
+        max={65}
+        unit={t(locale, 'common.years')}
+        required
+      />
+      <CurrencyInput
+        id="annualIncome"
+        name="annualIncome"
+        label={t(locale, 'common.annualPremium')}
+        value={1000000}
+        placeholder="e.g. 1000000"
+        min={100000}
+        required
+        locale={locale}
+      />
+      <CurrencyInput
+        id="outstandingLiabilities"
+        name="outstandingLiabilities"
+        label="Outstanding Liabilities"
+        value={3500000}
+        placeholder="e.g. 3500000"
+        min={0}
+        locale={locale}
+      />
+      <CurrencyInput
+        id="existingLifeCover"
+        name="existingLifeCover"
+        label="Existing Life Cover / Savings"
+        value={2000000}
+        placeholder="e.g. 2000000"
+        min={0}
+        locale={locale}
+      />
+      <div class="pt-2">
+        <CalculateButton text={t(locale, 'common.calculate')} />
+      </div>
+    </form>
+  </div>
+
+  <div slot="results">
+    <ResultCard
+      headline="Recommended Additional Life Cover (HLV)"
+      amount="₹1.90 Crore"
+      subtitle="Income Need: ₹1.75 Cr + Debt: ₹35L - Existing Assets: ₹20L"
+      stats={[
+        { label: 'Gross HLV', value: '₹2.10 Crore' },
+        { label: 'Income Need', value: '₹1.75 Crore' },
+        { label: 'Debt', value: '₹35,00,000' },
+        { label: 'Cover Gap', value: '₹1.90 Crore' }
+      ]}
+    />
+  </div>
+
+  <div slot="breakdown">
+    <ResultBreakdown
+      title={t(locale, 'common.breakdown')}
+      items={breakdownItems}
+      totalLabel="Recommended Additional Cover"
+      totalAmount="₹1,90,00,000"
+      summaryNotes="Recommended: LIC Tech Term."
+    />
+  </div>
+
+  <div slot="explanation">
+    <CalculationExplanation
+      howItWorks={seoData.howItWorks}
+      inputsGuide={seoData.inputsGuide}
+      resultsGuide={seoData.resultsGuide}
+      assumptions={seoData.assumptionsAndLimitations}
+    />
+  </div>
+
+  <div slot="related">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {relatedTools.map((tool) => (
+        <RelatedCalculatorCard {...tool} />
+      ))}
+    </div>
+  </div>
+</CalculatorShell>

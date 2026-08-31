@@ -22,6 +22,11 @@ export const translations: Record<Locale, TranslationDictionary> = {
       annuityCalculator: 'Annuity Calculator',
       termCalculator: 'Term Insurance Calculator',
       deathBenefitCalculator: 'Death Benefit Claim Calculator',
+      paidUpCalculator: 'Paid-Up Value Calculator',
+      returnCalculator: 'Policy Return & IRR Calculator',
+      frequencyCalculator: 'Premium Mode & Frequency Calculator',
+      lateFeeCalculator: 'Late Fee & Revival Calculator',
+      hlvCalculator: 'Human Life Value (HLV) Calculator',
       aiAssistant: 'AI Assistant'
     },
     tools: {
@@ -35,7 +40,12 @@ export const translations: Record<Locale, TranslationDictionary> = {
       termDesc: 'Calculate affordable pure life protection premiums for Table 855 Tech Term.',
       deathBenefitDesc: 'Estimate death claim proceeds: Sum Assured + Accrued Bonuses + FAB minus outstanding policy deductions.',
       pensionDesc: 'Calculate guaranteed immediate annuity pension payouts for Table 857 Saral Pension.',
-      annuityDesc: 'Estimate lifelong annuity income across multiple pension options (Life Annuity, Return of Purchase Price & Joint Life).'
+      annuityDesc: 'Estimate lifelong annuity income across multiple pension options (Life Annuity, Return of Purchase Price & Joint Life).',
+      paidUpDesc: 'Calculate Reduced Paid-Up Sum Assured, vested bonuses, and maturity proceeds when discontinuing premium payments.',
+      returnDesc: 'Calculate exact Internal Rate of Return (IRR / CAGR) and nominal vs real return on your LIC endowment cash flows.',
+      frequencyDesc: 'Compare Yearly, Half-Yearly, Quarterly, and Monthly NACH installment costs with modal discounts and GST breakup.',
+      lateFeeDesc: 'Calculate overdue late fee interest at 9.5% p.a. compounded half-yearly and total arrears needed to revive a lapsed policy.',
+      hlvDesc: 'Estimate total life insurance cover needed based on income replacement, remaining working years, and debt liabilities.'
     },
     home: {
       heroTitle: 'Make Smart Decisions with Your LIC Policies',
@@ -186,6 +196,11 @@ export const translations: Record<Locale, TranslationDictionary> = {
       annuityCalculator: 'एन्युइटी कैलकुलेटर',
       termCalculator: 'टर्म इंश्योरेंस कैलकुलेटर',
       deathBenefitCalculator: 'डेथ बेनिफिट क्लेम कैलकुलेटर',
+      paidUpCalculator: 'पेड-अप वैल्यू कैलकुलेटर',
+      returnCalculator: 'पॉलिसी रिटर्न व IRR कैलकुलेटर',
+      frequencyCalculator: 'प्रीमियम मोड व छूट कैलकुलेटर',
+      lateFeeCalculator: 'लेट फीस व रिवाइवल कैलकुलेटर',
+      hlvCalculator: 'ह्यूमन लाइफ वैल्यू (HLV) कैलकुलेटर',
       aiAssistant: 'एआई सहायक'
     },
     tools: {
@@ -199,7 +214,12 @@ export const translations: Record<Locale, TranslationDictionary> = {
       termDesc: 'टेबल 855 टेक टर्म के लिए किफायती जीवन सुरक्षा प्रीमियम की गणना करें।',
       deathBenefitDesc: 'नॉमिनी को मिलने वाले कुल डेथ क्लेम (सम एश्योर्ड + संचित बोनस + एफएबी) का सटीक अनुमान लगाएं।',
       pensionDesc: 'टेबल 857 सरल पेंशन के तहत मिलने वाली आजीवन मासिक पेंशन का अनुमान लगाएं।',
-      annuityDesc: 'विभिन्न एन्युइटी विकल्पों (आजीवन पेंशन, खरीद मूल्य वापसी एवं संयुक्त जीवन) पर पेंशन आय की गणना करें।'
+      annuityDesc: 'विभिन्न एन्युइटी विकल्पों (आजीवन पेंशन, खरीद मूल्य वापसी एवं संयुक्त जीवन) पर पेंशन आय की गणना करें।',
+      paidUpDesc: 'प्रीमियम भुगतान रोकने पर मिलने वाली रिड्यूस्ड पेड-अप बीमा राशि, संचित बोनस और मैच्योरिटी लाभ की गणना करें।',
+      returnDesc: 'अपनी एलआईसी पॉलिसी के वार्षिक प्रीमियम और मैच्योरिटी लाभ पर वास्तविक रिटर्न (IRR / CAGR) की गणना करें।',
+      frequencyDesc: 'वार्षिक, छमाही, तिमाही और मासिक मोड के बीच किश्त राशि, मोडल छूट और जीएसटी अंतर की तुलना करें।',
+      lateFeeDesc: '9.5% छमाही चक्रवृद्धि ब्याज दर पर ओवरड्यू लेट फीस और बंद पॉलिसी को चालू करने के कुल बकाया की गणना करें।',
+      hlvDesc: 'वार्षिक आय, शेष कामकाजी वर्ष और कर्जों के आधार पर परिवार के लिए आवश्यक आदर्श जीवन बीमा सुरक्षा (HLV) जानें।'
     },
     home: {
       heroTitle: 'अपनी एलआईसी पॉलिसी के लिए सही फैसला लें',
@@ -350,6 +370,11 @@ export const translations: Record<Locale, TranslationDictionary> = {
       annuityCalculator: 'ॲन्युइटी कॅल्क्युलेटर',
       termCalculator: 'टर्म इन्शुरन्स कॅल्क्युलेटर',
       deathBenefitCalculator: 'डेथ बेनिफिट क्लेम कॅल्क्युलेटर',
+      paidUpCalculator: 'पेड-अप व्हॅल्यू कॅल्क्युलेटर',
+      returnCalculator: 'पॉलिसी परतावा व IRR कॅल्क्युलेटर',
+      frequencyCalculator: 'प्रीमियम मोड व सवलत कॅल्क्युलेटर',
+      lateFeeCalculator: 'लेट फी व पुनरुज्जीवन कॅल्क्युलेटर',
+      hlvCalculator: 'ह्युमन लाइफ व्हॅल्यू (HLV) कॅल्क्युलेटर',
       aiAssistant: 'एआय सहाय्यक'
     },
     tools: {
@@ -363,7 +388,12 @@ export const translations: Record<Locale, TranslationDictionary> = {
       termDesc: 'टेबल 855 टेक टर्म प्लॅनसाठी परवडणाऱ्या विमा हप्त्याची गणना करा.',
       deathBenefitDesc: 'वारसाला मिळणारा एकूण मृत्यू दावा लाभ (विमा रक्कम + बोनस) तपासा.',
       pensionDesc: 'टेबल 857 सरल पेन्शन अंतर्गत हमी दिलेली आजीवन मासिक पेन्शन तपासा.',
-      annuityDesc: 'विविध ॲन्युइटी पर्यायांवर (आजीवन पेन्शन, खरेदी किंमत परत) मासिक उत्पन्नाचा अंदाज घ्या.'
+      annuityDesc: 'विविध ॲन्युइटी पर्यायांवर (आजीवन पेन्शन, खरेदी किंमत परत) मासिक उत्पन्नाचा अंदाज घ्या.',
+      paidUpDesc: 'प्रीमियम भरणे थांबवल्यास मिळणारी कमी झालेली पेड-अप विमा रक्कम आणि बोनसची अचूक गणना करा.',
+      returnDesc: 'पॉलिसी प्रीमियम आणि मॅच्युरिटी रकमेवर मिळणाऱ्या वास्तविक परताव्याचा (IRR / CAGR) हिशोब करा.',
+      frequencyDesc: 'वार्षिक, सहामाही, तिमाही आणि मासिक हप्त्यांमधील सवलत आणि जीएसटी फरकाची तुलना करा.',
+      lateFeeDesc: 'मुदत संपलेल्या प्रीमियमवर 9.5% व्याजदराने लेट फी आणि पॉलिसी पूर्ववत करण्याचा खर्च तपासा.',
+      hlvDesc: 'उत्पन्न आणि कर्जाच्या आधारे कुटुंबासाठी आवश्यक असलेल्या योग्य जीवन विमा संरक्षणाचा अंदाज घ्या.'
     },
     home: {
       heroTitle: 'तुमच्या एलआयसी पॉलिसीसाठी योग्य निर्णय घ्या',
@@ -514,6 +544,11 @@ export const translations: Record<Locale, TranslationDictionary> = {
       annuityCalculator: 'એન્યુઇટી કેલ્ક્યુલેટર',
       termCalculator: 'ટર્મ ઇન્શ્યોરન્સ કેલ્ક્યુલેટર',
       deathBenefitCalculator: 'ડેથ બેનિફિટ ક્લેમ કેલ્ક્યુલેટર',
+      paidUpCalculator: 'પેઇડ-અપ વેલ્યુ કેલ્ક્યુલેટર',
+      returnCalculator: 'પોલિસી રિટર્ન અને IRR કેલ્ક્યુલેટર',
+      frequencyCalculator: 'પ્રીમિયમ મોડ અને ડિસ્કાઉન્ટ કેલ્ક્યુલેટર',
+      lateFeeCalculator: 'લેટ ફી અને રિવાઇવલ કેલ્ક્યુલેટર',
+      hlvCalculator: 'હ્યુમન લાઇફ વેલ્યુ (HLV) કેલ્ક્યુલેટર',
       aiAssistant: 'AI સહાયક'
     },
     tools: {
@@ -527,7 +562,12 @@ export const translations: Record<Locale, TranslationDictionary> = {
       termDesc: 'ટેબલ 855 ટેક ટર્મ માટે યોગ્ય ટર્મ ઇન્શ્યોરન્સ પ્રીમિયમ ગણો.',
       deathBenefitDesc: 'વારસદારને મળવાપાત્ર કુલ ડેથ ક્લેમ રકમ (સમ એશ્યોર્ડ + બોનસ) ની ગણતરી કરો.',
       pensionDesc: 'ટેબલ 857 સરલ પેન્શન હેઠળ મળતી આજીવન માસિક પેન્શન ગણો.',
-      annuityDesc: 'વિવિધ એન્યુઇટી વિકલ્પો પર આજીવન પેન્શન આવકનો અંદાજ મેળવો.'
+      annuityDesc: 'વિવિધ એન્યુઇટી વિકલ્પો પર આજીવન પેન્શન આવકનો અંદાજ મેળવો.',
+      paidUpDesc: 'પ્રીમિયમ ચૂકવવાનું બંધ કરવા પર મળવાપાત્ર રિડ્યુસ્ડ પેઇડ-અપ રકમ અને બોનસની ગણતરી કરો.',
+      returnDesc: 'તમારી એલઆઈસી પોલિસીના પ્રીમિયમ અને પાકતી મુદત પર વાસ્તવિક વળતર (IRR / CAGR) ની ગણતરી કરો.',
+      frequencyDesc: 'વાર્ષિક, અર્ધવાર્ષિક, ત્રિમાસિક અને માસિક હપ્તા વચ્ચે મોડલ ડિસ્કાઉન્ટ અને જીએસટી તફાવત તપાસો.',
+      lateFeeDesc: '૯.૫% વ્યાજ દરે બાકી પ્રીમિયમ પર લેટ ફી અને લેપ્સ્ડ પોલિસી ફરી શરૂ કરવાના કુલ ખર્ચની ગણતરી કરો.',
+      hlvDesc: 'વાર્ષિક આવક અને જવાબદારીઓના આધારે પરિવાર માટે આદર્શ લાઈફ ઈન્સ્યોરન્સ કવરેજનો અંદાજ મેળવો.'
     },
     home: {
       heroTitle: 'તમારી LIC પોલિસી માટે યોગ્ય નિર્ણય લો',
@@ -678,6 +718,11 @@ export const translations: Record<Locale, TranslationDictionary> = {
       annuityCalculator: 'অ্যানুইটি ক্যালকুলেটর',
       termCalculator: 'টার্ম ইন্স্যুরেন্স ক্যালকুলেটর',
       deathBenefitCalculator: 'মৃত্যু দাবি সুবিধা ক্যালকুলেটর',
+      paidUpCalculator: 'পেইড-আপ ভ্যালু ক্যালকুলেটর',
+      returnCalculator: 'পলিসি রিটার্ন ও IRR ক্যালকুলেটর',
+      frequencyCalculator: 'প্রিমিয়াম মোড ও ছাড় ক্যালকুলেটর',
+      lateFeeCalculator: 'লেট ফি ও পলিসি পুনরুজ্জীবন ক্যালকুলেটর',
+      hlvCalculator: 'হিউম্যান লাইফ ভ্যালু (HLV) ক্যালকুলেটর',
       aiAssistant: 'এআই সহায়ক'
     },
     tools: {
@@ -691,7 +736,12 @@ export const translations: Record<Locale, TranslationDictionary> = {
       termDesc: 'টেবিল ৮৫৫ টেক টার্মের জন্য সাশ্রয়ী সুরক্ষা প্রিমিয়াম হিসাব করুন।',
       deathBenefitDesc: 'নমিনীকে প্রদেয় মোট মৃত্যু দাবির পরিমাণ (বীমা অঙ্ক + বোনাস) হিসাব করুন।',
       pensionDesc: 'টেবিল ৮৫৭ সরল পেনশনের অধীনে নিশ্চিত আজীবন মাসিক পেনশন হিসাব করুন।',
-      annuityDesc: 'বিভিন্ন অ্যানুইটি বিকল্পের অধীনে আজীবন পেনশন আয়ের হিসাব করুন।'
+      annuityDesc: 'বিভিন্ন অ্যানুইটি বিকল্পের অধীনে আজীবন পেনশন আয়ের হিসাব করুন।',
+      paidUpDesc: 'প্রিমিয়াম জমা বন্ধ করলে প্রাপ্ত রিডিউসড পেইড-আপ কভার এবং জমানো বোনাসের হিসাব করুন।',
+      returnDesc: 'পলিসির প্রিমিয়াম ও ম্যাচিউরিটির ওপর প্রকৃত সুদের হার বা বার্ষিক রিটার্ন (IRR / CAGR) হিসাব করুন।',
+      frequencyDesc: 'বার্ষিক, ষাণ্মাসিক, ত্রৈমাসিক এবং মাসিক কিস্তির মধ্যে মোডাল রিবেট ও জিএসটি খরচের তুলনা করুন।',
+      lateFeeDesc: 'মেয়াদোত্তীর্ণ প্রিমিয়ামের ৯.৫% হারে লেট ফি এবং ল্যাপ্সড পলিসি পুনরায় চালু করার মোট খরচের হিসাব করুন।',
+      hlvDesc: 'বার্ষিক আয় ও আর্থিক দায়ের ভিত্তিতে পরিবারের জন্য প্রয়োজনীয় সঠিক জীবন বীমা কভারের পরিমাণ জানুন।'
     },
     home: {
       heroTitle: 'আপনার এলআইসি পলিসির জন্য সঠিক সিদ্ধান্ত নিন',
@@ -842,6 +892,11 @@ export const translations: Record<Locale, TranslationDictionary> = {
       annuityCalculator: 'ஆண்டுத்தொகை கால்குலேட்டர்',
       termCalculator: 'டேர்ம் இன்சூரன்ஸ் கால்குலேட்டர்',
       deathBenefitCalculator: 'இறப்பு பலன் கோரிக்கை கால்குலேட்டர்',
+      paidUpCalculator: 'பெய்ட்-அப் மதிப்பு கால்குலேட்டர்',
+      returnCalculator: 'பாலிசி வருவாய் (IRR) கால்குலேட்டர்',
+      frequencyCalculator: 'பிரீமியம் முறை மற்றும் தள்ளுபடி கால்குலேட்டர்',
+      lateFeeCalculator: 'தாமதக் கட்டணம் & பாலிசி புதுப்பித்தல் கால்குலேட்டர்',
+      hlvCalculator: 'மனித வாழ்க்கை மதிப்பு (HLV) கால்குலேட்டர்',
       aiAssistant: 'AI உதவியாளர்'
     },
     tools: {
@@ -855,7 +910,12 @@ export const translations: Record<Locale, TranslationDictionary> = {
       termDesc: 'டேபிள் 855 டெக் டேர்ம் திட்டத்திற்கான பிரீமியத்தை கணக்கிடுங்கள்.',
       deathBenefitDesc: 'நாமினிக்கு கிடைக்கக்கூடிய மொத்த இறப்பு பலன் தொகையை (காப்பீட்டுத் தொகை + போனஸ்) கணக்கிடுங்கள்.',
       pensionDesc: 'டேபிள் 857 சரல் பென்ஷன் திட்டத்தில் வாழ்நாள் மாதாந்திர ஓய்வூதியத்தை கணக்கிடுங்கள்.',
-      annuityDesc: 'பல்வேறு ஆண்டுத்தொகை திட்டங்களில் வாழ்நாள் ஓய்வூதிய வருவாயை கணக்கிடுங்கள்.'
+      annuityDesc: 'பல்வேறு ஆண்டுத்தொகை திட்டங்களில் வாழ்நாள் ஓய்வூதிய வருவாயை கணக்கிடுங்கள்.',
+      paidUpDesc: 'பிரீமியம் செலுத்துவதை நிறுத்தினால் கிடைக்கும் குறைக்கப்பட்ட பெய்ட்-அப் தொகை மற்றும் போனஸை கணக்கிடுங்கள்.',
+      returnDesc: 'எல்ஐசி பாலிசியின் பிரீமியம் மற்றும் முதிர்வுத் தொகையின் உண்மையான வருவாய் விகிதத்தை (IRR) கணக்கிடுங்கள்.',
+      frequencyDesc: 'ஆண்டு, அரையாண்டு, காலாண்டு மற்றும் மாதாந்திர தவணைகளுக்கான தள்ளுபடி மற்றும் ஜிஎஸ்டி விவரங்களை ஒப்பிடுங்கள்.',
+      lateFeeDesc: '9.5% வட்டி விகிதத்தில் தாமதக் கட்டணம் மற்றும் காலாவதியான பாலிசியை மீண்டும் தொடங்குவதற்கான தொகையைக் கணக்கிடுங்கள்.',
+      hlvDesc: 'வருமானம் மற்றும் கடன்களின் அடிப்படையில் குடும்பத்திற்குத் தேவையான சிறந்த ஆயுள் காப்பீட்டுத் தொகையை அறியுங்கள்.'
     },
     home: {
       heroTitle: 'உங்கள் எல்ஐசி பாலிசிகளுக்கு சிறந்த முடிவுகளை எடுங்கள்',
@@ -1006,6 +1066,11 @@ export const translations: Record<Locale, TranslationDictionary> = {
       annuityCalculator: 'యాన్యుటీ కాలిక్యులేటర్',
       termCalculator: 'టర్మ్ ఇన్సూరెన్స్ కాలిక్యులేటర్',
       deathBenefitCalculator: 'మరణ ప్రయోజన క్లెయిమ్ కాలిక్యులేటర్',
+      paidUpCalculator: 'పెయిడ్-అప్ విలువ కాలిక్యులేటర్',
+      returnCalculator: 'పాలసీ రాబడి (IRR) కాలిక్యులేటర్',
+      frequencyCalculator: 'ప్రీమియం మోడ్ & తగ్గింపు కాలిక్యులేటర్',
+      lateFeeCalculator: 'లేట్ ఫీజు & పునరుద్ధరణ కాలిక్యులేటర్',
+      hlvCalculator: 'హ్యూమన్ లైఫ్ వ్యాల్యూ (HLV) కాలిక్యులేటర్',
       aiAssistant: 'AI సహాయకం'
     },
     tools: {
@@ -1019,7 +1084,12 @@ export const translations: Record<Locale, TranslationDictionary> = {
       termDesc: 'టేబుల్ 855 టెక్ టర్మ్ ప్లాన్ కొరకు సరసమైన జీవిత బీమా ప్రీమియం లెక్కించండి.',
       deathBenefitDesc: 'నామినీకి లభించే మొత్తం మరణ క్లెయిమ్ ప్రయోజనాన్ని (భీమా మొత్తం + బోనస్) లెక్కించండి.',
       pensionDesc: 'టేబుల్ 857 సరల్ పెన్షన్ ద్వారా జీవితాంతం వచ్చే నెలవారీ పెన్షన్‌ను లెక్కించండి.',
-      annuityDesc: 'వివిధ యాన్యుటీ ఎంపికలలో జీవితాంతం వచ్చే పెన్షన్ ఆదాయాన్ని లెక్కించండి.'
+      annuityDesc: 'వివిధ యాన్యుటీ ఎంపికలలో జీవితాంతం వచ్చే పెన్షన్ ఆదాయాన్ని లెక్కించండి.',
+      paidUpDesc: 'ప్రీమియం చెల్లింపు ఆపివేస్తే లభించే తగ్గింపు పెయిడ్-అప్ సమ్ అష్యూర్డ్ మరియు బోనస్ లెక్కించండి.',
+      returnDesc: 'మీ ఎల్ఐసి పాలసీ ప్రీమియంలు మరియు మెచ్యూరిటీపై వాస్తవ రాబడి శాతాన్ని (IRR / CAGR) లెక్కించండి.',
+      frequencyDesc: 'వార్షిక, అర్ధ వార్షిక, త్రైమాసిక మరియు నెలవారీ వాయిదాల మధ్య తగ్గింపు మరియు జీఎస్టీ తేడాలను సరిపోల్చండి.',
+      lateFeeDesc: '9.5% వడ్డీతో బకాయి ఉన్న ప్రీమియంపై లేట్ ఫీజు మరియు ల్యాప్స్ అయిన పాలసీని పునరుద్ధరించే ఖర్చును లెక్కించండి.',
+      hlvDesc: 'వార్షిక ఆదాయం మరియు అప్పుల ఆధారంగా కుటుంబానికి అవసరమైన సరైన జీవిత బీమా రక్షణను అంచనా వేయండి.'
     },
     home: {
       heroTitle: 'మీ ఎల్ఐసి పాలసీలపై సరైన ఆర్థిక నిర్ణయాలు తీసుకోండి',

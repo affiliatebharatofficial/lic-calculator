@@ -12,7 +12,12 @@ export type CalculatorType =
   | 'term-insurance'
   | 'pension'
   | 'annuity'
-  | 'death-benefit';
+  | 'death-benefit'
+  | 'paid-up'
+  | 'return-roi'
+  | 'premium-frequency'
+  | 'late-fee'
+  | 'hlv';
 
 export type PremiumPaymentFrequency = 'yearly' | 'half-yearly' | 'quarterly' | 'monthly' | 'single';
 
