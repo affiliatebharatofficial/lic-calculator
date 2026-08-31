@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
-import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import { LOCALE_CODES, DEFAULT_LOCALE, getLocalizedPath } from '@/lib/i18n';
+import { getAboutContent } from '@/lib/content/about-content';
+import { AuthorManager } from '@/lib/editorial';
 import type { Locale } from '@/types/i18n';
 
 export function getStaticPaths() {
@@ -12,40 +15,158 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params;
 const locale = (lang as Locale) || DEFAULT_LOCALE;
+const content = getAboutContent(locale);
+
+const author = AuthorManager.getAuthorBySlug('rajesh-sharma') || AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getAuthorBySlug('ananya-deshmukh') || AuthorManager.getDefaultReviewer();
 
 const breadcrumbs = [
-  { name: t(locale, 'nav.about') || 'About', url: getLocalizedPath('/about', locale) }
+  { name: content.h1, url: getLocalizedPath('/about', locale) }
 ];
 ---
 
 <BaseLayout
-  title={`About Us - ${t(locale, 'site.name')}`}
-  description={t(locale, 'site.description')}
+  title={content.seoTitle}
+  description={content.metaDescription}
   breadcrumbs={breadcrumbs}
   locale={locale}
+  jsonLdType="AboutPage"
 >
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <!-- Breadcrumbs -->
     <Breadcrumbs items={breadcrumbs} />
 
-    <div class="border-b border-slate-200 pb-6 mb-8 mt-2">
-      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-        About LIC Calculator
+    <!-- Page Header -->
+    <div class="border-b border-slate-200 pb-6 mb-8 mt-3">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-navy-100 text-navy-900 border border-navy-300">
+          <span class="w-1.5 h-1.5 rounded-full bg-navy-600"></span>
+          Editorial & Platform Overview
+        </span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        {content.h1}
       </h1>
-      <p class="text-base text-slate-600 mt-2">
-        Independent, transparent, and deterministic financial tools for policyholders.
+      <p class="text-base text-slate-600 mt-2 max-w-3xl leading-relaxed">
+        {content.subtitle}
       </p>
     </div>
 
-    <div class="prose prose-slate max-w-none text-sm sm:text-base leading-relaxed space-y-4 text-slate-700">
-      <p>
-        <strong>lic-calculators.com</strong> was created to give policyholders instant, transparent, and accurate financial clarity about their life insurance policies.
-      </p>
-      <p>
-        Our tools are engineered using deterministic actuarial formulas and verified rule tables to compute premiums, surrender values, capital shortfalls, and maturity returns without bias or commercial sales pressure.
-      </p>
-      <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl text-xs sm:text-sm text-amber-900 mt-6">
-        <strong>Important Notice:</strong> We are an independent informational website and are not affiliated with, sponsored by, or endorsed by Life Insurance Corporation of India (LIC).
+    <!-- Independent Platform Banner -->
+    <div class="mb-10 p-5 sm:p-6 bg-gradient-to-r from-amber-50 to-orange-50/60 border-2 border-amber-300 rounded-2xl shadow-xs">
+      <div class="flex items-start gap-3.5">
+        <div class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold text-lg shrink-0 mt-0.5 shadow-xs">
+          !
+        </div>
+        <div>
+          <h2 class="text-base font-bold text-amber-950">
+            {content.bannerNotice.title}
+          </h2>
+          <p class="text-sm text-amber-900/90 mt-1 leading-relaxed">
+            {content.bannerNotice.text}
+          </p>
+        </div>
       </div>
+    </div>
+
+    <!-- Mission & Core Value Pillars -->
+    <div class="mb-12">
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">
+        {content.missionHeading}
+      </h2>
+      <p class="text-slate-600 leading-relaxed mb-6">
+        {content.missionText}
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {content.pillars.map((pillar) => (
+          <div class="p-5 rounded-2xl border border-slate-200/90 bg-white shadow-xs hover:border-accent-400 transition-all">
+            <div class="text-2xl mb-2">{pillar.icon}</div>
+            <h3 class="font-bold text-slate-900 text-base mb-1">
+              {pillar.title}
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              {pillar.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Main Content Sections -->
+    <div class="space-y-10 text-slate-700 text-sm sm:text-base leading-relaxed">
+      {content.sections.map((section) => (
+        <section class="space-y-4 pt-4 border-t border-slate-200 first:border-t-0 first:pt-0">
+          <h2 class="text-xl sm:text-2xl font-bold text-navy-900 tracking-tight">
+            {section.title}
+          </h2>
+
+          {section.paragraphs.map((p) => (
+            <p class="text-slate-600 leading-relaxed">
+              {p}
+            </p>
+          ))}
+
+          {section.listItems && section.listItems.length > 0 && (
+            <ul class="list-disc pl-5 sm:pl-6 space-y-2 text-slate-600 marker:text-navy-600">
+              {section.listItems.map((item) => (
+                <li class="leading-relaxed pl-1">{item}</li>
+              ))}
+            </ul>
+          )}
+
+          {section.alert && (
+            <div class={`p-4 rounded-xl text-sm font-medium border ${
+              section.alert.type === 'warning'
+                ? 'bg-amber-50 text-amber-900 border-amber-200'
+                : 'bg-blue-50 text-blue-900 border-blue-200'
+            }`}>
+              {section.alert.text}
+            </div>
+          )}
+        </section>
+      ))}
+
+      <!-- Editorial & Verified Author System -->
+      <section class="pt-8 mt-12 border-t-2 border-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900 mb-2">
+          {content.editorialHeading}
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+          {content.editorialSubtext}
+        </p>
+
+        <AuthorReviewerCard
+          author={author}
+          reviewer={reviewer}
+          lastReviewedDate="August 2026"
+          locale={locale}
+        />
+      </section>
+
+      <!-- Related Legal & Platform Resources Navigation Box -->
+      <section class="pt-8 mt-12 border-t-2 border-slate-200">
+        <h2 class="text-xl font-bold text-slate-900 mb-4">
+          {content.relatedLinksHeading}
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {content.relatedLinks.map((link) => (
+            <a
+              href={getLocalizedPath(link.url, locale)}
+              class="p-4 rounded-xl border border-slate-200 bg-white hover:border-accent-400 hover:shadow-xs transition-all group"
+            >
+              <div class="font-bold text-navy-800 group-hover:text-amber-600 transition-colors flex items-center justify-between text-sm sm:text-base">
+                <span>{link.label}</span>
+                <span class="text-slate-400 group-hover:text-amber-600 transition-transform group-hover:translate-x-0.5">&rarr;</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1 leading-snug">
+                {link.description}
+              </p>
+            </a>
+          ))}
+        </div>
+      </section>
     </div>
   </div>
 </BaseLayout>
+
