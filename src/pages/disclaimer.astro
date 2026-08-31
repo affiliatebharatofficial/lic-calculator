@@ -1,50 +1,122 @@
 ---
-import ContentLayout from '@/layouts/ContentLayout.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
 import Alert from '@/components/ui/Alert.astro';
+import { getDisclaimerContent } from '@/lib/content/disclaimer-content';
+import { getLocalizedPath } from '@/lib/i18n';
 
-const breadcrumbs = [{ name: 'Disclaimer', url: '/disclaimer' }];
+const locale = 'en';
+const content = getDisclaimerContent(locale);
+
+const breadcrumbs = [
+  { name: content.h1, url: '/disclaimer' }
+];
 ---
 
-<ContentLayout
-  title="Disclaimer & Non-Affiliation Notice | LIC Calculator"
-  description="Important legal disclaimer: lic-calculators.com is an independent informational and calculation portal and is not affiliated with Life Insurance Corporation of India (LIC)."
-  pageTitle="Legal Disclaimer & Independence Notice"
-  pageSubtitle="Mandatory disclosure regarding platform independence, estimates, and data sources."
+<BaseLayout
+  title={content.seoTitle}
+  description={content.metaDescription}
   breadcrumbs={breadcrumbs}
+  locale={locale}
+  jsonLdType="WebPage"
 >
-  <Alert type="warning" title="Independent Informational Platform" class="mb-8">
-    lic-calculators.com is an independently operated website. It is <strong>NOT</strong> owned, operated, endorsed, or affiliated with the <strong>Life Insurance Corporation of India (LIC)</strong> or any government organization.
-  </Alert>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <!-- Breadcrumbs -->
+    <Breadcrumbs items={breadcrumbs} />
 
-  <div class="space-y-6 text-sm text-slate-700 leading-relaxed">
-    <h2 class="text-lg font-bold text-slate-900">1. Nature of the Service</h2>
-    <p>
-      The calculators, tools, comparisons, and articles provided on <strong>lic-calculators.com</strong> are created purely for educational, illustrative, and personal financial planning purposes. All calculations and numerical illustrations are approximations based on publicly available policy brochures, standard premium tables, and historical bonus declarations.
-    </p>
+    <!-- Page Header -->
+    <div class="border-b border-slate-200 pb-6 mb-8 mt-3">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300">
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
+          Legal Disclosure
+        </span>
+        <span class="text-xs text-slate-500 font-medium">
+          {content.lastUpdatedLabel}: {content.lastUpdatedDate}
+        </span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        {content.h1}
+      </h1>
+      <p class="text-base text-slate-600 mt-2 max-w-3xl leading-relaxed">
+        {content.subtitle}
+      </p>
+    </div>
 
-    <h2 class="text-lg font-bold text-slate-900">2. No Official Representations</h2>
-    <p>
-      We do NOT claim to represent Life Insurance Corporation of India (LIC) as an agent, broker, corporate agent, or official representative. We do not sell insurance policies, collect premium payments on behalf of LIC, or process official policy modifications.
-    </p>
+    <!-- Independent Platform Warning Banner -->
+    <div class="mb-10 p-5 sm:p-6 bg-gradient-to-r from-amber-50 to-orange-50/60 border-2 border-amber-300 rounded-2xl shadow-xs">
+      <div class="flex items-start gap-3.5">
+        <div class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold text-lg shrink-0 mt-0.5 shadow-xs">
+          !
+        </div>
+        <div>
+          <h2 class="text-base font-bold text-amber-950">
+            {content.bannerNotice.title}
+          </h2>
+          <p class="text-sm text-amber-900/90 mt-1 leading-relaxed">
+            {content.bannerNotice.text}
+          </p>
+        </div>
+      </div>
+    </div>
 
-    <h2 class="text-lg font-bold text-slate-900">3. Verification of Exact Values</h2>
-    <p>
-      Actual premium rates, surrender values, paid-up values, loan eligibility, and maturity proceeds are subject to LIC’s official underwriting rules, prevailing government taxes (GST), bonus declarations for specific valuation years, and policy endorsements. Users are advised to verify exact figures directly through:
-    </p>
-    <ul class="list-disc pl-5 space-y-1 text-slate-600">
-      <li>The official LIC customer portal at <a href="https://licindia.in" target="_blank" rel="noopener noreferrer" class="text-brand-600 underline">licindia.in</a></li>
-      <li>An authorized branch office of Life Insurance Corporation of India</li>
-      <li>Your authorized LIC agent or development officer</li>
-    </ul>
+    <!-- Main Disclaimer Sections -->
+    <div class="space-y-10 text-slate-700 text-sm sm:text-base leading-relaxed">
+      {content.sections.map((section) => (
+        <section class="space-y-4 pt-2 border-t border-slate-100 first:border-t-0 first:pt-0">
+          <h2 class="text-xl sm:text-2xl font-bold text-navy-900 tracking-tight">
+            {section.title}
+          </h2>
 
-    <h2 class="text-lg font-bold text-slate-900">4. Trademarks and Intellectual Property</h2>
-    <p>
-      "LIC", "Life Insurance Corporation of India", and specific policy names such as "Jeevan Anand", "Jeevan Labh", "Jeevan Umang", etc., are registered trademarks and property of the Life Insurance Corporation of India. The use of these names on this platform is solely for descriptive, identifying, and reference purposes under nominative fair use.
-    </p>
+          {section.paragraphs.map((p) => (
+            <p class="text-slate-600 leading-relaxed">
+              {p}
+            </p>
+          ))}
 
-    <h2 class="text-lg font-bold text-slate-900">5. Limitation of Liability</h2>
-    <p>
-      Under no circumstances shall lic-calculators.com or its operators be held liable for any financial decisions, losses, or disputes arising from the use of estimates or information provided on this website.
-    </p>
+          {section.listItems && section.listItems.length > 0 && (
+            <ul class="list-disc pl-5 sm:pl-6 space-y-2 text-slate-600 marker:text-amber-500">
+              {section.listItems.map((item) => (
+                <li class="leading-relaxed pl-1">{item}</li>
+              ))}
+            </ul>
+          )}
+
+          {section.alert && (
+            <div class={`p-4 rounded-xl text-sm font-medium border ${
+              section.alert.type === 'warning'
+                ? 'bg-amber-50 text-amber-900 border-amber-200'
+                : 'bg-blue-50 text-blue-900 border-blue-200'
+            }`}>
+              {section.alert.text}
+            </div>
+          )}
+        </section>
+      ))}
+
+      <!-- Related Legal Policies & Calculators Navigation Box -->
+      <section class="pt-8 mt-12 border-t-2 border-slate-200">
+        <h2 class="text-xl font-bold text-slate-900 mb-4">
+          {content.relatedLinksHeading}
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {content.relatedLinks.map((link) => (
+            <a
+              href={getLocalizedPath(link.url, locale)}
+              class="p-4 rounded-xl border border-slate-200 bg-white hover:border-accent-400 hover:shadow-xs transition-all group"
+            >
+              <div class="font-bold text-navy-800 group-hover:text-amber-600 transition-colors flex items-center justify-between text-sm sm:text-base">
+                <span>{link.label}</span>
+                <span class="text-slate-400 group-hover:text-amber-600 transition-transform group-hover:translate-x-0.5">&rarr;</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1 leading-snug">
+                {link.description}
+              </p>
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
   </div>
-</ContentLayout>
+</BaseLayout>
+

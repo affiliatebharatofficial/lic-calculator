@@ -42,14 +42,22 @@ describe('Footer Independent Platform Notice Verification', () => {
 
   it('verifies that the full legal disclosure on the /disclaimer page remains intact', () => {
     const disclaimerPagePath = resolve(rootDir, 'src/pages/disclaimer.astro');
+    const disclaimerContentPath = resolve(rootDir, 'src/lib/content/disclaimer-content.ts');
     expect(existsSync(disclaimerPagePath)).toBe(true);
+    expect(existsSync(disclaimerContentPath)).toBe(true);
 
-    const disclaimerContent = readFileSync(disclaimerPagePath, 'utf-8');
-    expect(disclaimerContent).toContain('Legal Disclaimer & Independence Notice');
-    expect(disclaimerContent).toContain('Nature of the Service');
-    expect(disclaimerContent).toContain('No Official Representations');
-    expect(disclaimerContent).toContain('Verification of Exact Values');
-    expect(disclaimerContent).toContain('Trademarks and Intellectual Property');
+    const contentModule = readFileSync(disclaimerContentPath, 'utf-8');
+    expect(contentModule).toContain('Independent Financial Platform Notice');
+    expect(contentModule).toContain('Overview and Nature of Service');
+    expect(contentModule).toContain('Independent Platform & Non-Affiliation Disclosure');
+    expect(contentModule).toContain('Nature of Calculator Results and Estimates');
+    expect(contentModule).toContain('General Financial Information (No Professional Advice)');
+    expect(contentModule).toContain('Accuracy, Factors Causing Variance & Calculation Limitations');
+    expect(contentModule).toContain('User Responsibility and Self-Verification');
+    expect(contentModule).toContain('Third-Party Information, Sources & External Links');
+    expect(contentModule).toContain('Limitation of Liability');
+    expect(contentModule).toContain('Changes, Revisions & Methodology Updates');
+    expect(contentModule).toContain('Contact Information & Reporting Discrepancies');
   });
 
   it('verifies that subtle, non-alarming styling is applied in the footer', () => {
