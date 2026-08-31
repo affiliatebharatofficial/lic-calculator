@@ -32,7 +32,7 @@ describe('Schema.org JSON-LD Structured Data Generators', () => {
     });
 
     expect(schema['@type']).toBe('Article');
-    expect((schema.author as any).name).toBe('Rajesh Sharma, FIAI');
+    expect((schema.author as any).name).toBe('Naveen Chaudhary');
     expect((schema.author as any).jobTitle).toBe(author.title);
     expect((schema.reviewedBy as any).name).toBe('Ananya Deshmukh, CFA');
   });

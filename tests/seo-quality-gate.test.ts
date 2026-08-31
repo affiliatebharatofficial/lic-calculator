@@ -9,7 +9,7 @@ describe('Automated SEO & Content Quality Gate', () => {
       canonicalUrl: 'https://lic-calculators.com/guides/what-is-lic-surrender-value',
       contentType: 'guide',
       contentBody: 'This is a comprehensive guide explaining how LIC surrender value is calculated... '.repeat(40), // 320+ words
-      authorId: 'rajesh-sharma',
+      authorId: 'naveen-chaudhary',
       reviewerId: 'ananya-deshmukh',
       sourceIds: ['src_lic_914_doc'],
       inboundLinkCount: 3

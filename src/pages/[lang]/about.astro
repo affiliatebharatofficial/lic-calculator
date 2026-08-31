@@ -17,7 +17,7 @@ const { lang } = Astro.params;
 const locale = (lang as Locale) || DEFAULT_LOCALE;
 const content = getAboutContent(locale);
 
-const author = AuthorManager.getAuthorBySlug('rajesh-sharma') || AuthorManager.getDefaultAuthor();
+const author = AuthorManager.getAuthorBySlug('naveen-chaudhary') || AuthorManager.getDefaultAuthor();
 const reviewer = AuthorManager.getAuthorBySlug('ananya-deshmukh') || AuthorManager.getDefaultReviewer();
 
 const breadcrumbs = [

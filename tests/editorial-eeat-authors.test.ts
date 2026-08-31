@@ -16,9 +16,9 @@ describe('E-E-A-T Editorial Profiles & Reviewer Directory', () => {
   });
 
   it('retrieves author by slug and provides default fallback', () => {
-    const author = AuthorManager.getAuthorBySlug('rajesh-sharma');
+    const author = AuthorManager.getAuthorBySlug('naveen-chaudhary');
     expect(author).toBeDefined();
-    expect(author?.name).toContain('Rajesh Sharma');
+    expect(author?.name).toContain('Naveen Chaudhary');
 
     const defaultAuthor = AuthorManager.getDefaultAuthor();
     expect(defaultAuthor).toBeDefined();

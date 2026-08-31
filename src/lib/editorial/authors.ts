@@ -6,11 +6,11 @@ import type { AuthorProfile, AuthorSocialLinks } from './types';
 
 export const VERIFIED_AUTHORS: readonly AuthorProfile[] = [
   {
-    slug: 'rajesh-sharma',
-    name: 'Rajesh Sharma, FIAI',
+    slug: 'naveen-chaudhary',
+    name: 'Naveen Chaudhary',
     title: 'Lead Actuarial Researcher & Financial Architect',
     role: 'Chief Actuary & Author',
-    biography: 'Rajesh has over 16 years of actuarial and insurance mathematical modeling experience in Indian life insurance products, statutory valuation schedules, and surrender value factor matrices.',
+    biography: 'Naveen has extensive experience in actuarial and insurance mathematical modeling for Indian life insurance products, statutory valuation schedules, and surrender value factor matrices.',
     qualifications: [
       'Fellow of Institute of Actuaries of India (FIAI)',
       'M.Sc. Actuarial Science',
@@ -23,11 +23,10 @@ export const VERIFIED_AUTHORS: readonly AuthorProfile[] = [
       'Endowment & Money Back Plans',
       'Policy Loan LTV Models'
     ],
-    photoUrl: '/images/authors/rajesh-sharma.jpg',
+    photoUrl: '/images/authors/naveen-chaudhary.jpg',
     socialLinks: {
-      linkedin: 'https://www.linkedin.com/in/rajesh-sharma-actuary',
-      x: 'https://x.com/rajesh_actuary',
-      website: 'https://lic-calculators.com/author/rajesh-sharma'
+      linkedin: 'https://www.linkedin.com/in/naveen-chaudhary-064677156/',
+      website: 'https://lic-calculators.com/author/naveen-chaudhary'
     },
     isReviewer: true,
     isFactChecker: true,
@@ -118,7 +117,7 @@ export class AuthorManager {
   }
 
   public static getDefaultAuthor(): AuthorProfile {
-    return VERIFIED_AUTHORS[0]!; // Rajesh Sharma
+    return VERIFIED_AUTHORS[0]!; // Naveen Chaudhary
   }
 
   public static getDefaultReviewer(): AuthorProfile {

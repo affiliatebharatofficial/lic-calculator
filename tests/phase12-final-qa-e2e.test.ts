@@ -238,7 +238,7 @@ describe('PHASE 12 FINAL QA: Comprehensive Platform Verification', () => {
         description: 'Calculate your policy cash surrender value with verified GSV and SSV factor rules.',
         canonicalUrl: 'https://lic-calculators.com/lic-surrender-value-calculator',
         contentType: 'calculator',
-        authorId: 'rajesh-sharma',
+        authorId: 'naveen-chaudhary',
         reviewerId: 'ananya-deshmukh',
         sourceIds: ['src_lic_914_doc']
       });

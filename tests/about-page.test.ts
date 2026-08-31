@@ -35,8 +35,9 @@ describe('About Page Full Audit & E-E-A-T Compliance', () => {
 
   it('verifies verified real authors are properly defined and valid', () => {
     expect(VERIFIED_AUTHORS.length).toBeGreaterThanOrEqual(3);
-    const leadActuary = VERIFIED_AUTHORS.find((a) => a.slug === 'rajesh-sharma');
+    const leadActuary = VERIFIED_AUTHORS.find((a) => a.slug === 'naveen-chaudhary');
     expect(leadActuary).toBeDefined();
+    expect(leadActuary?.name).toBe('Naveen Chaudhary');
     expect(leadActuary?.qualifications).toContain('Fellow of Institute of Actuaries of India (FIAI)');
   });
 

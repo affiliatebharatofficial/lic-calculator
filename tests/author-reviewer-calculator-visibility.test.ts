@@ -96,9 +96,9 @@ describe('Author / Reviewer E-E-A-T Calculator Visibility Audit', () => {
 
   // 4. Author and Reviewer Data Integrity
   describe('4. Author and Reviewer Data & Social Validation', () => {
-    it('has configured default author (Rajesh Sharma, FIAI) with qualifications', () => {
+    it('has configured default author (Naveen Chaudhary) with qualifications', () => {
       const defaultAuthor = AuthorManager.getDefaultAuthor();
-      expect(defaultAuthor.name).toBe('Rajesh Sharma, FIAI');
+      expect(defaultAuthor.name).toBe('Naveen Chaudhary');
       expect(defaultAuthor.role).toBe('Chief Actuary & Author');
       expect(defaultAuthor.qualifications).toContain('Fellow of Institute of Actuaries of India (FIAI)');
       expect(defaultAuthor.experienceYears).toBeGreaterThanOrEqual(15);
