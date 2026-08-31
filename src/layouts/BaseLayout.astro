@@ -3,6 +3,7 @@ import '@/styles/global.css';
 import BaseHead from '@/components/seo/BaseHead.astro';
 import JsonLd from '@/components/seo/JsonLd.astro';
 import Header from '@/components/layout/Header.astro';
+import MobileNavigation from '@/components/layout/MobileNavigation.astro';
 import Footer from '@/components/layout/Footer.astro';
 import AIChatDrawer from '@/components/ai/AIChatDrawer.astro';
 import type { SeoMetaProps } from '@/types/seo';
@@ -62,6 +63,9 @@ const locale = explicitLocale || detectLocaleFromPath(currentPath) || DEFAULT_LO
   <body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
     <!-- Navigation Header -->
     <Header locale={locale} />
+
+    <!-- Mobile Slideover Navigation Drawer (Independent viewport fixed overlay) -->
+    <MobileNavigation locale={locale} />
 
     <!-- Main Content Area -->
     <main id="main-content" class="flex-1">

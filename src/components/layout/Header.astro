@@ -2,7 +2,6 @@
 import type { Locale } from '@/types/i18n';
 import { t, getLocalizedPath } from '@/lib/i18n';
 import LanguageSelector from './LanguageSelector.astro';
-import MobileNavigation from './MobileNavigation.astro';
 
 interface Props {
   locale?: Locale;
@@ -135,7 +134,4 @@ const isGuidesActive = currentPath.includes('/guides') || currentPath.includes('
       </div>
     </div>
   </div>
-
-  <!-- Mobile Slideover Navigation Drawer -->
-  <MobileNavigation locale={locale} />
 </header>

@@ -1,6 +1,6 @@
 ---
 import type { Locale } from '@/types/i18n';
-import { getLocalizedPath } from '@/lib/i18n';
+import { t, getLocalizedPath } from '@/lib/i18n';
 import LanguageSelector from './LanguageSelector.astro';
 
 interface Props {
@@ -10,23 +10,23 @@ interface Props {
 const { locale = 'en' } = Astro.props;
 ---
 
-<!-- Mobile Drawer Backdrop & Menu -->
+<!-- Mobile Drawer Backdrop & Menu Container (Fixed over entire screen, high z-index) -->
 <div
   id="mobile-menu-drawer"
-  class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden"
+  class="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden"
   aria-hidden="true"
 >
   <div
     id="mobile-drawer-panel"
-    class="fixed inset-y-0 right-0 w-full max-w-xs sm:max-w-sm bg-white shadow-2xl flex flex-col justify-between transform translate-x-full transition-transform duration-300 ease-out border-l border-slate-200"
+    class="fixed inset-y-0 right-0 w-full max-w-[340px] sm:max-w-sm h-full max-h-[100dvh] bg-white shadow-2xl flex flex-col justify-between transform translate-x-full transition-transform duration-300 ease-out border-l border-slate-200"
     role="dialog"
     aria-modal="true"
     aria-label="Mobile Navigation"
   >
-    <!-- Drawer Header with safe-area padding -->
-    <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/70">
+    <!-- Drawer Header -->
+    <div class="px-5 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/90 shrink-0">
       <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 rounded-xl bg-navy-800 text-white flex items-center justify-center font-bold text-sm shadow-sm border border-navy-700 relative overflow-hidden">
+        <div class="w-8 h-8 rounded-xl bg-navy-800 text-white flex items-center justify-center font-bold text-sm shadow-sm border border-navy-700 relative overflow-hidden shrink-0">
           <span class="tracking-tighter font-mono font-extrabold text-accent-400">LC</span>
           <div class="absolute bottom-0 right-0 w-1.5 h-1.5 bg-accent-500 rounded-tl-sm"></div>
         </div>
@@ -43,17 +43,17 @@ const { locale = 'en' } = Astro.props;
       <button
         type="button"
         id="mobile-menu-close-btn"
-        class="min-w-[44px] min-h-[44px] p-2.5 rounded-xl text-slate-500 hover:text-navy-900 hover:bg-slate-100 active:bg-slate-200 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent-500"
+        class="min-w-[44px] min-h-[44px] p-2 rounded-xl text-slate-500 hover:text-navy-900 hover:bg-slate-200/70 active:bg-slate-300/70 transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent-500"
         aria-label="Close navigation menu"
       >
-        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
     </div>
 
-    <!-- Drawer Navigation Content -->
-    <div class="flex-1 overflow-y-auto px-5 py-4 space-y-6">
+    <!-- Drawer Navigation Content (Scrollable) -->
+    <div class="flex-1 overflow-y-auto overscroll-contain px-5 py-4 space-y-6">
       <!-- Search Trigger in Mobile Drawer -->
       <div>
         <button
@@ -68,76 +68,100 @@ const { locale = 'en' } = Astro.props;
         </button>
       </div>
 
-      <!-- Core Calculators -->
+      <!-- Core Financial Calculators -->
       <div>
-        <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
-          Core Financial Calculators
+        <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2.5">
+          {t(locale, 'nav.calculators')}
         </h4>
         <nav class="space-y-1 text-sm font-medium">
           <a
             href={getLocalizedPath('/lic-surrender-value-calculator', locale)}
             class="flex items-center justify-between min-h-[44px] px-3.5 py-2.5 rounded-xl text-amber-950 bg-accent-50 hover:bg-accent-100 font-semibold transition-colors border border-accent-200/80"
           >
-            <span>Surrender Value</span>
+            <span>{t(locale, 'nav.surrenderCalculator')}</span>
             <span class="text-[10px] bg-accent-400 text-navy-900 font-bold px-2 py-0.5 rounded-full">Core</span>
           </a>
           <a
             href={getLocalizedPath('/lic-surrender-analysis', locale)}
             class="flex items-center justify-between min-h-[44px] px-3.5 py-2.5 rounded-xl text-navy-900 bg-slate-100 hover:bg-slate-200 font-semibold transition-colors"
           >
-            <span>3-Way Surrender Analysis</span>
-            <span class="text-[10px] bg-slate-200 text-slate-800 font-bold px-2 py-0.5 rounded-full">Decision</span>
+            <span>{t(locale, 'nav.surrenderAnalysis')}</span>
+            <span class="text-[10px] bg-slate-200 text-slate-800 font-bold px-2 py-0.5 rounded-full">3-Way</span>
           </a>
           <a
             href={getLocalizedPath('/lic-surrender-loss-calculator', locale)}
             class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
           >
-            Surrender Loss & Difference
+            {t(locale, 'nav.surrenderLoss')}
           </a>
           <a
             href={getLocalizedPath('/lic-premium-calculator', locale)}
             class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
           >
-            Premium Calculator
+            {t(locale, 'nav.premiumCalculator')}
           </a>
           <a
             href={getLocalizedPath('/lic-maturity-calculator', locale)}
             class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
           >
-            Maturity Calculator
+            {t(locale, 'nav.maturityCalculator')}
+          </a>
+          <a
+            href={getLocalizedPath('/lic-paid-up-calculator', locale)}
+            class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
+          >
+            {t(locale, 'nav.paidUpCalculator')}
+          </a>
+          <a
+            href={getLocalizedPath('/lic-return-calculator', locale)}
+            class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
+          >
+            {t(locale, 'nav.returnRoiCalculator')}
           </a>
           <a
             href={getLocalizedPath('/lic-bonus-calculator', locale)}
             class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
           >
-            Bonus Calculator
+            {t(locale, 'nav.bonusCalculator')}
           </a>
           <a
             href={getLocalizedPath('/lic-loan-calculator', locale)}
             class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
           >
-            Policy Loan Calculator
+            {t(locale, 'nav.loanCalculator')}
+          </a>
+          <a
+            href={getLocalizedPath('/lic-late-fee-calculator', locale)}
+            class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
+          >
+            {t(locale, 'nav.lateFeeCalculator')}
+          </a>
+          <a
+            href={getLocalizedPath('/lic-hlv-calculator', locale)}
+            class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors"
+          >
+            {t(locale, 'nav.hlvCalculator')}
           </a>
           <a
             href={getLocalizedPath('/calculators', locale)}
-            class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-navy-900 font-bold hover:bg-slate-100 transition-colors"
+            class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-navy-900 font-bold bg-amber-50/60 hover:bg-amber-100/80 transition-colors text-center border border-amber-200"
           >
-            View All Calculators &rarr;
+            {t(locale, 'home.exploreCalculators')} &rarr;
           </a>
         </nav>
       </div>
 
-      <!-- Resources -->
+      <!-- Resources & Plans -->
       <div>
-        <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
-          Knowledge & Reference
+        <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2.5">
+          {t(locale, 'nav.guides')}
         </h4>
         <nav class="space-y-1 text-sm font-medium">
           <a href={getLocalizedPath('/plans', locale)} class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors">
-            LIC Plans Catalog
+            {t(locale, 'nav.plans')}
           </a>
           <a href={getLocalizedPath('/guides', locale)} class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors">
-            Policy Guides & Rules
+            {t(locale, 'nav.guides')}
           </a>
           <a href={getLocalizedPath('/faq', locale)} class="block min-h-[44px] px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition-colors">
             FAQs
@@ -150,19 +174,21 @@ const { locale = 'en' } = Astro.props;
 
       <!-- Language Selector -->
       <div>
-        <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
-          Select Language
+        <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2.5">
+          Language / भाषा
         </h4>
         <LanguageSelector currentLocale={locale} />
       </div>
     </div>
 
-    <!-- Drawer Footer with safe-area spacing -->
-    <div class="p-4 border-t border-slate-200 bg-slate-50 text-xs text-slate-500 space-y-2">
-      <div class="flex items-center justify-between text-xs font-medium">
-        <a href={getLocalizedPath('/about', locale)} class="hover:underline p-1">About</a>
-        <a href={getLocalizedPath('/contact', locale)} class="hover:underline p-1">Contact</a>
-        <a href={getLocalizedPath('/disclaimer', locale)} class="text-amber-900 font-semibold hover:underline p-1">Disclaimer</a>
+    <!-- Drawer Footer -->
+    <div class="p-4 border-t border-slate-200 bg-slate-50 text-xs text-slate-500 space-y-2 shrink-0">
+      <div class="flex items-center justify-around text-xs font-medium">
+        <a href={getLocalizedPath('/about', locale)} class="hover:underline p-1.5">{t(locale, 'footer.aboutTitle')}</a>
+        <span class="text-slate-300">•</span>
+        <a href={getLocalizedPath('/contact', locale)} class="hover:underline p-1.5">Contact</a>
+        <span class="text-slate-300">•</span>
+        <a href={getLocalizedPath('/disclaimer', locale)} class="text-amber-900 font-semibold hover:underline p-1.5">{t(locale, 'footer.disclaimerPage')}</a>
       </div>
       <p class="text-[10px] text-slate-400 text-center leading-tight">
         Independent educational tools • Not affiliated with LIC of India
@@ -172,14 +198,15 @@ const { locale = 'en' } = Astro.props;
 </div>
 
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
+  function initMobileMenu() {
     const drawer = document.getElementById('mobile-menu-drawer');
     const panel = document.getElementById('mobile-drawer-panel');
     const openBtn = document.getElementById('mobile-menu-open-btn');
     const closeBtn = document.getElementById('mobile-menu-close-btn');
 
+    if (!drawer || !panel || !openBtn) return;
+
     function openDrawer() {
-      if (!drawer || !panel) return;
       drawer.classList.remove('opacity-0', 'pointer-events-none');
       panel.classList.remove('translate-x-full');
       drawer.setAttribute('aria-hidden', 'false');
@@ -188,7 +215,6 @@ const { locale = 'en' } = Astro.props;
     }
 
     function closeDrawer() {
-      if (!drawer || !panel) return;
       drawer.classList.add('opacity-0', 'pointer-events-none');
       panel.classList.add('translate-x-full');
       drawer.setAttribute('aria-hidden', 'true');
@@ -196,10 +222,19 @@ const { locale = 'en' } = Astro.props;
       document.body.style.overflow = '';
     }
 
-    openBtn?.addEventListener('click', openDrawer);
-    closeBtn?.addEventListener('click', closeDrawer);
-    drawer?.addEventListener('click', (e) => {
+    // Avoid duplicate event listeners
+    openBtn.onclick = openDrawer;
+    if (closeBtn) closeBtn.onclick = closeDrawer;
+
+    drawer.onclick = (e) => {
       if (e.target === drawer) closeDrawer();
+    };
+
+    // Close when clicking any navigation link inside the drawer
+    panel.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        closeDrawer();
+      });
     });
 
     document.addEventListener('keydown', (e) => {
@@ -207,5 +242,12 @@ const { locale = 'en' } = Astro.props;
         closeDrawer();
       }
     });
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileMenu);
+  } else {
+    initMobileMenu();
+  }
+  document.addEventListener('astro:page-load', initMobileMenu);
 </script>
