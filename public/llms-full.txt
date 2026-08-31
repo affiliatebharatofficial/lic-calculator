@@ -1,0 +1,83 @@
+# LIC Calculators — Full Documentation & Actuarial Reference
+
+> Comprehensive documentation of deterministic formulas, policy rules, surrender factor methodologies, and bonus calculation systems used across lic-calculators.com.
+
+## Table of Contents
+1. [Surrender Value & Loss Calculation Methodology](#surrender-value--loss-calculation-methodology)
+2. [Premium Calculation Engine](#premium-calculation-engine)
+3. [Maturity & Bonus Projection Engine](#maturity--bonus-projection-engine)
+4. [Policy Loan Calculation Engine](#policy-loan-calculation-engine)
+5. [Supported LIC Plans & Table Numbers](#supported-lic-plans--table-numbers)
+6. [Multilingual Localization Structure](#multilingual-localization-structure)
+
+---
+
+## Surrender Value & Loss Calculation Methodology
+
+### 1. Guaranteed Surrender Value (GSV)
+For conventional endowment and money-back plans:
+$$\text{GSV} = (\text{Total Qualifying Premiums Paid} \times \text{GSV Premium Factor}) + (\text{Total Accrued Bonuses} \times \text{GSV Bonus Factor}) - \text{Survival Benefits Paid (if any)}$$
+
+- **Minimum Eligibility:** 2 full consecutive years of premiums paid.
+- **Taxes & Riders:** GST, extra underwriting premiums, and rider premiums are excluded from qualifying premiums.
+
+### 2. Special Surrender Value (SSV)
+Actuarially determined cash value:
+$$\text{Paid-Up Sum Assured} = \text{Basic Sum Assured} \times \left(\frac{\text{Number of Premiums Paid}}{\text{Total Premium Paying Term}}\right)$$
+$$\text{SSV} = (\text{Paid-Up Sum Assured} + \text{Vested Simple Reversionary Bonuses}) \times \text{SSV Factor}$$
+
+### 3. Payable Surrender Value
+$$\text{Payable Amount} = \max(\text{GSV}, \text{SSV})$$
+
+### 4. Surrender Loss & Shortfall
+$$\text{Capital Loss} = \text{Total Premiums Paid} - \text{Payable Surrender Value}$$
+$$\text{Loss Percentage} = \left(\frac{\text{Capital Loss}}{\text{Total Premiums Paid}}\right) \times 100$$
+
+---
+
+## Premium Calculation Engine
+
+### Base Premium Formula
+$$\text{Annual Base Premium} = \left(\frac{\text{Tabular Rate per } 1000}{1000}\right) \times \text{Sum Assured}$$
+$$\text{Rebated Rate} = \text{Tabular Rate} - \text{Modal Rebate} - \text{High Sum Assured (HSA) Rebate}$$
+$$\text{Gross Installment Premium} = \text{Net Installment} \times (1 + \text{Applicable GST Rate})$$
+
+- **GST Rate:** 4.5% for Year 1; 2.25% for Year 2 onwards (traditional life insurance in India).
+
+---
+
+## Maturity & Bonus Projection Engine
+
+### Endowment Maturity Payout
+$$\text{Estimated Maturity Benefit} = \text{Basic Sum Assured} + \text{Accrued Simple Reversionary Bonuses} + \text{Final Additional Bonus (FAB)}$$
+
+- **Simple Reversionary Bonus:** Declared annually per ₹1,000 Sum Assured based on policy term.
+- **Final Additional Bonus:** One-time terminal loyalty addition declared for policies with $\ge 15\text{ years}$ duration.
+
+---
+
+## Policy Loan Calculation Engine
+
+### Loan Eligibility
+- In-force policies: Up to **90%** of the Surrender Value.
+- Paid-up policies: Up to **80%** of the Surrender Value.
+- Minimum loan threshold: ₹1,000 to ₹10,000 depending on plan table.
+
+---
+
+## Supported LIC Plans & Table Numbers
+
+| Table No. | Plan Name | Category | Min/Max Age | Policy Term |
+|---|---|---|---|---|
+| **914** | New Endowment Plan | Regular Endowment | 8 to 55 Yrs | 12 to 35 Yrs |
+| **915** | New Jeevan Anand | Endowment + Whole Life | 18 to 50 Yrs | 15 to 35 Yrs |
+| **936** | Jeevan Labh | Limited Premium Endowment | 8 to 59 Yrs | 16 to 25 Yrs |
+| **945** | Jeevan Umang | Whole Life 8% Survival | 0 to 55 Yrs | 15 to 30 Yrs |
+| **855** | Tech Term | Pure Term Insurance | 18 to 65 Yrs | 10 to 40 Yrs |
+| **857** | Saral Pension | Immediate Annuity | 40 to 80 Yrs | Single Premium |
+
+---
+
+## Platform Notice & Disclaimers
+
+lic-calculators.com is an independent informational and calculation portal developed for educational financial planning. It is NOT affiliated with, authorized by, or endorsed by Life Insurance Corporation of India (LIC).

@@ -1,0 +1,46 @@
+# LIC Calculators — Independent Financial & Actuarial Tools
+
+> lic-calculators.com is an independent informational and calculation portal for Life Insurance Corporation of India (LIC) policies. It provides deterministic, transparent, and accurate tools to estimate surrender values, calculate financial loss on early termination, evaluate 3-way surrender vs. paid-up vs. continuing decisions, compute premiums, project maturity amounts with reversionary and final additional bonuses, and calculate policy loan eligibility.
+
+## Core Calculators
+
+- [LIC Surrender Value Calculator](https://lic-calculators.com/lic-surrender-value-calculator): Calculate Guaranteed Surrender Value (GSV) and Special Surrender Value (SSV) for traditional endowment and money back plans.
+- [LIC 3-Way Surrender Analysis](https://lic-calculators.com/lic-surrender-analysis): Compare the financial impact of Surrendering early vs. converting to Paid-Up vs. Continuing the policy.
+- [LIC Surrender Loss Calculator](https://lic-calculators.com/lic-surrender-loss-calculator): Calculate exact monetary loss and capital shortfall percentage upon early surrender.
+- [LIC Premium Calculator](https://lic-calculators.com/lic-premium-calculator): Estimate yearly, half-yearly, quarterly, and monthly premiums with modal and high sum assured rebates (Tables 914, 915, 936, 945).
+- [LIC Maturity Calculator](https://lic-calculators.com/lic-maturity-calculator): Project total maturity returns combining Sum Assured + Simple Reversionary Bonuses + Final Additional Bonus (FAB).
+- [LIC Bonus Calculator](https://lic-calculators.com/lic-bonus-calculator): Calculate simple reversionary bonus additions per ₹1,000 sum assured across term durations.
+- [LIC Policy Loan Calculator](https://lic-calculators.com/lic-loan-calculator): Estimate eligible policy loan amounts (up to 90% of surrender value) and interest costs.
+- [LIC Term Insurance Calculator](https://lic-calculators.com/lic-term-insurance-calculator): Estimate pure term insurance life cover costs for Table 855 Tech Term.
+- [LIC Pension & Annuity Calculator](https://lic-calculators.com/lic-pension-calculator): Calculate immediate annuity pension payouts for Table 857 Saral Pension.
+
+## Popular LIC Plans Catalog
+
+- [Table 914 - New Endowment Plan](https://lic-calculators.com/lic-plans/914-new-endowment-plan): Regular premium participating endowment assurance policy.
+- [Table 915 - New Jeevan Anand](https://lic-calculators.com/lic-plans/915-new-jeevan-anand): Double death benefit endowment + whole life cover.
+- [Table 936 - Jeevan Labh](https://lic-calculators.com/lic-plans/936-jeevan-labh): Limited premium paying endowment plan with high bonus rates.
+- [Table 945 - Jeevan Umang](https://lic-calculators.com/lic-plans/945-jeevan-umang): 8% annual guaranteed survival benefit for life post-PPT.
+- [Table 855 - Tech Term](https://lic-calculators.com/lic-term-insurance-calculator): Pure term protection policy.
+- [Table 857 - Saral Pension](https://lic-calculators.com/lic-pension-calculator): Single premium immediate annuity pension plan.
+
+## Guides & Actuarial Knowledge Base
+
+- [What is LIC Surrender Value?](https://lic-calculators.com/guides/what-is-lic-surrender-value): Complete guide on how GSV and SSV factors are computed.
+- [Paid-Up Policy vs. Surrender](https://lic-calculators.com/guides/lic-paid-up-vs-surrender): Detailed comparison explaining how making a policy paid-up protects invested capital.
+- [How LIC Bonus is Calculated](https://lic-calculators.com/guides/how-lic-bonus-is-calculated): Breakdown of Simple Reversionary Bonus, Loyalty Additions, and FAB.
+- [LIC Policy Loan Rules & Interest](https://lic-calculators.com/guides/lic-policy-loan-rules): Requirements, interest rates, and loan foreclosure rules.
+
+## Multilingual Support
+
+The portal supports 7 Indian languages with localized calculations, terminology, and content:
+- [English (Default)](https://lic-calculators.com/)
+- [हिन्दी (Hindi)](https://lic-calculators.com/hi/)
+- [मराठी (Marathi)](https://lic-calculators.com/mr/)
+- [ગુજરાતી (Gujarati)](https://lic-calculators.com/gu/)
+- [বাংলা (Bengali)](https://lic-calculators.com/bn/)
+- [தமிழ் (Tamil)](https://lic-calculators.com/ta/)
+- [తెలుగు (Telugu)](https://lic-calculators.com/te/)
+
+## Platform Independence & Legal Notice
+
+lic-calculators.com is an independent informational and calculation platform developed for educational financial planning. It is NOT affiliated with, authorized by, or endorsed by the Life Insurance Corporation of India (LIC). Official policy servicing is available at licindia.in.
