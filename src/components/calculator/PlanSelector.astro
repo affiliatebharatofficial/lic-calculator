@@ -21,9 +21,9 @@ const {
 
 const plans = [
   { tableNo: 914, name: 'LIC New Endowment Plan (Table 914)', status: 'verified', badge: 'Verified Rule Data' },
-  { tableNo: 915, name: 'LIC New Jeevan Anand (Table 915)', status: 'pending', badge: 'Pending Verification' },
-  { tableNo: 936, name: 'LIC Jeevan Labh (Table 936)', status: 'pending', badge: 'Pending Verification' },
-  { tableNo: 945, name: 'LIC Jeevan Umang (Table 945)', status: 'pending', badge: 'Pending Verification' }
+  { tableNo: 915, name: 'LIC New Jeevan Anand (Table 915)', status: 'verified', badge: 'Verified Rule Data' },
+  { tableNo: 936, name: 'LIC Jeevan Labh (Table 936)', status: 'verified', badge: 'Verified Rule Data' },
+  { tableNo: 945, name: 'LIC Jeevan Umang (Table 945)', status: 'verified', badge: 'Verified Rule Data' }
 ];
 ---
 
@@ -51,7 +51,7 @@ const plans = [
           value={p.tableNo}
           selected={String(p.tableNo) === String(defaultValue)}
         >
-          {p.name} {p.status === 'verified' ? '✓' : '(Pending Verification)'}
+          {p.name}
         </option>
       ))}
     </select>

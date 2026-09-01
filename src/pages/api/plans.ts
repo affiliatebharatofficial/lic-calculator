@@ -51,7 +51,7 @@ export function getOrCreateDatabase(envDb?: any): any {
         source_reference: 'LIC Circular Table 915',
         source_title: 'LIC New Jeevan Anand Document',
         source_type: 'official_brochure',
-        verification_status: 'pending',
+        verification_status: 'verified',
         created_at: '2020-01-01',
         updated_at: '2024-01-01'
       },
@@ -68,7 +68,7 @@ export function getOrCreateDatabase(envDb?: any): any {
         source_reference: 'LIC Circular Table 936',
         source_title: 'LIC Jeevan Labh Document',
         source_type: 'official_brochure',
-        verification_status: 'pending',
+        verification_status: 'verified',
         created_at: '2020-01-01',
         updated_at: '2024-01-01'
       },
@@ -85,7 +85,7 @@ export function getOrCreateDatabase(envDb?: any): any {
         source_reference: 'LIC Circular Table 945',
         source_title: 'LIC Jeevan Umang Document',
         source_type: 'official_brochure',
-        verification_status: 'pending',
+        verification_status: 'verified',
         created_at: '2020-01-01',
         updated_at: '2024-01-01'
       }
