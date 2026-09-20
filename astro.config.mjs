@@ -24,6 +24,22 @@ export default defineConfig({
       filter: (page) => !page.includes('/api/') && !page.includes('/admin/')
     })
   ],
+  redirects: {
+    '/author/rajesh-sharma': '/author/naveen-chaudhary/',
+    '/author/rajesh-sharma/': '/author/naveen-chaudhary/',
+    '/hi/author/rajesh-sharma': '/hi/author/naveen-chaudhary/',
+    '/hi/author/rajesh-sharma/': '/hi/author/naveen-chaudhary/',
+    '/mr/author/rajesh-sharma': '/mr/author/naveen-chaudhary/',
+    '/mr/author/rajesh-sharma/': '/mr/author/naveen-chaudhary/',
+    '/gu/author/rajesh-sharma': '/gu/author/naveen-chaudhary/',
+    '/gu/author/rajesh-sharma/': '/gu/author/naveen-chaudhary/',
+    '/bn/author/rajesh-sharma': '/bn/author/naveen-chaudhary/',
+    '/bn/author/rajesh-sharma/': '/bn/author/naveen-chaudhary/',
+    '/ta/author/rajesh-sharma': '/ta/author/naveen-chaudhary/',
+    '/ta/author/rajesh-sharma/': '/ta/author/naveen-chaudhary/',
+    '/te/author/rajesh-sharma': '/te/author/naveen-chaudhary/',
+    '/te/author/rajesh-sharma/': '/te/author/naveen-chaudhary/'
+  },
   vite: {
     ssr: {
       noExternal: ['clsx', 'tailwind-merge']
