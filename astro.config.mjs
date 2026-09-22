@@ -35,6 +35,7 @@ export default defineConfig({
   },
   vite: {
     ssr: {
+      external: ['node:crypto', 'node:fs/promises', 'node:path', 'node:url'],
       noExternal: ['clsx', 'tailwind-merge']
     }
   }
