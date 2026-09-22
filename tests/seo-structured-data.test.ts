@@ -17,9 +17,8 @@ describe('Schema.org JSON-LD Structured Data Generators', () => {
     expect((schema.offers as any).priceCurrency).toBe('INR');
   });
 
-  it('generates Article schema with Author and Reviewer credentials', () => {
+  it('generates Article schema with Author data', () => {
     const author = AuthorManager.getDefaultAuthor();
-    const reviewer = AuthorManager.getDefaultReviewer();
 
     const schema = StructuredDataGenerator.generateArticle({
       headline: 'What is LIC Surrender Value? Complete Guide',
@@ -27,14 +26,14 @@ describe('Schema.org JSON-LD Structured Data Generators', () => {
       url: 'https://lic-calculators.com/guides/what-is-lic-surrender-value',
       publishedDate: '2026-01-05T00:00:00Z',
       modifiedDate: '2026-01-20T00:00:00Z',
-      author,
-      reviewer
+      author
     });
 
     expect(schema['@type']).toBe('Article');
-    expect((schema.author as any).name).toBe('Naveen Chaudhary');
-    expect((schema.author as any).jobTitle).toBe(author.title);
-    expect((schema.reviewedBy as any).name).toBe('Ananya Deshmukh, CFA');
+    expect((schema.author as any).name).toBe('Firoz Khan');
+    expect((schema.author as any).jobTitle).toBe('Founder & Publisher');
+    expect((schema.author as any).sameAs).toContain('https://www.linkedin.com/in/firoz-khan-1153358a/');
+    expect((schema.author as any).sameAs).toContain('https://www.instagram.com/rtibyfiroz/');
   });
 
   it('generates Person schema for author profile pages', () => {
@@ -42,9 +41,10 @@ describe('Schema.org JSON-LD Structured Data Generators', () => {
     const schema = StructuredDataGenerator.generatePerson(author);
 
     expect(schema['@type']).toBe('Person');
-    expect(schema.name).toBe(author.name);
-    expect(Array.isArray(schema.knowsAbout)).toBe(true);
-    expect((schema.sameAs as string[])[0]).toContain('linkedin.com');
+    expect(schema.name).toBe('Firoz Khan');
+    expect(schema.jobTitle).toBe('Founder & Publisher');
+    expect(schema.sameAs).toContain('https://www.linkedin.com/in/firoz-khan-1153358a/');
+    expect(schema.sameAs).toContain('https://www.instagram.com/rtibyfiroz/');
   });
 
   it('generates BreadcrumbList schema matching site hierarchy', () => {

@@ -67,7 +67,11 @@ export class StructuredDataGenerator {
         '@type': 'Person',
         name: params.author.name,
         jobTitle: params.author.title,
-        url: `${SITE_URL}/author/${params.author.slug}`
+        url: `${SITE_URL}/author/${params.author.slug}`,
+        sameAs: [
+          params.author.socialLinks.linkedin,
+          params.author.socialLinks.instagram
+        ].filter(Boolean) as string[]
       },
       publisher: {
         '@type': 'Organization',
@@ -93,12 +97,12 @@ export class StructuredDataGenerator {
   }
 
   /**
-   * Generates Person schema for author and reviewer profile pages.
+   * Generates Person schema for author profile pages.
    */
   public static generatePerson(author: AuthorProfile): Record<string, unknown> {
     const sameAs: string[] = [];
     if (author.socialLinks.linkedin) sameAs.push(author.socialLinks.linkedin);
-    if (author.socialLinks.x) sameAs.push(author.socialLinks.x);
+    if (author.socialLinks.instagram) sameAs.push(author.socialLinks.instagram);
     if (author.socialLinks.website) sameAs.push(author.socialLinks.website);
 
     return {
@@ -108,8 +112,7 @@ export class StructuredDataGenerator {
       jobTitle: author.title,
       description: author.biography,
       url: `${SITE_URL}/author/${author.slug}`,
-      image: `${SITE_URL}${author.photoUrl}`,
-      knowsAbout: author.expertiseAreas,
+      image: author.photoUrl ? `${SITE_URL}${author.photoUrl}` : undefined,
       sameAs: sameAs.length > 0 ? sameAs : undefined
     };
   }

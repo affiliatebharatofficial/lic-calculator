@@ -33,12 +33,14 @@ describe('About Page Full Audit & E-E-A-T Compliance', () => {
     expect(fullText).toContain('IRDAI Master Circulars');
   });
 
-  it('verifies verified real authors are properly defined and valid', () => {
-    expect(VERIFIED_AUTHORS.length).toBeGreaterThanOrEqual(3);
-    const leadActuary = VERIFIED_AUTHORS.find((a) => a.slug === 'naveen-chaudhary');
-    expect(leadActuary).toBeDefined();
-    expect(leadActuary?.name).toBe('Naveen Chaudhary');
-    expect(leadActuary?.qualifications).toContain('Fellow of Institute of Actuaries of India (FIAI)');
+  it('verifies verified real author is properly defined and valid', () => {
+    expect(VERIFIED_AUTHORS.length).toBe(1);
+    const founder = VERIFIED_AUTHORS.find((a) => a.slug === 'firoz-khan');
+    expect(founder).toBeDefined();
+    expect(founder?.name).toBe('Firoz Khan');
+    expect(founder?.role).toBe('Founder & Publisher');
+    expect(founder?.socialLinks.linkedin).toBe('https://www.linkedin.com/in/firoz-khan-1153358a/');
+    expect(founder?.socialLinks.instagram).toBe('https://www.instagram.com/rtibyfiroz/');
   });
 
   it('contains valid internal navigation links in related links box', () => {

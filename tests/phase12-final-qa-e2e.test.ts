@@ -222,12 +222,16 @@ describe('PHASE 12 FINAL QA: Comprehensive Platform Verification', () => {
       }
     });
 
-    it('verified author profiles have sanitized social URLs', () => {
+    it('verified author profiles have sanitized social URLs and valid identity', () => {
       for (const author of VERIFIED_AUTHORS) {
         expect(author.name).toBeDefined();
-        expect(author.qualifications.length).toBeGreaterThan(0);
+        expect(author.role).toBeDefined();
+        expect(author.biography).toBeDefined();
         if (author.socialLinks.linkedin) {
           expect(AuthorManager.isValidSocialUrl(author.socialLinks.linkedin)).toBe(true);
+        }
+        if (author.socialLinks.instagram) {
+          expect(AuthorManager.isValidSocialUrl(author.socialLinks.instagram)).toBe(true);
         }
       }
     });
@@ -238,8 +242,7 @@ describe('PHASE 12 FINAL QA: Comprehensive Platform Verification', () => {
         description: 'Calculate your policy cash surrender value with verified GSV and SSV factor rules.',
         canonicalUrl: 'https://lic-calculators.com/lic-surrender-value-calculator',
         contentType: 'calculator',
-        authorId: 'naveen-chaudhary',
-        reviewerId: 'ananya-deshmukh',
+        authorId: 'firoz-khan',
         sourceIds: ['src_lic_914_doc']
       });
       expect(pass.passed).toBe(true);

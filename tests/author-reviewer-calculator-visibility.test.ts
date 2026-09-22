@@ -54,9 +54,9 @@ describe('Author / Reviewer E-E-A-T Calculator Visibility Audit', () => {
     const cardPath = resolve(rootDir, 'src/components/editorial/AuthorReviewerCard.astro');
     const cardContent = readFileSync(cardPath, 'utf-8');
 
-    it('renders Editorial & Actuarial Trust header with Peer Reviewed badge', () => {
-      expect(cardContent).toContain('Editorial & Actuarial Trust');
-      expect(cardContent).toContain('Peer Reviewed');
+    it('renders Editorial Transparency header with Verified Publisher badge', () => {
+      expect(cardContent).toContain('Editorial Transparency & Author');
+      expect(cardContent).toContain('Verified Publisher');
       expect(cardContent).toContain('Last reviewed:');
     });
 
@@ -65,9 +65,8 @@ describe('Author / Reviewer E-E-A-T Calculator Visibility Audit', () => {
       expect(cardContent).toContain('loading="lazy"');
     });
 
-    it('links author and reviewer names to author profile pages', () => {
+    it('links author name to author profile page', () => {
       expect(cardContent).toContain('author.slug');
-      expect(cardContent).toContain('reviewer.slug');
     });
 
     it('renders verified sources and regulatory reference items', () => {
@@ -96,19 +95,17 @@ describe('Author / Reviewer E-E-A-T Calculator Visibility Audit', () => {
 
   // 4. Author and Reviewer Data Integrity
   describe('4. Author and Reviewer Data & Social Validation', () => {
-    it('has configured default author (Naveen Chaudhary) with qualifications', () => {
+    it('has configured default author (Firoz Khan) with genuine role', () => {
       const defaultAuthor = AuthorManager.getDefaultAuthor();
-      expect(defaultAuthor.name).toBe('Naveen Chaudhary');
-      expect(defaultAuthor.role).toBe('Chief Actuary & Author');
-      expect(defaultAuthor.qualifications).toContain('Fellow of Institute of Actuaries of India (FIAI)');
-      expect(defaultAuthor.experienceYears).toBeGreaterThanOrEqual(15);
+      expect(defaultAuthor.name).toBe('Firoz Khan');
+      expect(defaultAuthor.role).toBe('Founder & Publisher');
+      expect(defaultAuthor.socialLinks.linkedin).toBe('https://www.linkedin.com/in/firoz-khan-1153358a/');
+      expect(defaultAuthor.socialLinks.instagram).toBe('https://www.instagram.com/rtibyfiroz/');
     });
 
-    it('has configured default reviewer (Ananya Deshmukh, CFA) with credentials', () => {
+    it('has default reviewer as undefined to prevent fabricated claims', () => {
       const defaultReviewer = AuthorManager.getDefaultReviewer();
-      expect(defaultReviewer.name).toBe('Ananya Deshmukh, CFA');
-      expect(defaultReviewer.isReviewer).toBe(true);
-      expect(defaultReviewer.qualifications).toContain('Chartered Financial Analyst (CFA Charterholder)');
+      expect(defaultReviewer).toBeUndefined();
     });
 
     it('sanitizes social links to reject non-http or javascript protocols', () => {

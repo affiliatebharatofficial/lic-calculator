@@ -4,26 +4,23 @@
 
 export interface AuthorSocialLinks {
   readonly linkedin?: string;
+  readonly instagram?: string;
+  readonly website?: string;
   readonly x?: string;
   readonly facebook?: string;
-  readonly instagram?: string;
   readonly youtube?: string;
-  readonly website?: string;
 }
 
 export interface AuthorProfile {
   readonly slug: string;
   readonly name: string;
   readonly title: string;
-  readonly role: 'Chief Actuary & Author' | 'Senior Financial Planner & Reviewer' | 'Insurance Claims & Policy Reviewer';
+  readonly role: string;
   readonly biography: string;
-  readonly qualifications: readonly string[];
-  readonly experienceYears: number;
-  readonly expertiseAreas: readonly string[];
-  readonly photoUrl: string;
+  readonly photoUrl?: string;
   readonly socialLinks: AuthorSocialLinks;
-  readonly isReviewer: boolean;
-  readonly isFactChecker: boolean;
+  readonly isReviewer?: boolean;
+  readonly isFactChecker?: boolean;
   readonly updatedAt: string;
 }
 

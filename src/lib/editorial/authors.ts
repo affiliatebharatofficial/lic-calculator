@@ -6,82 +6,19 @@ import type { AuthorProfile, AuthorSocialLinks } from './types';
 
 export const VERIFIED_AUTHORS: readonly AuthorProfile[] = [
   {
-    slug: 'naveen-chaudhary',
-    name: 'Naveen Chaudhary',
-    title: 'Lead Actuarial Researcher & Financial Architect',
-    role: 'Chief Actuary & Author',
-    biography: 'Naveen has extensive experience in actuarial and insurance mathematical modeling for Indian life insurance products, statutory valuation schedules, and surrender value factor matrices.',
-    qualifications: [
-      'Fellow of Institute of Actuaries of India (FIAI)',
-      'M.Sc. Actuarial Science',
-      'Certified Financial Risk Manager (FRM)'
-    ],
-    experienceYears: 16,
-    expertiseAreas: [
-      'LIC Surrender Factor Valuation',
-      'Actuarial Reserve & Bonus Computation',
-      'Endowment & Money Back Plans',
-      'Policy Loan LTV Models'
-    ],
-    photoUrl: '/images/authors/naveen-chaudhary.jpg',
+    slug: 'firoz-khan',
+    name: 'Firoz Khan',
+    title: 'Founder & Publisher',
+    role: 'Founder & Publisher',
+    biography: 'Firoz Khan is the founder and publisher of LIC Calculators, an independent platform that develops online financial and policy-related calculator tools designed to help users understand calculations more easily.',
+    photoUrl: '/images/authors/firoz-khan.jpg',
     socialLinks: {
-      linkedin: 'https://www.linkedin.com/in/naveen-chaudhary-064677156/',
-      website: 'https://lic-calculators.com/author/naveen-chaudhary'
+      linkedin: 'https://www.linkedin.com/in/firoz-khan-1153358a/',
+      instagram: 'https://www.instagram.com/rtibyfiroz/'
     },
-    isReviewer: true,
-    isFactChecker: true,
-    updatedAt: '2026-01-15T00:00:00Z'
-  },
-  {
-    slug: 'ananya-deshmukh',
-    name: 'Ananya Deshmukh, CFA',
-    title: 'Senior Financial Planner & Insurance Reviewer',
-    role: 'Senior Financial Planner & Reviewer',
-    biography: 'Ananya specializes in retail wealth management, life insurance portfolio optimization, and comparing traditional endowment returns versus term insurance + mutual fund benchmarks.',
-    qualifications: [
-      'Chartered Financial Analyst (CFA Charterholder)',
-      'Certified Financial Planner (CFP)',
-      'MBA in Finance'
-    ],
-    experienceYears: 12,
-    expertiseAreas: [
-      'Policy Surrender vs. Paid-Up Decision Analysis',
-      'Opportunity Cost of Early Surrender',
-      'Retirement & Annuity Evaluation (Saral Pension)'
-    ],
-    photoUrl: '/images/authors/ananya-deshmukh.jpg',
-    socialLinks: {
-      linkedin: 'https://www.linkedin.com/in/ananya-deshmukh-cfa',
-      x: 'https://x.com/ananya_finance'
-    },
-    isReviewer: true,
+    isReviewer: false,
     isFactChecker: false,
-    updatedAt: '2026-01-18T00:00:00Z'
-  },
-  {
-    slug: 'vikram-sen',
-    name: 'Vikram Sen',
-    title: 'Insurance Regulatory & Policy Document Specialist',
-    role: 'Insurance Claims & Policy Reviewer',
-    biography: 'Vikram is an independent insurance researcher who tracks IRDAI regulatory updates, master circulars, and official LIC product brochures to ensure all calculation formulas remain strictly compliant with latest guidelines.',
-    qualifications: [
-      'Licentiate & Associate of Insurance Institute of India (AIII)',
-      'LL.B. (Insurance & Commercial Law)'
-    ],
-    experienceYears: 14,
-    expertiseAreas: [
-      'IRDAI Master Circular Compliance',
-      'Policy Terms & Condition Vetting',
-      'Death Benefit & Paid-Up Provisions'
-    ],
-    photoUrl: '/images/authors/vikram-sen.jpg',
-    socialLinks: {
-      linkedin: 'https://www.linkedin.com/in/vikram-sen-insurance',
-      website: 'https://lic-calculators.com/author/vikram-sen'
-    },
-    isReviewer: true,
-    isFactChecker: true,
-    updatedAt: '2026-01-20T00:00:00Z'
+    updatedAt: '2026-02-01T00:00:00Z'
   }
 ];
 
@@ -105,7 +42,7 @@ export class AuthorManager {
   public static sanitizeSocialLinks(links: AuthorSocialLinks): AuthorSocialLinks {
     const sanitized: Record<string, string> = {};
     for (const [key, val] of Object.entries(links)) {
-      if (this.isValidSocialUrl(val)) {
+      if (val && this.isValidSocialUrl(val)) {
         sanitized[key] = val;
       }
     }
@@ -117,10 +54,10 @@ export class AuthorManager {
   }
 
   public static getDefaultAuthor(): AuthorProfile {
-    return VERIFIED_AUTHORS[0]!; // Naveen Chaudhary
+    return VERIFIED_AUTHORS[0]!; // Firoz Khan
   }
 
-  public static getDefaultReviewer(): AuthorProfile {
-    return VERIFIED_AUTHORS[1]!; // Ananya Deshmukh
+  public static getDefaultReviewer(): AuthorProfile | undefined {
+    return undefined; // No fictional reviewer
   }
 }

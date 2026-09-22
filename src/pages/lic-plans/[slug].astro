@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
 import ContextualLinks from '@/components/seo/ContextualLinks.astro';
 import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
 
 export const VERIFIED_PLANS = [
   {
@@ -112,23 +113,7 @@ const articleSchema = StructuredDataGenerator.generateArticle({
   url: `${siteUrl}/lic-plans/${plan.slug}`,
   publishedDate: '2026-01-01T00:00:00Z',
   modifiedDate: '2026-01-20T00:00:00Z',
-  author: {
-    slug: 'naveen-chaudhary',
-    name: 'Naveen Chaudhary',
-    title: 'Lead Actuarial Researcher',
-    role: 'Chief Actuary & Author',
-    biography: 'Actuarial researcher specializing in LIC valuation.',
-    qualifications: ['FIAI'],
-    experienceYears: 16,
-    expertiseAreas: ['LIC Valuation'],
-    photoUrl: '/images/authors/naveen-chaudhary.jpg',
-    socialLinks: {
-      linkedin: 'https://www.linkedin.com/in/naveen-chaudhary-064677156/'
-    },
-    isReviewer: true,
-    isFactChecker: true,
-    updatedAt: '2026-01-01'
-  }
+  author: AuthorManager.getDefaultAuthor()
 });
 ---
 

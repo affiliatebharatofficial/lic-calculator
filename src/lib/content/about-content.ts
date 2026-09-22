@@ -137,8 +137,8 @@ export const ABOUT_CONTENT: Record<Locale, AboutPageData> = {
         ]
       }
     ],
-    editorialHeading: 'Editorial Standards & Peer Review Process',
-    editorialSubtext: 'Our calculation methodologies and informational guides are authored, peer-reviewed, and fact-checked by experienced actuarial researchers and financial professionals.',
+    editorialHeading: 'About the Founder & Publisher',
+    editorialSubtext: 'lic-calculators.com is founded and published by Firoz Khan as an independent platform dedicated to mathematical clarity, transparent formulas, and accessible financial tools for policyholders.',
     relatedLinksHeading: 'Related Legal & Platform Resources',
     relatedLinks: [
       { label: 'All Financial Calculators', url: '/calculators/', description: 'Explore our complete suite of 16 independent LIC calculators.' },
@@ -212,8 +212,8 @@ export const ABOUT_CONTENT: Record<Locale, AboutPageData> = {
         ]
       }
     ],
-    editorialHeading: 'संपादकीय मानक और विशेषज्ञ समीक्षा',
-    editorialSubtext: 'हमारी सभी गणना विधियां और गाइड योग्य बीमा व वित्तीय विशेषज्ञों द्वारा सत्यापित की जाती हैं।',
+    editorialHeading: 'संस्थापक और प्रकाशक (Founder & Publisher)',
+    editorialSubtext: 'lic-calculators.com की स्थापना फिरोज खान (Firoz Khan) द्वारा की गई है ताकि पॉलिसीधारकों को पारदर्शी, निष्पक्ष और समझने में आसान वित्तीय कैलकुलेटर उपलब्ध कराए जा सकें।',
     relatedLinksHeading: 'संबंधित कानूनी व वित्तीय संसाधन',
     relatedLinks: [
       { label: 'सभी वित्तीय कैलकुलेटर', url: '/calculators/', description: 'हमारे सभी 16 स्वतंत्र कैलकुलेटर एक्सप्लोर करें।' },
@@ -269,8 +269,8 @@ export const ABOUT_CONTENT: Record<Locale, AboutPageData> = {
         ]
       }
     ],
-    editorialHeading: 'संपादकीय कार्यपद्धती',
-    editorialSubtext: 'आमची माहिती विमा तज्ज्ञांद्वारे तपासली जाते.',
+    editorialHeading: 'संस्थापक आणि प्रकाशक (Founder & Publisher)',
+    editorialSubtext: 'lic-calculators.com चे संस्थापक फिरोज खान (Firoz Khan) असून पॉलिसीधारकांना पारदर्शक आणि सुलभ कॅल्क्युलेटर उपलब्ध करून देणे हा या व्यासपीठाचा उद्देश आहे.',
     relatedLinksHeading: 'संबंधित संसाधने',
     relatedLinks: [
       { label: 'सर्व कॅल्क्युलेटर', url: '/calculators/', description: 'आमचे सर्व १६ कॅल्क्युलेटर एक्सप्लोर करा.' },
@@ -326,8 +326,8 @@ export const ABOUT_CONTENT: Record<Locale, AboutPageData> = {
         ]
       }
     ],
-    editorialHeading: 'સંપાદકીય ધોરણો',
-    editorialSubtext: 'અમારી સામગ્રી નાણાકીય નિષ્ણાતો દ્વારા ચકાસાયેલ છે.',
+    editorialHeading: 'સ્થાપક અને પ્રકાશક (Founder & Publisher)',
+    editorialSubtext: 'lic-calculators.com ની સ્થાપના ફિરોઝ ખાન (Firoz Khan) દ્વારા કરવામાં આવી છે જેથી પોલિસીધારકોને સરળ, પારદર્શક અને સચોટ કેલ્ક્યુલેટર સાધનો મળી રહે.',
     relatedLinksHeading: 'સંબંધિત કાનૂની સંસાધનો',
     relatedLinks: [
       { label: 'બધા કેલ્ક્યુલેટર', url: '/calculators/', description: 'તમામ ૧૬ કેલ્ક્યુલેટર જુઓ.' },
@@ -383,8 +383,8 @@ export const ABOUT_CONTENT: Record<Locale, AboutPageData> = {
         ]
       }
     ],
-    editorialHeading: 'সম্পাদকীয় পর্যালোচনা',
-    editorialSubtext: 'আমাদের তথ্য বীমা ও আর্থিক বিশেষজ্ঞদের দ্বারা যাচাইকৃত।',
+    editorialHeading: 'প্রতিষ্ঠাতা ও প্রকাশক (Founder & Publisher)',
+    editorialSubtext: 'lic-calculators.com এর প্রতিষ্ঠাতা ও প্রকাশক ফিরোজ খান (Firoz Khan), যিনি পলিসিহোল্ডারদের জন্য সহজে বোধগম্য ও স্বচ্ছ ক্যালকুলেটর প্ল্যাটফর্ম হিসেবে এটি পরিচালনা করেন।',
     relatedLinksHeading: 'সম্পর্কিত আইনি তথ্য',
     relatedLinks: [
       { label: 'সকল ক্যালকুলেটর', url: '/calculators/', description: 'আমাদের ১৬টি বীমা ক্যালকুলেটর দেখুন।' },
@@ -440,8 +440,8 @@ export const ABOUT_CONTENT: Record<Locale, AboutPageData> = {
         ]
       }
     ],
-    editorialHeading: 'தலையங்க மதிப்பாய்வு',
-    editorialSubtext: 'எங்கள் உள்ளடக்கம் நிதி நிபுணர்களால் மதிப்பாய்வு செய்யப்படுகிறது.',
+    editorialHeading: 'நிறுவனர் மற்றும் வெளியீட்டாளர் (Founder & Publisher)',
+    editorialSubtext: 'lic-calculators.com பெரோஸ் கான் (Firoz Khan) அவர்களால் நிறுவப்பட்டு வெளியிடப்படுகிறது, இது பாலிசிதாரர்களுக்கான சுயாதீன கணக்கீட்டு தளமாகும்.',
     relatedLinksHeading: 'தொடர்புடைய சட்ட வளங்கள்',
     relatedLinks: [
       { label: 'அனைத்து கால்குலேட்டர்கள்', url: '/calculators/', description: 'எங்கள் 16 கால்குலேட்டர்களை ஆராயுங்கள்.' },
@@ -497,8 +497,8 @@ export const ABOUT_CONTENT: Record<Locale, AboutPageData> = {
         ]
       }
     ],
-    editorialHeading: 'సంపాదకీయ సమీక్ష ప్రక్రియ',
-    editorialSubtext: 'మా కంటెంట్ ఆర్థిక నిపుణులచే ధృవీకరించబడింది.',
+    editorialHeading: 'వ్యవస్థాపకుడు మరియు ప్రచురణకర్త (Founder & Publisher)',
+    editorialSubtext: 'lic-calculators.com ఫిరోజ్ ఖాన్ (Firoz Khan) చేత స్థాపించబడింది మరియు ప్రచురించబడింది, ఇది పాలసీదారులకు సులభమైన మరియు పారదర్శక గణన సాధనాలను అందిస్తుంది.',
     relatedLinksHeading: 'సంబంధిత చట్టపరమైన వనరులు',
     relatedLinks: [
       { label: 'అన్ని కాలిక్యులేటర్లు', url: '/calculators/', description: 'మా 16 కాలిక్యులేటర్లను చూడండి.' },

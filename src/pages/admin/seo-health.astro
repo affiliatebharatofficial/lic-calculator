@@ -195,15 +195,15 @@ const schemaTypes = [
     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 space-y-4 shadow-sm">
       <div class="flex items-center justify-between border-b border-slate-800 pb-3">
         <div>
-          <h3 class="text-base font-bold text-white tracking-tight">Verified E-E-A-T Editorial Team</h3>
-          <p class="text-xs text-slate-400">Actuarial reviewers and financial analysts responsible for calculation accuracy.</p>
+          <h3 class="text-base font-bold text-white tracking-tight">Verified E-E-A-T Publisher & Author</h3>
+          <p class="text-xs text-slate-400">Website founder and publisher responsible for calculation tool transparency.</p>
         </div>
         <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">
-          3 Certified Reviewers
+          1 Active Author
         </span>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 gap-4">
         {
           VERIFIED_AUTHORS.map((author) => (
             <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3 flex flex-col justify-between">
@@ -218,15 +218,10 @@ const schemaTypes = [
                   </div>
                 </div>
                 <p class="text-slate-400 text-[11px] line-clamp-2 leading-relaxed">{author.biography}</p>
-                <div class="flex flex-wrap gap-1 pt-1">
-                  {author.qualifications?.map((q) => (
-                    <span class="text-[9px] bg-slate-900 text-slate-300 border border-slate-800 px-1.5 py-0.5 rounded font-mono">{q}</span>
-                  ))}
-                </div>
               </div>
               <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
                 <span class="text-slate-500 font-mono">Slug: {author.slug}</span>
-                <span class="text-emerald-400 font-semibold">Active Reviewer</span>
+                <span class="text-emerald-400 font-semibold">Verified Author</span>
               </div>
             </div>
           ))
