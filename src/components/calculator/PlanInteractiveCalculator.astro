@@ -1,0 +1,455 @@
+---
+import type { CompletePlanData } from '@/lib/content/plan-data';
+import type { Locale } from '@/types/i18n';
+
+interface Props {
+  plan: CompletePlanData;
+  locale?: Locale;
+}
+
+const { plan, locale = 'en' } = Astro.props;
+---
+
+<div class="bg-white rounded-3xl border border-slate-200/90 shadow-card p-6 sm:p-8 space-y-8" id="plan-calculator-hub">
+  <div class="border-b border-slate-100 pb-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+    <div>
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-navy-50 text-navy-800 border border-navy-200">
+          Table {plan.tableNo} Live Calculator
+        </span>
+        <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+          UIN: {plan.uin}
+        </span>
+      </div>
+      <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">
+        Estimate {plan.shortName} Premium & Maturity
+      </h2>
+    </div>
+    <span class="text-xs text-slate-500 font-medium bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200/60">
+      Deterministic Mathematical Model
+    </span>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <!-- Calculator Form Controls -->
+    <div class="lg:col-span-6 space-y-5 bg-slate-50/70 p-5 sm:p-6 rounded-2xl border border-slate-200/80">
+      <form id="plan-calc-form" class="space-y-4" data-table-no={plan.tableNo}>
+        <!-- Entry Age -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center text-xs font-bold text-slate-700">
+            <label for="plan-calc-age">Entry Age (Years)</label>
+            <span id="plan-calc-age-display" class="font-mono text-navy-800 font-extrabold bg-white px-2 py-0.5 rounded border border-slate-200">
+              30 Years
+            </span>
+          </div>
+          <input
+            type="range"
+            id="plan-calc-age"
+            name="age"
+            min={plan.minAge}
+            max={plan.maxAge}
+            value={Math.max(plan.minAge, Math.min(30, plan.maxAge))}
+            step="1"
+            class="w-full accent-navy-800 cursor-pointer h-2 bg-slate-200 rounded-lg"
+          />
+          <div class="flex justify-between text-[11px] text-slate-400 font-mono">
+            <span>Min: {plan.minAge} Yrs</span>
+            <span>Max: {plan.maxAge} Yrs</span>
+          </div>
+        </div>
+
+        <!-- Policy Term / PPT Selector -->
+        {plan.tableNo === 936 ? (
+          <div class="space-y-1.5">
+            <label for="plan-calc-combination-936" class="block text-xs font-bold text-slate-700">
+              Policy Term / Premium Paying Term
+            </label>
+            <select
+              id="plan-calc-combination-936"
+              name="termPpt"
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-navy-600 focus:border-navy-600"
+            >
+              <option value="16_10">16 Years Term (Pay for 10 Years)</option>
+              <option value="21_15">21 Years Term (Pay for 15 Years)</option>
+              <option value="25_16" selected>25 Years Term (Pay for 16 Years) — Recommended</option>
+            </select>
+          </div>
+        ) : plan.tableNo === 945 ? (
+          <div class="space-y-1.5">
+            <label for="plan-calc-ppt-945" class="block text-xs font-bold text-slate-700">
+              Premium Paying Term (PPT)
+            </label>
+            <select
+              id="plan-calc-ppt-945"
+              name="ppt"
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-navy-600 focus:border-navy-600"
+            >
+              <option value="15">15 Years PPT (8% Income from Year 16)</option>
+              <option value="20" selected>20 Years PPT (8% Income from Year 21)</option>
+              <option value="25">25 Years PPT (8% Income from Year 26)</option>
+              <option value="30">30 Years PPT (8% Income from Year 31)</option>
+            </select>
+          </div>
+        ) : (
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs font-bold text-slate-700">
+              <label for="plan-calc-term">Policy Term (Years)</label>
+              <span id="plan-calc-term-display" class="font-mono text-navy-800 font-extrabold bg-white px-2 py-0.5 rounded border border-slate-200">
+                20 Years
+              </span>
+            </div>
+            <input
+              type="range"
+              id="plan-calc-term"
+              name="term"
+              min={plan.minTerm}
+              max={plan.maxTerm}
+              value={Math.max(plan.minTerm, Math.min(20, plan.maxTerm))}
+              step="1"
+              class="w-full accent-navy-800 cursor-pointer h-2 bg-slate-200 rounded-lg"
+            />
+            <div class="flex justify-between text-[11px] text-slate-400 font-mono">
+              <span>Min: {plan.minTerm} Yrs</span>
+              <span>Max: {plan.maxTerm} Yrs</span>
+            </div>
+          </div>
+        )}
+
+        <!-- Sum Assured -->
+        <div class="space-y-1.5">
+          <label for="plan-calc-sa" class="block text-xs font-bold text-slate-700">
+            Basic Sum Assured (₹)
+          </label>
+          <div class="relative">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-sm">₹</span>
+            <input
+              type="number"
+              id="plan-calc-sa"
+              name="sumAssured"
+              min={plan.minSumAssured}
+              step="10000"
+              value={1000000}
+              class="w-full pl-8 pr-4 py-2.5 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-navy-600 focus:border-navy-600"
+            />
+          </div>
+          <div class="flex gap-2 pt-1 flex-wrap">
+            <button type="button" data-sa-btn="500000" class="text-[11px] font-bold px-2 py-1 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition-colors">
+              ₹5 Lakh
+            </button>
+            <button type="button" data-sa-btn="1000000" class="text-[11px] font-bold px-2 py-1 rounded bg-navy-50 hover:bg-navy-100 text-navy-800 border border-navy-200 transition-colors">
+              ₹10 Lakh
+            </button>
+            <button type="button" data-sa-btn="2000000" class="text-[11px] font-bold px-2 py-1 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition-colors">
+              ₹20 Lakh
+            </button>
+            <button type="button" data-sa-btn="5000000" class="text-[11px] font-bold px-2 py-1 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition-colors">
+              ₹50 Lakh
+            </button>
+          </div>
+        </div>
+
+        <!-- Payment Frequency Mode -->
+        <div class="space-y-1.5">
+          <label for="plan-calc-mode" class="block text-xs font-bold text-slate-700">
+            Payment Frequency Mode
+          </label>
+          <select
+            id="plan-calc-mode"
+            name="mode"
+            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-navy-600 focus:border-navy-600"
+          >
+            <option value="yearly" selected>Yearly (2% Mode Discount)</option>
+            <option value="half-yearly">Half-Yearly (1% Mode Discount)</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="monthly">Monthly (NACH Auto-Debit)</option>
+          </select>
+        </div>
+      </form>
+    </div>
+
+    <!-- Live Calculation Results Column -->
+    <div class="lg:col-span-6 space-y-4">
+      <div class="bg-gradient-to-br from-navy-900 to-navy-950 rounded-2xl p-6 text-white shadow-lg space-y-6">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-amber-300 block mb-1">
+            Estimated Installment Premium
+          </span>
+          <div class="flex items-baseline gap-2">
+            <span id="res-installment-premium" class="text-3xl sm:text-4xl font-extrabold tracking-tight font-mono text-white">
+              ₹49,324
+            </span>
+            <span id="res-frequency-label" class="text-xs text-slate-300 font-semibold">
+              / Year (Incl. 4.5% GST)
+            </span>
+          </div>
+          <p id="res-renewal-note" class="text-[11px] text-slate-400 mt-1">
+            Renewal Installment: ₹48,262 / Year (with 2.25% GST from Year 2 onwards)
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 pt-4 border-t border-navy-800">
+          <div class="p-3 rounded-xl bg-navy-800/60 border border-navy-700/60">
+            <span class="text-[10px] font-bold text-slate-400 uppercase block">Total Net Outlay</span>
+            <span id="res-total-outlay" class="text-base sm:text-lg font-bold font-mono text-white mt-0.5 block">
+              ₹9,66,302
+            </span>
+            <span id="res-outlay-sub" class="text-[10px] text-slate-400">Over 20 Premium Years</span>
+          </div>
+
+          <div class="p-3 rounded-xl bg-navy-800/60 border border-navy-700/60">
+            <span class="text-[10px] font-bold text-amber-300 uppercase block">Est. Maturity Value</span>
+            <span id="res-maturity-payout" class="text-base sm:text-lg font-bold font-mono text-amber-400 mt-0.5 block">
+              ₹19,70,000
+            </span>
+            <span class="text-[10px] text-slate-400">SA + Vested Bonus + FAB</span>
+          </div>
+        </div>
+
+        {plan.tableNo === 915 && (
+          <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-400/30 text-amber-200">
+            <span class="text-[10px] font-bold uppercase tracking-wider block text-amber-300">
+              Lifelong Death Cover Post-Maturity
+            </span>
+            <p class="text-xs mt-0.5">
+              <strong id="res-lifetime-cover" class="font-bold text-white text-sm">₹10,00,000</strong> cover continues for your entire lifetime with zero future premiums.
+            </p>
+          </div>
+        )}
+
+        {plan.tableNo === 945 && (
+          <div class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-400/30 text-emerald-200">
+            <span class="text-[10px] font-bold uppercase tracking-wider block text-emerald-300">
+              8% Guaranteed Annual Income
+            </span>
+            <p class="text-xs mt-0.5">
+              <strong id="res-survival-income" class="font-bold text-white text-sm">₹80,000 / Year</strong> guaranteed cash flow from end of PPT until Age 99.
+            </p>
+          </div>
+        )}
+      </div>
+
+      <!-- Breakdown Details Card -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-5 space-y-3 text-xs">
+        <h3 class="font-bold text-slate-900 border-b border-slate-100 pb-2">
+          Estimated Benefit & Component Breakdown
+        </h3>
+        <div class="space-y-2 text-slate-600">
+          <div class="flex justify-between items-center py-1 border-b border-slate-50">
+            <span>Contractual Basic Sum Assured (Guaranteed)</span>
+            <span id="breakdown-sa" class="font-bold font-mono text-slate-900">₹10,00,000</span>
+          </div>
+          <div class="flex justify-between items-center py-1 border-b border-slate-50">
+            <span>Estimated Simple Reversionary Bonus</span>
+            <span id="breakdown-bonus" class="font-bold font-mono text-slate-900">₹9,00,000</span>
+          </div>
+          <div class="flex justify-between items-center py-1 border-b border-slate-50">
+            <span>Estimated Final Additional Bonus (FAB)</span>
+            <span id="breakdown-fab" class="font-bold font-mono text-slate-900">₹70,000</span>
+          </div>
+          <div class="flex justify-between items-center py-1 border-b border-slate-50">
+            <span>Sum Assured on Death (During Policy Term)</span>
+            <span id="breakdown-death-cover" class="font-bold font-mono text-navy-700">₹12,50,000 + Bonus</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    function initPlanCalculator() {
+      const form = document.getElementById('plan-calc-form');
+      if (!form) return;
+
+      const tableNo = parseInt(form.getAttribute('data-table-no') || '914', 10);
+      const ageInput = document.getElementById('plan-calc-age');
+      const ageDisplay = document.getElementById('plan-calc-age-display');
+      const termInput = document.getElementById('plan-calc-term');
+      const termDisplay = document.getElementById('plan-calc-term-display');
+      const combo936 = document.getElementById('plan-calc-combination-936');
+      const ppt945 = document.getElementById('plan-calc-ppt-945');
+      const saInput = document.getElementById('plan-calc-sa');
+      const modeSelect = document.getElementById('plan-calc-mode');
+
+      // Result elements
+      const resInstallment = document.getElementById('res-installment-premium');
+      const resFreqLabel = document.getElementById('res-frequency-label');
+      const resRenewalNote = document.getElementById('res-renewal-note');
+      const resTotalOutlay = document.getElementById('res-total-outlay');
+      const resOutlaySub = document.getElementById('res-outlay-sub');
+      const resMaturity = document.getElementById('res-maturity-payout');
+      const resLifetimeCover = document.getElementById('res-lifetime-cover');
+      const resSurvivalIncome = document.getElementById('res-survival-income');
+
+      // Breakdown elements
+      const bdSa = document.getElementById('breakdown-sa');
+      const bdBonus = document.getElementById('breakdown-bonus');
+      const bdFab = document.getElementById('breakdown-fab');
+      const bdDeathCover = document.getElementById('breakdown-death-cover');
+
+      function formatINR(val) {
+        return '₹' + Math.round(val).toLocaleString('en-IN');
+      }
+
+      function compute() {
+        const age = parseInt(ageInput?.value || '30', 10);
+        let term = 20;
+        let ppt = 20;
+
+        if (tableNo === 936 && combo936) {
+          const val = combo936.value;
+          if (val === '16_10') { term = 16; ppt = 10; }
+          else if (val === '21_15') { term = 21; ppt = 15; }
+          else { term = 25; ppt = 16; }
+        } else if (tableNo === 945 && ppt945) {
+          ppt = parseInt(ppt945.value || '20', 10);
+          term = 100 - age;
+        } else if (termInput) {
+          term = parseInt(termInput.value || '20', 10);
+          ppt = term;
+        }
+
+        if (ageDisplay) ageDisplay.innerText = age + ' Years';
+        if (termDisplay) termDisplay.innerText = term + ' Years';
+
+        const sa = Math.max(100000, parseFloat(saInput?.value || '1000000'));
+        const mode = modeSelect?.value || 'yearly';
+
+        // Base rate estimations per 1000 SA based on actuarial patterns
+        let baseRate = 48.0;
+        if (tableNo === 914) {
+          baseRate = 45.0 + (age - 20) * 0.85 + (35 - term) * 0.6;
+        } else if (tableNo === 915) {
+          baseRate = 54.0 + (age - 20) * 0.95 + (35 - term) * 0.7;
+        } else if (tableNo === 936) {
+          if (term === 16) baseRate = 84.0 + (age - 20) * 1.1;
+          else if (term === 21) baseRate = 52.0 + (age - 20) * 0.9;
+          else baseRate = 44.0 + (age - 20) * 0.85;
+        } else if (tableNo === 945) {
+          if (ppt === 15) baseRate = 78.0 + (age - 20) * 0.95;
+          else if (ppt === 20) baseRate = 51.0 + (age - 20) * 0.85;
+          else if (ppt === 25) baseRate = 39.0 + (age - 20) * 0.75;
+          else baseRate = 32.0 + (age - 20) * 0.65;
+        }
+
+        // High SA rebate
+        let highSaRebate = 0;
+        if (tableNo === 914 || tableNo === 915) {
+          if (sa >= 500000) highSaRebate = 2.0;
+          else if (sa >= 200000) highSaRebate = 1.0;
+        } else if (tableNo === 936) {
+          if (sa >= 1500000) highSaRebate = 2.0;
+          else if (sa >= 500000) highSaRebate = 1.5;
+        } else if (tableNo === 945) {
+          if (sa >= 2500000) highSaRebate = 2.0;
+          else if (sa >= 1000000) highSaRebate = 1.75;
+          else if (sa >= 500000) highSaRebate = 1.25;
+        }
+
+        // Mode rebate
+        let modeDiscountRate = 0;
+        let modeMultiplier = 1;
+        let modeLabel = '/ Year';
+        if (mode === 'yearly') {
+          modeDiscountRate = 0.02;
+          modeMultiplier = 1;
+          modeLabel = '/ Year';
+        } else if (mode === 'half-yearly') {
+          modeDiscountRate = 0.01;
+          modeMultiplier = 0.5;
+          modeLabel = '/ Half-Year';
+        } else if (mode === 'quarterly') {
+          modeMultiplier = 0.25;
+          modeLabel = '/ Quarter';
+        } else if (mode === 'monthly') {
+          modeMultiplier = 1 / 12;
+          modeLabel = '/ Month';
+        }
+
+        const adjustedRatePerThousand = Math.max(10, baseRate - highSaRebate);
+        const annualBasePremium = (adjustedRatePerThousand * (1 - modeDiscountRate)) * (sa / 1000);
+        const installmentBase = annualBasePremium * modeMultiplier;
+
+        const firstYearGst = installmentBase * 0.045;
+        const renewalGst = installmentBase * 0.0225;
+
+        const firstYearInstallment = installmentBase + firstYearGst;
+        const renewalInstallment = installmentBase + renewalGst;
+
+        const totalOutlay = (firstYearInstallment * (mode === 'yearly' ? 1 : mode === 'half-yearly' ? 2 : mode === 'quarterly' ? 4 : 12)) +
+          (renewalInstallment * (mode === 'yearly' ? 1 : mode === 'half-yearly' ? 2 : mode === 'quarterly' ? 4 : 12) * Math.max(0, ppt - 1));
+
+        // Bonus calculations
+        let bonusRate = 45; // per 1000 SA per year
+        let fabRate = 70;   // per 1000 SA
+
+        if (tableNo === 914) {
+          bonusRate = term >= 25 ? 48 : term >= 20 ? 45 : 40;
+          fabRate = term >= 30 ? 100 : term >= 20 ? 70 : 30;
+        } else if (tableNo === 915) {
+          bonusRate = term >= 25 ? 49 : term >= 20 ? 46 : 41;
+          fabRate = term >= 30 ? 110 : term >= 20 ? 70 : 35;
+        } else if (tableNo === 936) {
+          bonusRate = term === 25 ? 52 : term === 21 ? 48 : 44;
+          fabRate = term === 25 ? 250 : term === 21 ? 100 : 40;
+        } else if (tableNo === 945) {
+          bonusRate = ppt >= 25 ? 52 : ppt >= 20 ? 50 : 45;
+          fabRate = 450; // at age 100
+        }
+
+        const bonusDuration = (tableNo === 945) ? ppt : term;
+        const totalEstimatedBonus = (bonusRate * (sa / 1000)) * bonusDuration;
+        const totalEstimatedFab = fabRate * (sa / 1000);
+        const totalEstimatedMaturity = sa + totalEstimatedBonus + totalEstimatedFab;
+
+        // Update UI
+        if (resInstallment) resInstallment.innerText = formatINR(firstYearInstallment);
+        if (resFreqLabel) resFreqLabel.innerText = modeLabel + ' (Incl. 4.5% GST)';
+        if (resRenewalNote) {
+          resRenewalNote.innerText = 'Renewal Installment: ' + formatINR(renewalInstallment) + ' ' + modeLabel + ' (with 2.25% GST from Year 2 onwards)';
+        }
+        if (resTotalOutlay) resTotalOutlay.innerText = formatINR(totalOutlay);
+        if (resOutlaySub) resOutlaySub.innerText = 'Over ' + ppt + ' Premium Paying Years';
+        if (resMaturity) resMaturity.innerText = formatINR(totalEstimatedMaturity);
+
+        if (resLifetimeCover) resLifetimeCover.innerText = formatINR(sa);
+        if (resSurvivalIncome) resSurvivalIncome.innerText = formatINR(sa * 0.08) + ' / Year';
+
+        if (bdSa) bdSa.innerText = formatINR(sa);
+        if (bdBonus) bdBonus.innerText = formatINR(totalEstimatedBonus);
+        if (bdFab) bdFab.innerText = formatINR(totalEstimatedFab);
+        if (bdDeathCover) {
+          if (tableNo === 915) {
+            bdDeathCover.innerText = formatINR(sa * 1.25) + ' + Vested Bonus';
+          } else {
+            bdDeathCover.innerText = formatINR(sa) + ' + Vested Bonus';
+          }
+        }
+      }
+
+      form.addEventListener('input', compute);
+      form.addEventListener('change', compute);
+
+      // SA Preset buttons
+      const saBtns = form.querySelectorAll('[data-sa-btn]');
+      saBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const val = btn.getAttribute('data-sa-btn');
+          if (val && saInput) {
+            saInput.value = val;
+            compute();
+          }
+        });
+      });
+
+      compute();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPlanCalculator);
+    } else {
+      initPlanCalculator();
+    }
+  })();
+</script>

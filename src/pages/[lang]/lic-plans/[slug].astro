@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
-import ContextualLinks from '@/components/seo/ContextualLinks.astro';
-import { VERIFIED_PLANS } from '@/pages/lic-plans/[slug].astro';
+import PlanInteractiveCalculator from '@/components/calculator/PlanInteractiveCalculator.astro';
+import { VERIFIED_PLANS_DATA, getLocalizedPlanData } from '@/lib/content/plan-data';
 import { LOCALE_CODES, DEFAULT_LOCALE, t, getLocalizedPath } from '@/lib/i18n';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
 import type { Locale } from '@/types/i18n';
 
 export function getStaticPaths() {
@@ -11,10 +13,10 @@ export function getStaticPaths() {
   const paths: any[] = [];
 
   for (const lang of nonDefaultLocales) {
-    for (const plan of VERIFIED_PLANS) {
+    for (const slug of Object.keys(VERIFIED_PLANS_DATA)) {
       paths.push({
-        params: { lang, slug: plan.slug },
-        props: { plan }
+        params: { lang, slug },
+        props: { planSlug: slug }
       });
     }
   }
@@ -23,38 +25,358 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
-const { plan } = Astro.props;
+const { planSlug } = Astro.props;
 const locale = (lang as Locale) || DEFAULT_LOCALE;
+const plan = getLocalizedPlanData(planSlug, locale);
+const siteUrl = 'https://lic-calculators.com';
+const canonicalUrl = `${siteUrl}/${locale}/lic-plans/${plan.slug}/`;
 
 const breadcrumbs = [
   { name: t(locale, 'nav.calculators'), url: getLocalizedPath('/calculators/', locale) },
   { name: 'Plans', url: getLocalizedPath('/plans/', locale) },
-  { name: plan.name, url: getLocalizedPath(`/lic-plans/${plan.slug}`, locale) }
+  { name: plan.name, url: getLocalizedPath(`/lic-plans/${plan.slug}/`, locale) }
 ];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: plan.seoTitle,
+  description: plan.metaDescription,
+  url: canonicalUrl,
+  publishedDate: '2026-01-01T00:00:00Z',
+  modifiedDate: '2026-08-15T00:00:00Z',
+  author: AuthorManager.getDefaultAuthor()
+});
+
+const faqSchema = StructuredDataGenerator.generateFAQPage(plan.faqs);
 ---
 
 <BaseLayout
-  title={`${plan.name} - ${t(locale, 'site.name')}`}
-  description={plan.description}
+  title={plan.seoTitle}
+  description={plan.metaDescription}
   breadcrumbs={breadcrumbs}
+  canonicalUrl={canonicalUrl}
   locale={locale}
 >
-  <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
-    <div class="space-y-3 border-b border-slate-200 pb-8">
-      <div class="flex items-center gap-2">
-        <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <div class="max-w-5xl mx-auto py-10 px-4 sm:px-6 lg:px-8 space-y-12">
+    <!-- Header & Introduction -->
+    <header class="space-y-4 border-b border-slate-200 pb-8">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="px-3 py-1 rounded-full text-xs font-bold bg-navy-100 text-navy-900 border border-navy-300">
           Table {plan.tableNo}
         </span>
-        <span class="text-xs text-slate-500 font-semibold">{plan.category}</span>
+        <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+          UIN: {plan.uin}
+        </span>
+        <span class="text-xs text-slate-500 font-semibold px-2">
+          {plan.category}
+        </span>
       </div>
-      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">{plan.name}</h1>
-      <p class="text-base text-slate-600 leading-relaxed">{plan.description}</p>
-    </div>
 
-    <!-- Contextual Links -->
-    <ContextualLinks currentPath={`/lic-plans/${plan.slug}`} />
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
+        {plan.h1}
+      </h1>
+
+      <p class="text-lg text-slate-600 font-medium leading-relaxed">
+        {plan.subtitle}
+      </p>
+
+      <div class="space-y-3 pt-2 text-slate-700 text-sm sm:text-base leading-relaxed">
+        {plan.introParagraphs.map((p) => (
+          <p>{p}</p>
+        ))}
+      </div>
+    </header>
+
+    <!-- Interactive Plan Calculator -->
+    <section aria-labelledby="calculator-heading">
+      <h2 id="calculator-heading" class="sr-only">Interactive Plan Calculator</h2>
+      <PlanInteractiveCalculator plan={plan} locale={locale} />
+    </section>
+
+    <!-- Quick Plan Facts -->
+    <section class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-card space-y-5">
+      <div class="border-b border-slate-100 pb-3">
+        <h2 class="text-xl font-extrabold text-slate-900">
+          Quick Plan Facts — Table {plan.tableNo}
+        </h2>
+        <p class="text-xs text-slate-500">
+          Official statutory parameters filed with the Insurance Regulatory and Development Authority of India (IRDAI).
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {plan.quickFacts.map((fact) => (
+          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex flex-col justify-between">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">{fact.label}</span>
+            <span class="text-xs sm:text-sm font-extrabold text-slate-900 mt-1">{fact.value}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Plan Overview -->
+    <section class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-card space-y-6">
+      <div class="border-b border-slate-100 pb-3">
+        <h2 class="text-xl font-extrabold text-slate-900">
+          Plan Overview & Insurance Structure
+        </h2>
+        <p class="text-xs text-slate-500">
+          Key features and financial mechanics of {plan.name}.
+        </p>
+      </div>
+
+      <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+        {plan.overview.description}
+      </p>
+
+      <div class="p-4 rounded-2xl bg-navy-50/70 border border-navy-100 text-xs sm:text-sm text-navy-900">
+        <strong>Target Audience / Suitability:</strong> {plan.overview.targetAudience}
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+        <div class="space-y-3">
+          <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Key Characteristics
+          </h3>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-600">
+            {plan.overview.keyCharacteristics.map((item) => (
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span> Important Limitations
+          </h3>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-600">
+            {plan.overview.importantLimitations.map((item) => (
+              <li class="flex items-start gap-2">
+                <span class="text-amber-600 font-bold">!</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Eligibility -->
+    <section class="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-card">
+      <div class="p-6 sm:p-8 border-b border-slate-100 bg-slate-50/60">
+        <h2 class="text-xl font-extrabold text-slate-900">
+          Eligibility & Policy Parameters
+        </h2>
+        <p class="text-xs text-slate-500 mt-0.5">
+          Statutory age, term, and Sum Assured boundaries defined under official circulars.
+        </p>
+      </div>
+
+      <div class="divide-y divide-slate-100">
+        {plan.eligibility.rows.map((row) => (
+          <div class="p-4 sm:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs sm:text-sm">
+            <span class="font-bold text-slate-700">{row.parameter}</span>
+            <span class="font-mono text-slate-900 font-semibold sm:text-right">{row.requirement}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="p-4 sm:px-8 bg-amber-50/60 border-t border-amber-100 text-[11px] text-amber-900">
+        <em>Note:</em> {plan.eligibility.verificationNote}
+      </div>
+    </section>
+
+    <!-- Benefits Breakdown -->
+    <section class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-card space-y-6">
+      <div class="border-b border-slate-100 pb-3">
+        <h2 class="text-xl font-extrabold text-slate-900">
+          Plan Benefits: Guaranteed vs. Non-Guaranteed
+        </h2>
+        <p class="text-xs text-slate-500">
+          Contractual guarantees vs. surplus-dependent bonus payouts.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-2xl bg-emerald-50/40 border border-emerald-200/80 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold text-slate-900">Maturity Benefit</h3>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
+              Basic SA Guaranteed
+            </span>
+          </div>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            {plan.benefits.maturityBenefit.description}
+          </p>
+          <div class="p-3 bg-white rounded-xl border border-emerald-200 font-mono text-[11px] text-slate-800 font-semibold">
+            {plan.benefits.maturityBenefit.formulaSnippet}
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-blue-50/40 border border-blue-200/80 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold text-slate-900">Death Benefit</h3>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 border border-blue-300">
+              Contractually Guaranteed
+            </span>
+          </div>
+          <p class="text-xs text-slate-700 leading-relaxed">
+            {plan.benefits.deathBenefit.description}
+          </p>
+          <div class="p-3 bg-white rounded-xl border border-blue-200 font-mono text-[11px] text-slate-800 font-semibold">
+            {plan.benefits.deathBenefit.formulaSnippet}
+          </div>
+          {plan.benefits.deathBenefit.postMaturityCover && (
+            <p class="text-[11px] text-blue-900 font-semibold bg-blue-100/60 p-2.5 rounded-lg border border-blue-200">
+              {plan.benefits.deathBenefit.postMaturityCover}
+            </p>
+          )}
+        </div>
+      </div>
+
+      {plan.benefits.survivalBenefit && (
+        <div class="p-6 rounded-2xl bg-amber-50/50 border border-amber-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold text-slate-900">Guaranteed Survival Income (8% P.A.)</h3>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
+              Guaranteed
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            {plan.benefits.survivalBenefit.description}
+          </p>
+        </div>
+      )}
+    </section>
+
+    <!-- Policy Loan, Surrender & Paid-up -->
+    <section class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-card space-y-6">
+      <div class="border-b border-slate-100 pb-3">
+        <h2 class="text-xl font-extrabold text-slate-900">
+          Policy Loan, Surrender Value & Paid-Up Provisions
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+          <h3 class="text-sm font-bold text-slate-900">Policy Loan Facility</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">{plan.policyOperations.loanFacility.eligibilityCondition}</p>
+          <a href={getLocalizedPath('/lic-loan-calculator/', locale)} class="text-xs font-bold text-navy-700 hover:text-navy-900 inline-block pt-1">
+            Calculate Policy Loan &rarr;
+          </a>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+          <h3 class="text-sm font-bold text-slate-900">Surrender Value (GSV / SSV)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">{plan.policyOperations.surrenderValue.gsvExplanation}</p>
+          <a href={getLocalizedPath('/lic-surrender-value-calculator/', locale)} class="text-xs font-bold text-navy-700 hover:text-navy-900 inline-block pt-1">
+            Calculate Surrender Value &rarr;
+          </a>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+          <h3 class="text-sm font-bold text-slate-900">Paid-Up Conversion</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">{plan.policyOperations.paidUpOption.condition}</p>
+          <a href={getLocalizedPath('/lic-paid-up-calculator/', locale)} class="text-xs font-bold text-navy-700 hover:text-navy-900 inline-block pt-1">
+            Calculate Paid-Up Value &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Illustrative Example -->
+    <section class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-card space-y-5">
+      <div class="border-b border-slate-100 pb-3">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-extrabold text-slate-900">
+            {plan.illustrativeExample.title}
+          </h2>
+          <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+            Illustrative Example
+          </span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="p-4 rounded-2xl bg-navy-50/60 border border-navy-100 space-y-1">
+          <span class="text-[10px] font-bold text-navy-800 uppercase block">First-Year Installment</span>
+          <span class="text-lg font-extrabold font-mono text-navy-950 block">{plan.illustrativeExample.estimatedResults.firstYearInstallment}</span>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-navy-50/60 border border-navy-100 space-y-1">
+          <span class="text-[10px] font-bold text-navy-800 uppercase block">Total Net Outlay</span>
+          <span class="text-lg font-extrabold font-mono text-navy-950 block">{plan.illustrativeExample.estimatedResults.totalPremiumsPaid}</span>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200 space-y-1">
+          <span class="text-[10px] font-bold text-emerald-800 uppercase block">Estimated Maturity Proceeds</span>
+          <span class="text-lg font-extrabold font-mono text-emerald-900 block">{plan.illustrativeExample.estimatedResults.estimatedTotalMaturity}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQs -->
+    <section class="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-card space-y-6">
+      <div class="border-b border-slate-100 pb-3">
+        <h2 class="text-2xl font-extrabold text-slate-900">
+          Frequently Asked Questions (Table {plan.tableNo})
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        {plan.faqs.map((faq) => (
+          <details class="group rounded-2xl border border-slate-200/80 bg-slate-50/50 p-5 open:bg-white open:shadow-xs transition-all">
+            <summary class="flex justify-between items-center cursor-pointer font-bold text-slate-900 text-sm sm:text-base list-none">
+              <span>{faq.question}</span>
+              <span class="text-slate-400 group-open:rotate-180 transition-transform text-xs font-mono ml-3 shrink-0">▼</span>
+            </summary>
+            <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+              {faq.answer}
+            </p>
+          </details>
+        ))}
+      </div>
+    </section>
 
     <!-- Author Card -->
-    <AuthorReviewerCard />
+    <AuthorReviewerCard
+      lastReviewedDate={plan.lastReviewedDate}
+      locale={locale}
+    />
+
+    <!-- Related Tools -->
+    <section class="space-y-4 pt-4">
+      <h2 class="text-xl font-extrabold text-slate-900">
+        Related LIC Calculation Tools
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {plan.relatedTools.map((tool) => (
+          <a
+            href={getLocalizedPath(tool.url, locale)}
+            class="p-5 rounded-2xl bg-white border border-slate-200 hover:border-navy-400 hover:shadow-card transition-all group flex flex-col justify-between"
+          >
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block mb-2">
+                {tool.category}
+              </span>
+              <h3 class="font-bold text-slate-900 text-sm group-hover:text-navy-800 transition-colors">
+                {tool.title}
+              </h3>
+              <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                {tool.description}
+              </p>
+            </div>
+            <span class="text-xs font-bold text-navy-700 group-hover:text-navy-900 mt-4 flex items-center gap-1">
+              Open Tool &rarr;
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
   </div>
 </BaseLayout>
