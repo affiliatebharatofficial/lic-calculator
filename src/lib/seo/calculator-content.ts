@@ -274,15 +274,15 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
   'lic-surrender-loss-calculator': {
     id: 'lic-surrender-loss-calculator',
     slug: 'lic-surrender-loss-calculator',
-    seoTitle: 'LIC Surrender Loss Calculator | Quantify Capital Shortfall & Loss %',
-    metaDescription: 'Quantify your exact monetary shortfall and loss percentage before surrendering an LIC policy. Compare premiums paid versus estimated cash payout.',
+    seoTitle: 'LIC Surrender Loss Calculator | Estimate Capital Shortfall & Loss %',
+    metaDescription: 'Estimate your potential monetary difference and loss percentage before surrendering an LIC policy. Compare premiums paid versus estimated cash payout.',
     h1: 'LIC Surrender Loss Calculator',
-    subtitle: 'Evaluate your exact monetary loss, capital deduction percentage, and recovery alternatives.',
+    subtitle: 'Evaluate your estimated monetary difference, capital deduction percentage, and recovery alternatives.',
     category: 'Policy Surrender',
     lastReviewedDate: 'August 2026',
     introParagraphs: [
-      'The LIC Surrender Loss Calculator precisely quantifies the monetary deficit and percentage loss incurred when a policyholder cancels an active life insurance policy before maturity.',
-      'Traditional life insurance contracts allocate early premiums toward mortality risk coverage, policy administration, medical underwriting, and distributor commissions. Consequently, surrendering during early or mid-policy years results in a cash surrender value substantially lower than the cumulative premiums paid.'
+      'The LIC Surrender Loss Calculator estimates the monetary difference and percentage loss incurred when a policyholder cancels an active life insurance policy before maturity.',
+      'Traditional life insurance contracts allocate early premiums toward mortality risk coverage, policy administration, medical underwriting, and distributor commissions. Consequently, surrendering during early or mid-policy years results in an estimated cash surrender value lower than the cumulative premiums paid.'
     ],
     howItWorks: {
       title: 'How Surrender Capital Loss is Quantified',
@@ -303,7 +303,7 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
         {
           number: 3,
           title: 'Monetary Difference & Loss Ratio',
-          description: 'Determines the exact rupee shortfall and percentage deduction relative to total principal invested.',
+          description: 'Estimates the rupee difference and percentage deduction relative to total principal invested.',
           formulaSnippet: 'Loss Amount = Total Outlay - Cash Surrender Value; Loss % = (Loss Amount / Total Outlay) × 100'
         }
       ]
@@ -323,16 +323,16 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
       explanation: 'Review the quantitative breakdown of cash returned versus capital deducted.',
       metrics: [
         { name: 'Total Premiums Deposited', meaning: 'The total cumulative cash amount paid by you into the policy over time.' },
-        { name: 'Estimated Surrender Cash', meaning: 'The net liquid funds LIC would transfer to you upon policy termination.' },
-        { name: 'Net Capital Shortfall (Loss)', meaning: 'The exact rupee amount lost permanently due to early cancellation.' },
-        { name: 'Effective Loss Percentage', meaning: 'The proportion of your deposited premiums forfeited to early termination costs.' }
+        { name: 'Estimated Surrender Cash', meaning: 'The estimated liquid funds payable upon policy termination based on standard factors.' },
+        { name: 'Net Capital Shortfall (Loss)', meaning: 'The estimated difference between total premiums paid and the surrender payout.' },
+        { name: 'Effective Loss Percentage', meaning: 'The proportion of deposited premiums forfeited to early termination costs.' }
       ]
     },
     assumptionsAndLimitations: {
       title: 'Calculation Assumptions & Considerations',
       notes: [
         'Loss calculations exclude GST and rider premiums as these components are statutory taxes and non-recoverable risk charges.',
-        'Loss percentage is highest in policy years 2 to 5 and gradually moderates as the policy approaches its final maturity term.',
+        'Loss percentage is highest in early policy years and gradually moderates as the policy approaches its final maturity term.',
         'Converting to Paid-Up or borrowing against the policy can prevent locking in an irreversible capital loss.',
         'Actual settlement values are determined by official LIC branch valuation records.'
       ]
@@ -342,14 +342,6 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
       { title: 'IRDAI Master Circular on Surrender Disclosures', publisher: 'IRDAI', reference: 'IRDAI/ACT/CIR/2024' }
     ],
     faqs: [
-      {
-        question: 'Why is the surrender value so much lower than total premiums paid?',
-        answer: 'In the early years of a life insurance policy, a significant portion of premiums is consumed by mortality risk protection, underwriting, administration, and distribution expenses. Accumulation of cash value accelerates only in the later half of the policy term.'
-      },
-      {
-        question: 'At what point does an LIC policy surrender value exceed premiums paid?',
-        answer: 'For most traditional endowment plans, the surrender value generally remains below total premiums paid until the final 3 to 5 years of the policy term. In the early to middle years, surrendering almost always results in a net capital loss.'
-      },
       {
         question: 'Can I avoid the surrender loss by making my policy Paid-Up?',
         answer: 'Yes. Converting to Paid-Up status stops further premium payments while locking in your proportionate sum assured and accrued bonuses, payable at maturity without taking an immediate cash deduction.'
@@ -365,6 +357,14 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
       {
         question: 'Does surrendering early affect my credit score (CIBIL)?',
         answer: 'No. Surrendering a life insurance policy has zero impact on your credit score or CIBIL report, as life insurance is an asset rather than a debt or credit liability.'
+      },
+      {
+        question: 'How does surrendering early affect tax deductions claimed under Section 80C?',
+        answer: 'Under Section 80C(5) of the Income Tax Act, if an individual surrenders a life insurance policy before completing 2 full policy years, all tax deductions previously claimed on those premiums are reversed and added back to taxable income in the year of termination.'
+      },
+      {
+        question: 'Is the surrender value received from LIC taxable under Income Tax?',
+        answer: 'Surrender value received from a traditional LIC policy is generally exempt from income tax under Section 10(10D), provided the annual premium does not exceed 10% of the actual sum assured (or ₹5 Lakhs aggregate annual premium for non-ULIP policies issued on or after April 1, 2023).'
       }
     ]
   },
@@ -1060,9 +1060,9 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
     category: 'Protection & Claims',
     lastReviewedDate: 'August 2026',
     introParagraphs: [
-      'The LIC Death Benefit Claim Calculator helps policyholders, family beneficiaries, and nominees estimate the exact financial claim proceeds payable by the Life Insurance Corporation of India (LIC) upon the unfortunate demise of the life assured during the policy tenure.',
+      'The LIC Death Benefit Claim Calculator helps policyholders, family beneficiaries, and nominees estimate the financial claim proceeds payable by the Life Insurance Corporation of India (LIC) upon the unfortunate demise of the life assured during the policy tenure.',
       'Under traditional participating endowment, money back, and whole life assurance plans (such as Tables 914, 915, 936, and 945), the death claim payout comprises the contractually Guaranteed Sum Assured on Death plus all Simple Reversionary Bonuses accrued up to the policy year of demise, plus Final Additional Bonus (FAB) for policies active for 15 or more years, less any outstanding policy loan principal and unpaid interest charges.',
-      'This calculation tool follows verified statutory guidelines mandated by the Insurance Regulatory and Development Authority of India (IRDAI) to provide full clarity and transparency on claim entitlements.'
+      'This calculation tool follows statutory guidelines mandated by the Insurance Regulatory and Development Authority of India (IRDAI) to provide clarity on estimated claim entitlements.'
     ],
     howItWorks: {
       title: 'How LIC Death Claim Benefit is Computed',
@@ -1102,7 +1102,7 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
       title: 'Understanding Your Death Claim Statement',
       explanation: 'Clear breakdown of all claim components payable to the registered legal nominee.',
       metrics: [
-        { name: 'Net Claim Payable', meaning: 'The total final tax-free funds transferred directly into the nominees bank account via electronic NEFT.' },
+        { name: 'Net Claim Payable', meaning: 'The total final funds transferred directly into the nominees bank account via electronic NEFT.' },
         { name: 'Vested Bonus Component', meaning: 'The cumulative simple reversionary bonuses accumulated over the active policy duration.' },
         { name: 'Final Additional Bonus (FAB)', meaning: 'One-time loyalty terminal bonus granted to policies of long duration (15+ years).' },
         { name: 'Accidental Rider Benefit', meaning: 'Additional lump-sum life cover paid if the demise was caused by an accidental event and rider was active.' }
@@ -1111,7 +1111,7 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
     assumptionsAndLimitations: {
       title: 'Claim Settlement Guidelines & Nominee Protocol',
       notes: [
-        'Death claim proceeds received by the registered nominee under an LIC life insurance policy are 100% exempt from income tax under Section 10(10D).',
+        'Death claim proceeds received by the registered nominee under an LIC life insurance policy are generally exempt from income tax under Section 10(10D).',
         'If the policy was in a paid-up state (premiums ceased after 2+ years), a proportionate reduced paid-up death claim plus vested bonus is paid.',
         'Nominees must submit Claim Form 3783, original policy bond, certified death certificate, NEFT mandate, and cancelled cheque to the servicing branch.',
         'Claims occurring within the first 3 years of policy inception undergo standard early-claim verification as per Section 45 of Insurance Act.'
@@ -1124,7 +1124,7 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
     faqs: [
       {
         question: 'Are death benefit claim amounts taxable for the nominee in India?',
-        answer: 'No. Death claim proceeds received by the nominee under an LIC life insurance policy are 100% tax-free under Section 10(10D) of the Income Tax Act, with zero TDS deducted.'
+        answer: 'No. Death claim proceeds received by the nominee under an LIC life insurance policy are generally exempt from income tax under Section 10(10D) of the Income Tax Act.'
       },
       {
         question: 'What happens to the claim if a policy loan was active at the time of death?',
@@ -1158,9 +1158,9 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
     category: 'Policy Discontinuation',
     lastReviewedDate: 'August 2026',
     introParagraphs: [
-      'The LIC Paid-Up Value Calculator helps policyholders who can no longer afford or choose not to continue paying policy premiums determine the exact reduced financial value of their life insurance policy.',
+      'The LIC Paid-Up Value Calculator helps policyholders who can no longer afford or choose not to continue paying policy premiums estimate the reduced financial value of their life insurance policy.',
       'Under standard Life Insurance Corporation of India (LIC) regulations, if a policyholder has paid premiums continuously for at least two full years (or three years for older non-linked plans), the policy does not lapse completely upon premium discontinuation. Instead, it automatically acquires a Reduced Paid-Up status.',
-      'Converting a policy to paid-up preserves your accrued reversionary bonuses and maintains a proportionate life cover until the contractual maturity date, eliminating the severe upfront capital losses associated with immediate policy surrender.'
+      'Converting a policy to paid-up preserves your accrued reversionary bonuses and maintains a proportionate life cover until the contractual maturity date, avoiding immediate cash forfeiture associated with early surrender.'
     ],
     howItWorks: {
       title: 'How Paid-Up Value & Reduced Benefits Are Calculated',
@@ -1190,7 +1190,7 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
       title: 'Paid-Up Calculator Input Parameters',
       items: [
         { label: 'LIC Plan Table Number', explanation: 'Select your specific endowment, money-back, or whole life plan table.' },
-        { label: 'Basic Sum Assured', explanation: 'The life cover amount originally guaranteed on your policy bond schedule.' },
+        { label: 'Basic Sum Assured', explanation: 'The life cover amount originally stated on your policy bond schedule.' },
         { label: 'Contractual Policy Term', explanation: 'The total duration in years from policy commencement to maturity.' },
         { label: 'Completed Premium Years Paid', explanation: 'Number of full years of premiums successfully paid before discontinuation (minimum 2 years required).' }
       ]
@@ -1199,8 +1199,8 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
       title: 'Understanding Paid-Up Calculation Results',
       explanation: 'Key values explaining what you receive upon making your policy paid-up.',
       metrics: [
-        { name: 'Reduced Paid-Up Sum Assured', meaning: 'The proportionally reduced life cover guaranteed to remain active without paying any further premiums.' },
-        { name: 'Vested Reversionary Bonuses', meaning: 'All bonuses accumulated up to the paid-up date that remain safely locked in the policy bond.' },
+        { name: 'Reduced Paid-Up Sum Assured', meaning: 'The proportionally reduced life cover that remains active without paying any further premiums.' },
+        { name: 'Vested Reversionary Bonuses', meaning: 'All bonuses accumulated up to the paid-up date that remain locked in the policy bond.' },
         { name: 'Total Paid-Up Maturity Payout', meaning: 'The lump-sum amount payable directly to you at the original contractual maturity date.' },
         { name: 'Paid-Up Death Benefit', meaning: 'The total claim proceeds payable to nominees if the life assured passes away during the remaining term.' }
       ]
@@ -1211,7 +1211,7 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
         'A minimum of 2 consecutive years of premium payments is mandatory to acquire paid-up status.',
         'Once a policy becomes paid-up, it ceases to participate in future annual bonus declarations.',
         'Riders (such as Accidental Death and Disability Benefit) lapse automatically upon conversion to paid-up.',
-        'The paid-up maturity and death proceeds remain 100% tax-exempt under Section 10(10D).'
+        'Paid-up proceeds are generally tax-exempt under Section 10(10D) subject to statutory conditions.'
       ]
     },
     sources: [
@@ -1225,7 +1225,7 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
       },
       {
         question: 'Is making an LIC policy Paid-Up better than surrendering it?',
-        answer: 'In most cases, yes. Converting to paid-up protects 100% of your accrued bonuses and provides a higher guaranteed payout at maturity, whereas surrendering early typically results in severe penalty deductions of 20% to 50% of your paid premiums.'
+        answer: 'In most cases, converting to paid-up preserves accrued bonuses and provides a higher payout at maturity compared to early surrender, which typically involves substantial deductions in early years.'
       },
       {
         question: 'Do paid-up policies continue to earn annual bonuses in LIC?',
@@ -1249,15 +1249,15 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
     id: 'lic-return-calculator',
     slug: 'lic-return-calculator',
     seoTitle: 'LIC Policy Return Calculator | Internal Rate of Return (IRR & CAGR)',
-    metaDescription: 'Calculate the exact annual return (IRR / CAGR) on your LIC endowment and money-back policies. Compare real returns against inflation, PPF, and FDs.',
+    metaDescription: 'Estimate the annual return (IRR / CAGR) on your LIC endowment and money-back policies. Compare returns against inflation, PPF, and FDs.',
     h1: 'LIC Policy Return / IRR Calculator',
-    subtitle: 'Determine the exact annualized Internal Rate of Return (IRR / CAGR) and inflation-adjusted yield of your LIC insurance policies.',
+    subtitle: 'Estimate the annualized Internal Rate of Return (IRR / CAGR) and inflation-adjusted yield of your LIC insurance policies.',
     category: 'Financial Planning',
     lastReviewedDate: 'August 2026',
     introParagraphs: [
-      'The LIC Policy Return / IRR Calculator provides policyholders and financial planners with complete transparency on the true compounded annual rate of return (Internal Rate of Return / CAGR) generated by traditional life insurance plans.',
-      'Traditional participating insurance plans combine life risk protection with long-term guaranteed savings. Because premium cash outflows occur annually over 10 to 25 years while maturity proceeds are received as a lump sum at the end, standard percentage gain calculations are misleading. The Internal Rate of Return (IRR) solves the discounted cash-flow equation to reveal the exact annualized yield on your capital.',
-      'This calculation tool accurately maps periodic premium outlays, intermediary survival benefits, and final terminal payouts to determine your nominal and real inflation-adjusted yields.'
+      'The LIC Policy Return / IRR Calculator provides policyholders and financial planners with transparency on the estimated compounded annual rate of return (Internal Rate of Return / CAGR) generated by traditional life insurance plans.',
+      'Traditional participating insurance plans combine life risk protection with long-term savings. Because premium cash outflows occur annually over 10 to 25 years while maturity proceeds are received as a lump sum at the end, standard percentage gain calculations can be misleading. The Internal Rate of Return (IRR) solves the discounted cash-flow equation to estimate the annualized yield on your capital.',
+      'This calculation tool maps periodic premium outlays, intermediary survival benefits, and final terminal payouts to determine your nominal and real inflation-adjusted yields.'
     ],
     howItWorks: {
       title: 'How Internal Rate of Return (IRR) is Computed',
@@ -1278,7 +1278,7 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
         {
           number: 3,
           title: 'Solve Net Present Value Discount Equation',
-          description: 'Solves NPV = Sum(CF_t / (1 + r)^t) = 0 for rate r to compute the precise annualized Internal Rate of Return percentage.',
+          description: 'Solves NPV = Sum(CF_t / (1 + r)^t) = 0 for rate r to compute the annualized Internal Rate of Return percentage.',
           formulaSnippet: 'NPV = 0 => Solve for IRR (r) via Newton-Raphson Solver'
         }
       ]
@@ -1293,20 +1293,20 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
     },
     resultsGuide: {
       title: 'Understanding Policy Return Metrics',
-      explanation: 'Key metrics that reveal the true performance of your policy compared to alternative investment instruments.',
+      explanation: 'Key metrics that reveal the performance of your policy compared to alternative investment instruments.',
       metrics: [
-        { name: 'Internal Rate of Return (IRR)', meaning: 'The true annualized compounding return rate on your invested premium cash flows.' },
+        { name: 'Internal Rate of Return (IRR)', meaning: 'The annualized compounding return rate on your invested premium cash flows.' },
         { name: 'Nominal CAGR', meaning: 'The compound annual growth rate calculated between total cumulative premiums and final maturity corpus.' },
-        { name: 'Real Inflation-Adjusted Return', meaning: 'Your purchasing-power return after subtracting standard 5% long-term inflation benchmark.' },
-        { name: 'Net Monetary Gain', meaning: 'The total rupee profit generated above your cumulative invested capital.' }
+        { name: 'Real Inflation-Adjusted Return', meaning: 'Your purchasing-power return after subtracting standard long-term inflation benchmark.' },
+        { name: 'Net Monetary Gain', meaning: 'The total rupee gain generated above your cumulative invested capital.' }
       ]
     },
     assumptionsAndLimitations: {
       title: 'Return Calculation Assumptions',
       notes: [
         'Calculations assume annual premium payment mode made at the start of each policy year.',
-        'Traditional LIC participating policies historically generate nominal IRRs between 4.8% and 6.2% per annum.',
-        'Maturity returns under Section 10(10D) are 100% tax-free, making post-tax yields comparable to higher pre-tax fixed deposit rates.',
+        'Traditional LIC participating policies historically generate nominal IRRs between 4.8% and 6.2% per annum depending on term and bonus declarations.',
+        'Maturity returns under Section 10(10D) are generally tax-free subject to statutory limits, making post-tax yields comparable to pre-tax fixed deposit rates.',
         'The value of life cover protection during the term is not monetized in the pure savings IRR metric.'
       ]
     },
@@ -1317,19 +1317,19 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
     faqs: [
       {
         question: 'What is the average rate of return (IRR) of an LIC policy in India?',
-        answer: 'Most traditional participating endowment plans (such as New Endowment Table 914, Jeevan Anand Table 915, and Jeevan Labh Table 936) deliver an annualized Internal Rate of Return (IRR) between 5.0% and 6.5% p.a., guaranteed by LIC and 100% tax-free under Section 10(10D).'
+        answer: 'Most traditional participating endowment plans (such as New Endowment Table 914, Jeevan Anand Table 915, and Jeevan Labh Table 936) deliver an estimated annualized Internal Rate of Return (IRR) between 5.0% and 6.5% p.a. based on historical bonus declarations (non-guaranteed), with maturity proceeds generally tax-exempt under Section 10(10D) subject to statutory limits.'
       },
       {
         question: 'Why is IRR more accurate than simple percentage return for LIC policies?',
-        answer: 'Simple percentage return ignores the time value of money and assumes all money was invested on Day 1. Since you pay premiums annually over 15 to 25 years, IRR correctly discounts each yearly cash flow to calculate your true annualized return.'
+        answer: 'Simple percentage return ignores the time value of money and assumes all money was invested on Day 1. Since you pay premiums annually over 15 to 25 years, IRR discounts each yearly cash flow to calculate your annualized return.'
       },
       {
         question: 'Are returns from traditional LIC policies taxable in India?',
-        answer: 'No. Maturity proceeds from traditional life insurance policies issued with annual premiums below statutory limits (₹5 Lakhs for policies issued after April 1, 2023) are 100% tax-free under Section 10(10D).'
+        answer: 'Maturity proceeds from traditional life insurance policies issued with annual premiums below statutory limits (₹5 Lakhs for non-ULIP policies issued after April 1, 2023) are generally tax-free under Section 10(10D) of the Income Tax Act.'
       },
       {
         question: 'How do LIC policy returns compare against Public Provident Fund (PPF)?',
-        answer: 'PPF offers a floating sovereign interest rate (currently ~7.1% p.a. tax-free) with zero life insurance cover, whereas LIC plans deliver ~5.5% tax-free returns alongside continuous guaranteed life insurance protection.'
+        answer: 'PPF offers a floating sovereign interest rate (currently ~7.1% p.a. tax-free) with zero life insurance cover, whereas LIC plans deliver ~5.0% to 6.0% tax-free returns alongside continuous contractual life insurance protection.'
       },
       {
         question: 'Does the return calculator factor in Goods and Services Tax (GST)?',
@@ -1345,7 +1345,7 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
     id: 'lic-premium-frequency-calculator',
     slug: 'lic-premium-frequency-calculator',
     seoTitle: 'LIC Premium Payment Mode Calculator | Compare Yearly vs Monthly Rebates',
-    metaDescription: 'Compare LIC installment amounts across Yearly, Half-Yearly, Quarterly, and Monthly NACH modes. See exact 2% and 1% modal discounts and GST breakup.',
+    metaDescription: 'Compare LIC installment amounts across Yearly, Half-Yearly, Quarterly, and Monthly NACH modes. See standard 2% and 1% modal discounts and GST breakup.',
     h1: 'LIC Premium Mode & Frequency Calculator',
     subtitle: 'Compare installment amounts, modal rebates, and GST breakdown across Yearly, Half-Yearly, Quarterly, and Monthly payment frequencies.',
     category: 'Premium & Payments',
@@ -1353,7 +1353,7 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
     introParagraphs: [
       'The LIC Premium Payment Mode & Frequency Calculator helps policyholders choose the most cost-effective installment schedule for their life insurance policies.',
       'LIC rewards policyholders who pay premiums upfront in lump-sum intervals. Paying annually grants a 2% modal rebate on tabular premiums, while half-yearly payments receive a 1% rebate. Quarterly and monthly modes receive zero rebate and incur higher cumulative administrative processing costs.',
-      'This tool details the exact first-year GST (4.5%) versus renewal GST (2.25%) and shows the exact money saved by opting for annual or half-yearly premium payment modes.'
+      'This tool details the estimated first-year GST (4.5%) versus renewal GST (2.25%) and illustrates the potential savings by opting for annual or half-yearly premium payment modes.'
     ],
     howItWorks: {
       title: 'How Modal Rebates & Installment Amounts Are Calculated',
@@ -1375,63 +1375,63 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
           number: 3,
           title: 'Add Goods and Services Tax (GST)',
           description: 'Applies 4.5% GST for the first policy year and 2.25% concessional GST for subsequent renewal years.',
-          formulaSnippet: 'Final Installment = Net Installment + Statutory GST'
+          formulaSnippet: 'Final Installment = Net Installment × (1 + GST Rate)'
         }
       ]
     },
     inputsGuide: {
       title: 'Premium Frequency Input Guide',
       items: [
-        { label: 'Annual Base Premium', explanation: 'The basic annual premium before taxes and rebates quoted for your policy.' },
-        { label: 'Sum Assured (Optional)', explanation: 'Used to factor in high sum assured rebates where applicable.' }
+        { label: 'Annual Tabular Premium', explanation: 'The base yearly premium figure before any modal discounts or taxes are added.' },
+        { label: 'Policy Year Stage', explanation: 'Select Year 1 (4.5% GST) or Renewal Years (2.25% GST) to apply correct tax rates.' }
       ]
     },
     resultsGuide: {
-      title: 'Understanding Payment Mode Comparisons',
-      explanation: 'Side-by-side cost breakdown across all 4 premium frequencies.',
+      title: 'Comparing Payment Mode Breakdown',
+      explanation: 'Comparison of installment cash flows across all four authorized payment modes.',
       metrics: [
-        { name: 'Yearly Mode Installment', meaning: 'One-time annual payment featuring the highest 2% discount on basic premium.' },
-        { name: 'Half-Yearly Installment', meaning: 'Biannual payment featuring a 1% discount on basic premium.' },
-        { name: 'Monthly NACH Installment', meaning: 'Automated monthly bank deduction without modal rebate.' },
-        { name: 'Annual Savings vs Monthly', meaning: 'The total cash saved every year simply by switching from Monthly to Yearly mode.' }
+        { name: 'Yearly Mode Installment', meaning: 'One-time annual payment featuring the standard 2% discount on basic premium.' },
+        { name: 'Half-Yearly Installment', meaning: 'Semi-annual payment with 1% discount applied per installment.' },
+        { name: 'Quarterly Installment', meaning: 'Four equal installments per year with zero modal rebate applied.' },
+        { name: 'Monthly (NACH) Mode', meaning: 'Twelve automated monthly bank debits with zero modal rebate.' }
       ]
     },
     assumptionsAndLimitations: {
-      title: 'Payment Mode Regulations & Guidelines',
+      title: 'Modal Rebate Regulations',
       notes: [
-        'Monthly payment mode in LIC is available only through automated NACH / ECS bank mandates or salary savings scheme (SSS).',
-        'First-year GST on traditional insurance premiums is 4.5%, reducing to 2.25% in renewal policy years.',
-        'Grace period is 30 calendar days for Yearly, Half-Yearly, and Quarterly modes, and 15 days for Monthly mode.'
+        'Monthly premium mode requires mandatory NACH / ECS bank mandate setup.',
+        'Modal discounts (2% yearly, 1% half-yearly) apply strictly to base premiums and exclude rider charges.',
+        'First-year GST rate is 4.5% and renewal years GST is 2.25% for traditional life insurance policies.'
       ]
     },
     sources: [
-      { title: 'LIC Premium Mode & Modal Rebate Rules Circular', publisher: 'Life Insurance Corporation of India', reference: 'CO/MKTG/MODAL/2021' },
-      { title: 'CBIC Insurance Services GST Notification (Rates of Tax on Life Insurance)', publisher: 'Ministry of Finance, Govt of India', reference: 'CBIC/GST/INS/2019' }
+      { title: 'LIC Premium Frequency & Modal Discount Circular', publisher: 'Life Insurance Corporation of India', reference: 'CO/ACT/MODAL/2020' },
+      { title: 'Central Board of Indirect Taxes and Customs (CBIC) — Insurance GST Slabs', publisher: 'CBIC', reference: 'CBIC/GST/INS/2018' }
     ],
     faqs: [
       {
-        question: 'What is the modal rebate in LIC premium payment?',
-        answer: 'LIC offers a discount called modal rebate for less frequent payment schedules: 2% discount on tabular premium for Yearly mode and 1% discount for Half-Yearly mode. Quarterly and Monthly modes do not receive any rebate.'
+        question: 'Why is paying an LIC premium annually cheaper than paying monthly?',
+        answer: 'LIC grants a 2% modal rebate on the base tabular premium for annual payments because it reduces administrative collection expenses and provides upfront investable funds. Monthly mode receives zero discount.'
       },
       {
-        question: 'Is it cheaper to pay LIC premium yearly or monthly?',
-        answer: 'Paying yearly is significantly cheaper. You save 2% on the base premium and avoid 12 individual transaction overheads. Over a 20-year policy term, choosing yearly mode saves thousands of rupees in cumulative payments.'
+        question: 'Can I pay LIC premiums on a monthly basis across all plans?',
+        answer: 'Yes, but monthly payments require setting up an automated NACH (National Automated Clearing House) bank mandate or salary savings scheme (SSS).'
       },
       {
-        question: 'What is the GST rate on LIC life insurance premiums?',
-        answer: 'For traditional life insurance policies, Goods and Services Tax (GST) is 4.5% in the first policy year and 2.25% in all subsequent renewal years. For pure term plans, GST is a flat 18%.'
+        question: 'What is the GST rate applied to LIC premium payments?',
+        answer: 'Traditional savings policies attract 4.5% GST on first-year premiums and 2.25% GST on renewal premiums. Pure term insurance policies attract 18% GST throughout the policy tenure.'
       },
       {
-        question: 'Can I change my LIC premium payment frequency after buying the policy?',
-        answer: 'Yes. You can change your payment frequency (e.g., from Monthly to Yearly or vice-versa) on any policy anniversary by submitting a request letter along with the policy bond to your servicing branch.'
+        question: 'Can I switch my payment frequency from quarterly to yearly midway through the policy?',
+        answer: 'Yes. You can submit a mode change request form at your servicing LIC branch before the policy anniversary date.'
       },
       {
-        question: 'What is the grace period for monthly premium mode in LIC?',
-        answer: 'The grace period for monthly premium payment mode is 15 calendar days from the due date. For yearly, half-yearly, and quarterly modes, the grace period is 30 calendar days.'
+        question: 'Is there a grace period difference between monthly and yearly premium payment modes?',
+        answer: 'Yes. LIC provides a 30-day grace period for yearly, half-yearly, and quarterly payment modes, whereas monthly premium mode (via NACH/ECS) provides a 15-day grace period from the due date.'
       },
       {
-        question: 'Can I pay monthly LIC premiums via cash or credit card at branches?',
-        answer: 'No. Monthly mode premiums can only be paid via electronic auto-debit (NACH / e-Mandate) or Salary Savings Scheme (SSS) deducted directly from employee payroll.'
+        question: 'What happens if a monthly NACH auto-debit transaction fails?',
+        answer: 'If an automated NACH bank debit fails due to insufficient balance, LIC attempts a secondary debit cycle, but bank bounce charges may apply and the policy could lapse if unpaid within 15 days.'
       }
     ]
   },
@@ -1441,11 +1441,11 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
     seoTitle: 'LIC Late Fee & Policy Revival Calculator | Calculate Interest on Arrears',
     metaDescription: 'Calculate overdue late fee interest at 9.5% p.a. compounded half-yearly and total arrears required to revive a lapsed LIC policy within 5 years.',
     h1: 'LIC Late Fee & Policy Revival Calculator',
-    subtitle: 'Determine exact late fee interest, statutory taxes, and total arrears required to revive a lapsed policy and restore life cover.',
+    subtitle: 'Estimate late fee interest, statutory taxes, and total arrears required to revive a lapsed policy and restore life cover.',
     category: 'Policy Maintenance',
     lastReviewedDate: 'August 2026',
     introParagraphs: [
-      'The LIC Late Fee & Policy Revival Calculator helps policyholders who missed their premium due dates calculate the exact penalty interest and total arrears needed to bring their lapsed policies back to active status.',
+      'The LIC Late Fee & Policy Revival Calculator helps policyholders who missed their premium due dates estimate the penalty interest and total arrears needed to bring their lapsed policies back to active status.',
       'When an LIC premium is not paid within the statutory grace period (30 days for yearly/half-yearly/quarterly modes and 15 days for monthly mode), the policy lapses and life risk protection ceases. To restore coverage, the policyholder must pay all overdue premiums along with late fee interest compounded half-yearly at standard LIC rates (typically 9.5% p.a.).',
       'Under current IRDAI and LIC regulations, lapsed policies can be revived within a maximum consecutive window of 5 years from the date of the First Unpaid Premium (FUP).'
     ],
@@ -1497,7 +1497,7 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
         'Policies overdue for more than 5 consecutive years from FUP cannot be revived and must be settled via surrender/paid-up claim.',
         'Revival after 6 months to 3 years requires submission of a Declaration of Good Health (Form 300 / 340).',
         'Revival after 3 years may require a fresh medical examination at the policyholders expense.',
-        'LIC periodically launches Special Revival Campaigns offering 20% to 30% concessions on late fee interest.'
+        'LIC periodically launches Special Revival Campaigns offering concessions on late fee interest.'
       ]
     },
     sources: [
@@ -1523,7 +1523,7 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
       },
       {
         question: 'Are there any discounts available on LIC late fee interest?',
-        answer: 'Yes. LIC periodically conducts Special Revival Campaigns (typically twice a year) offering 20% to 30% rebates on late fee interest (up to ₹3,000 to ₹5,000 max rebate) for eligible micro and traditional policies.'
+        answer: 'Yes. LIC periodically conducts Special Revival Campaigns offering rebates on late fee interest for eligible micro and traditional policies.'
       },
       {
         question: 'What happens if death occurs while the policy is in a lapsed state?',
@@ -1535,15 +1535,15 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
     id: 'lic-hlv-calculator',
     slug: 'lic-hlv-calculator',
     seoTitle: 'LIC Human Life Value (HLV) Calculator | Calculate Ideal Life Cover',
-    metaDescription: 'Calculate your exact Human Life Value (HLV) and ideal life insurance cover based on income replacement, working years, liabilities, and liquid assets.',
+    metaDescription: 'Estimate your Human Life Value (HLV) and ideal life insurance cover based on income replacement, working years, liabilities, and liquid assets.',
     h1: 'LIC Human Life Value (HLV) Calculator',
-    subtitle: 'Estimate the exact life insurance cover needed to secure your family against loss of future earning power and debt obligations.',
+    subtitle: 'Estimate the life insurance cover needed to secure your family against loss of future earning power and debt obligations.',
     category: 'Protection Planning',
     lastReviewedDate: 'August 2026',
     introParagraphs: [
-      'The LIC Human Life Value (HLV) Calculator helps breadwinners and families determine the precise monetary life insurance coverage required to guarantee complete financial security in the event of untimely demise.',
+      'The LIC Human Life Value (HLV) Calculator helps breadwinners and families determine the estimated life insurance coverage required to support financial security in the event of untimely demise.',
       'Human Life Value represents the capitalized present monetary value of a persons future earnings dedicated to supporting family dependents. Rather than relying on generic rules of thumb (such as 10x annual income), this calculator uses the actuarial Income Replacement Method, factoring in years to retirement, living expenses, outstanding mortgage debts, and existing liquid assets.',
-      'Calculating your true HLV ensures your family is neither dangerously under-insured nor burdened with excessive premium expenses for redundant coverage.'
+      'Estimating your HLV helps evaluate whether your family has sufficient protection without excessive premium expenses.'
     ],
     howItWorks: {
       title: 'How Human Life Value (HLV) is Calculated',
@@ -1604,7 +1604,7 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
     faqs: [
       {
         question: 'What is Human Life Value (HLV) in life insurance?',
-        answer: 'Human Life Value (HLV) is the monetary measurement of the economic value an individual provides to their family dependents over their working lifetime. It represents the exact amount of life insurance needed to replace their income in case of unfortunate demise.'
+        answer: 'Human Life Value (HLV) is the monetary measurement of the economic value an individual provides to their family dependents over their working lifetime. It represents an estimated benchmark of life insurance needed to replace their income in case of unfortunate demise.'
       },
       {
         question: 'How is Human Life Value calculated in LIC?',
@@ -1616,11 +1616,11 @@ export const CALCULATOR_SEO_DATA: Record<CalculatorId, CalculatorSEOContent> = {
       },
       {
         question: 'Should home loans and personal loans be included in HLV calculation?',
-        answer: 'Yes, absolutely. Outstanding loans must be cleared immediately upon demise to prevent the family from losing residential property or facing debt recovery proceedings.'
+        answer: 'Yes. Outstanding loans must be cleared upon demise to prevent the family from losing residential property or facing debt recovery proceedings.'
       },
       {
-        question: 'Which LIC policy is best suited to cover Human Life Value?',
-        answer: 'Pure term insurance plans like LIC Tech Term (Table 854 / 855) or Yuva Term (Table 875) are ideal because they provide large life cover (₹50 Lakhs to ₹2+ Crores) at very affordable annual premiums.'
+        question: 'Which type of life insurance policy is commonly used to cover Human Life Value?',
+        answer: 'Pure term insurance plans like LIC Tech Term (Table 854 / 855) or Yuva Term (Table 875) are commonly considered because they provide substantial life cover at affordable annual premiums.'
       },
       {
         question: 'Does Human Life Value decrease as a person gets older?',
