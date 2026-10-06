@@ -6,7 +6,6 @@ import { POST as surrenderPost } from '@/pages/api/calculators/surrender';
 import { POST as surrenderLossPost } from '@/pages/api/calculators/surrender-loss';
 import { POST as loanPost } from '@/pages/api/calculators/loan';
 import { getSecurityHeaders, GlobalRateLimiter, RequestInputValidator } from '@/lib/security';
-import { AdminStore } from '@/lib/admin';
 import { PrivacyPreservingTracker } from '@/lib/analytics';
 import { StructuredDataGenerator, SEARCH_INTENT_MAP, SEOQualityGate } from '@/lib/seo';
 import { VERIFIED_AUTHORS, AuthorManager } from '@/lib/editorial';
@@ -179,21 +178,6 @@ describe('PHASE 12 FINAL QA: Comprehensive Platform Verification', () => {
     it('validates request protocol and content-type', () => {
       const getReq = new Request('https://lic-calculators.com/api/calculators/surrender', { method: 'GET' });
       expect(RequestInputValidator.validateMethod(getReq, 'POST').valid).toBe(false);
-    });
-  });
-
-  // --- 3. Strict Public Boundary & Separation of Duties ---
-  describe('3. Public Data Boundary & Admin Rule Lifecycle', () => {
-    it('proves draft, unverified and disabled rules cannot be accessed by public calculators', () => {
-      const publicRule = AdminStore.getPublicActiveRule('non_existent_plan', 'surrender');
-      expect(publicRule).toBeUndefined();
-    });
-
-    it('guarantees only published and effective rules are served', () => {
-      const activeRule = AdminStore.getPublicActiveRule('914', 'surrender');
-      expect(activeRule).toBeDefined();
-      expect(activeRule?.status).toBe('published');
-      expect(activeRule?.isPublished).toBe(true);
     });
   });
 

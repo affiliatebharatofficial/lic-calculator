@@ -6,7 +6,7 @@
 
 ### Pre-Deployment Verification:
 - [ ] **Environment Separation**: Local/Staging/Production configurations verified. Zero dev secrets in production.
-- [ ] **Secrets Management**: `GEMINI_API_KEY`, `ADMIN_SESSION_SECRET`, and `TURNSTILE_SECRET_KEY` set via `wrangler secret put`.
+- [ ] **Secrets Management**: `GEMINI_API_KEY` and `TURNSTILE_SECRET_KEY` set via `wrangler secret put`.
 - [ ] **Cloudflare D1 Production Binding**: `DB` binding linked to production D1 database.
 - [ ] **D1 Migrations Applied**:
   - `0001_initial_schema.sql`

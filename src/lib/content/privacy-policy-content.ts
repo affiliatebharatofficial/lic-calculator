@@ -82,7 +82,7 @@ export const PRIVACY_POLICY_CONTENT: Record<Locale, PrivacyPolicyPageData> = {
           'A cookie is a small text file stored on your device by your web browser. We categorize cookies used on our website as follows:'
         ],
         listItems: [
-          'Essential Administrative Cookies: An encrypted session cookie (lic_admin_session) is used exclusively for authorized site administrators to access the internal rules and translation console. Regular public calculator visitors do not receive account session cookies.',
+          'No Account Cookies: This website has no user accounts and no login, so no account or session cookies are issued to visitors.',
           'Analytics Cookies: Google Analytics sets standard performance cookies (_ga, _ga_*) to distinguish unique anonymized visitors and track aggregated metrics.',
           'No Advertising Cookies: We do NOT use third-party advertising cookies, retargeting pixels, or commercial tracking networks.'
         ]
@@ -231,7 +231,7 @@ export const PRIVACY_POLICY_CONTENT: Record<Locale, PrivacyPolicyPageData> = {
           'हमारी वेबसाइट पर कुकीज़ का उपयोग अत्यंत सीमित और स्पष्ट है:'
         ],
         listItems: [
-          'प्रशासनिक सत्र कुकीज़: केवल वेबसाइट व्यवस्थापकों के लॉगिन के लिए सुरक्षित HttpOnly कुकी (lic_admin_session) का उपयोग किया जाता है। आम उपयोगकर्ताओं को कोई सत्र कुकी जारी नहीं की जाती।',
+          'कोई अकाउंट कुकीज़ नहीं: इस वेबसाइट पर कोई उपयोगकर्ता खाता या लॉगिन नहीं है, इसलिए आगंतुकों को कोई खाता या सत्र कुकी जारी नहीं की जाती।',
           'एनालिटिक्स कुकीज़: Google Analytics द्वारा विज़िटर सांख्यिकी के लिए मानक कुकीज़ (_ga) का उपयोग किया जाता है।',
           'कोई विज्ञापन कुकीज़ नहीं: हम किसी भी प्रकार के थर्ड-पार्टी विज्ञापन या मार्केटिंग ट्रैकर का उपयोग नहीं करते हैं।'
         ]

@@ -41,7 +41,7 @@ describe('Privacy Policy Page Full Audit & Compliance', () => {
     expect(fullText).toContain('/api/analytics/event');
 
     // Cookies accuracy
-    expect(fullText).toContain('lic_admin_session');
+    expect(fullText).toContain('No Account Cookies');
     expect(fullText).toContain('No Advertising Cookies');
 
     // Cloudflare edge infrastructure

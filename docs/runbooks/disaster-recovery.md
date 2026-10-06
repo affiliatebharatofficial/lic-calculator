@@ -7,7 +7,7 @@
 ## 1. Severity Levels
 
 - **SEV-1 (Critical)**: Public calculators generating incorrect financial figures, D1 database unreachable, or security/secret breach.
-- **SEV-2 (High)**: AI assistant offline, language localization route failures, or admin panel login failures.
+- **SEV-2 (High)**: AI assistant offline or language localization route failures.
 - **SEV-3 (Moderate)**: Analytics event ingestion degradation or minor typo in guide content.
 
 ---
@@ -17,15 +17,14 @@
 If a newly published financial rule causes calculation inaccuracies or is disputed:
 
 ### Step 1: Emergency Disable (Instant Mitigation)
-Execute authenticated POST to disable the problematic rule immediately:
-```bash
-curl -X POST https://lic-calculators.com/api/admin/rules/[RULE_ID]/disable \
-  -H "Cookie: lic_admin_session=[ADMIN_SESSION_TOKEN]"
+There is no admin panel; rules live in the Cloudflare D1 `rule_sets` table. Disable the problematic rule set directly in D1 by setting its `status` to `disabled` (the public rule provider only serves `status = 'active'`, `verification_status = 'verified'` rows):
+```sql
+UPDATE rule_sets SET status = 'disabled' WHERE id = '[RULE_SET_ID]';
 ```
-*Effect*: The rule is instantly transitioned to `disabled`. The public calculator immediately returns `Calculation Unavailable` for that specific table/parameter combination rather than serving corrupted or estimated figures.
+*Effect*: The public calculator immediately returns `Calculation Unavailable` for that specific table/parameter combination rather than serving corrupted or estimated figures.
 
 ### Step 2: Rollback to Previous Verified Version
-Transition the previous verified version back to active published state in Admin CMS (`/admin/rules`).
+Set the previous verified version's row back to `status = 'active'` in the D1 `rule_sets` table.
 
 ---
 
@@ -59,14 +58,6 @@ In the event of an API key or session secret compromise:
      ```bash
      npx wrangler secret put GEMINI_API_KEY
      ```
-2. **Admin Session Token Flush**:
-   - Truncate all rows in the `admin_sessions` table in D1 to force all administrators to re-authenticate with PBKDF2/SHA-256 credentials.
-   ```sql
-   DELETE FROM admin_sessions;
-   ```
-3. **Session Cookie Signing Key**:
-   - Rotate `ADMIN_SESSION_SECRET` in Cloudflare Worker Secrets.
-
 ---
 
 ## 5. Public Calculator Availability Invariant
