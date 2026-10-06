@@ -23,9 +23,7 @@ export class AuditService {
     const stmt = this.db.prepare(`
       INSERT INTO audit_logs (id, actor, action, entity_type, entity_id, old_value_json, new_value_json, timestamp)
       VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-    `);
-
-    stmt.bind(
+    `).bind(
       id,
       params.actor,
       params.action,
@@ -43,8 +41,7 @@ export class AuditService {
       SELECT * FROM audit_logs
       WHERE entity_type = ? AND entity_id = ?
       ORDER BY timestamp DESC
-    `);
-    stmt.bind(entityType, entityId);
+    `).bind(entityType, entityId);
     const res = await stmt.all();
     return res.results;
   }

@@ -11,6 +11,7 @@ export type ApiErrorCode =
   | 'RATE_LIMITED'
   | 'RULE_NOT_FOUND'
   | 'NOT_IMPLEMENTED'
+  | 'SERVICE_UNAVAILABLE'
   | 'INTERNAL_SERVER_ERROR';
 
 export interface ApiFieldError {

@@ -16,7 +16,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     const envDb = (locals as any)?.runtime?.env?.DB;
-    const db = getOrCreateDatabase(envDb);
+    const db = getOrCreateDatabase(envDb, (locals as any)?.runtime?.env?.ENVIRONMENT);
+    if (!db) {
+      return createErrorResponse('SERVICE_UNAVAILABLE', 'Calculator database is not configured.', 503);
+    }
     const provider = new D1RuleProvider(db);
 
     const planCode = String(body?.planTableNo || '914');

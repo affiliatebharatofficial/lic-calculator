@@ -38,8 +38,7 @@ export class RuleService {
       SELECT * FROM rule_sets
       WHERE plan_id = ? AND calculator_type_id = ?
       ORDER BY effective_from DESC
-    `);
-    stmt.bind(planId, calculatorTypeId);
+    `).bind(planId, calculatorTypeId);
     const res = await stmt.all();
     return res.results;
   }
@@ -83,9 +82,7 @@ export class RuleService {
         source_reference, source_title, source_type, verification_status,
         rule_payload_json, created_at, updated_at
       ) VALUES (?, ?, ?, ?, ?, 'draft', ?, ?, ?, ?, ?, ?, ?, 'pending', ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
-    `);
-
-    stmt.bind(
+    `).bind(
       id,
       params.planId,
       params.variantId ?? null,
@@ -127,8 +124,7 @@ export class RuleService {
       UPDATE rule_sets
       SET verification_status = ?, verified_at = CURRENT_TIMESTAMP, verification_notes = ?, updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
-    `);
-    stmt.bind(params.status, params.verificationNotes, params.ruleId);
+    `).bind(params.status, params.verificationNotes, params.ruleId);
     await stmt.run();
 
     await this.auditService.logEvent({
@@ -150,8 +146,7 @@ export class RuleService {
     ruleId: string;
     actor: string;
   }): Promise<{ success: boolean; errors: RuleConflictError[] }> {
-    const findStmt = this.db.prepare<RuleSetRow>(`SELECT * FROM rule_sets WHERE id = ?`);
-    findStmt.bind(params.ruleId);
+    const findStmt = this.db.prepare<RuleSetRow>(`SELECT * FROM rule_sets WHERE id = ?`).bind(params.ruleId);
     const rule = await findStmt.first();
 
     if (!rule) {
@@ -175,8 +170,7 @@ export class RuleService {
 
     const updateStmt = this.db.prepare(`
       UPDATE rule_sets SET status = 'active', updated_at = CURRENT_TIMESTAMP WHERE id = ?
-    `);
-    updateStmt.bind(params.ruleId);
+    `).bind(params.ruleId);
     await updateStmt.run();
 
     await this.auditService.logEvent({

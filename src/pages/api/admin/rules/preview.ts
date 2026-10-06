@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { createErrorResponse, createSuccessResponse } from '@/lib/api/response';
-import { AdminAuth, AdminStore } from '@/lib/admin';
+import { getAdminSession } from '@/lib/admin';
 import { ENGINES, executeCalculatorApi } from '@/lib/calculators';
 import { D1RuleProvider } from '@/lib/db';
 import { getOrCreateDatabase } from '@/pages/api/plans';
@@ -8,9 +8,8 @@ import { getOrCreateDatabase } from '@/pages/api/plans';
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  const token = AdminAuth.extractTokenFromRequest(request);
-  const session = token ? AdminStore.getSession(token) : null;
-  if (!session || !AdminAuth.isSessionValid(session)) {
+  const session = await getAdminSession(request, locals);
+  if (!session) {
     return createErrorResponse('UNAUTHORIZED', 'Admin session required.', 401);
   }
 
@@ -28,7 +27,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   try {
     const envDb = (locals as any)?.runtime?.env?.DB;
-    const db = getOrCreateDatabase(envDb);
+    const db = getOrCreateDatabase(envDb, (locals as any)?.runtime?.env?.ENVIRONMENT);
+    if (!db) {
+      return createErrorResponse('SERVICE_UNAVAILABLE', 'Calculator database is not configured.', 503);
+    }
     const provider = new D1RuleProvider(db);
 
     const calcKey = (calculatorCode as keyof typeof ENGINES) || 'surrender';

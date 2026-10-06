@@ -16,7 +16,7 @@ describe('Admin Authentication & RBAC Permissions', () => {
     expect(isWrong).toBe(false);
   });
 
-  it('creates and validates session tokens', () => {
+  it('creates and validates session tokens', async () => {
     const user = {
       id: 'usr_1',
       email: 'admin@lic-calculators.com',
@@ -27,7 +27,11 @@ describe('Admin Authentication & RBAC Permissions', () => {
       updatedAt: new Date().toISOString()
     };
 
-    const { token, session } = AdminAuth.createSession(user);
+    const { token, session } = await AdminAuth.createSession(user, 'test-session-secret');
+    const verified = await AdminAuth.verifySessionToken(token, 'test-session-secret');
+    expect(verified?.userId).toBe('usr_1');
+    expect(await AdminAuth.verifySessionToken(token, 'wrong-secret')).toBeNull();
+    expect(await AdminAuth.verifySessionToken(token + 'tampered', 'test-session-secret')).toBeNull();
     expect(token).toBeDefined();
     expect(session.userId).toBe('usr_1');
     expect(AdminAuth.isSessionValid(session)).toBe(true);

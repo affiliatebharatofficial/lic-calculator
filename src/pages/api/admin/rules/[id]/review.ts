@@ -1,13 +1,12 @@
 import type { APIRoute } from 'astro';
 import { createErrorResponse, createSuccessResponse } from '@/lib/api/response';
-import { AdminAuth, AdminStore, AuditLogger } from '@/lib/admin';
+import { AdminStore, AuditLogger, getAdminSession } from '@/lib/admin';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ params, request, clientAddress }) => {
-  const token = AdminAuth.extractTokenFromRequest(request);
-  const session = token ? AdminStore.getSession(token) : null;
-  if (!session || !AdminAuth.isSessionValid(session)) {
+export const POST: APIRoute = async ({ params, request, clientAddress , locals }) => {
+  const session = await getAdminSession(request, locals);
+  if (!session) {
     return createErrorResponse('UNAUTHORIZED', 'Admin session required.', 401);
   }
 

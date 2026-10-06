@@ -1,4 +1,12 @@
 ---
+export const prerender = false;
+
+import { getAdminSession } from '@/lib/admin';
+
+const adminSession = await getAdminSession(Astro.request, Astro.locals);
+if (!adminSession) {
+  return Astro.redirect('/admin/login/');
+}
 import AdminLayout from '@/layouts/AdminLayout.astro';
 import { LOCALE_CODES, SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n';
 import type { Locale } from '@/types/i18n';
@@ -384,7 +392,7 @@ const allToolsList = [
           target.innerHTML = '<span>⏳ Translating...</span>';
 
           try {
-            const res = await fetch('/api/admin/translations/ai-translate', {
+            const res = await fetch('/api/admin/translations/ai-translate/', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -428,7 +436,7 @@ const allToolsList = [
         targetBtn.innerHTML = '<span>⏳</span><span>Translating with AI...</span>';
 
         try {
-          const res = await fetch('/api/admin/translations/ai-translate', {
+          const res = await fetch('/api/admin/translations/ai-translate/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -477,7 +485,7 @@ const allToolsList = [
         btnRetranslateAllFaqs.innerHTML = '<span>⏳ Translating all FAQs...</span>';
 
         try {
-          const res = await fetch('/api/admin/translations/ai-translate', {
+          const res = await fetch('/api/admin/translations/ai-translate/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -565,7 +573,7 @@ const allToolsList = [
 
         btnQuick.disabled = true;
         try {
-          const res = await fetch('/api/admin/translations/ai-translate', {
+          const res = await fetch('/api/admin/translations/ai-translate/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

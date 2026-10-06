@@ -6,3 +6,4 @@ export * from './concurrency';
 export * from './rule-validator';
 export * from './regression-gate';
 export * from './store';
+export * from './guard';

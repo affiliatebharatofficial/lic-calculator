@@ -12,9 +12,15 @@ export const prerender = false;
 // Default pre-seeded database instance for serverless runtime when local mock is needed
 let globalDb: MockD1Database | null = null;
 
-export function getOrCreateDatabase(envDb?: any): any {
+export function getOrCreateDatabase(envDb?: any, environment?: string): any {
   if (envDb) {
     return envDb;
+  }
+  // In production the mock fallback must NEVER serve synthetic test rates to
+  // real visitors. Fail closed with null; callers answer 503 instead.
+  const envName = environment || (typeof process !== 'undefined' ? process.env.ENVIRONMENT : undefined);
+  if (envName === 'production') {
+    return null;
   }
   if (!globalDb) {
     globalDb = new MockD1Database();
@@ -297,7 +303,10 @@ export function getOrCreateDatabase(envDb?: any): any {
 export const GET: APIRoute = async ({ locals }) => {
   try {
     const envDb = (locals as any)?.runtime?.env?.DB;
-    const db = getOrCreateDatabase(envDb);
+    const db = getOrCreateDatabase(envDb, (locals as any)?.runtime?.env?.ENVIRONMENT);
+    if (!db) {
+      return createErrorResponse('SERVICE_UNAVAILABLE', 'Plans database is not configured.', 503);
+    }
 
     const plansStmt = db.prepare(`SELECT * FROM lic_plans WHERE status = 'active' ORDER BY table_no ASC`);
     const plansRes = await plansStmt.all();

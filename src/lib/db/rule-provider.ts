@@ -40,8 +40,7 @@ export class D1RuleProvider implements IRuleProvider {
       LIMIT 1
     `;
 
-    const stmt = this.db.prepare<RuleSetRow & { plan_code: string; calculator_code: string }>(sql);
-    stmt.bind(query.planCode, calculatorCode, calculationDate, calculationDate, policyYear, policyYear);
+    const stmt = this.db.prepare<RuleSetRow & { plan_code: string; calculator_code: string }>(sql).bind(query.planCode, calculatorCode, calculationDate, calculationDate, policyYear, policyYear);
 
     const row = await stmt.first();
     if (!row) {

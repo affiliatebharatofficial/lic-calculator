@@ -1,4 +1,12 @@
 ---
+export const prerender = false;
+
+import { getAdminSession } from '@/lib/admin';
+
+const adminSession = await getAdminSession(Astro.request, Astro.locals);
+if (!adminSession) {
+  return Astro.redirect('/admin/login/');
+}
 import AdminLayout from '@/layouts/AdminLayout.astro';
 import { AdminStore } from '@/lib/admin';
 

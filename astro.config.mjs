@@ -25,6 +25,13 @@ export default defineConfig({
     })
   ],
   redirects: {
+    '/lic-plans': '/plans/',
+    '/hi/lic-plans': '/hi/plans/',
+    '/mr/lic-plans': '/mr/plans/',
+    '/gu/lic-plans': '/gu/plans/',
+    '/bn/lic-plans': '/bn/plans/',
+    '/ta/lic-plans': '/ta/plans/',
+    '/te/lic-plans': '/te/plans/',
     '/author/naveen-chaudhary': '/author/firoz-khan/',
     '/author/ananya-deshmukh': '/author/firoz-khan/',
     '/author/vikram-sen': '/author/firoz-khan/',

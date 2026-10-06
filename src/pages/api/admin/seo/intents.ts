@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { createErrorResponse, createSuccessResponse } from '@/lib/api/response';
 import { SEARCH_INTENT_MAP, type SearchIntentEntry } from '@/lib/seo/intent-map';
+import { getAdminSession } from '@/lib/admin';
 import { VERIFIED_AUTHORS } from '@/lib/editorial';
 
 export const prerender = false;
@@ -8,7 +9,12 @@ export const prerender = false;
 // In-memory runtime cache that persists during worker lifetime
 let mutableIntentMap: SearchIntentEntry[] = [...SEARCH_INTENT_MAP];
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async ({ request, locals }) => {
+  const session = await getAdminSession(request, locals);
+  if (!session) {
+    return createErrorResponse('UNAUTHORIZED', 'Admin session required.', 401);
+  }
+
   return createSuccessResponse({
     intents: mutableIntentMap,
     totalClusters: new Set(mutableIntentMap.map(i => i.clusterId)).size,
@@ -17,7 +23,12 @@ export const GET: APIRoute = async () => {
   });
 };
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
+  const session = await getAdminSession(request, locals);
+  if (!session) {
+    return createErrorResponse('UNAUTHORIZED', 'Admin session required.', 401);
+  }
+
   try {
     let body: any;
     try {
@@ -59,7 +70,12 @@ export const POST: APIRoute = async ({ request }) => {
   }
 };
 
-export const DELETE: APIRoute = async ({ request }) => {
+export const DELETE: APIRoute = async ({ request, locals }) => {
+  const session = await getAdminSession(request, locals);
+  if (!session) {
+    return createErrorResponse('UNAUTHORIZED', 'Admin session required.', 401);
+  }
+
   try {
     const url = new URL(request.url);
     const keyword = url.searchParams.get('keyword');

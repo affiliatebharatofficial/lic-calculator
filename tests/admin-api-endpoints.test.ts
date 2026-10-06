@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll } from 'vitest';
+import { AdminAuth } from '@/lib/admin';
 import { POST as loginRoute } from '@/pages/api/admin/auth/login';
 import { GET as meRoute } from '@/pages/api/admin/auth/me';
 import { POST as rulesCreateRoute } from '@/pages/api/admin/rules/index';
@@ -7,6 +8,14 @@ import { POST as aiTranslateRoute } from '@/pages/api/admin/translations/ai-tran
 import { GET as seoIntentsGetRoute, POST as seoIntentsPostRoute, DELETE as seoIntentsDeleteRoute } from '@/pages/api/admin/seo/intents';
 
 describe('Admin API Endpoints Integration', () => {
+  beforeAll(async () => {
+    // Bootstrap admin via env secrets (same path production uses).
+    process.env.ADMIN_SESSION_SECRET = 'test-session-secret';
+    process.env.ADMIN_EMAIL = 'admin@lic-calculators.com';
+    const { hash } = await AdminAuth.hashPassword('TestAdmin@123');
+    process.env.ADMIN_PASSWORD_HASH = hash;
+  });
+
   let sessionToken = '';
 
   it('POST /api/admin/auth/login logs in valid admin and sets cookie', async () => {
@@ -15,7 +24,7 @@ describe('Admin API Endpoints Integration', () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email: 'admin@lic-calculators.com',
-        password: 'AdminPass@123'
+        password: 'TestAdmin@123'
       })
     });
 
@@ -105,7 +114,8 @@ describe('Admin API Endpoints Integration', () => {
     const request = new Request('https://lic-calculators.com/api/admin/translations/ai-translate', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Cookie: `lic_admin_session=${sessionToken}`
       },
       body: JSON.stringify({
         text: 'Surrender Value',
@@ -132,7 +142,7 @@ describe('Admin API Endpoints Integration', () => {
     // 1. Tool mode translation
     const toolReq = new Request('https://lic-calculators.com/api/admin/translations/ai-translate', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Cookie: `lic_admin_session=${sessionToken}` },
       body: JSON.stringify({
         toolId: 'lic-surrender-value-calculator',
         targetLocale: 'hi'
@@ -149,7 +159,7 @@ describe('Admin API Endpoints Integration', () => {
     // 2. Single FAQ mode translation
     const faqReq = new Request('https://lic-calculators.com/api/admin/translations/ai-translate', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Cookie: `lic_admin_session=${sessionToken}` },
       body: JSON.stringify({
         faqItem: {
           question: 'Can I surrender my policy before 2 years?',
@@ -168,7 +178,10 @@ describe('Admin API Endpoints Integration', () => {
 
   it('GET and POST /api/admin/seo/intents manages dynamic search intents', async () => {
     // 1. GET intents
-    const getRes = await seoIntentsGetRoute({} as any);
+    const getReq = new Request('https://lic-calculators.com/api/admin/seo/intents', {
+      headers: { Cookie: `lic_admin_session=${sessionToken}` }
+    });
+    const getRes = await seoIntentsGetRoute({ request: getReq } as any);
     expect(getRes.status).toBe(200);
     const getJson = await getRes.json();
     expect(getJson.success).toBe(true);
@@ -177,7 +190,7 @@ describe('Admin API Endpoints Integration', () => {
     // 2. POST create new intent
     const postReq = new Request('https://lic-calculators.com/api/admin/seo/intents', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Cookie: `lic_admin_session=${sessionToken}` },
       body: JSON.stringify({
         clusterId: 'cluster_pension',
         clusterName: 'LIC Pension & Immediate Annuity Valuation',
@@ -196,7 +209,8 @@ describe('Admin API Endpoints Integration', () => {
 
     // 3. DELETE intent
     const deleteReq = new Request('https://lic-calculators.com/api/admin/seo/intents?keyword=lic%20pension%20plan%20return%20calculator', {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: { Cookie: `lic_admin_session=${sessionToken}` }
     });
     const deleteRes = await seoIntentsDeleteRoute({ request: deleteReq } as any);
     expect(deleteRes.status).toBe(200);

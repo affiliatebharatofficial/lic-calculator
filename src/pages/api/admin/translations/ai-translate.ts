@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { createErrorResponse, createSuccessResponse } from '@/lib/api/response';
 import { getAIProvider, RateLimiter } from '@/lib/ai';
+import { getAdminSession } from '@/lib/admin';
 import { GLOSSARY_TERMS } from '@/lib/i18n/glossary';
 import { LOCALE_CODES, DEFAULT_LOCALE } from '@/lib/i18n';
 import { CALCULATOR_SEO_DATA, getCalculatorSeoData, type CalculatorId } from '@/lib/seo/calculator-content';
@@ -116,6 +117,12 @@ CRITICAL NATURAL / COLLOQUIAL CONVERSATIONAL GUIDELINES:
 
 export const POST: APIRoute = async ({ request, locals, clientAddress }) => {
   try {
+    // 0. Admin session required — this endpoint spends AI provider quota.
+    const adminSession = await getAdminSession(request, locals);
+    if (!adminSession) {
+      return createErrorResponse('UNAUTHORIZED', 'Admin session required.', 401);
+    }
+
     // 1. Rate Limiting for Admin Operations
     const ip = clientAddress || '127.0.0.1';
     const rateLimit = RateLimiter.check(ip, { maxRequests: 50, windowMs: 60 * 1000 });

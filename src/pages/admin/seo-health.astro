@@ -1,4 +1,12 @@
 ---
+export const prerender = false;
+
+import { getAdminSession } from '@/lib/admin';
+
+const adminSession = await getAdminSession(Astro.request, Astro.locals);
+if (!adminSession) {
+  return Astro.redirect('/admin/login/');
+}
 import AdminLayout from '@/layouts/AdminLayout.astro';
 import { SEARCH_INTENT_MAP } from '@/lib/seo';
 import { VERIFIED_AUTHORS } from '@/lib/editorial';
@@ -376,7 +384,7 @@ const schemaTypes = [
         if (!confirm(`Are you sure you want to delete search intent "${kw}"?`)) return;
 
         try {
-          const res = await fetch(`/api/admin/seo/intents?keyword=${encodeURIComponent(kw)}`, { method: 'DELETE' });
+          const res = await fetch(`/api/admin/seo/intents/?keyword=${encodeURIComponent(kw)}`, { method: 'DELETE' });
           const json = await res.json();
           if (json.success) {
             (e.currentTarget as HTMLElement).closest('tr')?.remove();
@@ -401,7 +409,7 @@ const schemaTypes = [
         };
 
         try {
-          const res = await fetch('/api/admin/seo/intents', {
+          const res = await fetch('/api/admin/seo/intents/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)

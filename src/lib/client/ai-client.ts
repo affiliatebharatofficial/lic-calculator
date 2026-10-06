@@ -22,7 +22,7 @@ export class AIClient {
     userQuestion?: string;
   }): Promise<{ success: boolean; data?: StructuredExplanation; error?: string }> {
     try {
-      const response = await fetch('/api/ai/explain-result', {
+      const response = await fetch('/api/ai/explain-result/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -58,7 +58,7 @@ export class AIClient {
     currentResultContext?: string;
   }): Promise<{ success: boolean; data?: StructuredChatAnswer; error?: string }> {
     try {
-      const response = await fetch('/api/ai/chat', {
+      const response = await fetch('/api/ai/chat/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

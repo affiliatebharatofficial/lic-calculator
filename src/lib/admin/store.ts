@@ -4,8 +4,6 @@
  */
 
 import type {
-  AdminUser,
-  AdminSession,
   ManagedRuleSet,
   RuleSource,
   RegressionFixture,
@@ -15,37 +13,7 @@ import { AuditLogger } from './audit';
 import { RuleValidator } from './rule-validator';
 import { RegressionGate } from './regression-gate';
 
-// In-Memory Seeded State
-const SEED_USERS: AdminUser[] = [
-  {
-    id: 'user_super_1',
-    email: 'admin@lic-calculators.com',
-    name: 'Chief Actuary & Architect',
-    role: 'super_admin',
-    status: 'active',
-    createdAt: '2026-01-01T00:00:00Z',
-    updatedAt: '2026-01-01T00:00:00Z'
-  },
-  {
-    id: 'user_editor_1',
-    email: 'editor@lic-calculators.com',
-    name: 'Content & Rule Editor',
-    role: 'editor',
-    status: 'active',
-    createdAt: '2026-01-01T00:00:00Z',
-    updatedAt: '2026-01-01T00:00:00Z'
-  },
-  {
-    id: 'user_reviewer_1',
-    email: 'reviewer@lic-calculators.com',
-    name: 'Actuarial Reviewer',
-    role: 'reviewer',
-    status: 'active',
-    createdAt: '2026-01-01T00:00:00Z',
-    updatedAt: '2026-01-01T00:00:00Z'
-  }
-];
-
+// In-Memory Seeded State (CMS demo data: sources, rules, fixtures)
 const SEED_SOURCES: RuleSource[] = [
   {
     id: 'src_lic_914_doc',
@@ -163,32 +131,12 @@ const SEED_FIXTURES: RegressionFixture[] = [
 ];
 
 export class AdminStore {
-  private static users: AdminUser[] = [...SEED_USERS];
   private static sources: RuleSource[] = [...SEED_SOURCES];
   private static rules: ManagedRuleSet[] = [...SEED_RULES];
   private static fixtures: RegressionFixture[] = [...SEED_FIXTURES];
-  private static sessions: Map<string, AdminSession> = new Map();
 
-  // --- Auth & Sessions ---
-  public static getUserByEmail(email: string): AdminUser | undefined {
-    return this.users.find((u) => u.email.toLowerCase() === email.toLowerCase());
-  }
-
-  public static getUserById(id: string): AdminUser | undefined {
-    return this.users.find((u) => u.id === id);
-  }
-
-  public static saveSession(session: AdminSession): void {
-    this.sessions.set(session.id, session);
-  }
-
-  public static getSession(tokenId: string): AdminSession | undefined {
-    return this.sessions.get(tokenId);
-  }
-
-  public static deleteSession(tokenId: string): boolean {
-    return this.sessions.delete(tokenId);
-  }
+  // Auth & sessions live in ./auth.ts (PBKDF2 + signed stateless tokens)
+  // and ./guard.ts — no in-memory user/session store.
 
   // --- Dashboard Stats ---
   public static getDashboardStats(): AdminDashboardStats {
