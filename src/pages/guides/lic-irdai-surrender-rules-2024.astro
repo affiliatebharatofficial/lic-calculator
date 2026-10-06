@@ -1,0 +1,127 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'New LIC Surrender Rules (IRDAI 2024)', url: '/guides/lic-irdai-surrender-rules-2024' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC New Surrender Rules (IRDAI, 1 Oct 2024): Surrender Value Now After Just 1 Year',
+  description: 'IRDAI\'s revised surrender value norms from 1 October 2024 let you exit an LIC policy after the first year with a higher Special Surrender Value. See what changed, the new SSV formula, and a worked example.',
+  url: `${siteUrl}/guides/lic-irdai-surrender-rules-2024`,
+  publishedDate: '2026-10-07T00:00:00Z',
+  modifiedDate: '2026-10-07T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC New Surrender Rules 2024 (IRDAI): Value After 1 Year — What Changed"
+  description="From 1 Oct 2024, IRDAI rules make surrender value payable after the first policy year, calculated at the 10-year G-Sec rate. Old rule vs new rule, SSV formula, worked example, and what it means for your LIC policy."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Policy Rules Update
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        New LIC Surrender Rules (IRDAI, 1 Oct 2024): You Now Get Value After Just 1 Year
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Until recently, exiting an LIC policy in the first year meant losing every rupee of premium paid. IRDAI's revised surrender value norms, effective 1 October 2024, changed that: a surrender value is now payable after the first policy year, and it is calculated in a way that is significantly fairer to policyholders. Here is exactly what changed and what it means for your policy.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Thinking of surrendering your policy?</h2>
+        <p class="text-xs text-brand-700">First check how much you would receive — and how much you would lose versus staying invested.</p>
+      </div>
+      <a
+        href="/lic-surrender-value-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Estimate Surrender Value &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Old Rule: Nothing in Year 1, Little in Year 2</h2>
+      <p>
+        Under the earlier framework, a traditional LIC policy acquired a cash surrender value only after premiums were paid for at least two full years. If you surrendered during the first year, you received <strong>nothing</strong> — the entire first-year premium was gone. Even in the second and third years, the Guaranteed Surrender Value (GSV) was a modest statutory percentage of premiums paid (excluding the first year's premium), so early exit almost always meant a heavy loss.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. The New Rule From 1 October 2024</h2>
+      <p>
+        IRDAI's Master Circular on Life Insurance Products rewrote the surrender framework. The three changes that matter most to policyholders:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Surrender value after the first policy year.</strong> The Special Surrender Value (SSV) becomes payable once the first policy year is completed and one full year's premium has been received. For single-premium policies and policies with a premium-paying term under five years, it is payable immediately after that first premium.</li>
+        <li><strong>A fairer SSV formula.</strong> SSV is now at least the present value of the paid-up sum assured plus accrued bonuses and benefits, discounted at a rate linked to the 10-year Government Securities (G-Sec) yield, with a maximum spread of 50 basis points. Because the discount rate is anchored to a market rate, early-year payouts are materially higher than under the old factor tables.</li>
+        <li><strong>You still get whichever is higher.</strong> LIC continues to compare GSV and SSV at the time of surrender and pays the higher of the two.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">3. What the Difference Looks Like in Rupees</h2>
+      <p>
+        Consider an illustrative example reported when the norms took effect: a 10-year policy with a ₹5 lakh sum assured and a ₹50,000 annual premium.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-rose-700 uppercase block">Old Rule — Year 1 Exit</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹0 received</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Surrendering after the first policy year paid nothing. The full ₹50,000 premium was lost.
+          </p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-emerald-700 uppercase block">New Rule — Year 1 Exit</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹31,295 received (about 63% of premium)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            The paid-up value discounted at roughly the 10-year G-Sec yield (~7%) plus up to 50 bps produces a meaningful payout from year one itself. Figures are illustrative; your actual SSV depends on your plan, term, premiums paid and bonuses vested.
+          </p>
+        </div>
+      </div>
+      <p>
+        The gap narrows as the policy matures — by mid-term, paid-up value is higher and discounting eats less of it — but the principle holds at every duration: <strong>early exit still loses money, it just no longer loses everything.</strong>
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Does This Apply to Your Existing LIC Policy?</h2>
+      <p>
+        The revised norms were implemented through IRDAI's product regulations, and insurers refiled their participating and non-participating products under the new framework around the October–December 2024 transition. Policies sold under the revised product versions carry the new surrender terms. For a policy bought earlier, the surrender benefits in your policy document remain the primary reference — but in practice, insurers generally apply the more beneficial special surrender value where the regulations require it. The safest check is to ask your servicing LIC branch for a written surrender quotation before you sign anything: it must state the GSV and SSV being offered.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Before You Surrender, Check These Three Things</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Compare with the paid-up option.</strong> Stopping premiums and letting the policy continue at a reduced sum assured often preserves noticeably more value than surrendering outright, while keeping some life cover until maturity.</li>
+        <li><strong>Consider a policy loan instead.</strong> If the need is temporary, a loan against the surrender value (LIC typically allows up to 90% of it) meets the cash need without terminating the policy or its bonuses.</li>
+        <li><strong>Quantify the loss, not just the payout.</strong> The right question is not "how much will I get?" but "how much less is this than what I have paid and what I would get by continuing?" Our <a href="/lic-surrender-loss-calculator/" class="text-brand-700 font-semibold hover:text-brand-800">surrender loss calculator</a> shows exactly that difference.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        Sources: IRDAI Master Circular on Life Insurance Products (2024) as reported by The Economic Times ("Life insurance rule change: From October 1, 2024, you will get higher refund when you surrender your life insurance policy") and Business Standard ("Revised surrender value norms widen scope for life insurers, help customers"). This guide is independent educational content, not LIC or IRDAI advice; confirm your policy's exact surrender terms in your policy document or at your servicing branch.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-surrender-value-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
