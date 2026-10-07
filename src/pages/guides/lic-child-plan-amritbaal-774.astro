@@ -1,0 +1,115 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Child Plan: Amritbaal (774)', url: '/guides/lic-child-plan-amritbaal-774' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Child Plans Explained: Amritbaal (774) & Children\'s Money Back — Maturity at 18–25',
+  description: 'LIC\'s child plans time the payout to college age: Amritbaal (774) guarantees ₹80 per ₹1,000 per year and matures at an age you pick between 18–25; Children\'s Money Back pays 20% at 18, 20, 22. The premium waiver rider that justifies them, and the honest cost.',
+  url: `${siteUrl}/guides/lic-child-plan-amritbaal-774`,
+  publishedDate: '2026-10-27T00:00:00Z',
+  modifiedDate: '2026-10-27T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Child Plan: Amritbaal (774) vs Children's Money Back"
+  description="Amritbaal 774: ₹80/₹1,000/yr guaranteed additions, maturity age 18–25 chosen by you; Children's Money Back: 20% at 18/20/22 + 40% at 25. Premium waiver rider on parent's life explained, worked ₹5L example, who each suits."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Plan Review: Child Plans
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Child Plans: Amritbaal (774) vs Children's Money Back
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Every LIC child plan is really a calendar: it forces a corpus to arrive in the years a child turns 18 to 25. The two current shapes — a guaranteed lump sum you time yourself, and a staged money-back — suit different families. Here is how each one actually pays.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Size the corpus for your child's age today</h2>
+        <p class="text-xs text-brand-700">Enter the goal amount and the years left to age 18 or 21 to see what to set aside.</p>
+      </div>
+      <a
+        href="/lic-child-plan-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Plan Child Education &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. Amritbaal (774): A Guaranteed Lump Sum at an Age You Choose</h2>
+      <p>
+        Amritbaal is non-participating — no bonus lottery. It adds <strong>Guaranteed Additions of ₹80 per ₹1,000 of basic sum assured every year</strong> for the entire term, and at maturity pays <strong>sum assured + all accumulated additions</strong>. Entry from <strong>30 days to 13 years</strong>; you choose the maturity age anywhere from <strong>18 to 25</strong>; premium is single-pay or limited to <strong>5, 6 or 7 years</strong> — after which additions keep compounding for the remaining term with nothing more to pay.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Illustration: ₹5L SA at age 5, maturity at 25</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹5,00,000 + 20 yrs × ₹40,000 GA</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Guaranteed additions of ₹40,000 a year (₹80 × 500 thousands) across the 20-year term.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Guaranteed maturity</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹13,00,000 at age 25</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Fixed on day one — the appeal, and the ceiling. What the premium for it is, the benefit illustration shows you before signature.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">The catch to read</span>
+          <h3 class="font-bold text-slate-900 text-sm">Guaranteed ≠ highest</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">You are buying certainty and discipline. Compare the total premium against the ₹13L outcome — that gap is your real return.</p>
+        </div>
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Children's Money Back: Staged Payouts at 18, 20, 22, 25</h2>
+      <p>
+        The New Children's Money Back plan is participating and fixed to mature at <strong>age 25</strong>: the child receives <strong>20% of the sum assured at each of ages 18, 20 and 22</strong>, then the remaining <strong>40% plus vested bonuses</strong> at 25 (entry 0–12 years). Families like it for ladder-like expenses — admission, mid-course costs, a wedding or first-job float — without touching the plan in between. Because it is bonus-based, the final number is probable, not guaranteed; our <a href="/guides/lic-money-back-vs-endowment/" class="text-brand-700 font-semibold hover:text-brand-800">money-back vs endowment guide</a> shows how that interim-payout design prices against a plain endowment.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. The One Feature That Justifies Either Plan: Premium Waiver</h2>
+      <p>
+        The child's policy sits on the child's life — but the premiums are paid by a parent. The <strong>Premium Waiver Benefit rider</strong> (attach it, always) waives all future premiums if the parent-proposer dies or is disabled, so the corpus still lands on the child's 18th or 25th birthday exactly as designed. No mutual fund SIP can replicate that promise. Without the rider, a child plan is just an expensive savings account; with it, it is a goal that survives the family's worst day.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. The Honest Frame Before You Sign</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Your own term cover comes first.</strong> A child plan does not protect the family's income; your term policy does. Arrange that before optimising the child's corpus.</li>
+        <li><strong>Time the maturity to the expense</strong>, not to a round number: engineering admission at 18, PG at 21–22, wedding nearer 25. Amritbaal's flexible maturity age is its best argument.</li>
+        <li><strong>Read total premium vs guaranteed maturity</strong> on the illustration. If the corpus target is large, the premium for it in an insurance wrapper will be visibly higher than in pure investments — that is the price of guarantee + waiver, and it should be a deliberate purchase.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Guaranteed-addition rates, coverage options and rider terms follow the current plan brochures and your benefit illustration; bonuses in participating plans are not guaranteed.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-child-plan-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
