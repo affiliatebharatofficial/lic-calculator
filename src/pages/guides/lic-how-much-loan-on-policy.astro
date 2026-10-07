@@ -1,0 +1,124 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'How Much Loan on LIC Policy?', url: '/guides/lic-how-much-loan-on-policy' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'How Much Loan Can You Get on Your LIC Policy? 90% of Surrender Value Explained',
+  description: 'LIC lends up to 90% of your policy\'s surrender value (85% if paid-up). The eligibility conditions behind that number, a worked example from surrender value to loan amount, and why no credit score is needed.',
+  url: `${siteUrl}/guides/lic-how-much-loan-on-policy`,
+  publishedDate: '2026-10-23T00:00:00Z',
+  modifiedDate: '2026-10-23T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="How Much Loan on LIC Policy? 90% of Surrender Value"
+  description="LIC policy loan = up to 90% of surrender value in-force, 85% paid-up. Worked example (₹7.5L surrender value → ₹6.75L loan), eligibility conditions, half-yearly interest, 6-month minimum repayment, no credit-score check."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Policy Loans
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        How Much Loan Can You Get on Your LIC Policy? The 90% Rule Explained
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        The short answer: up to <strong>90% of your policy's surrender value</strong> if the policy is in force, <strong>85% if it is paid-up</strong>. Everything else — whether your plan qualifies at all, and how big that surrender value actually is — decides your real number. Here is the full chain, with one worked example.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Work out your loan ceiling</h2>
+        <p class="text-xs text-brand-700">Enter your surrender value to see the 90% loan amount and the interest cost year by year.</p>
+      </div>
+      <a
+        href="/lic-loan-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Loan Amount &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Worked Example</h2>
+      <p>
+        Take an endowment policy where ₹50,000 a year has been paid for 15 years and the policy's surrender value today is ₹7,50,000:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Surrender value</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹7,50,000</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">The base figure — ask the branch or check the portal for yours.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-emerald-700 uppercase block">Loan if policy is in force</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹6,75,000</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">90% of the surrender value. Premiums continuing as usual.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Loan if paid-up</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹6,37,500</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">85% of the same surrender value — the in-force status itself is worth ₹37,500 of extra headroom.</p>
+        </div>
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-900">2. The Conditions Behind the Percentage</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>The policy must have acquired a surrender value.</strong> Loans follow the surrender value, so a policy too young to have one cannot support a loan yet.</li>
+        <li><strong>Only traditional plans qualify</strong> — endowment, money-back and whole-life policies. Term plans carry no surrender value and ULIPs work on fund value instead; neither is a policy-loan vehicle.</li>
+        <li><strong>In-force beats paid-up</strong> — 90% versus 85% of the surrender value, as the example shows.</li>
+        <li><strong>You must be an adult policyholder</strong> (18+); the loan is against your own policy.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Terms That Come With the Money</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>No credit-score gate.</strong> The policy itself is the security, so LIC does not run the unsecured-loan gauntlet — approval is fast (typically a few working days).</li>
+        <li><strong>Interest is payable half-yearly</strong> at the rate in your policy conditions (our <a href="/guides/lic-policy-loan-interest-rate/" class="text-brand-700 font-semibold hover:text-brand-800">loan interest guide</a> prices what ignoring it costs). There is no EMI; the <strong>minimum repayment period is about six months</strong>, after which principal can be repaid in part or full.</li>
+        <li><strong>The policy stays alive.</strong> Cover and bonus accrual continue while the loan runs — the central advantage over surrendering.</li>
+        <li><strong>Settlement adjusts automatically.</strong> Any loan plus interest still outstanding is deducted from the maturity or death claim before payment.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">4. How to Apply</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>Find your current surrender value (branch quotation, or the portal if your policy is enrolled).</li>
+        <li>Apply at the servicing branch with the policy document and ID proof — or online via the Customer Portal where your policy is eligible for premier services.</li>
+        <li>The loan is credited to your bank account once the assignment of the policy to LIC for the loan is recorded.</li>
+      </ol>
+      <p>
+        For the complete rulebook — assignment, foreclosure and what happens if interest goes unpaid for years — read our <a href="/guides/lic-policy-loan-rules/" class="text-brand-700 font-semibold hover:text-brand-800">LIC policy loan rules</a> guide before you sign.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Loan percentages, interest rates and eligibility follow your policy conditions; confirm the sanctioned amount and current rate at your servicing branch.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-loan-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
