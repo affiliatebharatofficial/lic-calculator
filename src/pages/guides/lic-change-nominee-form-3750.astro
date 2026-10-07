@@ -1,0 +1,101 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Nominee Change: Form 3750', url: '/guides/lic-change-nominee-form-3750' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'How to Change the Nominee in Your LIC Policy (Form 3750, Branch & Online Truth)',
+  description: 'Nomination is changed by endorsement (Form 3750) registered with LIC, not by telling the family. The Section 39 rules, multiple nominees with percentage shares, the minor-nominee appointee, and the registration acknowledgement to keep.',
+  url: `${siteUrl}/guides/lic-change-nominee-form-3750`,
+  publishedDate: '2026-10-17T00:00:00Z',
+  modifiedDate: '2026-10-17T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="Change LIC Nominee: Form 3750 Process & Section 39 Rules"
+  description="Change your LIC nominee any time before maturity using Form 3750 endorsed and registered at the branch. Multiple nominees with shares, minor nominee appointee, why an unregistered change is worthless, and the acknowledgement to keep."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Policy Servicing
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        How to Change the Nominee in Your LIC Policy (Form 3750 &amp; the Registration Step)
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Marriage, a child, a parent passing away — life changes, and the nomination on a 15-year-old policy quietly stops matching it. Changing the nominee is simple, but it only counts when LIC has registered the change. Here is the one rule everything hangs on, and the exact branch process.
+      </p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Rule: a Nomination Counts Only When LIC Registers It</h2>
+      <p>
+        Nomination is governed by <strong>Section 39 of the Insurance Act, 1938</strong>. You may nominate, cancel or change a nomination <strong>at any time before the policy matures for payment</strong>. The change is legally made by an endorsement on the policy (Form 3750) — or even by a Will — but here is the part that decides claims:
+      </p>
+      <p class="not-prose p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm">
+        Unless <strong>written notice of the change is delivered to LIC and registered</strong> in its records, LIC is not liable for paying anyone other than the nominee already in its records. LIC must give you a <strong>written acknowledgement</strong> of the registration.
+      </p>
+      <p>
+        So an endorsement made at home, or a Will the branch never saw, does not protect your family at claim time. The branch visit — or at minimum the registration — is not a formality; it is the change itself.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. The Branch Process, Step by Step</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>Take the <strong>original policy document</strong> to the servicing branch and ask for <strong>Form 3750 (Change of Nomination)</strong>.</li>
+        <li>Fill in the new nominee's details exactly: full name, date of birth, relationship to you, and address.</li>
+        <li>Sign the endorsement. If the signature is <strong>not in English</strong>, it must be made before a witness whose certificate is incorporated in the endorsement; thumb impressions follow the attestation route the form specifies (before a magistrate, gazetted officer, or senior LIC official).</li>
+        <li>Submit it for <strong>registration</strong> and collect the <strong>written acknowledgement</strong>. If a fee applies under the current regulations, the branch will tell you before registering.</li>
+        <li>Verify later on the Customer Portal / policy status that the registered nominee is the one you intended — mistakes surface as wrong names and old dates of birth.</li>
+      </ol>
+      <p>
+        There is currently no full online self-service route that replaces this registration for a change of nomination — treat any page promising an instant online nominee change with caution and confirm at the branch.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Multiple Nominees and Percentage Shares</h2>
+      <p>
+        You can name <strong>more than one nominee and fix each one's share</strong> (for example, spouse 60%, son 40%) in the endorsement itself. Without shares being recorded, co-nominees are treated as entitled together, which is a common source of family friction at claim time. Writing the percentages down now — while everyone is calm — is the cheapest dispute-prevention available.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Minor Nominee? Name an Appointee Too</h2>
+      <p>
+        A <strong>minor can be a nominee</strong>, but if the claim arises while the nominee is still a minor, the money is received on the minor's behalf by the <strong>appointee</strong> you name for that purpose. An endorsement that names a child without an appointee leaves the payout waiting for court-appointed guardianship — the exact delay nomination exists to prevent. Update the appointee when they move, age, or predecease you, not just the nominee.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Two Situations That Silently Cancel a Nomination</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Assignment:</strong> transferring/assigning the policy (for example, to a bank as loan security) automatically cancels the nomination — except assigning it to LIC itself for a policy loan, which only limits the nominee's right to the extent of LIC's interest. After any assignment is released, <strong>re-nominate</strong>; the old nomination does not revive on its own.</li>
+        <li><strong>The nominee's death before yours:</strong> the nomination lapses with no fallback unless you have named successive nominees. A fresh endorsement is the fix.</li>
+      </ul>
+      <p>
+        And the basic boundary to remember for family discussions: while you are alive, the nominee (old or new) has <strong>no right to any part of the policy</strong> — nomination only directs where the death claim goes. It is not a transfer of ownership, and it does not affect your maturity claim, loans or surrender in any way.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not legal, LIC or IRDAI advice. Nomination and assignment follow Sections 39 and 38 of the Insurance Act, 1938 and your policy conditions; for married women's property (MWP) policies and disputed titles, take legal advice before making changes.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
