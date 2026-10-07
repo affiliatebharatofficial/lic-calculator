@@ -1,0 +1,104 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Premiums: 0% GST Change Explained', url: '/guides/lic-gst-0-percent-premium-change' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Premium Notice Showing No GST? The 0% GST Change Explained (from Sep 2025)',
+  description: 'From 22 September 2025 individual life insurance premiums are GST-exempt. How much you actually save on an LIC premium notice, why the saving differs for endowment vs term plans, and how to check your next receipt.',
+  url: `${siteUrl}/guides/lic-gst-0-percent-premium-change`,
+  publishedDate: '2026-10-11T00:00:00Z',
+  modifiedDate: '2026-10-11T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Premium with No GST? The 0% GST Change Explained"
+  description="Since 22 Sep 2025 individual life insurance is GST-exempt. How much you save on LIC premiums (endowment vs term), how to check your receipt, and why the amount you pay may not fall by the full old GST."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Premium Notices
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Your LIC Premium Notice Shows No GST Now? The 0% GST Change Explained
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        If your latest LIC premium notice or receipt has no GST line on it, nothing is broken. Since 22 September 2025, individual life insurance premiums are exempt from GST — so the notice simply shows the base premium. Here is what changed, how much you actually save, and the one detail almost everyone misses.
+      </p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What Changed on 22 September 2025</h2>
+      <p>
+        Following the GST Council's decision, individual life insurance premiums moved from taxable to GST-<strong>exempt</strong>. That covers regular LIC policies — endowment, money-back, whole-life, term and pension plans taken in your own name — plus rider premiums and policy reinstatement fees. **Group** policies (for example an employer's group term cover) were not part of the exemption and continue to attract GST.
+      </p>
+      <p>
+        Two points decide whether a particular payment is exempt:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>The date you pay, not the due date.</strong> A premium paid on or after 22 September 2025 is exempt even if the due date fell before it. Premiums already paid earlier keep the GST they carried — there is no refund of past GST.</li>
+        <li><strong>No action is needed.</strong> LIC applies the change automatically to every premium paid from the effective date; existing policies did not need to be reissued.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">2. How Much You Actually Save (LIC Edition)</h2>
+      <p>
+        The saving depends on your plan type, because traditional LIC plans never carried the full 18% rate to begin with:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Endowment / money-back / whole-life plans</strong> (the majority of LIC policies): GST was charged at an effective <strong>4.5% of the first year's premium</strong> and <strong>2.25% on renewals</strong>. On a ₹30,000 annual premium that was ₹1,350 in year one and ₹675 every renewal year — now ₹0.</li>
+        <li><strong>Term plans and riders:</strong> the full <strong>18%</strong> applied — ₹5,400 on a ₹30,000 premium — now ₹0.</li>
+        <li><strong>Single-premium annuity:</strong> 1.8% before, now ₹0.</li>
+      </ul>
+      <p>
+        So if your renewal notice dropped by only a few hundred rupees, that is expected: for a typical endowment policy the old renewal GST was 2.25%, not 18%. A notice comparison like this is normal:
+      </p>
+      <p class="not-prose p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm">
+        <strong>Old renewal notice:</strong> premium ₹30,000 + GST (2.25%) ₹675 = <strong>₹30,675</strong><br />
+        <strong>New renewal notice:</strong> premium ₹30,000 + GST ₹0 = <strong>₹30,000</strong>
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Why Your Payable Amount May Not Fall by the Full Old GST</h2>
+      <p>
+        Insurance is now <em>exempt</em>, not zero-rated. The practical difference: LIC can no longer claim input tax credit (ITC) on the GST it pays on its own costs — commissions, IT, rent and so on — so part of that cost can feed into base premiums over time. If your base premium moved up slightly while the GST line disappeared, that is the ITC effect, not an error. Compare the <strong>total payable</strong> on successive notices rather than expecting an exact 18% or 2.25% drop.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. How to Check Your Own Notice or Receipt</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Payment date on or after 22 September 2025?</strong> Then the GST line should be ₹0 / absent for an individual policy.</li>
+        <li><strong>Group policy?</strong> GST still applies — a GST line there is correct.</li>
+        <li><strong>Paid before the date but due later?</strong> GST correctly applied; the change follows the payment date, and past GST is not refunded.</li>
+        <li><strong>Old GST still showing on a recent individual-policy payment?</strong> Raise it with your servicing branch with the premium receipt — do not adjust or short-pay a notice on your own.</li>
+      </ol>
+      <p>
+        If checking the notice made you look at the policy after a long gap, it is worth confirming the policy is in-force while you are at it — our guide to <a href="/guides/lic-policy-status-check/" class="text-brand-700 font-semibold hover:text-brand-800">checking your LIC policy status</a> covers the portal, WhatsApp and SMS routes in a few minutes.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not tax, LIC or IRDAI advice. Tax rates and LIC's premium tables change over time; treat your own premium notice and receipt as the final word and confirm discrepancies with your servicing LIC branch.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
