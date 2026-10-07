@@ -1,0 +1,104 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Money-Back vs Endowment', url: '/guides/lic-money-back-vs-endowment' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Money-Back vs Endowment: Same ₹10 Lakh, Very Different Cash Flow',
+  description: 'Both are participating LIC plans, but money-back pays 15–20% of the sum assured during the term and the rest at maturity, while endowment pays everything at the end. The premium gap, the death-benefit twist, and the reinvestment question that decides which one wins for you.',
+  url: `${siteUrl}/guides/lic-money-back-vs-endowment`,
+  publishedDate: '2026-10-26T00:00:00Z',
+  modifiedDate: '2026-10-26T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Money-Back vs Endowment: Which Pays You Better?"
+  description="Money-back returns 15–20% of sum assured during the term (rest at maturity); endowment holds everything till maturity. Full-SA death benefit in both, premium gap explained, reinvestment question, who each plan actually suits."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Plan Comparison
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Money-Back vs Endowment: Same ₹10 Lakh, Very Different Cash Flow
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        An agent will often present these two as cousins, and structurally they are — both participating, both with sum assured plus bonuses. The difference is <em>when</em> you see the money, and that single difference quietly reprices everything else.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Model your survival benefits</h2>
+        <p class="text-xs text-brand-700">See the payout timeline of a money-back policy and what it adds up to at your goal date.</p>
+      </div>
+      <a
+        href="/lic-maturity-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Plan Maturity Payout &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Cash Flow, Side by Side (₹10 Lakh Sum Assured, 20-Year Term)</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Endowment (e.g. Jeevan Labh pattern)</span>
+          <h3 class="font-bold text-slate-900 text-sm">Everything at year 20</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">No payouts during the term. At maturity: ₹10,00,000 + all vested bonuses + final additional bonus — one large corpus.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Money-back (20-year pattern)</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹2L at yrs 5, 10, 15 + ₹4L at maturity</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">20% of the sum assured returns at each milestone; the remaining 40% plus vested bonuses arrives at year 20.</p>
+        </div>
+      </div>
+      <p class="text-xs text-slate-500">Payout percentages shown are the standard money-back schedules; your plan's exact survival-benefit table governs.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. The Three Differences That Actually Matter</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Death benefit twist.</strong> In money-back, the full sum assured is paid on death <em>regardless of survival benefits already paid</em> — the family effectively receives earlier instalments twice over. That generosity is precisely why <strong>money-back costs more</strong> than an endowment for the same sum assured and term.</li>
+        <li><strong>Bonus base.</strong> Money-back bonuses accrue on the <strong>full basic sum assured for the whole term</strong>, even after instalments go out — the interim payouts do not shrink your bonus base.</li>
+        <li><strong>The reinvestment question.</strong> The money-back instalments feel like returns, but they are your own sum assured coming home early. If they get absorbed into household spending, you arrive at maturity with only the final 40% plus bonuses — while the endowment buyer, forced to wait, collects everything at once. If instead you redeploy each instalment into a goal or a higher-yield instrument, the early liquidity is real value.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Who Each Plan Actually Suits</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Endowment</strong> — a dated, one-shot goal: child's higher education at 18, a house down payment, retirement corpus building. One maturity, one decision, and (per equal sum assured and term) a lower premium than money-back.</li>
+        <li><strong>Money-back</strong> — milestones <em>midway through</em> the policy that you would rather not borrow for: school-to-college jumps, a two-wheeler, a parent's planned procedure. You are buying scheduled liquidity, and paying for it in the premium.</li>
+      </ul>
+      <p>
+        The honest verdict: neither is "better". Money-back is endowment plus an instalment facility, priced accordingly. Choose it when the instalments map to real, dated expenses — and invest them when they arrive. Choose the plain endowment when the goal sits at the end of the term and you want maximum corpus per rupee of premium. Our <a href="/guides/lic-jeevan-labh-736-returns/" class="text-brand-700 font-semibold hover:text-brand-800">Jeevan Labh (736) breakdown</a> shows the endowment side in full numbers, and the <a href="/guides/lic-paid-up-vs-surrender/" class="text-brand-700 font-semibold hover:text-brand-800">paid-up vs surrender</a> guide covers your exits from either.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Survival-benefit schedules, bonus declarations and premiums follow each plan's brochure and your benefit illustration.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
