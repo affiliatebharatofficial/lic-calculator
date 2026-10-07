@@ -1,0 +1,126 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Policy Loan Interest Rate', url: '/guides/lic-policy-loan-interest-rate' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Policy Loan Interest Rate: What a Policy Loan Really Costs Over 1, 3 and 5 Years',
+  description: 'LIC does not publish one universal policy-loan rate; plan documents most often cite around 10.5% p.a. compounded half-yearly. See the rupee cost of a ₹1 lakh loan over 1, 3 and 5 years, the interest-only trap, and how unpaid interest quietly eats the claim.',
+  url: `${siteUrl}/guides/lic-policy-loan-interest-rate`,
+  publishedDate: '2026-10-16T00:00:00Z',
+  modifiedDate: '2026-10-16T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Policy Loan Interest Rate: Real Cost Over 1, 3 & 5 Years"
+  description="LIC policy loans typically cost around 10.5% p.a. (compounded half-yearly, confirmed per plan). Cost of a ₹1 lakh loan over 1/3/5 years, the interest-only trap, and what unpaid interest does to your maturity or death claim."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Policy Loans
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Policy Loan Interest Rate: What Borrowing on Your Policy Really Costs
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Web pages quote LIC policy-loan rates anywhere between 9.5% and 12% — because there is no single published rate for every policy. This guide separates what is documented, shows the actual rupee cost of ignoring a loan for 1, 3 and 5 years, and tells you exactly where your own rate is printed.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Run your own numbers first</h2>
+        <p class="text-xs text-brand-700">Enter your surrender value and rate to see the loan you can get and the interest at 1, 3 and 5 years.</p>
+      </div>
+      <a
+        href="/lic-loan-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Loan Interest &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Rate You Will Most Often See: ~10.5% p.a.</h2>
+      <p>
+        LIC fixes the loan interest rate in the conditions of each plan rather than publishing one universal figure, and it can revise the rate for new loans. Recent LIC plan documents most commonly cite <strong>10.5% per annum, compounded half-yearly</strong> — that is the figure printed, for example, in the loan clause of Jeevan Saral and similar traditional plans. Aggregator pages that say "10–12%" are describing that same neighbourhood across plans and years.
+      </p>
+      <p>
+        Treat ~10.5% as the planning number, and confirm the exact current rate for <em>your</em> policy at the servicing branch or on the loan quotation before signing — the rate applicable to your loan is the one in your policy conditions, not the one on any website, including this one.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. What a ₹1,00,000 Loan Costs at 10.5% (Half-Yearly Compounding)</h2>
+      <p>
+        LIC policy loans have no EMI and no fixed tenure, which is exactly why they drift. Here is the cost of a ₹1,00,000 loan left untouched, interest compounding every six months:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">After 1 year</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹10,776 interest</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Balance ≈ ₹1,10,776. Modest — if the borrowing was truly short-term.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">After 3 years</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹35,900 interest</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Balance ≈ ₹1,35,900. The "temporary" loan now costs over a third of its size again.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-rose-700 uppercase block">After 5 years</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹66,800 interest</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Balance ≈ ₹1,66,800 — two-thirds of the original loan paid in interest, and it is still growing.</p>
+        </div>
+      </div>
+      <p class="text-xs text-slate-500">Illustrative at 10.5% p.a. compounded half-yearly; your policy's rate and compounding govern the actual figure.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. The Interest-Only Trap</h2>
+      <p>
+        LIC asks only that <strong>interest be paid periodically</strong> (you can pay once or twice a year); the principal can stay outstanding until maturity. Paying ₹10,500 a year on a ₹1 lakh loan feels painless — but a decade of it is ₹1,05,000 handed over <em>without reducing the loan by one rupee</em>. If instead the interest is not paid at all, it compounds and is eventually adjusted from the claim. Both habits end the same way: the loan quietly pre-spends the policy.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. How Much You Can Borrow, and the Claim-Time Adjustment</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>The loan ceiling is typically <strong>up to 90% of the surrender value</strong> on an in-force policy (lower, around 85%, once paid-up). Term and ULIP plans are not the vehicle for this; the policy must have acquired a surrender value. Our <a href="/guides/lic-policy-loan-rules/" class="text-brand-700 font-semibold hover:text-brand-800">policy loan rules guide</a> covers eligibility and process in full.</li>
+        <li>Repayment is flexible: after a minimum interval (commonly six months), repay part or all of the principal whenever you can.</li>
+        <li>At maturity or on a death claim, the <strong>outstanding loan plus accrued interest comes off the payout first</strong>. A large ignored loan is the most common reason a family's claim is smaller than the sum assured they expected.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Before You Sign: A 3-Point Check</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Get the rate in writing</strong> on the loan quotation and note the compounding (half-yearly is standard) — your policy conditions rule.</li>
+        <li><strong>Compare against the alternatives at the same moment</strong>: the loan is still cheaper than an unsecured personal loan (typically several points higher) and far cheaper than surrendering, which permanently closes the policy.</li>
+        <li><strong>Fix the exit when you enter</strong> — a date (bonus receipt, salary arrears, asset sale) by which the principal will be repaid, so "interest-only for now" does not become the 5-year row of the table above.</li>
+      </ol>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC or IRDAI advice. Policy-loan interest rates are set per plan and can be revised; confirm the current rate and terms for your policy at your servicing LIC branch before borrowing.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-loan-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
