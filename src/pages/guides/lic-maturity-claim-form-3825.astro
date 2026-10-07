@@ -1,0 +1,121 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Maturity Claim: Form 3825 Guide', url: '/guides/lic-maturity-claim-form-3825' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Policy Maturing? Maturity Claim with Form 3825 — Documents & Steps',
+  description: 'Your LIC policy matures on the date printed on the bond, and Form 3825 is the discharge receipt that completes the claim. What to submit (original bond, NEFT mandate, ID proof), when LIC sends its intimation, and the delays to avoid.',
+  url: `${siteUrl}/guides/lic-maturity-claim-form-3825`,
+  publishedDate: '2026-10-13T00:00:00Z',
+  modifiedDate: '2026-10-13T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Maturity Claim: Form 3825, Documents & Steps"
+  description="Form 3825 is LIC's maturity discharge receipt. Documents to submit (original policy bond, NEFT mandate, cancelled cheque, ID proof), the 1-month submission rule, and how to check your maturity figure first."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Maturity Claims
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Policy Maturing? How the Maturity Claim Works — Form 3825, Documents &amp; Steps
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        A maturity claim is the happiest paperwork in insurance — but it still has a sequence, and skipping a step is the most common reason payments get delayed. Here is the whole flow: when LIC contacts you, what Form 3825 does, the documents to keep ready, and how to check your expected amount before you submit anything.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Estimate your maturity amount first</h2>
+        <p class="text-xs text-brand-700">See the sum assured plus accrued bonus your policy should pay, so you can compare it with LIC's intimation when it arrives.</p>
+      </div>
+      <a
+        href="/lic-maturity-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Estimate Maturity Value &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. LIC Contacts You First — About Two Months Before</h2>
+      <p>
+        Your policy matures on the <strong>date of maturity printed on the policy bond</strong> (commencement date plus the policy term). For endowment-type policies the servicing branch normally sends a <strong>maturity intimation letter roughly two months before that date</strong>, enclosing the discharge voucher and the estimated amount payable. If the letter has not arrived within about three months of maturity, contact the servicing branch — do not wait for it. The same information (maturity date, status, bonus) is visible when you <a href="/guides/lic-policy-status-check/" class="text-brand-700 font-semibold hover:text-brand-800">check your policy status</a> on the Customer Portal.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Form 3825: The Discharge Receipt at the Centre of the Claim</h2>
+      <p>
+        <strong>Form No. 3825</strong> is the maturity discharge receipt. Signing it formally records that you accept the maturity amount in full settlement of LIC's obligation under the policy — which is why the claim cannot complete without it. Practical details branches are particular about:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>It is signed by the <strong>life assured</strong> (or the assignee, if the policy was assigned), with the signature across a <strong>₹1 revenue stamp</strong> pasted on the form, and witnessed where the form asks for it.</li>
+        <li>It usually arrives pre-filled inside the intimation letter; it can also be obtained from LIC's official forms or your branch if the letter never came.</li>
+        <li>LIC asks that the signed Form 3825 be submitted with the original policy document <strong>at least one month before the maturity date</strong>, so the amount is credited on time.</li>
+      </ul>
+      <p>
+        Do not confuse this with surrender paperwork: Form 3825 is only for a policy that has run to its maturity date. Exiting earlier is a surrender, with a different form and a very different amount — see our guide to <a href="/guides/what-is-lic-surrender-value/" class="text-brand-700 font-semibold hover:text-brand-800">LIC surrender value</a> if that is your situation.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. The Document Bundle to Submit</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Signed Form 3825</strong> with the ₹1 revenue stamp (step 2).</li>
+        <li><strong>Original policy bond.</strong> If it is lost, tell the branch early — a duplicate-bond/indemnity process applies and takes time, so it should not start in the final month.</li>
+        <li><strong>NEFT mandate form + cancelled cheque</strong> so the amount is credited directly to your bank account. The account name should match the policy name exactly; a mismatch is one of the most common delay causes. Update the mandate on the Customer Portal or at the branch if your bank details changed.</li>
+        <li><strong>ID and address proof</strong> (Aadhaar or similar), and <strong>age proof</strong> if it was never submitted earlier.</li>
+        <li><strong>PAN card copy</strong> — LIC records it for tax reporting, in particular when the maturity amount exceeds ₹1 lakh.</li>
+        <li><strong>Assignment / reassignment deeds</strong>, if the policy was ever assigned.</li>
+      </ul>
+      <p>
+        Submit at the servicing branch, get a stamped acknowledgement, and keep photocopies of everything — the originals leave your hands at this stage. LIC has also periodically allowed claim documents at other branches; confirm the current facility at your branch rather than assuming.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. What You Should Receive — and What Reduces It</h2>
+      <p>
+        The maturity payment is the <strong>sum assured plus vested bonuses</strong> (and any terminal bonus the plan declares), minus only what genuinely applies: an <strong>outstanding policy loan and its interest</strong> are adjusted from the payout, and premiums due but unpaid up to the maturity date can be. If a deduction surprises you, ask the branch for the break-up in writing — it must reconcile to the policy's loan and premium record. Comparing LIC's intimation figure with your own estimate from the maturity calculator first makes such discrepancies easy to spot.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. A 5-Step Checklist, One Month Before Maturity</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Confirm the maturity date and amount</strong> — on the bond, the Customer Portal, or LIC's intimation letter.</li>
+        <li><strong>Sign Form 3825</strong> across the ₹1 revenue stamp, with witness details completed.</li>
+        <li><strong>Update NEFT details</strong> if your bank account changed since the policy began, and check the account name matches the policy name.</li>
+        <li><strong>Submit the bundle at the servicing branch</strong> at least a month before the due date; keep the stamped acknowledgement and photocopies.</li>
+        <li><strong>After credit, keep the discharge copy and statement</strong> with your tax records — most standard LIC maturity proceeds have historically been exempt under Section 10(10D) subject to its conditions, but keep the proof either way.</li>
+      </ol>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC or IRDAI advice. Claim requirements and branch facilities can change; confirm the current document list with your servicing LIC branch before submitting originals.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-maturity-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
