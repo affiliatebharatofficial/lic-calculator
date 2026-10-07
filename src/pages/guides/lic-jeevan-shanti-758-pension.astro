@@ -1,0 +1,124 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Jeevan Shanti (758) Pension Explained', url: '/guides/lic-jeevan-shanti-758-pension' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Jeevan Shanti (758): Pension on ₹10 Lakh — Single Life vs Joint Life, Deferment 1–12 Years',
+  description: 'Jeevan Shanti is a single-premium deferred annuity: invest once, pension starts after 1–12 years and runs for life, locked at today\'s rates. The deferment effect, the monthly-mode ~4% haircut, return-of-purchase-price death benefit, and single vs joint choice.',
+  url: `${siteUrl}/guides/lic-jeevan-shanti-758-pension`,
+  publishedDate: '2026-10-24T00:00:00Z',
+  modifiedDate: '2026-10-24T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Jeevan Shanti (758): ₹10 Lakh Pension, Single vs Joint Life"
+  description="One-time ₹10 lakh in Jeevan Shanti at 45 with 12-year deferment illustrates to ~₹99,400/yr (single) or ~₹94,100/yr (joint). Deferment effect, monthly −4% mode haircut, purchase price returned on death, and when joint life wins."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Plan Review: Jeevan Shanti (758)
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Jeevan Shanti (758): Pension on ₹10 Lakh — Single Life vs Joint Life
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Jeevan Shanti is the simplest retirement product LIC sells: hand over one lump sum today, and after a waiting period you choose, a fixed pension runs for the rest of your life — at rates locked in on day one. This guide prices the two decisions that matter: how long to defer, and single life or joint.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Price your own lump sum</h2>
+        <p class="text-xs text-brand-700">Enter your purchase price, age and deferment to see the lifetime pension in each mode.</p>
+      </div>
+      <a
+        href="/lic-pension-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Estimate Pension Income &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Mechanics, in One Paragraph</h2>
+      <p>
+        You pay a <strong>single premium</strong> (called the purchase price; minimum ₹1,50,000, no maximum) between ages <strong>30 and 79</strong>. You pick a <strong>deferment period of 1 to 12 years</strong> — pension cannot start after age 80 — and an annuity option: <strong>single life</strong> (pension while you live) or <strong>joint life</strong> (pension while either you or your chosen second life — spouse, parent, child, grandchild, sibling — lives). The <strong>annuity rates are guaranteed at inception</strong>: the table you sign today is the pension you get, regardless of what interest rates do later. There is an incentive in the rate for purchase prices of ₹5,00,000 and above, and a small online-purchase incentive.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Illustrative Pricing: ₹10 Lakh at Age 45, Deferment 12 Years</h2>
+      <p>
+        LIC's own plan illustration for a ₹10,00,000 purchase price (excluding taxes) at entry age 45 with the maximum 12-year deferment shows approximately:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Single life, yearly</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹99,400 / year</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">About ₹7,950 a month if taken monthly — pension for your lifetime from age 57.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Joint life, yearly</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹94,100 / year</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Roughly 5% less pension — the price of the pension continuing for the survivor.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">After death</span>
+          <h3 class="font-bold text-slate-900 text-sm">Purchase price returns</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">The nominee receives the death benefit built around the purchase price (at least 105% of it, per the plan formula, adjusted for annuities paid).</p>
+        </div>
+      </div>
+      <p class="text-xs text-slate-500">Illustrative figures from LIC's plan brochure; the sanctioned illustration for your age, deferment and option governs.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Deferment Is the Lever: Longer Wait, Higher Pension</h2>
+      <p>
+        The deferment period is doing real work in those numbers. A 12-year deferment lets LIC invest your lump sum for over a decade before paying anything, so each rupee buys a materially higher lifetime pension than a 1-year deferment at the same age. Rule of thumb when deciding: defer only across years you can fund from other income. If you need the pension at 60, buying at 48–55 with a deferment ending at 60 usually prices better than buying at 60 with a token deferment — the lock-in of today's guaranteed rates compounds in your favour.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Two Smaller Decisions That Move the Number</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Mode haircut:</strong> the quoted yearly rate is reduced if you take the money more often — approximately <strong>2% less for half-yearly, 3% for quarterly, 4% for monthly</strong>. Monthly is the most convenient and the most expensive; if a monthly budget allows, yearly mode keeps the full rate.</li>
+        <li><strong>How the death benefit is paid:</strong> you choose at proposal whether the nominee takes it as a lump sum, in instalments, or as a fresh annuity — and you can change that choice during your lifetime. Decide it deliberately; the nominee cannot alter it later.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Single Life or Joint Life?</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Single life</strong> pays the higher pension but stops with you. It fits when the spouse has their own retirement income or pension.</li>
+        <li><strong>Joint life</strong> costs about 5% of pension in the illustration and keeps the same amount flowing to the survivor. When one pension must carry two people, that 5% is the cheapest longevity insurance in the product — this is the option most couples should default to.</li>
+      </ul>
+      <p>
+        And the standing caveat of every annuity: once bought, the option, deferment and mode are essentially fixed. The flexibility is all <em>before</em> signature — spend it there, comparing against an immediate annuity (Saral Pension) if you need income to start now rather than after a deferment.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Annuity rates, incentives and deferment limits follow the current plan brochure and your sanctioned illustration; confirm them before investing.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-pension-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
