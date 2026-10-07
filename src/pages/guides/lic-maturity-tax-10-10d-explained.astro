@@ -1,0 +1,116 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'Is LIC Maturity Tax-Free? 10(10D) Explained', url: '/guides/lic-maturity-tax-10-10d-explained' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'Is LIC Maturity Tax-Free? Section 10(10D), the ₹5 Lakh Premium Rule & TDS Explained',
+  description: 'Most LIC maturity payouts are tax-free under Section 10(10D), but two conditions decide it: the 10%-of-sum-assured rule and, for policies issued on/after 1 April 2023, aggregate premiums within ₹5 lakh a year. Death benefits stay exempt. Decision tree inside.',
+  url: `${siteUrl}/guides/lic-maturity-tax-10-10d-explained`,
+  publishedDate: '2026-10-15T00:00:00Z',
+  modifiedDate: '2026-10-15T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="Is LIC Maturity Tax-Free? 10(10D) & the ₹5 Lakh Rule"
+  description="Section 10(10D) makes most LIC maturity amounts tax-free. The two tests: premium ≤10% of sum assured, and for policies issued on/after 1 Apr 2023 aggregate premiums within ₹5 lakh/year. Plus 194DA TDS and why death claims are never taxed."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Tax on Maturity
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Is LIC Maturity Tax-Free? Section 10(10D), the ₹5 Lakh Rule &amp; TDS Explained
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        For most policyholders the answer is yes — LIC maturity amounts, including bonuses, are exempt from income tax under Section 10(10D). But two conditions decide whether <em>your</em> policy qualifies, and one of them changed in 2023. Here is the decision tree, in the order the tax department applies it.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Know your maturity figure first</h2>
+        <p class="text-xs text-brand-700">Estimate the sum assured plus bonus your policy will pay, then run the two tax tests below against your issue date.</p>
+      </div>
+      <a
+        href="/lic-maturity-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Estimate Maturity Value &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. Test One (All Policies): Premium vs Sum Assured</h2>
+      <p>
+        The long-standing condition: the annual premium must not exceed a set share of the sum assured in any policy year.
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Policies issued <strong>on or after 1 April 2012</strong>: premium must be ≤ <strong>10% of the sum assured</strong> (≤15% where the cover is for a person with disability/severe disease under sections 80U/80DDB).</li>
+        <li>Policies issued between 2003 and 31 March 2012: the limit is ≤ <strong>20% of the sum assured</strong>.</li>
+      </ul>
+      <p>
+        Standard LIC endowment and money-back plans are normally designed inside this limit, which is why most maturities pass this test automatically. Very short premium-paying terms against a small sum assured are the usual way to fail it.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Test Two (Policies Issued On/Aft. 1 April 2023): the ₹5 Lakh Premium Cap</h2>
+      <p>
+        The Finance Act 2023 added a second gate for non-ULIP policies <strong>issued on or after 1 April 2023</strong>: if the premium <em>payable</em> in any year of the policy term exceeds ₹5,00,000, the 10(10D) exemption is not available on that policy's maturity/survival sums.
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>With <strong>multiple policies</strong> issued after that date, the ₹5 lakh is an <em>aggregate</em> across all of them per year. The exemption survives only for the set of policies whose premiums together stay within the cap.</li>
+        <li>Policies issued <strong>before 1 April 2023 are not hit by this test at all</strong> — only test one applies to them.</li>
+        <li>The cap is about <em>premium payable</em>, so check the schedule across all your (non-ULIP) policies, not just the LIC one.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">3. What Happens If a Policy Fails a Test</h2>
+      <p>
+        The maturity amount does not become fully taxable. Under section 56, the taxable piece is the <strong>amount received minus the total premiums you paid</strong> (and did not claim as a deduction elsewhere) — in other words, only the gains element, taxed at your slab rate under "Income from other sources". LIC will also deduct TDS under section 194DA on taxable payouts (on the income component, where the payment is ₹1 lakh or more); match any such credit in your AIS/26AS when you file.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. The One Case That Is Always Exempt: Death Claims</h2>
+      <p>
+        Any sum received <strong>on the death of the policyholder is exempt without conditions</strong> — neither the 10% test nor the ₹5 lakh cap applies, however large the premium was. If you are a nominee reading this after a claim, the tax question is settled; our <a href="/guides/lic-death-claim-documents-nominee/" class="text-brand-700 font-semibold hover:text-brand-800">death claim documents checklist</a> covers the paperwork instead.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Quick Examples</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Policy issued 2018, premium ₹60,000/yr, SA ₹10 lakh:</strong> issued before Apr 2023, so only test one applies; premium is 6% of SA → maturity fully tax-free.</li>
+        <li><strong>Policy issued June 2024, premium ₹6,00,000/yr:</strong> premium payable exceeds ₹5 lakh in a year → no 10(10D) exemption; the gain over total premiums paid is taxed at slab.</li>
+        <li><strong>Two policies issued 2024, premiums ₹3 lakh + ₹2.5 lakh:</strong> aggregate ₹5.5 lakh crosses the cap — exemption survives only for the combination whose premiums stay within ₹5 lakh; the CBDT guidelines govern which policies keep it.</li>
+        <li><strong>Death claim on any of the above:</strong> fully exempt, always.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not tax advice. Section 10(10D) conditions, the ₹5 lakh aggregation and TDS rates are as provided in the Income-tax Act and CBDT guidelines at the time of writing; consult a tax professional for your return, and keep your discharge voucher and premium receipts with your records.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-maturity-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
