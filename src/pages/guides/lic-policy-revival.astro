@@ -1,0 +1,129 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Policy Revival', url: '/guides/lic-policy-revival' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Policy Lapsed? Revival Process, Cost & Last Date (5-Year Rule)',
+  description: 'Your LIC policy has lapsed — cover has stopped, but most traditional policies can be revived within 5 years of the first unpaid premium. See how the revival amount is built (arrears + interest), an illustrative cost calculation, the health-declaration step, and when revival is — and is not — worth it.',
+  url: `${siteUrl}/guides/lic-policy-revival`,
+  publishedDate: '2026-10-12T00:00:00Z',
+  modifiedDate: '2026-10-12T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Policy Revival: Process, Arrears Cost & the 5-Year Last Date"
+  description="How to revive a lapsed LIC policy: the 5-year revival window from the first unpaid premium, an illustrative arrears-plus-interest calculation, the declaration of good health, and the paid-up/surrender alternatives to price first."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Revival &amp; Late Fee
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Policy Lapsed? Revival Process, Cost &amp; Last Date (5-Year Rule)
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        A lapsed policy means the life cover has stopped — but it usually does not mean the policy is dead. For most traditional LIC policies you have up to five years from the first unpaid premium to revive it. Here is what revival costs, how LIC builds the amount, and how to decide whether restarting beats the alternatives.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Estimate the interest on your arrears first</h2>
+        <p class="text-xs text-brand-700">Enter your premium and how long it has been unpaid to see an estimated late-fee / revival interest figure before you visit the branch.</p>
+      </div>
+      <a
+        href="/lic-late-fee-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Estimate Revival Interest &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Last Date: Five Years From the First Unpaid Premium</h2>
+      <p>
+        The revival clock does not start on the day you notice the lapse — it starts from the <strong>first unpaid premium (FUP)</strong>. For most traditional (par / non-linked) LIC policies, revival is permitted within <strong>5 years of the FUP</strong>. After that window closes, revival is normally no longer available and the policy can only be dealt with under its paid-up or surrender terms, if any.
+      </p>
+      <p>
+        Two practical consequences follow. First, find your FUP before anything else — it is printed in your premium notices and shown when you <a href="/guides/lic-policy-status-check/" class="text-brand-700 font-semibold hover:text-brand-800">check your policy status</a>. Second, every month you wait adds interest to the amount below, so a policy you intend to keep is cheapest to revive early in the window, not at the end of it.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. What Revival Costs: Arrears + Interest, in One Worked Example</h2>
+      <p>
+        In the usual (ordinary) revival, you pay all premiums that fell due while the policy was lapsed, plus interest on those arrears for the period they were unpaid. LIC's written revival quotation is the only final figure; the example below shows the structure with the interest rate most commonly applied to arrears (confirm the current rate at your servicing branch — do not rely on rates quoted on older web pages).
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Annual premium</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹30,000</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Policy lapsed after the premium due two years ago was not paid.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-emerald-700 uppercase block">Arrears to pay</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹60,000</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Two unpaid yearly premiums: the missed one plus the one that fell due a year later.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-rose-700 uppercase block">Illustrative interest</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹8,800</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">At an illustrative 9.5% a year: the first premium has been unpaid ~2 years, the second ~1 year. Your branch quotation uses LIC's actual rate and day count.</p>
+        </div>
+      </div>
+      <p>
+        So the revival bill in this example is roughly <strong>₹68,800</strong> — the ₹60,000 you would have paid anyway, plus about ₹8,800 for the delay. Framed that way, the question becomes clearer: the interest is the true cost of reviving; the arrears are premiums you already owed under the original contract, and paying them restores the full sum assured and future bonuses from where the policy left off.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. The Process, Step by Step</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Confirm the status and FUP.</strong> Check that the policy is shown as lapsed (not already paid-up or surrendered) and note the first unpaid premium date — the 5-year deadline runs from there.</li>
+        <li><strong>Ask the servicing branch for a written revival quotation.</strong> It should show arrears, interest and the total payable separately. Price the interest yourself first with the late-fee calculator above so you can spot-check the figure.</li>
+        <li><strong>Complete the health requirements.</strong> LIC normally asks for a declaration of good health; depending on how long the policy has been lapsed, the sum assured and your age, a medical examination or reports may also be required. This is the step that most often adds days, so start it with the quotation, not after it.</li>
+        <li><strong>Pay and keep the acknowledgement.</strong> Pay the quoted amount at the servicing branch or through the channel the branch directs, and retain the stamped receipt. Cover is restored on revival as per the policy conditions — confirm the exact revival date in writing.</li>
+        <li><strong>Re-check the status.</strong> A few days later, verify the policy shows as in-force again using any of the five methods in our status-check guide, and set up ECS/NACH or a due-date reminder so the same premium is not missed again.</li>
+      </ol>
+
+      <h2 class="text-xl font-bold text-slate-900">4. When Revival Is Worth It — and When It May Not Be</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Usually worth it:</strong> the policy is a long-term endowment or money-back plan with bonuses already vested, your health has changed since you bought it (a new policy would be costlier or unavailable), or the remaining term is long enough that restarting is cheaper than buying equivalent cover afresh at your current age.</li>
+        <li><strong>Price the alternatives first:</strong> if eligible, letting the policy continue as <strong>paid-up</strong> keeps a reduced sum assured with no further premiums, and surrendering returns the surrender value in cash but ends the cover and forfeits future bonuses. Compare all three numbers — revival cost, paid-up value, surrender value — before paying anything.</li>
+        <li><strong>Seasonal note:</strong> LIC periodically runs special revival campaigns with concessions on the late fee / interest (a recent national campaign ran in the January–March window). If your policy is well inside the 5-year window and a campaign is announced, the interest portion can shrink — but do not let a policy drift past its 5-year deadline waiting for one.</li>
+      </ul>
+
+      <p>
+        Revival is, in effect, buying back a contract priced at your younger age and earlier health. Priced against the paid-up and surrender figures in the same branch visit, it is a straightforward comparison — and the written quotation, not any website estimate, is the number to decide on.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC or IRDAI advice. Revival eligibility, the interest rate on arrears, health requirements and campaign concessions vary by plan and over time; confirm your policy's exact revival amount and last date in the written quotation from your servicing LIC branch before paying.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-late-fee-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>

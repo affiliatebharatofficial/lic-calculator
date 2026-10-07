@@ -1,0 +1,143 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Surrender After 5 Years', url: '/guides/lic-surrender-after-5-years' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Surrender After 5 Years: How Much Will You Get — and How Much Will You Lose?',
+  description: 'Paid LIC premiums for 5 years and thinking of exiting? See an illustrative payout calculation, how GSV and SSV are worked out at year 5, the loss versus premiums paid, and the paid-up and loan alternatives to check before you sign.',
+  url: `${siteUrl}/guides/lic-surrender-after-5-years`,
+  publishedDate: '2026-10-08T00:00:00Z',
+  modifiedDate: '2026-10-08T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Surrender After 5 Years: Payout, Loss & Better Alternatives"
+  description="Illustrative surrender calculation after 5 years of LIC premiums: total paid vs estimated payout, GSV vs SSV at year 5, paid-up value comparison, and a checklist to use before surrendering."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Surrender Valuation
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Surrender After 5 Years: How Much Will You Get — and How Much Will You Lose?
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Five years is the point where many policyholders first ask whether to continue or exit. The honest answer is in three numbers, not one: what you have paid, what LIC will pay you today, and what you give up by closing the policy. Here is how to work through all three before you decide.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Estimate your own year-5 payout</h2>
+        <p class="text-xs text-brand-700">Enter your premium, term and years paid to see an estimated surrender value and the loss against premiums paid.</p>
+      </div>
+      <a
+        href="/lic-surrender-value-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Estimate Surrender Value &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Short Answer, in One Worked Example</h2>
+      <p>
+        Take an illustrative 20-year endowment policy with an annual premium of ₹30,000, paid regularly for 5 years:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">You have paid</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹1,50,000</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">₹30,000 × 5 years of premiums.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-emerald-700 uppercase block">Illustrative payout today</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹82,500</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">About 55 paise back for every rupee paid. Your actual figure comes only from LIC's written surrender quotation for your plan.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-rose-700 uppercase block">Immediate loss</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹67,500 (45%)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Plus all future bonuses and the life cover, which end on surrender.</p>
+        </div>
+      </div>
+      <p>
+        These figures are illustrative, built from the standard GSV/SSV method explained below — they are not a quotation for any specific policy. Plans, terms and vested bonuses change the result materially, which is why the branch quotation in step 5 matters.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. How LIC Reaches the Year-5 Figure</h2>
+      <p>
+        LIC calculates two values and pays the <strong>higher</strong> of the two:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Guaranteed Surrender Value (GSV)</strong> — a statutory percentage of eligible premiums. The first year's premium is excluded from this base, so after 5 years the calculation starts from ₹1,20,000 in the example above, not ₹1,50,000. A discounted value of vested bonuses is added.</li>
+        <li><strong>Special Surrender Value (SSV)</strong> — your paid-up value (paid-up sum assured plus vested bonuses) multiplied by an SSV factor. With 15 years still left to maturity, that factor discounts the paid-up value heavily, because LIC is paying today for a benefit that was priced for year 20.</li>
+      </ul>
+      <p>
+        Two structural reasons explain most of the year-5 loss: the first-year premium never enters the GSV base, and the SSV factor is low while many years remain to maturity. This is also why the same policy's surrender value improves sharply in later years even if you pay nothing more — the SSV factor rises as maturity approaches. Our guide to the <a href="/guides/lic-irdai-surrender-rules-2024/" class="text-brand-700 font-semibold hover:text-brand-800">new IRDAI surrender rules (1 Oct 2024)</a> explains how the revised, G-Sec-linked SSV applies to newer policies.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Before Surrendering, Price the Paid-Up Alternative</h2>
+      <p>
+        Surrender is not the only way to stop paying. If you simply stop premiums and let the policy become <strong>paid-up</strong>, no further premium is due, the policy stays in force, and a reduced sum assured is payable at maturity or on earlier death:
+      </p>
+      <p class="not-prose p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm">
+        <strong>Paid-up sum assured</strong> = (premiums paid ÷ total premiums payable) × original sum assured<br />
+        Example: 5 paid ÷ 20 payable = <strong>25% of the original sum assured</strong>, plus bonuses already vested.
+      </p>
+      <p>
+        For many year-5 policyholders, the paid-up amount eventually received exceeds today's surrender payout, because nothing is discounted away — you are only giving up future bonuses, not the value already built up. Compare both numbers side by side with our <a href="/lic-surrender-loss-calculator/" class="text-brand-700 font-semibold hover:text-brand-800">surrender loss calculator</a> before choosing.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. If the Need Is Temporary, Price a Policy Loan Instead</h2>
+      <p>
+        If the reason for surrendering is a short-term cash need rather than the policy itself, a loan against the surrender value (LIC typically allows up to 90% of it) provides cash without terminating the policy, its vested bonuses or the life cover. Interest is payable periodically; unpaid interest is adjusted from the eventual claim. Check the current loan interest rate at your servicing branch when you apply — do not rely on rates quoted on older web pages.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. A 5-Step Checklist Before You Sign</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Get a written surrender quotation</strong> from your servicing LIC branch showing GSV and SSV separately. Do not decide on a verbal estimate.</li>
+        <li><strong>Write down the loss yourself:</strong> total premiums paid minus the quoted payout, as in the example above.</li>
+        <li><strong>Ask for the paid-up figure in the same visit</strong> — paid-up sum assured plus vested bonuses, and when it would be paid.</li>
+        <li><strong>Note what ends on surrender:</strong> life cover stops immediately, future bonuses are forfeited, and any outstanding policy loan is deducted from the payout.</li>
+        <li><strong>Keep the paperwork:</strong> submit the surrender request at the servicing branch with the original policy bond and NEFT details, and retain the stamped acknowledgement until the amount is credited.</li>
+      </ol>
+
+      <p>
+        Surrender after 5 years can still be the right decision — for example, where the premium has become genuinely unaffordable or the cover was mis-sold for your need. The point of the calculation is not to stop you; it is to make sure you exit knowing the full price, with the paid-up and loan alternatives priced first.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC or IRDAI advice. Surrender factors, bonus rates and loan interest vary by plan and over time; confirm your policy's exact GSV, SSV and paid-up values in the written quotation from your servicing LIC branch before deciding.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-surrender-value-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>

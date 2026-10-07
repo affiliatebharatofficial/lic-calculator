@@ -1,0 +1,137 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'How to Check LIC Policy Status', url: '/guides/lic-policy-status-check' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'How to Check LIC Policy Status Online, by SMS & WhatsApp (5 Methods)',
+  description: 'Five ways to check whether your LIC policy is in-force, lapsed, paid-up or matured — Customer Portal, WhatsApp (8976862090), SMS (ASKLIC), helpline and branch — plus what each status means and what to do next.',
+  url: `${siteUrl}/guides/lic-policy-status-check`,
+  publishedDate: '2026-10-09T00:00:00Z',
+  modifiedDate: '2026-10-09T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="How to Check LIC Policy Status: Online, SMS & WhatsApp (5 Methods)"
+  description="Check your LIC policy status in minutes: Customer Portal, WhatsApp Hi to 8976862090, ASKLIC SMS, helpline 022-68276827, or branch visit. What In-force, Lapsed and Paid-up mean, and your next step for each."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Policy Servicing
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        How to Check LIC Policy Status Online, by SMS &amp; WhatsApp (5 Methods)
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        "Is my policy still active?" is the first question behind most surrender, revival and claim decisions — and you do not need a branch visit to answer it. Here are five working methods, fastest first, and what to do with the answer each one gives you.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Just found a missed premium?</h2>
+        <p class="text-xs text-brand-700">If your status check shows a premium overdue, estimate the late fee and interest before you visit the branch.</p>
+      </div>
+      <a
+        href="/lic-late-fee-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Estimate Late Fee &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. LIC Customer Portal (Most Complete Answer)</h2>
+      <p>
+        The Customer Portal on <strong>licindia.in</strong> shows every enrolled policy with its status, next premium due date, vested bonus and loan position — the fullest picture of any method here.
+      </p>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>Go to licindia.in and open the <strong>Customer Portal</strong>. New users register once with policy number, date of birth and the mobile number given at proposal time.</li>
+        <li>Log in and choose <strong>View Enrolled Policies</strong>. Each policy is listed with its current status.</li>
+        <li>Open a policy to see premium schedule, bonus accrued and claim history. The same login works in the LIC Digital mobile app.</li>
+      </ol>
+      <p>
+        Registration is free. If the portal rejects your mobile number, the number on LIC's record differs from yours — updating contact details (next section) fixes it.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. WhatsApp — Send "Hi" to 8976862090</h2>
+      <p>
+        The quickest method for a single policy. Save LIC's official WhatsApp number <strong>8976862090</strong>, send <strong>Hi</strong>, and reply with the menu number for <strong>Policy Status</strong> (option 3). The same menu covers premium payment, bonus information, loan eligibility and premium-paid certificates, so one chat answers most routine questions.
+      </p>
+      <p>
+        The chat works only from the mobile number registered against the policy. If you changed numbers and never updated LIC's record, use SMS from the old number or update your details first.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. SMS — ASKLIC from Your Registered Mobile</h2>
+      <p>
+        No internet needed. From your registered mobile number, send:
+      </p>
+      <p class="not-prose p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm">
+        <strong>ASKLIC &lt;policy number&gt; STATUS</strong><br />
+        to <strong>56767877</strong> or <strong>9222492224</strong>
+      </p>
+      <p>
+        Variants of the same format fetch related figures (for example PREMIUM for premium details and BONUS for vested bonus). For a callback from your local customer zone instead, send <strong>LICHELP &lt;policy number&gt;</strong> to 9222492224. The service itself is free; normal SMS charges from your operator may apply.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Phone — Helpline and IVRS</h2>
+      <p>
+        Call the LIC helpline <strong>022-68276827</strong> and keep your policy number ready; a customer executive can confirm status, premium due and servicing branch. The older IVRS short code <strong>1251</strong> (dialled with your city code in many areas) gives automated policy information in English, Hindi and regional languages — useful where smartphone access is limited.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Branch Visit (When Nothing Else Matches)</h2>
+      <p>
+        If portal, WhatsApp and SMS all fail, the record itself needs correction — usually an outdated mobile number or a name/date-of-birth mismatch. Visit any LIC branch (your servicing branch can do the most) with the policy bond or policy number and a photo ID. The same visit can update your contact details so the four methods above work next time. Most "I cannot check my status" problems are solved permanently in this one step.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">What Your Status Actually Means — and Your Next Step</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>In-force</strong> — premiums are up to date and full cover is running. Check the next due date and you are done.</li>
+        <li><strong>Lapsed</strong> — a premium was missed beyond its grace period, so cover has stopped. Most traditional policies can be revived within 5 years of the first unpaid premium, on payment of arrears plus interest; price that interest with the late-fee calculator above before deciding.</li>
+        <li><strong>Paid-up</strong> — you stopped paying after the policy acquired paid-up value; a reduced sum assured stays payable. Compare that figure against surrender before closing anything — our <a href="/guides/lic-surrender-after-5-years/" class="text-brand-700 font-semibold hover:text-brand-800">year-5 surrender guide</a> shows how to price both side by side, and the <a href="/lic-paid-up-calculator/" class="text-brand-700 font-semibold hover:text-brand-800">paid-up calculator</a> estimates your reduced benefit.</li>
+        <li><strong>Matured / Discharged</strong> — the term has ended or the claim has been settled. If maturity money has not reached you, the claim process (with the discharge form) is the next step, not another status check.</li>
+      </ul>
+      <p>
+        A status check is also the right first move before using the <a href="/lic-premium-calculator/" class="text-brand-700 font-semibold hover:text-brand-800">premium calculator</a> for a fresh plan: knowing whether an old policy is lapsed or paid-up changes what new premium you actually need to commit.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">If Every Method Fails: Fix the Record, Not the Method</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Confirm the policy number</strong> from the bond or a premium receipt — one wrong digit defeats every channel.</li>
+        <li><strong>Check which mobile number LIC holds.</strong> Portal registration and WhatsApp both fail silently when the number on record is old. A branch visit, or your servicing agent, can update it.</li>
+        <li><strong>Very old or transferred policies</strong> occasionally sit under a different servicing branch after branch mergers. The helpline can trace the current servicing branch from the policy number.</li>
+      </ol>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC or IRDAI advice. Service numbers and menu options are LIC's published channels as commonly listed in October 2026; if a channel does not respond, LIC's website and your servicing branch remain the authoritative sources for your policy's exact status.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-late-fee-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
