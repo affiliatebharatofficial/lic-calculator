@@ -1,0 +1,121 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Death Claim: Documents for Nominee', url: '/guides/lic-death-claim-documents-nominee' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Death Claim: Complete Documents Checklist for the Nominee (Forms 3783 & 3801)',
+  description: 'If you are the nominee, this is the exact death-claim sequence: intimation letter, Claim Form 3783, discharge Form 3801, death certificate, original policy bond and NEFT. Early-death extra forms (3784, 3816, 3785, 3787) explained.',
+  url: `${siteUrl}/guides/lic-death-claim-documents-nominee`,
+  publishedDate: '2026-10-14T00:00:00Z',
+  modifiedDate: '2026-10-14T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Death Claim Documents for Nominee (Forms 3783 & 3801)"
+  description="Nominee's checklist for an LIC death claim: intimation letter, Form 3783 claimant statement, Form 3801 discharge, death certificate, original policy bond, NEFT mandate — plus the extra forms when death occurs within the first 3 years."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Death Claims
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Death Claim: The Nominee's Complete Documents Checklist
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        If you are named as the nominee on an LIC policy, the claim is settled through your servicing branch with a defined set of papers. This guide lays them out in the order the branch will ask for them, flags the extra forms that apply when death occurs in the first three years, and ends with the acknowledgement you must keep.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Protecting your own family next?</h2>
+        <p class="text-xs text-brand-700">Once this claim is settled, check how much cover your own household would need — so your nominee's process is this simple too.</p>
+      </div>
+      <a
+        href="/lic-term-insurance-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Check Cover Needed &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">Step 1: Intimate the Branch, in Writing</h2>
+      <p>
+        The claim starts with a written <strong>intimation of death</strong> to the branch that services the policy — a short letter stating the policy number, the date, place and cause of death, and your relationship as claimant. The branch records the claim and issues the claim forms listed below. Everything after this point builds on that intimation, so do it first and keep a copy.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">Step 2: The Core Document Set</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Claim Form A — Form 3783</strong>, the claimant's statement with details of the deceased and of you as claimant. (Where the policy has run three years or more from commencement of risk, the branch uses the shorter <strong>Form 3783A</strong>.)</li>
+        <li><strong>Discharge Form 3801</strong>, duly signed and witnessed by you as nominee — this is the receipt on which the payment is released.</li>
+        <li><strong>Certified extract from the Death Register</strong> — the registered death certificate from the local authority.</li>
+        <li><strong>Original policy bond.</strong></li>
+        <li><strong>NEFT mandate + cancelled cheque</strong> for the account the amount should be credited to.</li>
+        <li><strong>Your ID proof and PAN</strong>, plus <strong>proof of age</strong> of the deceased if it was never submitted earlier.</li>
+      </ul>
+      <p>
+        One item people worry about unnecessarily: <strong>evidence of title is needed only where the policy was not nominated</strong> (nor assigned or taken under the MWP Act). With a valid nomination recorded, the nominee's claim follows the straightforward route above.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">Step 3: Extra Forms When Death Is Within the First 3 Years</h2>
+      <p>
+        LIC treats claims where death occurs <strong>within three years of the date of risk (or of revival)</strong> as early claims, and asks additional questions to rule out non-disclosure at proposal time. Expect some of these, depending on the case:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Form 3784</strong> — medical attendant's certificate, completed by the doctor who attended the last illness.</li>
+        <li><strong>Form 3816</strong> — hospital treatment certificate, if the deceased was treated in a hospital.</li>
+        <li><strong>Form 3785</strong> — certificate of identity and burial/cremation, signed by a person of known character and responsibility.</li>
+        <li><strong>Form 3787</strong> — employer's certificate, if the deceased was in employment.</li>
+      </ul>
+      <p>
+        Early claims are investigated before settlement, so they take longer — LIC's stated outer limit is six months from receipt of complete requirements. Supplying the extra forms promptly and completely is the single biggest factor in how fast an early claim moves.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">Step 4: What Gets Paid, and What Is Deducted</h2>
+      <p>
+        The payment is the sum assured plus vested bonuses under the policy, credited by NEFT once the claim is admitted. An outstanding policy loan and its interest, and any premium due but unpaid (for example within the grace period), are adjusted before credit. Ask for the settlement break-up in writing if any figure is unclear — it should reconcile exactly to the policy record.
+      </p>
+      <p>
+        Two situations worth knowing: if the policy had lapsed for unpaid premiums before death, the claim generally does not arise outside the grace window; and if <strong>no nomination exists</strong> and the policy is not assigned, legal-heir/title evidence will be required, which is slower — one reason nominee details should always be kept current (see our policy-servicing guides).
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">Step 5: Keep the Branch's Acknowledgement</h2>
+      <p>
+        When you submit the bundle, the branch issues a stamped acknowledgement of receipt. Keep it until the amount is credited, and keep photocopies of every original you hand over. If weeks pass without news, the acknowledgement (and your copy of the intimation letter) is what any follow-up at the branch, zonal office or LIC grievance channel will ask for first.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC or IRDAI advice. Claim requirements can vary with the policy's circumstances; the servicing branch's requirement list for your claim is final — ask for it in writing at intimation.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-term-insurance-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
