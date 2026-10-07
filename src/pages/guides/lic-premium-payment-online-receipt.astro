@@ -1,0 +1,95 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Premium Payment Online & Receipt', url: '/guides/lic-premium-payment-online-receipt' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Premium Payment Online: Pay Direct (No Login), UPI Apps & Receipt Download',
+  description: 'Every working way to pay an LIC premium online: Pay Direct without registration, Customer Portal, and UPI apps — plus how to download the receipt afterwards, the credit-card fee to avoid, and what happens if you pay twice (refund in 6–8 days).',
+  url: `${siteUrl}/guides/lic-premium-payment-online-receipt`,
+  publishedDate: '2026-10-22T00:00:00Z',
+  modifiedDate: '2026-10-22T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Premium Payment Online: Pay Direct, UPI & Receipt Download"
+  description="Pay LIC premium online without login (Pay Direct), via Customer Portal or UPI apps. Receipt download steps, credit-card convenience fee, double-payment refund in 6–8 days, and the premium-paid certificate for your tax return."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Premium Payment
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Premium Payment Online: Pay Direct, UPI Apps &amp; Receipt Download
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        You do not need a branch visit — or even a login — to pay an LIC premium. Three channels work today; the right one depends on whether you want a one-off payment or a permanent record. Here they are, with the receipt steps people usually hunt for afterwards.
+      </p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. Fastest: Pay Direct, No Registration</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>On licindia.in, open <strong>Pay Premium Online → Pay Direct</strong> and choose <strong>Renewal Premium / Revival</strong>.</li>
+        <li>Enter the <strong>policy number, date of birth, premium amount</strong> and your email/mobile.</li>
+        <li>Pay by UPI, net banking, debit or credit card.</li>
+        <li>The e-receipt is shown on screen and emailed to you — save the PDF immediately.</li>
+      </ol>
+      <p>
+        Pay Direct is built for unregistered users and works any time, including weekends. Note the fee detail: <strong>credit-card payments carry a convenience fee; UPI, debit card and net banking do not</strong> — so the cheapest route is UPI.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Best Long-Term: Customer Portal</h2>
+      <p>
+        Registered users log into the <strong>Customer Portal</strong>, see every enrolled policy with its next due date, and pay from the same screen. The advantage is the trail: payment history and receipts stay on record, and you can download the <strong>premium-paid certificate</strong> for the financial year — the document your tax filing (Section 80C proof, where applicable) actually needs. If you check policies for the whole family, this is the channel to set up once. It is the same login used to <a href="/guides/lic-policy-status-check/" class="text-brand-700 font-semibold hover:text-brand-800">check your policy status</a>.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. From the Phone: UPI Apps</h2>
+      <p>
+        Paytm, PhonePe, Google Pay and Amazon Pay all list LIC under insurance/bill payments: pick LIC, enter the policy number, confirm the fetched premium, and pay. The receipt lands in the app's payment history and usually on your email as well. Keep the app receipt until the payment shows against the policy in the portal — that confirmation, not the app screen, is the final proof.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Downloading a Receipt Later</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Paid via Pay Direct?</strong> Use <strong>View Transaction Status</strong> under Pay Premium Online — policy number plus the transaction date and type pulls up the receipt; <strong>View/Download Receipt</strong> handles older ones.</li>
+        <li><strong>Registered user?</strong> Login → payment history → download the receipt or the year's premium-paid certificate as PDF.</li>
+        <li><strong>Paid via a UPI app?</strong> Re-download from the app's history, and cross-check the premium shows as paid in the portal within a few days.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Paid Twice by Mistake? The Refund Path</h2>
+      <p>
+        A double payment is common when a gateway times out and the user retries. LIC's stated practice: the <strong>extra premium is refunded to the same account within about 6–8 working days</strong>. Do not pay a third time while a retry is pending; if the refund does not land in that window, write to <strong>bo_eps1@licindia.com</strong> with the policy number and both transaction references, and keep the branch informed. Separately, if money left your bank but never reflects against the policy within about 10 days, take the bank's receipt to the bank first — the premium may be stuck mid-transfer.
+      </p>
+      <p>
+        One habit prevents nearly all of this: set up <strong>auto-debit (NACH/ECS)</strong> on the portal so premiums leave on the due date without a manual payment at all — worthwhile insurance against the <a href="/guides/lic-premium-grace-period-late-fee/" class="text-brand-700 font-semibold hover:text-brand-800">grace-period trap</a> as well.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Payment channels, fees and refund timelines are LIC's current published practice and can change; the screen in front of you and your premium receipt are the final word.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
