@@ -1,0 +1,98 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Single Premium Plans', url: '/guides/lic-single-premium-plans' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Single Premium Plans: Pay Once, Stay Covered — Who Should (and Shouldn\'t) Buy Them',
+  description: 'Single-premium LIC plans take one lump sum and run without another payment: Single Premium Endowment (SA + bonuses at maturity) and Bima Bachat (staged payouts). Surrender values of 70%/90%, the 80C one-year limit, and the 10(10D) test a big single premium must pass.',
+  url: `${siteUrl}/guides/lic-single-premium-plans`,
+  publishedDate: '2026-10-29T00:00:00Z',
+  modifiedDate: '2026-10-29T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Single Premium Plans: Pay Once — Benefits, Tax Test & Who Should Buy"
+  description="One lump sum, no renewals: Single Premium Endowment pays SA + bonuses at 10–25-yr maturity; Bima Bachat stages payouts over 9/12/15 yrs. GSV 70% yr-1, 90% after; 80C only in payment year; 10(10D) premium-to-SA test to check first."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Single Premium
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Single Premium Plans: Pay Once, Stay Covered
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        A bonus at work, an FD maturing, a plot sold — lump sums arrive in life with no monthly habit attached to them. Single-premium LIC plans are built for exactly that money: one payment, years of cover and maturity value, nothing left to remember. Here is where they genuinely fit, and where they don't.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Single premium or single-premium annuity?</h2>
+        <p class="text-xs text-brand-700">If the lump sum must produce lifetime income, model the pension route first.</p>
+      </div>
+      <a
+        href="/lic-pension-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Compare Pension Income &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Two Shapes on Offer</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Single Premium Endowment</strong> — participating; one premium buys a term of <strong>10–25 years</strong> (minimum sum assured ₹50,000). At maturity you receive <strong>sum assured + vested bonuses + final additional bonus</strong>; on death during the term, sum assured plus accrued bonuses go to the nominee.</li>
+        <li><strong>Bima Bachat (money-back shape)</strong> — one premium, terms of <strong>9, 12 or 15 years</strong>, with survival instalments during the term and the balance plus any loyalty addition at maturity. To size it: LIC premium tables put roughly <strong>₹72,000–₹77,500</strong> as the single premium for ₹1,00,000 of sum assured at age 30, rising with term.</li>
+        <li><strong>Jeevan Shanti</strong> (covered in <a href="/guides/lic-jeevan-shanti-758-pension/" class="text-brand-700 font-semibold hover:text-brand-800">its own guide</a>) is also single-premium — but it buys lifetime pension, not a maturity corpus. Decide <em>income vs lump sum</em> before comparing any two plans.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">2. The Exit and Loan Terms Are Unusually Kind</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Guaranteed surrender value:</strong> about <strong>70% of the single premium if surrendered in the first year, 90% from the second year onwards</strong>, plus vested bonuses per the surrender rules — far gentler than the multi-year lock-in of regular-premium plans (compare the <a href="/guides/lic-surrender-after-5-years/" class="text-brand-700 font-semibold hover:text-brand-800">5-year surrender math</a>).</li>
+        <li><strong>Loan facility</strong> opens after the first policy year, up to 90% of surrender value — the lump sum stays reachable in an emergency without killing the policy (mechanics in our <a href="/guides/lic-how-much-loan-on-policy/" class="text-brand-700 font-semibold hover:text-brand-800">loan amount guide</a>).</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">3. The Tax Test You Must Run Before a Big Cheque</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>80C:</strong> the premium counts toward the ₹1,50,000 deduction only in the year you pay it. One payment, one year's benefit — unlike a regular-premium policy, which earns the deduction every year.</li>
+        <li><strong>10(10D):</strong> maturity stays tax-free only if the plan's tests are met, including the premium-to-sum-assured condition explained in our <a href="/guides/lic-maturity-tax-10-10d-explained/" class="text-brand-700 font-semibold hover:text-brand-800">maturity tax guide</a>. A large single premium against a modest sum assured is exactly the structure that can trip this test — get the plan's illustration and, for a big ticket, a CA's reading <em>before</em>, not at maturity.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Who Should Buy — and Who Should Walk Past</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Fits:</strong> a windfall to park for a dated goal 10+ years out; grandparents funding a grandchild's later years; anyone who knows a yearly premium habit will lapse and prefers a policy that cannot.</li>
+        <li><strong>Doesn't fit:</strong> your only "insurance" purchase (single-premium plans carry modest cover relative to the money in — protection belongs in <a href="/guides/lic-term-cover-how-much/" class="text-brand-700 font-semibold hover:text-brand-800">term insurance</a>); money you will need within a year or two; or income-needing retirees, for whom the annuity shape pays better.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Premium tables, surrender percentages and tax treatment follow current plan brochures and tax law; confirm with the benefit illustration for your age and term.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
