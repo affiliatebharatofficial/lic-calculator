@@ -1,0 +1,101 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'How to Check LIC Surrender Value', url: '/guides/lic-check-surrender-value' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'How to Check Your LIC Surrender Value: Portal, Phone and the Branch Quotation That Actually Counts',
+  description: 'Three ways to learn your policy\'s surrender value: the LIC customer portal (Loan & Bonus details), the 022-6827-6827 IVR loan menu, and the servicing branch\'s written quotation — the only figure LIC pays on. Plus what happens if you actually proceed with Form 5074.',
+  url: `${siteUrl}/guides/lic-check-surrender-value`,
+  publishedDate: '2026-11-01T00:00:00Z',
+  modifiedDate: '2026-11-01T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Surrender Value Kaise Check Karein? Portal, Phone, Branch"
+  description="Portal enrolment → Loan & Bonus details shows surrender value; IVR 022-6827-6827 loan menu proxies it; branch written quotation is final (Form 5074 to surrender). Estimates via paid-up value × surrender factor explained."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Policy Servicing
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        How to Check Your LIC Surrender Value (and Which Figure Actually Counts)
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Before deciding anything about a policy — surrender, loan, paid-up — you need one number. Three routes produce it, but only one of them is the number LIC will actually pay. Here is each route, in order of authority.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Estimate before you ask</h2>
+        <p class="text-xs text-brand-700">Premiums paid, sum assured and term give you the paid-up value and a surrender estimate within minutes.</p>
+      </div>
+      <a
+        href="/lic-surrender-value-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Estimate Surrender Value &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. Customer Portal: The Self-Service Figure</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>Log in (or register) on the LIC Customer Portal and choose <strong>Enrol Policies</strong>, entering policy number, premium and insured's name.</li>
+        <li>Open <strong>View Enrolled Policies</strong>, then the policy's details under the <strong>Loan and Bonus</strong> column.</li>
+        <li>The screen shows the current <strong>surrender value and loan eligibility</strong>. If a loan is outstanding, it is netted off the figure shown — check before comparing with a branch quote.</li>
+      </ol>
+      <p>
+        This is also where you confirm the policy is actually in force before trusting any number — the full method list is in our <a href="/guides/lic-policy-status-check/" class="text-brand-700 font-semibold hover:text-brand-800">policy status guide</a>.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Phone (IVR): A Fast Proxy Through Loan Eligibility</h2>
+      <p>
+        Call <strong>022-6827-6827</strong>, enter the policy number and date of birth, and take the <strong>loan menu</strong>: the eligible loan amount it announces sits at up to 90% of the surrender value — divide by 0.9 for a close surrender estimate. Good for a same-minute sanity check, not for signing decisions.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. The Branch Quotation: The Only Figure LIC Pays</h2>
+      <p>
+        The servicing branch computes both the <strong>Guaranteed</strong> and <strong>Special Surrender Value</strong> for your policy on the date asked, nets any outstanding loan and interest, and quotes the payable amount — the higher applicable figure is what you receive. Under the post-October 2024 IRDAI method (explained in our <a href="/guides/lic-irdai-surrender-rules-2024/" class="text-brand-700 font-semibold hover:text-brand-800">surrender rules guide</a>), that SSV is a present-value calculation only the branch system can run exactly. Ask for it <strong>in writing</strong>, with the date — the figure moves as premiums and bonuses accrue.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. If You Actually Proceed: Form 5074</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Surrender happens at the <strong>servicing branch</strong> (or by registered post once the branch confirms; transferring the servicing branch first adds time) — there is <strong>no online surrender</strong>.</li>
+        <li>Carry the <strong>original policy bond</strong>, surrender discharge <strong>Form 5074</strong>, NEFT mandate with a cancelled cheque, and ID/PAN copies.</li>
+        <li>Payment lands by NEFT after processing — typically within about <strong>7–15 days</strong> of a complete submission at the branch.</li>
+        <li>Sanity-check the quote against the alternatives first: at most durations <a href="/guides/lic-paid-up-vs-surrender/" class="text-brand-700 font-semibold hover:text-brand-800">paid-up beats surrender</a>, and a <a href="/guides/lic-how-much-loan-on-policy/" class="text-brand-700 font-semibold hover:text-brand-800">policy loan</a> covers a temporary cash need without closing anything.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Portal figures are indicative; the servicing branch's written quotation is the authoritative surrender value on the day.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="November 2026" />
+  </article>
+</BaseLayout>
