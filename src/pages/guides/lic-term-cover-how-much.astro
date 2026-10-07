@@ -1,0 +1,110 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'How Much Term Insurance Do You Need?', url: '/guides/lic-term-cover-how-much' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'How Much Term Insurance Do You Actually Need? The Expense Method (Not the 10× Thumb Rule)',
+  description: 'The "10 times annual income" shortcut under-covers most families. The expense method: yearly family expenses × years of support + loans + goals − assets you already have, worked on a ₹8-lakh-income example, plus why cover should end at retirement.',
+  url: `${siteUrl}/guides/lic-term-cover-how-much`,
+  publishedDate: '2026-10-28T00:00:00Z',
+  modifiedDate: '2026-10-28T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="How Much Term Insurance Do You Need? Expense Method Explained"
+  description="Skip the 10× rule: yearly expenses × support years + loans + children's goals − existing assets. Worked ₹8L-income example showing ₹80L thumb-rule cover vs ~₹1.4 crore actual need, tenure till 60–65, and claim-settlement checks."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Term Insurance
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        How Much Term Insurance Do You Actually Need?
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        "Take one crore" is advice by round numbers, not by arithmetic. Term insurance has exactly one job — replace your income for the years your family still depends on it — and that job has a calculable size. Here is the expense method, worked on a typical household.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Run the expense method on your numbers</h2>
+        <p class="text-xs text-brand-700">Enter expenses, loans, goals and assets for your family's real cover number.</p>
+      </div>
+      <a
+        href="/lic-term-insurance-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate My Term Cover &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. Why the 10× Thumb Rule Under-Covers</h2>
+      <p>
+        The old shortcut — cover of 10 to 15 times annual income — was built when inflation, college costs and home-loan sizes were all smaller. It also ignores what your family already owes and already has. Two earners on the same ₹8 lakh salary, one with a ₹50 lakh home loan and two toddlers, one debt-free with grown children, plainly do not need the same cover.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. The Expense Method, Worked: ₹8 Lakh Income Family</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Annual household expenses today:</strong> ₹5,00,000 — <em>× 20 years</em> of support until retirement ≈ <strong>₹1,00,00,000</strong></li>
+        <li><strong>Outstanding home loan to clear:</strong> + <strong>₹35,00,000</strong></li>
+        <li><strong>Children's education goal:</strong> + <strong>₹25,00,000</strong></li>
+        <li><strong>Assets the family already holds</strong> (EPF, savings, other cover): − <strong>₹20,00,000</strong></li>
+      </ul>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Thumb rule answer</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹80,00,000 (10×)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Leaves the loan and college goal competing with grocery money — a gap of more than half a crore.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-emerald-700 uppercase block">Expense-method answer</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹1.4 crore</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">1Cr expenses + 35L loan + 25L goals − 20L assets. Round to ₹1.5 crore for inflation headroom.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Tenure</span>
+          <h3 class="font-bold text-slate-900 text-sm">Till 60–65, not 80</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">After retirement there is no income to replace, children are independent, loans are closed. Cover beyond that is premium paid for a risk that has retired with you.</p>
+        </div>
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Choosing the Policy (LIC's Term Benches Included)</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Pure term, no riders by default.</strong> LIC's term line-up (including its online pure-term plans for younger buyers) sells cover without savings frills — exactly what this calculation assumes. Add riders only where a specific gap exists.</li>
+        <li><strong>Claim settlement record matters more than a ₹200 premium gap.</strong> Prefer insurers with consistently high death-claim settlement in IRDAI's published data — LIC's ratio has stayed around the high-98% range in recent annual reports — and disclose everything at proposal. A claim settled is the entire product.</li>
+        <li><strong>Buy when healthy; re-run the number at life events.</strong> Marriage, a child, a home loan — each reopens this arithmetic. Our <a href="/guides/lic-child-plan-amritbaal-774/" class="text-brand-700 font-semibold hover:text-brand-800">child plans guide</a> explains why your term cover is arranged <em>before</em> optimising a child's corpus.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not insurance advice. The expense method is a planning aid; premium rates, underwriting and claim settlement depend on the chosen plan and full medical/financial disclosure.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
