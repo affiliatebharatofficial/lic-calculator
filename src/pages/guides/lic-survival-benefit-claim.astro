@@ -1,0 +1,88 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Survival Benefit Claim', url: '/guides/lic-survival-benefit-claim' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Survival Benefit Claim: Your Money-Back Instalment Falls Due — Here Is How It Reaches You',
+  description: 'Money-back policies pay survival benefits during the term. What arrives before the due date, the discharge receipt and NEFT step, why premiums must be paid up to the due date, and how a missed survival benefit can still be claimed later or adjusted against revival dues.',
+  url: `${siteUrl}/guides/lic-survival-benefit-claim`,
+  publishedDate: '2026-10-30T00:00:00Z',
+  modifiedDate: '2026-10-30T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Survival Benefit Claim: Money-Back Instalment Steps & Missed Payments"
+  description="Survival benefit is paid if premiums are up to date on the due date: intimation letter, discharge form, NEFT mandate; missed instalments stay claimable and can offset revival dues in money-back policies. Branch checklist."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Policy Servicing
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Survival Benefit Claim: Your Money-Back Instalment Is Due
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Every money-back policy has instalment birthdays — 20% of the sum assured at the scheduled anniversaries. Many policyholders wait for money that never auto-arrives because one small condition wasn't met. Here is exactly how a survival benefit flows, and what to do if yours is sitting unpaid.
+      </p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Condition Nobody Mentions: Premiums Paid to the Due Date</h2>
+      <p>
+        A survival benefit is payable <strong>provided premiums are paid up to the policy anniversary on which it falls due</strong>. A policy in lapse on its instalment date doesn't get paid that day — the benefit waits until the policy is revived, and in a money-back plan a due survival benefit can even be <strong>adjusted against revival dues</strong>: LIC sets what it owes you against what you owe it, and you pay (or receive) only the difference. This is the cheapest revival route available, and most agents never mention it.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. What Normally Arrives, and What You Send Back</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Intimation from the branch</strong> ahead of the due date, telling you the amount and the date (survival-benefit intimations follow the same machinery as the maturity intimation in our <a href="/guides/lic-maturity-claim-form-3825/" class="text-brand-700 font-semibold hover:text-brand-800">Form 3825 guide</a>).</li>
+        <li><strong>Discharge receipt signed and returned</strong> — smaller instalments have historically been released with reduced paperwork, while larger amounts require the signed discharge (and, where called for, the policy document for endorsement).</li>
+        <li><strong>NEFT mandate + cancelled cheque</strong> if your bank details aren't already on record — payment lands directly in the account.</li>
+      </ol>
+      <p>
+        If the intimation never reached you (old address, old mobile), nothing is lost — ask the servicing branch for the due-date status in writing. While you're there, update the address and bank mandate so the <em>next</em> instalment doesn't repeat the journey.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Missed an Instalment Years Ago?</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Unpaid survival benefits don't evaporate.</strong> They sit with LIC as an unclaimed amount against your policy — LIC's website carries an <em>Unclaimed Amounts of Policyholders</em> check (policy number, name, date of birth, PAN). The money is then claimed at the branch with ID proof and the policy record.</li>
+        <li><strong>The policy must be in force</strong> (or be revived) for the release; combine the claim with revival and the netting-off in point 1.</li>
+        <li><strong>Track the instalments thereafter.</strong> A money-back policy's remaining schedule — which dates, what percentages — drives real plans; our <a href="/guides/lic-money-back-vs-endowment/" class="text-brand-700 font-semibold hover:text-brand-800">money-back vs endowment guide</a> explains the standard schedules and how bonuses keep accruing on the full sum assured meanwhile.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Branch Checklist</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Policy number + a request, in writing, for instalments paid/unpaid with due dates.</li>
+        <li>Policy bond (for endorsement where the branch calls for it), ID/address proof, NEFT mandate + cancelled cheque.</li>
+        <li>If premiums aren't current: revival quotation alongside — and ask explicitly for survival-benefit adjustment.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Survival-benefit schedules, discharge requirements and unclaimed-amount procedures follow LIC's current servicing practice; confirm at your servicing branch.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
