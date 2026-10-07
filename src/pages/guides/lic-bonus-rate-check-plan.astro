@@ -1,0 +1,112 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Bonus Rate: How to Check Your Plan', url: '/guides/lic-bonus-rate-check-plan' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Bonus Rate: How to Check What Your Plan Was Declared (and What It Adds Up To)',
+  description: 'LIC declares reversionary bonus per ₹1,000 of sum assured after its annual valuation, and the rate differs by plan and term. Where the official chart lives, how to turn the rate into rupees on your policy, and why non-participating plans like Jeevan Utsav have no declared bonus at all.',
+  url: `${siteUrl}/guides/lic-bonus-rate-check-plan`,
+  publishedDate: '2026-10-31T00:00:00Z',
+  modifiedDate: '2026-10-31T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Bonus Rates: How to Check Your Plan's Declared Rate"
+  description="Bonus is declared per ₹1,000 sum assured after LIC's 31-March valuation; rates vary by plan & term band. Turn ₹44/1,000 into rupees on a ₹5L policy (~₹22k/yr), find the official plan-wise chart, and remember non-par plans have guaranteed additions instead."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Bonus
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Bonus Rate: How to Check What Your Plan Was Declared
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Every year, after its valuation as of 31 March, LIC declares a <strong>reversionary bonus per ₹1,000 of sum assured</strong> for participating plans — and every year, policyholders try to read that one number as if it applied to all policies. It doesn't. Here is how to find your plan's actual figure and what it is worth on your policy.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Turn your rate into rupees</h2>
+        <p class="text-xs text-brand-700">Add the declared rate to your sum assured and years to see the bonus pile at maturity.</p>
+      </div>
+      <a
+        href="/lic-bonus-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate My Bonus &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Rate Is per ₹1,000 — and It Varies by Plan and Term</h2>
+      <p>
+        LIC publishes the declaration as a table: <strong>plan × term band × rupees per ₹1,000 of sum assured per year</strong>. Longer terms usually carry a higher rate than short ones within the same plan, and endowment-family plans differ from money-back-family plans. Separately, a <strong>Final Additional Bonus</strong> may be declared for policies completing longer durations — paid only at maturity or claim, never year by year.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Illustrative rate</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹44 per ₹1,000 / year</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">An illustration, not a quotation — your plan's row in the official chart is the real one.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">On a ₹5,00,000 sum assured</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹22,000 vested each year</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">₹44 × 500 thousands. Over 15 such years the vested bonus alone reaches ≈ ₹3,30,000.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">"Vested" means</span>
+          <h3 class="font-bold text-slate-900 text-sm">Yours, once declared</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Each year's bonus attaches permanently; it is not withdrawn if a later year's rate falls. It is paid at maturity or claim (our <a href="/guides/how-lic-bonus-is-calculated/" class="text-brand-700 font-semibold hover:text-brand-800">bonus calculation guide</a> works the mechanics in full).</p>
+        </div>
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Where the Official Number Lives</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>LIC's published bonus chart</strong> (licindia.in, bonus information pages) lists the latest declaration plan-wise — match your plan number and term band, not a headline average.</li>
+        <li><strong>Your policy status enquiry</strong> on the Customer Portal shows accrued bonus where the policy is enrolled.</li>
+        <li><strong>The servicing branch</strong> can state the vested bonus on your policy as of the last valuation in writing — ask for this figure before any surrender or loan decision.</li>
+      </ol>
+      <p>
+        Ignore share-market coverage when you search: news about LIC's <em>shareholder</em> bonus shares and dividends is a different "bonus" entirely and says nothing about policyholder rates.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. If Your Plan Shows No Declared Bonus at All</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Non-participating plans</strong> (Jeevan Utsav, Jeevan Shanti, Amritbaal) never appear in the bonus chart — their return arrives as <strong>Guaranteed Additions fixed in the policy conditions</strong>. Check that rate in your bond, not the annual declaration.</li>
+        <li><strong>ULIPs</strong> don't carry bonus either; their value is the fund NAV.</li>
+        <li><strong>A lapsed policy accrues nothing.</strong> Bonus years only count while the policy is in force (or within paid-up rules) — one more reason the <a href="/guides/lic-premium-grace-period-late-fee/" class="text-brand-700 font-semibold hover:text-brand-800">grace-period discipline</a> matters.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Declared bonus rates change at each annual valuation and are never guaranteed for future years; the official LIC bonus chart and your policy status are the authoritative figures.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
