@@ -1,0 +1,134 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Jeevan Utsav (771): “10% Income” Truth', url: '/guides/lic-jeevan-utsav-771-income-truth' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Jeevan Utsav (771): Why “10% Income” Does Not Mean a 10% Return',
+  description: 'Jeevan Utsav pays 10% of the Basic Sum Assured as yearly income — Regular or Flexi at 5.5% accumulation. The three things the pitch leaves out: the % is on sum assured not premiums, income starts years after premiums stop, and there is no bonus, only ₹40/1000 guaranteed additions.',
+  url: `${siteUrl}/guides/lic-jeevan-utsav-771-income-truth`,
+  publishedDate: '2026-10-20T00:00:00Z',
+  modifiedDate: '2026-10-20T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Jeevan Utsav (771): “10% Income” ≠ 10% Return"
+  description="Jeevan Utsav (771): 10% of Basic Sum Assured yearly as Regular or Flexi income (5.5% accumulation), ₹40/1000 guaranteed additions during PPT, income starts 3+ years after premiums end. Who should choose Regular vs Flexi."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Plan Review: Jeevan Utsav (771)
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Jeevan Utsav (771): Why "10% Income" Does Not Mean a 10% Return
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        "Pay for 10 years, then get 10% income for life" is the entire Jeevan Utsav pitch — and every word of it is true except what it makes you assume. The 10% is on the sum assured, not on the money you paid; the income begins several years after your premiums end; and there is no bonus at all. Here is the plan with the marketing removed.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">See the income schedule before you decide</h2>
+        <p class="text-xs text-brand-700">Enter your sum assured and paying term to see when income starts and what the Regular vs Flexi choice pays.</p>
+      </div>
+      <a
+        href="/lic-pension-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Estimate Pension Income &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What the Plan Actually Is</h2>
+      <p>
+        Jeevan Utsav (771) is a <strong>non-participating, non-linked whole-life</strong> plan — cover runs to age 100, benefits are guaranteed (no bonuses), and minimum sum assured is ₹5 lakh. You choose a premium paying term between <strong>5 and 16 years</strong>. During those paying years, LIC adds <strong>guaranteed additions of ₹40 per ₹1,000 of sum assured, every year</strong> — on ₹10 lakh, that is ₹40,000 a year, accruing only while you pay.
+      </p>
+      <p>
+        When premiums end, you choose (at proposal) one of two ways to take the yearly income:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Regular Income Benefit:</strong> receive <strong>10% of the Basic Sum Assured every year</strong> for life.</li>
+        <li><strong>Flexi Income Benefit:</strong> let each year's 10% accumulate with LIC at <strong>5.5% p.a. compounded yearly</strong>, and withdraw up to 75% of the accumulated balance once a year when you choose.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">2. The Two Realities the Pitch Skips</h2>
+      <p>
+        <strong>Reality one — 10% of what?</strong> On a ₹10 lakh sum assured the income is ₹1,00,000 a year. But your premiums for ₹10 lakh of whole-life cover are far more than ₹10 lakh in total — a 10-year paying term at typical ages prices in the region of ₹1 lakh+ per year (the illustration for your age is the exact figure). So the income equals roughly 10% of the cover — typically a mid-single-digit yield on the total premiums paid, paid out as a lifelong stream plus the death protection. That is respectable for a guaranteed product, but it is not "10% return".
+      </p>
+      <p>
+        <strong>Reality two — the waiting room.</strong> Income does not start the year after premiums stop. The plan has a built-in deferment:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Pay 5–8 years</span>
+          <h3 class="font-bold text-slate-900 text-sm">Income from policy year 11</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Shortest paying terms wait longest relative to what they paid.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Pay 10 years</span>
+          <h3 class="font-bold text-slate-900 text-sm">Income from policy year 13</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">A 10-year premium holiday with no income — the "deferment period".</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Pay 16 years</span>
+          <h3 class="font-bold text-slate-900 text-sm">Income from policy year 19</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">The longest paying term, but also the largest accumulated guaranteed additions.</p>
+        </div>
+      </div>
+      <p>
+        If your plan was to bridge an income gap right after stopping work at 60, check the start year lines up with that gap — for many paying terms it opens several years later than intuition suggests.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Regular vs Flexi: the Choice in One Paragraph</h2>
+      <p>
+        Choose <strong>Regular</strong> if you genuinely need the cash each year — it pays out automatically. Choose <strong>Flexi</strong> if you don't need the income yet: leaving the 10% with LIC earns <strong>5.5% p.a. compounded yearly</strong> on the accumulated balance, building a withdrawable reserve (up to 75% of it once a year). Flexi is effectively a deferral tool; Regular is a cash-flow tool. The wrong pick is the one made without deciding which of those you actually are.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. What Happens on Death, and the Absence of Maturity</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>On death, the nominee receives the <strong>Sum Assured on Death plus accrued guaranteed additions</strong>, never less than <strong>105% of total premiums paid</strong>.</li>
+        <li>There is <strong>no maturity benefit and no bonus</strong> — this is a non-participating plan; everything is the guaranteed stream plus additions. On survival to 100, the cover ends; the plan's wealth transfer is the income you drew plus the death cover throughout.</li>
+        <li>Loan facility is available after one full year's premiums, per policy conditions.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Who It Suits</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Suits:</strong> buyers who can fund 5–16 years of premiums, want a <em>guaranteed</em> (no market, no bonus declaration) lifelong income, and understand the income starts a few years after premiums end.</li>
+        <li><strong>Doesn't suit:</strong> anyone comparing the "10%" against FD or annuity rates on money invested, anyone needing income immediately after premiums stop, or buyers wanting a maturity lump sum.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Premiums, guaranteed additions and income start years follow the policy conditions and the official benefit illustration for your age and term; confirm them before purchase.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-pension-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
