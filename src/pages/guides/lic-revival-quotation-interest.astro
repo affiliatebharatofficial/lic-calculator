@@ -1,0 +1,102 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Revival Quotation Explained', url: '/guides/lic-revival-quotation-interest' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Revival Quotation Explained: Arrears, 9.5% Interest and the Three Schemes Behind the Number',
+  description: 'A revival quotation is unpaid premiums plus interest at about 9.5% p.a. compounded half-yearly from each due date — ₹50,000 a year unpaid for 3 years revives near ₹1.75 lakh. Ordinary, special and instalment revival, Form 680, and how campaigns shave the interest.',
+  url: `${siteUrl}/guides/lic-revival-quotation-interest`,
+  publishedDate: '2026-11-02T00:00:00Z',
+  modifiedDate: '2026-11-02T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Revival Quotation: Arrears + 9.5% Interest Explained"
+  description="Revival quotation = unpaid premiums + interest ~9.5% p.a. compounded half-yearly from each due date (₹50k×3 yrs ≈ ₹1.5L + ₹24.5k interest). Ordinary vs special vs instalment revival, Form 680 health declaration, SB/loan adjustments and campaign concessions explained."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Policy Revival
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Revival Quotation Explained: What the Branch's Number Is Made Of
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        When a lapsed policy is revived, the branch hands you one total. Most people pay it without knowing what is inside — or that three different schemes can produce three very different totals. Here is the anatomy of that quotation.
+      </p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Ordinary Revival Number, Line by Line</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Arrears of premium:</strong> every unpaid premium from the first missed due date to today.</li>
+        <li><strong>Interest on each premium:</strong> around <strong>9.5% per annum, compounded half-yearly</strong>, charged from that premium's own due date — older missed premiums carry more interest than recent ones.</li>
+        <li><strong>Less adjustments:</strong> any amount lying in deposit, and — in money-back plans — a due survival benefit can be set off (see our <a href="/guides/lic-survival-benefit-claim/" class="text-brand-700 font-semibold hover:text-brand-800">survival benefit guide</a>).</li>
+      </ul>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Example: ₹50,000/year, 3 years unpaid</span>
+          <h3 class="font-bold text-slate-900 text-sm">Arrears ₹1,50,000</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Three missed annual premiums, before interest.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Interest on those arrears</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹24,500</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Each premium accrues ~9.5% p.a. compounded half-yearly from its own due date — the oldest is nearly 3 years deep.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-emerald-700 uppercase block">Revival total</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹1,74,500</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">The quotation is normally valid for a limited window; interest keeps running if you delay paying it.</p>
+        </div>
+      </div>
+      <p class="text-xs text-slate-500">Illustrative arithmetic at ~9.5% p.a.; the branch system computes interest to the day.</p>
+      <p>
+        Add to the payment a <strong>Declaration of Good Health (Form 680)</strong>; longer lapses can require a medical examination, and — as our main <a href="/guides/lic-policy-revival/" class="text-brand-700 font-semibold hover:text-brand-800">revival guide</a> covers — the whole exercise must sit within <strong>5 years of the first unpaid premium</strong> for most traditional plans.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. When Ordinary Revival Is Too Big: The Other Two Schemes</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Special revival:</strong> the policy's commencement date is shifted forward by about the lapse period, as if taken afresh then. You pay the (smaller) difference in premiums for the re-dated policy instead of the full arrears; typically available once in the policy term, with fresh health requirements.</li>
+        <li><strong>Instalment revival:</strong> the revival amount is spread into instalments added to future premiums — useful when the lapse was a cash-flow accident, not a decision.</li>
+        <li><strong>Loan/SB-assisted revival:</strong> where surrender value or a due survival benefit exists, LIC can apply it against the arrears so your cash outlay shrinks (sometimes to zero).</li>
+      </ul>
+      <p>
+        Ask the branch to quote <em>both</em> ordinary and special revival where eligible. The difference is routinely in five figures, and you can only see it by asking before paying.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Timing: Campaigns Shave the Interest</h2>
+      <p>
+        LIC periodically runs special revival campaigns (a recent one in 2025 offered concessions of up to 30% on the late fee/interest for eligible non-linked policies). If your quotation is dominated by interest rather than premiums, and no campaign is live, it can be worth asking the branch when the next drive is expected — the <a href="/guides/lic-premium-grace-period-late-fee/" class="text-brand-700 font-semibold hover:text-brand-800">grace-period guide</a> explains why letting premiums reach the revival stage is the expensive path in the first place.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Interest rates, scheme eligibility and campaign concessions follow LIC's current revival rules; the servicing branch's written quotation is final.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="November 2026" />
+  </article>
+</BaseLayout>
