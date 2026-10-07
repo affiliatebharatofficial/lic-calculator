@@ -1,0 +1,137 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Premium Grace Period & Late Fee', url: '/guides/lic-premium-grace-period-late-fee' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'Missed Your LIC Premium Date? Grace Period, Late Fee & What Happens Next',
+  description: 'How many grace days LIC allows (15 or 30 depending on premium mode), whether your life cover continues during the grace period, what interest LIC charges on late premiums, and the exact point at which a policy lapses — with the steps to take in each window.',
+  url: `${siteUrl}/guides/lic-premium-grace-period-late-fee`,
+  publishedDate: '2026-10-10T00:00:00Z',
+  modifiedDate: '2026-10-10T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Premium Grace Period & Late Fee: 15/30 Days Explained"
+  description="Missed an LIC premium due date? The grace period (30 days, 15 for monthly mode), cover during grace, late-fee interest on arrears, and when a policy actually lapses — explained with a worked example."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Premium Payment
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Missed Your LIC Premium Date? Grace Period, Late Fee &amp; What Happens Next
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        A missed due date is not an instant lapse. LIC gives you a defined grace window to pay without losing anything — but the window is shorter than many people assume, and it works differently for monthly premiums. Here is exactly where you stand, day by day.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Already past the grace period?</h2>
+        <p class="text-xs text-brand-700">Estimate the interest LIC will charge on your unpaid premiums before you ask the branch for a revival quotation.</p>
+      </div>
+      <a
+        href="/lic-late-fee-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Estimate Late Fee &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Grace Period: 30 Days, or 15 for Monthly Premiums</h2>
+      <p>
+        For most traditional LIC policies, the grace period is:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>30 days</strong> if your premiums are yearly, half-yearly or quarterly.</li>
+        <li><strong>15 days</strong> if your premium mode is monthly — the window people most often miss.</li>
+      </ul>
+      <p>
+        The clock starts the day after your due date. If you pay within the grace window, the policy continues exactly as before: same sum assured, bonuses keep accruing, and no health questions are asked. LIC does not add a late fee for payment inside the grace period itself — the interest described below applies when arrears are settled through revival after the window has closed. The grace period for your specific plan is printed in the policy bond; unit-linked and some newer plans can differ, so check the bond first.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Your Life Cover Continues During Grace — With One Deduction</h2>
+      <p>
+        If the worst happens during the grace period, LIC pays the claim but deducts the unpaid premium from it. Your family is not left unprotected because of one pending payment. That protection ends the day the grace window closes: from that point the policy is <strong>lapsed</strong>, and no death claim is payable until it is revived.
+      </p>
+      <p>
+        Not sure which side of the line your policy is on? Run through the five ways to <a href="/guides/lic-policy-status-check/" class="text-brand-700 font-semibold hover:text-brand-800">check your LIC policy status</a> — portal, WhatsApp, SMS, helpline or branch — before assuming.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. What a Late Premium Costs, in One Worked Example</h2>
+      <p>
+        Inside the grace period, paying late costs nothing extra. The cost arises later, when unpaid premiums are settled as revival arrears: LIC charges interest on the arrears for the period they were unpaid. Take a policy with an annual premium of ₹30,000 where two yearly premiums went unpaid:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Arrears owed</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹60,000</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">The two unpaid yearly premiums — money you owed under the policy from the start.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-rose-700 uppercase block">Illustrative interest</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹8,800</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">At an illustrative 9.5% a year — the first premium unpaid ~2 years, the second ~1 year. LIC's actual rate and day count come from your branch's revival quotation; confirm the current rate, do not rely on older web pages.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-emerald-700 uppercase block">Cost of paying in grace</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹0 extra</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">The same premium paid inside the 30-day window adds no interest at all. The gap between ₹0 and ~₹8,800 is why the grace deadline matters.</p>
+        </div>
+      </div>
+      <p>
+        The pattern to remember: <strong>arrears are unavoidable, interest is the avoidable part</strong> — and it grows every month the premium stays unpaid.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. The Day the Grace Window Closes: Lapse</h2>
+      <p>
+        If the premium (plus nothing else — no fee is due) is not paid by the last grace day, a traditional policy lapses. In practical terms: the life cover stops, and if the policy had not run long enough to acquire a paid-up value, nothing is payable at maturity either. Policies that have run several years usually keep a reduced <strong>paid-up value</strong>, which is why stopping is rarely an all-or-nothing decision — but the full cover only returns through revival.
+      </p>
+      <p>
+        The good news is the deadline after lapse is generous: for most traditional policies, revival is possible within <strong>five years of the first unpaid premium</strong>. Our <a href="/guides/lic-policy-revival/" class="text-brand-700 font-semibold hover:text-brand-800">LIC policy revival guide</a> walks through the cost, the health-declaration step and when reviving beats going paid-up.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. A 4-Step Checklist for a Missed Premium</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Find your exact due date and mode</strong> — the policy bond and premium notice show both, and the mode decides whether you have 15 or 30 grace days.</li>
+        <li><strong>If you are inside the window, just pay</strong> — through the Customer Portal, LIC Digital app, or any branch. No form, no fee, no health questions.</li>
+        <li><strong>If the window has closed, ask for a written revival quotation</strong> showing arrears and interest separately before you pay anything.</li>
+        <li><strong>Set up auto-debit (NACH/ECS)</strong> once the policy is current, so the monthly-mode 15-day trap cannot catch you again.</li>
+      </ol>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC or IRDAI advice. Grace periods and revival interest rates can vary by plan and change over time; confirm your policy's exact position with your servicing LIC branch or the Customer Portal before acting.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-late-fee-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
