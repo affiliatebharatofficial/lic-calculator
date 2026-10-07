@@ -1,0 +1,136 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Jeevan Labh (736) Returns Explained', url: '/guides/lic-jeevan-labh-736-returns' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Jeevan Labh (736) Returns: Premium, Bonus & Maturity on ₹10 Lakh Sum Assured',
+  description: 'Jeevan Labh (736) is a limited-pay endowment: pay for 10/15/16 years, stay covered and keep earning bonuses for 16/21/25. How the maturity figure is built (SA + reversionary bonus + FAB), an illustrative ₹10 lakh example, and who the premium-free tail suits.',
+  url: `${siteUrl}/guides/lic-jeevan-labh-736-returns`,
+  publishedDate: '2026-10-18T00:00:00Z',
+  modifiedDate: '2026-10-18T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Jeevan Labh (736) Returns: ₹10 Lakh SA Example Explained"
+  description="How Jeevan Labh (736) builds its maturity payout: limited-pay terms 16/21/25, simple reversionary bonus plus FAB, an illustrative ₹10 lakh sum-assured calculation, the ~5.5–6% illustrative yield, and who the plan suits."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Plan Review: Jeevan Labh (736)
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Jeevan Labh (736) Returns: Premium, Bonus &amp; Maturity on ₹10 Lakh Sum Assured
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Jeevan Labh's appeal is structural: you stop paying premiums years before the policy matures, yet cover and bonuses continue as if you hadn't. This guide explains how the maturity number is assembled, prices an illustrative ₹10 lakh case, and is honest about the yield that structure can and cannot produce.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Price your own Jeevan Labh case</h2>
+        <p class="text-xs text-brand-700">Enter your age, sum assured and term to estimate the premium and maturity with current bonus assumptions.</p>
+      </div>
+      <a
+        href="/lic-maturity-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Estimate Maturity Value &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Structure: Three Fixed Combinations</h2>
+      <p>
+        Jeevan Labh (Plan 736, on sale from 1 October 2024, replacing 936) is a non-linked, participating endowment with <strong>limited premium payment</strong>:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Policy term <strong>16 years</strong> → pay for <strong>10</strong>, then 6 bonus-only years</li>
+        <li>Policy term <strong>21 years</strong> → pay for <strong>15</strong>, then 6 bonus-only years</li>
+        <li>Policy term <strong>25 years</strong> → pay for <strong>16</strong>, then 9 bonus-only years</li>
+      </ul>
+      <p>
+        Minimum sum assured is ₹2,00,000 with no maximum; entry ages run 8 up to 59/54/50 by term, maturity by age 75. The <strong>premium-free tail</strong> is the whole point: after the paying years end, life cover continues and <strong>reversionary bonuses keep accruing</strong> on the sum assured until maturity.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. How the Maturity Figure Is Built</h2>
+      <p class="not-prose p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm">
+        <strong>Maturity amount</strong> = Sum Assured on Maturity + vested Simple Reversionary Bonuses (SRB) + Final Additional Bonus (FAB), if declared
+      </p>
+      <p>
+        The SRB is declared per ₹1,000 of sum assured for each policy year <em>including the premium-free tail</em>. That is why the 25/16 combination usually shows the strongest illustration: bonuses accrue over 25 years while premiums stop after 16. Neither the SRB nor FAB is guaranteed — both track LIC's declared rates, which move with its investment experience.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Illustrative Example: ₹10 Lakh Sum Assured, 25-Year Term</h2>
+      <p>
+        For a 30-year-old taking the 25-year term (16 paying years), at recently declared bonus rates, the shape of the outcome is:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">You pay</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹8.3 lakh total</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Roughly ₹52,000 a year for 16 years (age/term dependent; the branch illustration is the exact figure).</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Bonuses build</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹12.4 lakh assumed</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">SRB at ~₹44/₹1,000 SA over 25 years plus FAB — declared rates, not guaranteed, and not a promise.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-emerald-700 uppercase block">Maturity (illustrative)</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹22.4 lakh</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">₹10L SA + ≈ ₹11L SRB + ≈ ₹1.4L FAB. The implied yield is ~5.8% — the realistic zone for this plan family.</p>
+        </div>
+      </div>
+      <p>
+        Read that yield honestly: Jeevan Labh is an insurance-led savings plan, not an investment product. Its return zone (roughly 5.5–6% illustrative, before considering the value of 25 years of life cover) is fixed-income territory, and skipping premiums or surrendering early damages it badly — the tail years you paid for are where the plan earns its keep. On early exit, see our <a href="/guides/lic-surrender-after-5-years/" class="text-brand-700 font-semibold hover:text-brand-800">surrender after 5 years</a> guide.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Death Benefit and the Safety Rails</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>On death during the term, LIC pays the <strong>higher of the Basic Sum Assured or 7 times the annualised premium</strong>, plus vested bonuses — with a floor of <strong>105% of total premiums paid</strong>.</li>
+        <li>Loan facility is available after the policy acquires surrender value (one full year's premium for plan 736), and surrender value now arises from the first policy year under the current rules.</li>
+        <li>Optional riders (accidental/death disability, term assurance) can be attached for extra protection.</li>
+        <li>The free-look window is 30 days — use it to read the actual policy conditions, not the brochure summary.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Who This Plan Suits — and Who It Doesn't</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Suits:</strong> buyers who can commit premiums for 10–16 years, want them <em>finished</em> before retirement, and value guaranteed-structure savings plus life cover over maximum return.</li>
+        <li><strong>Doesn't suit:</strong> anyone needing liquidity (early surrender values are small), or buyers whose real need is large life cover — for pure protection, a term plan buys multiples of the cover per rupee, and this endowment's built-in cover is modest by comparison.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Premiums, bonus rates and FAB shown are illustrative at recently declared rates and are not guaranteed; the agent's benefit illustration and your policy document are the authoritative figures for your case.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-maturity-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
