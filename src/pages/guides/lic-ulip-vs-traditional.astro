@@ -1,0 +1,95 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC ULIP vs Traditional Plans', url: '/guides/lic-ulip-vs-traditional' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC ULIP vs Traditional Policy: Market-Linked Growth or Sovereign-Backed Certainty?',
+  description: 'LIC sells both: ULIPs (SIIP, Nivesh Plus) where your money rides NAVs after ~1.35% fund charges, and traditional participating plans where maturity is sum assured plus vested bonuses. Charges, lock-in, tax above ₹2.5 lakh ULIP premium, and who each genuinely suits.',
+  url: `${siteUrl}/guides/lic-ulip-vs-traditional`,
+  publishedDate: '2026-11-03T00:00:00Z',
+  modifiedDate: '2026-11-03T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC ULIP vs Traditional Policy: Charges, Tax & Who Should Pick Which"
+  description="ULIPs (SIIP/Nivesh Plus): NAV growth minus 1.35% FMC, allocation & mortality charges, 5-yr lock-in, >₹2.5L/yr premium taxed. Traditional: SA + vested bonuses, no market risk. The decision grid for growth-seekers vs certainty-seekers."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Plan Comparison
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC ULIP vs Traditional Policy: Which Shelf Should Your Money Sit On?
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        The same insurer sells two opposite promises. Traditional plans say: <em>here is the floor; anything above it is declared each year.</em> ULIPs say: <em>here is the market; your outcome rides on it, minus charges.</em> Neither is wrong — they fail in opposite situations. Here is the honest grid.
+      </p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What Your Money Actually Does</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Traditional (participating)</span>
+          <h3 class="font-bold text-slate-900 text-sm">SA + vested bonuses</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Maturity is the sum assured plus bonuses declared yearly per ₹1,000 SA (how they add up: our <a href="/guides/lic-bonus-rate-check-plan/" class="text-brand-700 font-semibold hover:text-brand-800">bonus rate guide</a>). NAVs, markets and charges do not enter the picture — and nor does market upside.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">ULIP (SIIP, Nivesh Plus)</span>
+          <h3 class="font-bold text-slate-900 text-sm">Fund value at NAV</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Premiums buy units in bond/secured/balanced/growth funds you choose and can switch between. Maturity is whatever the units are worth on that day.</p>
+        </div>
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-900">2. The Charge Stack (Read This Before Any Return Figure)</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Fund management charge:</strong> ~<strong>1.35% p.a.</strong> of fund value across LIC's ULIP funds (0.5% in the discontinued-policy fund) — every year, in good markets and bad.</li>
+        <li><strong>Premium allocation charge:</strong> skimmed before units are bought (e.g. Nivesh Plus ≈ 3.3% offline / 1.5% online).</li>
+        <li><strong>Mortality and rider charges:</strong> deducted monthly in units for the life cover inside the plan; switching beyond 4 free switches/year and partial withdrawals carry small flat charges; discontinuance charges taper to nil by year 5 — the statutory <strong>5-year lock-in</strong>.</li>
+        <li>Traditional plans instead net their costs inside the declared bonus — less transparent, but no line items erode the guaranteed part.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Flexibility, Risk, Tax</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Flexibility:</strong> ULIPs let you switch funds and partially withdraw (after lock-in); traditional plans offer loans against surrender value but no market levers (our <a href="/guides/lic-check-surrender-value/" class="text-brand-700 font-semibold hover:text-brand-800">surrender value guide</a> shows the exit math).</li>
+        <li><strong>Risk:</strong> in a ULIP, a bad market year immediately before maturity is your problem; in a traditional plan, declared-once bonuses are vested and paid at maturity/claim.</li>
+        <li><strong>Tax:</strong> ULIPs with annual premium above <strong>₹2,50,000</strong> lose the 10(10D) shelter on maturity (taxed as capital gains); traditional plans follow the tests in our <a href="/guides/lic-maturity-tax-10-10d-explained/" class="text-brand-700 font-semibold hover:text-brand-800">maturity tax guide</a>, including the ₹5 lakh premium cap for newer policies.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">4. The Verdict by Situation</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Choose traditional</strong> when the money has a non-negotiable date and purpose — a child's admission year, a parent's security — and a market dip must not be allowed to move it.</li>
+        <li><strong>Consider a ULIP</strong> only with a 10+ year horizon, premiums kept within the ₹2.5 lakh tax threshold, and the discipline to use the fund switches the charges are paying for.</li>
+        <li><strong>In both cases, buy protection separately.</strong> Neither wrapper replaces the <a href="/guides/lic-term-cover-how-much/" class="text-brand-700 font-semibold hover:text-brand-800">term cover arithmetic</a> for income replacement.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice or an investment recommendation. ULIP values are market-linked and not guaranteed; charges and tax rules follow the current policy documents and law. Read the benefit illustration and charge tables before signing.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="November 2026" />
+  </article>
+</BaseLayout>
