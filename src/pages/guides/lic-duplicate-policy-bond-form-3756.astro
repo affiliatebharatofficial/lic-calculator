@@ -1,0 +1,92 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Duplicate Policy Bond: Form 3756', url: '/guides/lic-duplicate-policy-bond-form-3756' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'Lost Your LIC Policy Bond? Duplicate Bond Process with Form 3756',
+  description: 'Losing the bond does not cancel your policy. The duplicate-bond route: Form 3756 indemnity on stamp paper, surety (Form 3807) above ₹50,000 sum assured, when a newspaper advertisement is required, and the claim-time shortcut when maturity is already near.',
+  url: `${siteUrl}/guides/lic-duplicate-policy-bond-form-3756`,
+  publishedDate: '2026-10-25T00:00:00Z',
+  modifiedDate: '2026-10-25T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="Lost LIC Policy Bond? Duplicate Bond via Form 3756"
+  description="Form 3756 indemnity bond on stamp paper, Form 3807 surety if sum assured > ₹50,000, newspaper advertisement when maturity is within 3 years, and the claim-time shortcut instead of a duplicate. Nominee-safe steps."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Policy Servicing
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Lost Your LIC Policy Bond? How to Get a Duplicate Bond (Form 3756)
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        First, the reassurance: the bond is evidence of your policy, not the policy itself. Losing it does not extinguish your rights, your premiums or your family's claim. What it does is add one procedure before any transaction that needs the original document. Here is that procedure, step by step.
+      </p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What the Branch Will Ask For</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Indemnity Bond in Form 3756</strong> — printed on non-judicial stamp paper of the value your state/branch specifies (confirm it first; values differ by state), duly stamped, executed by you and signed before witnesses/notarised as the branch directs.</li>
+        <li><strong>Surety declaration (Form 3807)</strong> — if the <strong>sum assured exceeds ₹50,000</strong>, a person of sound financial standing from your area must stand surety.</li>
+        <li><strong>Loss-of-policy questionnaire</strong> from the branch — how and when the bond was lost — with your last premium receipt attached if available.</li>
+        <li><strong>Photo ID and address proof</strong>, duplicate-policy charges and stamp duty at the prevailing rates.</li>
+        <li>If the bond is <strong>partially destroyed</strong> (fire, flood, termites), hand in whatever remains — it supports the application.</li>
+      </ol>
+      <p>
+        If the policy is assigned or mortgaged, the duplicate is issued carrying the latest assignment still in force.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. When a Newspaper Advertisement Is Added</h2>
+      <p>
+        Where the policy is <strong>due for maturity or a survival benefit within 3 years</strong> and the sum assured is <strong>more than ₹25,000</strong>, LIC requires an advertisement about the loss in a widely circulated local daily; the duplicate is processed if no objection surfaces in the notice period. The advertisement and indemnity requirements can be relaxed in defined cases — theft, destruction by fire, loss in government custody, and mutilated or partially destroyed bonds — which is why the branch conversation comes before any newspaper spend.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. The Shortcut When the Claim Is Already Due</h2>
+      <p>
+        If maturity (or a death claim) is already at hand, you may not need the duplicate bond itself. LIC can settle the claim against substitute paperwork — a <strong>loss-of-policy questionnaire</strong> and an <strong>indemnity letter (Form 3815)</strong>, with a surety declaration where the claim amount crosses the branch's threshold — together with the discharge form. Ask the branch which route your case qualifies for before starting the full duplicate procedure; for a policy maturing this year it can save weeks. Our <a href="/guides/lic-maturity-claim-form-3825/" class="text-brand-700 font-semibold hover:text-brand-800">maturity claim guide</a> lists what the claim itself needs.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Timeline and What You Receive</h2>
+      <p>
+        After scrutiny, LIC issues the duplicate bond, marked as such, to your registered address or for collection at the branch. From there it is a full substitute for the original in every later transaction — loans, surrender, claims. If the "lost" original turns up afterwards, deposit it with the branch rather than keeping two live-looking bonds in the house.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. While Paperwork Runs: Keep the Policy Healthy</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Premiums, status and bonus are unaffected — verify the policy shows in-force on the portal with our <a href="/guides/lic-policy-status-check/" class="text-brand-700 font-semibold hover:text-brand-800">policy status check</a> guide while the duplicate is processed.</li>
+        <li>Tell your nominee the policy number, plan and servicing branch and where the duplicate will be kept. Most "lost bond" crises surface at claim time, in a family that was never told the details.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Forms, stamp-paper values, surety thresholds and advertisement requirements follow LIC's current servicing rules and vary by case; the servicing branch's written requirement list is final.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
