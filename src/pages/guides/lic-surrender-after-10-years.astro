@@ -1,0 +1,127 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Surrender After 10 Years', url: '/guides/lic-surrender-after-10-years' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'Surrendering Your LIC Policy After 10 Years: Value, Loss % & Better Alternatives',
+  description: 'At year 10 the surrender loss shrinks a lot versus year 5, but usually does not vanish. An illustrative ₹50,000-a-year example shows the payout, why the paid-up value is often the stronger option now, and how Form 5074 and the 7–15 day NEFT timeline work.',
+  url: `${siteUrl}/guides/lic-surrender-after-10-years`,
+  publishedDate: '2026-10-21T00:00:00Z',
+  modifiedDate: '2026-10-21T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Surrender After 10 Years: How Much You Get & Lose"
+  description="Year-10 surrender value on an illustrative ₹50,000/yr 20-year endowment: ~₹4.6–5.1 lakh back on ₹5 lakh paid. Why the loss band narrows, paid-up vs surrender at year 10, Form 5074 process and NEFT timing."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Surrender Valuation
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Surrendering Your LIC Policy After 10 Years: Value, Loss &amp; the Paid-Up Alternative
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Ten years in, the surrender maths looks nothing like it did at year five — the guaranteed floor is higher, the special surrender value has caught up with the premiums, and "just stop paying" has become a genuinely strong option. Here is the year-10 picture, priced on one example.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Compare surrender vs paid-up on your numbers</h2>
+        <p class="text-xs text-brand-700">Enter your premium, term and years paid to see both the exit value today and the paid-up amount at maturity.</p>
+      </div>
+      <a
+        href="/lic-surrender-loss-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Compare Your Options &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Worked Example: ₹50,000 a Year, 20-Year Endowment</h2>
+      <p>
+        Take a 20-year endowment with a sum assured of ₹10,00,000 and an annual premium of ₹50,000, paid without a miss for 10 years:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">You have paid</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹5,00,000</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Ten annual premiums of ₹50,000 each.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-emerald-700 uppercase block">Illustrative payout today</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹4.6–5.1 lakh</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">The higher of GSV and SSV for this profile — roughly 92–102 paise per rupee paid. Only LIC's written quotation fixes your figure.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-rose-700 uppercase block">What you permanently give up</span>
+          <h3 class="font-bold text-slate-900 text-sm">All future bonuses + cover</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">The remaining 10 years of bonus accrual and the ₹10 lakh life cover end the day you surrender.</p>
+        </div>
+      </div>
+      <p>
+        Compare the shape with <a href="/guides/lic-surrender-after-5-years/" class="text-brand-700 font-semibold hover:text-brand-800">year 5</a>: there, about 45 paise of every rupee vanished. At year 10 the immediate cash loss is usually small — the real cost has moved to the bonuses and cover you abandon.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Why the Loss Band Narrows by Year 10</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>GSV's floor rises with duration.</strong> The guaranteed surrender value starts at 30% of premiums (excluding the first year) and the applicable factors climb steadily — by years 8–10 traditional plans are typically around the 50% zone of eligible premiums, plus a discounted value of vested bonuses.</li>
+        <li><strong>SSV discounts less.</strong> The special surrender value is your paid-up value (paid-up sum assured plus vested bonuses) adjusted for the years left to maturity. With 10 years left instead of 15, the discount shrinks; under the <a href="/guides/lic-irdai-surrender-rules-2024/" class="text-brand-700 font-semibold hover:text-brand-800">post-October-2024 IRDAI method</a>, the SSV is the present value of that paid-up amount at the 10-year G-Sec yield plus up to 50 basis points.</li>
+        <li><strong>Vested bonuses are now meaningful.</strong> Ten years of simple reversionary bonuses sit inside both calculations — surrendering throws away their remaining growth, not their accrued value.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">3. At Year 10, Price Paid-Up Before You Price Surrender</h2>
+      <p>
+        The paid-up value formula decides the alternative:
+      </p>
+      <p class="not-prose p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm">
+        <strong>Paid-up sum assured</strong> = 10 paid ÷ 20 payable × ₹10,00,000 = <strong>₹5,00,000</strong>, plus the bonuses already vested — payable at maturity (or earlier death), with no further premiums.
+      </p>
+      <p>
+        Set that beside the surrender cheque: surrender gives roughly the same headline money <em>today</em> but ends the cover and caps everything; paid-up keeps ₹5 lakh of cover running for free and lets time finish the job. At year 5, surrender often won this comparison on need; at year 10, paid-up usually does.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. If You Still Decide to Exit: the Process</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>Visit the <strong>servicing branch</strong> and take a written surrender quotation (GSV and SSV separately) before signing anything.</li>
+        <li>Submit <strong>Form 5074 (Surrender Discharge Voucher)</strong> with the original policy bond, NEFT mandate, cancelled cheque and PAN copy.</li>
+        <li>Any outstanding policy loan and interest are adjusted from the payout; the balance is credited to your bank — branches typically complete this within about <strong>7–15 days</strong> of a complete submission.</li>
+        <li>Keep the stamped acknowledgement until the credit lands.</li>
+      </ol>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC or IRDAI advice. GSV factors, SSV method and bonuses vary by plan and issue date; the branch's written surrender quotation for your policy is the only final figure.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-surrender-loss-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
