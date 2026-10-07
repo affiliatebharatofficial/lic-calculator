@@ -14,6 +14,12 @@ export default defineConfig({
     imageService: 'cloudflare',
     platformProxy: {
       enabled: true
+    },
+    // Custom worker entrypoint: src/worker.ts 301-redirects the workers.dev
+    // hostname to lic-calculators.com for all requests (middleware cannot
+    // intercept static-asset requests in this adapter).
+    workerEntryPoint: {
+      path: 'src/worker.ts'
     }
   }),
   integrations: [
