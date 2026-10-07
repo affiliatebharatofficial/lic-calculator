@@ -1,0 +1,115 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Jeevan Umang (745): 8% Income Reality Check', url: '/guides/lic-jeevan-umang-745-income-reality' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Jeevan Umang (745): The “8% Yearly Income” — What It Really Means',
+  description: 'Jeevan Umang pays 8% of the Basic Sum Assured every year after the premium term, until age 100 — not an 8% return on your money. How the plan sequences (pay 15–30 years, then income for life, then SA at 100), an honest ₹10 lakh example, and who should and should not buy it.',
+  url: `${siteUrl}/guides/lic-jeevan-umang-745-income-reality`,
+  publishedDate: '2026-10-19T00:00:00Z',
+  modifiedDate: '2026-10-19T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Jeevan Umang (745): “8% Income” Reality Check"
+  description="Jeevan Umang's 8% is of the sum assured, not a return on premiums. Pay 15–30 years, take ₹80,000/yr per ₹10L SA till 100, SA + bonuses at the end — realistic yield, the whole-life cover, and who it suits."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Plan Review: Jeevan Umang (745)
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Jeevan Umang (745): The "8% Yearly Income" — What It Actually Means
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Jeevan Umang is usually pitched in one line: "pay for 20 years, then get 8% income for life." The pitch is not wrong, but the 8% is widely misunderstood — it is 8% <em>of the sum assured</em>, not 8% on the money you paid. Here is the plan's real sequence, priced honestly.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Model your own income stream</h2>
+        <p class="text-xs text-brand-700">Enter your age, sum assured and paying term to see the yearly income after the PPT and the maturity at 100.</p>
+      </div>
+      <a
+        href="/lic-pension-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Estimate Pension Income &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Sequence, on One Line</h2>
+      <p class="not-prose p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm">
+        <strong>Pay</strong> premiums for 15, 20, 25 or 30 years → <strong>receive 8% of the Basic Sum Assured every year</strong> from the end of that term until age 100 (or death) → <strong>at 100, receive the Basic Sum Assured plus vested bonuses</strong>. Cover runs the whole of life, to age 100 (nearer birthday).
+      </p>
+      <p>
+        Minimum Basic Sum Assured is ₹2,00,000, with no maximum. Because the income phase can run for decades, the entry-age limits tighten as the paying term lengthens (up to 55 for a 15-year term, 40 for a 30-year term).
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. The ₹10 Lakh Example, Done Honestly</h2>
+      <p>
+        Take a Basic Sum Assured of ₹10,00,000. The celebrated number is:
+      </p>
+      <p class="not-prose p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm">
+        <strong>Yearly income after the premium term = 8% × ₹10,00,000 = ₹80,000 a year</strong> — guaranteed, every year, for as long as you live up to age 100.
+      </p>
+      <p>
+        Now the side the pitch skips. For a 30-year-old choosing a 20-year paying term, the annual premium on ₹10 lakh of whole-life cover is substantial — of the order of ₹70,000 a year in the agent's current illustration (your exact premium depends on age and term; take it from the illustration, not from memory). Across the paying years you hand LIC roughly ₹14 lakh. Against that you eventually receive ₹80,000 a year for potentially 50 years, plus ₹10 lakh and bonuses at the end, plus life cover throughout. The effective yield of the whole package sits in the same fixed-income zone as other traditional LIC plans — <strong>the "8%" is an income rate on the cover, not an 8% return on premiums</strong>. Any comparison with an FD or annuity must be on total premiums paid, not on the sum assured.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. What You're Really Buying</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Lifelong cash-flow discipline:</strong> an income that cannot be outlived (to 100), cannot be spent early in a lump-sum temptation, and continues even if you stop "managing" money in old age.</li>
+        <li><strong>Whole-life cover:</strong> on death at any point, the nominee gets the higher of the Basic Sum Assured or 7× the annualised premium, plus vested bonuses (floor: 105% of premiums paid). The family is covered during <em>and after</em> the paying years — unlike a term plan that expires.</li>
+        <li><strong>Bonuses on top:</strong> as a participating plan, reversionary bonuses accrue and are paid with the maturity/death benefit; survival benefits themselves are the guaranteed 8% of SA and don't depend on bonuses.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">4. The Trade-Offs Nobody Puts in the Brochure</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Liquidity is thin.</strong> Loans are available against surrender value, but surrendering a whole-life plan early destroys the structure you paid for; treat this as money you will not touch for decades.</li>
+        <li><strong>The income is fixed in rupees.</strong> ₹80,000 a year sounds strong today; in 30 years of inflation it is a supplement, not a salary replacement. Jeevan Umang is an income <em>floor</em>, not a complete retirement plan.</li>
+        <li><strong>Death benefit in instalments is optional</strong> — the claim can be taken in instalments over 5/10/15 years if the family prefers income to a lump sum; decide that with the nominee in mind, not by default.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Who It Suits</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Suits:</strong> buyers in their 20s–40s who can commit 15–30 years of premiums, want a guaranteed lifelong income floor plus cover till 100, and are not chasing investment returns.</li>
+        <li><strong>Doesn't suit:</strong> anyone who reads "8%" as an annual return, needs the money back within 10–15 years, or needs maximum cover per rupee (that's a term plan's job).</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Premiums shown are indicative only; bonus rates are declared and not guaranteed. Confirm the exact premium, survival-benefit schedule and riders in the official benefit illustration and policy document before buying.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-pension-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
