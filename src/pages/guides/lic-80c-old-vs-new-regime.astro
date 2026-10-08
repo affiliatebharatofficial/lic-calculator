@@ -1,0 +1,98 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Premium and 80C: Old vs New Regime', url: '/guides/lic-80c-old-vs-new-regime' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Premium and Section 80C: Old vs New Tax Regime — Who Still Gets the Deduction?',
+  description: 'Under India\u2019s new (default) tax regime there is no 80C deduction at all — your LIC premium saves no tax. In the old regime it counts toward the ₹1.5 lakh 80C bucket. Slabs, the ₹12 lakh rebate, and a worked ₹20 lakh-salary comparison showing exactly where the break-even sits.',
+  url: `${siteUrl}/guides/lic-80c-old-vs-new-regime`,
+  publishedDate: '2026-10-08T00:00:00Z',
+  modifiedDate: '2026-10-08T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Premium & 80C: Old vs New Tax Regime — Who Still Gets the Deduction?"
+  description="New regime = no 80C, but zero tax up to ₹12 lakh taxable income (₹12.75L salaried). Old regime keeps 80C/80D/HRA. A worked ₹20L-salary comparison, the break-even deduction level, and why buying LIC 'for tax saving' stopped making sense for most people."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Tax Saving
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Premium and 80C: Old vs New Tax Regime — Who Still Gets the Deduction?
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Short answer first: <strong>Section 80C exists only in the old tax regime.</strong> In the new regime — now the default for most taxpayers — your LIC premium earns <em>zero</em> deduction, no matter when you bought the policy. But the new regime compensates with lower slab rates and a rebate that wipes out tax on taxable income up to ₹12 lakh. Here is how to tell which side your household actually falls on, with the maths worked out.
+      </p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Two Regimes in One Table (FY 2025-26)</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">New regime (Section 115BAC) — the default</span>
+          <h3 class="font-bold text-slate-900 text-sm">Lower rates, almost no deductions</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Slabs: nil up to ₹4L, then 5% / 10% / 15% / 20% / 25% in ₹4L steps, 30% above ₹24L. <strong>No 80C, no 80D, no HRA.</strong> Standard deduction ₹75,000 (salaried) and employer NPS under 80CCD(2) survive. Section 87A rebate of up to ₹60,000 makes taxable income up to <strong>₹12 lakh completely tax-free</strong> — about ₹12.75 lakh of salary for a salaried person.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Old regime — you must opt in</span>
+          <h3 class="font-bold text-slate-900 text-sm">Higher rates, full deduction stack</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Slabs start at 5% above ₹2.5L, 20% above ₹5L, 30% above ₹10L. In return you keep <strong>80C up to ₹1.5 lakh</strong> (LIC premium, EPF, PPF, ELSS, tuition fees…), 80D health premiums, extra NPS ₹50,000 under 80CCD(1B), HRA, and home-loan interest up to ₹2 lakh. Standard deduction ₹50,000; 87A rebate only ₹12,500 (income up to ₹5L).</p>
+        </div>
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Worked Example: ₹20 Lakh Salary, LIC Premium in the Mix</h2>
+      <p>Take a salaried person earning ₹20,00,000, paying a ₹1,00,000 annual LIC premium (inside the 80C ₹1.5 lakh bucket alongside EPF). Figures include the 4% health &amp; education cess; surcharge not applicable at this income.</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>New regime:</strong> taxable income ₹19,25,000 after the ₹75,000 standard deduction. Tax = ₹20,000 (4–8L @5%) + ₹40,000 (8–12L @10%) + ₹60,000 (12–16L @15%) + ₹65,000 (16–19.25L @20%) = ₹1,85,000, i.e. <strong>₹1,92,400 with cess</strong>. The LIC premium changes nothing — there is no deduction line for it.</li>
+        <li><strong>Old regime with a typical deduction stack</strong> (80C ₹1.5L + 80D ₹50k + NPS ₹50k + HRA ₹2.4L + ₹50k standard deduction): taxable income ₹14,60,000. Tax = ₹12,500 + ₹1,00,000 + ₹1,38,000 = ₹2,50,500, i.e. <strong>₹2,60,520 with cess</strong>. New regime wins by about ₹68,000.</li>
+        <li><strong>Old regime with a large genuine HRA</strong> (₹4.8L, e.g. ₹40,000/month genuine metro rent; total deductions ₹7.3L): taxable income ₹12,20,000. Tax = ₹12,500 + ₹1,00,000 + ₹66,000 = ₹1,78,500, i.e. <strong>₹1,85,640 with cess</strong>. Now the old regime wins — by about ₹6,800.</li>
+        <li><strong>The pattern:</strong> at a ₹20 lakh salary, the old regime only starts winning once your <em>genuine</em> deductions (80C + 80D + NPS + HRA + home-loan interest, over and above the standard deduction) cross roughly <strong>₹7 lakh</strong>. At salaries of ₹12 lakh or below, the new regime's ₹60,000 rebate wins in almost every realistic case. As income rises beyond ~₹24 lakh, the required break-even deduction rises too — perform the two-minute calculation on your own numbers before choosing.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Rules That Decide What Your LIC Premium Actually Earns</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Regime choice is made at filing time.</strong> If you are salaried with no business income, you can pick the better regime when filing your ITR each year — the option your employer used for TDS does not lock you in.</li>
+        <li><strong>80C is one shared ₹1,50,000 bucket.</strong> EPF already consumes a large part for most salaried people; LIC premiums only save tax up to whatever room is left. A ₹1 lakh premium where EPF has already filled ₹1.2 lakh earns a deduction of just ₹30,000.</li>
+        <li><strong>The 10% condition:</strong> for policies issued after 1 April 2012, the premium qualifies for 80C (and keeps the maturity exemption alive) only if the annual premium does not exceed <strong>10% of the sum assured</strong>. Policies bought mainly as tax instruments sometimes breach this.</li>
+        <li><strong>Maturity tax is a separate question.</strong> Whether the maturity amount is exempt under Section 10(10D) does <em>not</em> depend on which regime you file under — it depends on issue date and premium-to-sum-assured tests covered in our <a href="/guides/lic-maturity-tax-10-10d-explained/" class="text-brand-700 font-semibold hover:text-brand-800">maturity tax guide</a>. Your regime choice this year changes only the premium deduction, not a past policy's maturity treatment.</li>
+        <li><strong>Premium counts only in the year you pay it.</strong> A single premium earns its 80C (old regime) in that one year only; a premium paid for a spouse or child also counts for the payer, from their own funds.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">4. So Should You Still "Buy LIC for Tax Saving"?</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>If you file under the new regime (most people now):</strong> the tax-saving reason to buy or keep paying for an endowment/policy has already gone to zero. Keep a policy only if it earns its place as protection or a savings commitment — not for a deduction you are not claiming.</li>
+        <li><strong>If the old regime genuinely wins for you</strong> (big HRA, home-loan interest, maxed 80D for parents), LIC premium is a legitimate way to fill the last of the 80C bucket — after EPF/PPF/ELSS have had first claim on it.</li>
+        <li><strong>Never buy an insurance policy primarily for 80C.</strong> The maximum annual tax the entire 80C bucket can save is bounded (₹1.5 lakh × your slab rate), while a wrong policy locks premiums in for 15–25 years. Cover adequacy comes first — see the <a href="/guides/lic-term-cover-how-much/" class="text-brand-700 font-semibold hover:text-brand-800">term cover arithmetic</a> — and before surrendering an existing policy for tax reasons, run the exit numbers in our <a href="/guides/lic-check-surrender-value/" class="text-brand-700 font-semibold hover:text-brand-800">surrender value guide</a>: the tax tail should never wag the surrender dog.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content on FY 2025-26 (AY 2026-27) rules as published, not tax advice. Slab rates, rebate limits and deduction conditions change with Budgets; confirm the regime comparison on your own figures (or with your CA) before filing.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
