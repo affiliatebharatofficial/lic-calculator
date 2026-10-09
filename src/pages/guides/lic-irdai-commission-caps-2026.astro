@@ -1,0 +1,104 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'IRDAI Commission Caps 2026: What LIC Policyholders Should Know', url: '/guides/lic-irdai-commission-caps-2026' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'IRDAI Commission Caps 2026: What LIC Policyholders Should Know',
+  description: 'IRDAI has proposed bringing back product-level commission caps and lower expense limits for insurers. What is proposed, what it means for your LIC premium, your agent and your existing policy — and how to send feedback before 25 October 2026.',
+  url: `${siteUrl}/guides/lic-irdai-commission-caps-2026`,
+  publishedDate: '2026-10-09T00:00:00Z',
+  modifiedDate: '2026-10-09T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="IRDAI Commission Caps 2026: What LIC Policyholders Should Know"
+  description="IRDAI wants to cap agent and distributor commissions again and cut insurers' expense limits over five years. Here's what is actually proposed, whether your LIC premium will fall, and what (if anything) you need to do before 25 Oct 2026."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Policy News
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        IRDAI Commission Caps Are Coming Back: What It Means for Your LIC Policy
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        On 23 September 2026, IRDAI released a consultation paper proposing product-level caps on the commissions insurers pay agents and distributors, along with lower overall expense limits. Agent and broker bodies are pushing back hard. If you hold an LIC policy, here is what is actually proposed, what it could change for you, and the one date that matters — feedback closes <strong>25 October 2026</strong>.
+      </p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What IRDAI Has Proposed</h2>
+      <p>
+        The paper, titled "Recalibrating Economics of Insurance Distribution", would reverse the 2023 approach — where product-level caps were largely removed in favour of one overall expense limit — and bring back explicit caps that vary by product, channel and premium-paying term. The caps are meant to cover not just headline commission but also incentives, rewards and other benefits paid to distributors.
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Long-term life policies (premium term 10 years or more):</strong> first-year commission capped at 20% for distribution entities (banks, corporate agents, brokers) and 25% for individual agents.</li>
+        <li><strong>Shorter premium terms (6–8 years):</strong> lower caps — 14% for entities and 17.5% for agents in the first year.</li>
+        <li><strong>Pure term plans on multi-year premiums:</strong> proposed at 25% for entities and 30% for agents; single-premium savings products would fall to 1% for entities and 2% for agents.</li>
+        <li><strong>Expense limits (EoM):</strong> life insurers would have to bring total expenses down to 15% of gross direct premium within two years and 12.5% within five years.</li>
+        <li><strong>Conduct measures:</strong> the paper also proposes stronger suitability checks, disclosure of commission structures, and a ban on forcing insurance as a condition of a loan.</li>
+      </ul>
+      <p>
+        IRDAI's stated reason: in recent years, commissions paid through some channels grew far faster than the premiums collected through them, and the regulator wants distribution pay tied to selling and servicing effort rather than volume.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Will Your LIC Premium Become Cheaper?</h2>
+      <p>
+        Possibly, over time — but not automatically, and not by a guaranteed amount. A cap limits what insurers may spend on distribution; it does not order them to cut premiums. Any saving would reach you only if LIC chooses to pass lower distribution costs into its premium tables or bonuses, the same way the recent GST exemption did not reduce every premium by the full tax amount.
+      </p>
+      <p>
+        The honest expectation: if the caps are finalised, new-policy pricing and agent behaviour are likely to change from the implementation window currently discussed (1 January 2027 or 1 April 2027, once final rules are notified), while your existing policy's premium, bonus declarations and maturity value are governed by the contract you already hold.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. What Changes for Your Agent — and Why They Are Worried</h2>
+      <p>
+        Agent and broker organisations argue that sharply lower payouts could make agency work unviable in smaller towns, where a local agent's help with renewals, revivals and claims is often the only service channel a family uses. They have asked IRDAI to extend the feedback deadline beyond 25 October, commission an independent impact assessment, and reconsider the caps. Their core concern for policyholders like you is servicing: if agents exit, tasks like nomination changes, revival paperwork and claim support get harder for exactly the customers who need help most.
+      </p>
+      <p>
+        Nothing changes today. This is a consultation paper, not a rule — your agent's role, your policy and its servicing continue exactly as before while feedback is open.
+      </p>
+      <p>
+        The pushback escalated in early October: the Insurance Brokers Association of India has written to the Prime Minister and the Finance Minister asking for the proposal to be reviewed, and at an October 6 press interaction it asked for the feedback deadline to be extended from 25 October to December so the impact can be assessed properly. The association estimates the transition could put around 10 lakh distribution livelihoods at risk over five years, and argues that lower payouts will not automatically mean lower premiums for customers unless IRDAI builds in a clear pass-through mechanism. Whether the deadline moves or not, 25 October 2026 is the date currently in force — plan around that, not around a hoped-for extension.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. What Should You Do?</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Do nothing with your existing policy.</strong> The proposal does not change premiums, bonuses or benefits on policies already issued.</li>
+        <li><strong>Don't rush or delay a purchase because of the caps.</strong> Buy cover based on need and suitability — that is precisely the behaviour the paper wants to encourage.</li>
+        <li><strong>If you want a say, send feedback before 25 October 2026.</strong> Policyholders are stakeholders too; IRDAI has invited comments from the public on the consultation paper published on its website (irdai.gov.in). A short, specific comment — for example on agent servicing in your town — carries more weight than a generic objection.</li>
+        <li><strong>Use the moment to check your policy basics</strong> — that it is in-force, nomination is current, and contact details are updated. Our guide to <a href="/guides/lic-policy-status-check/" class="text-brand-700 font-semibold hover:text-brand-800">checking your LIC policy status</a> takes a few minutes.</li>
+      </ol>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content summarising a public consultation paper; it is not LIC, IRDAI or financial advice. The proposals may change before final regulations are issued — treat IRDAI's published paper and any final notification as the authoritative source.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-premium-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
