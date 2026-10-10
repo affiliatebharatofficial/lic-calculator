@@ -1,0 +1,126 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'Unclaimed Money in LIC: Check Online & Claim It', url: '/guides/lic-unclaimed-amount-check-claim' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'Unclaimed Money in LIC: Check Online & Claim Your Maturity or Survival Amount',
+  description: 'Thousands of crores of LIC maturity, survival-benefit and claim money stays unclaimed every year. How to check LIC\'s official Unclaimed Amounts of Policyholders search in 2 minutes, what documents the branch needs to release it, and the 10-year SCWF transfer and 25-year claim window explained.',
+  url: `${siteUrl}/guides/lic-unclaimed-amount-check-claim`,
+  publishedDate: '2026-10-10T00:00:00Z',
+  modifiedDate: '2026-10-10T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="Unclaimed Money in LIC: Check Online & Claim Maturity/Survival Amount"
+  description="Check LIC's official Unclaimed Amounts of Policyholders search (name + date of birth), claim maturity, survival-benefit or death-claim money at the branch, and understand the 10-year Senior Citizens' Welfare Fund transfer and 25-year claim window."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Policy Servicing
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Unclaimed Money in LIC: Is Some of It Yours?
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Every year, large amounts of LIC money that were <em>payable</em> — maturity proceeds, money-back survival instalments, death claims, surrender amounts and premium refunds — are never collected. The money does not disappear, and LIC cannot keep it. There is an official, free 2-minute search to check whether any of it belongs to you or your family. Here is how the check works, how the claim is actually released, and the two deadlines that govern very old amounts.
+      </p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What Counts as an "Unclaimed" LIC Amount</h2>
+      <p>
+        Under IRDAI's framework, an amount becomes "unclaimed" when money that was payable under a policy — a death claim, maturity claim, survival benefit, surrender or foreclosure amount, premium refund, an unadjusted premium deposit, or an indemnity claim — remains unpaid beyond six months from the date it fell due for settlement. The insurer is not allowed to appropriate or write back any part of it; it stays the policyholder's or beneficiary's money, along with the investment income it earns while it waits.
+      </p>
+      <p>
+        IRDAI requires every insurer to display unclaimed amounts of <strong>₹1,000 or more</strong> on its website and to keep that display available even after ten years. The information is refreshed half-yearly (as on 31 March and 30 September, updated within 60 days). So if a payable amount of ₹1,000 or more is sitting against a policy, it should be findable in the official search — no agent, no fee, no middleman.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. The 2-Minute Online Check on LIC's Website</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Go to LIC's official site (licindia.in) only</strong> and open the <em>Unclaimed Amounts of Policyholders</em> page (linked from the site's footer/customer-services area; the page itself shows its last-update date). IRDAI's Bima Bharosa portal also routes you to each insurer's unclaimed-amount facility if you are checking policies from more than one insurer.</li>
+        <li><strong>Enter the policyholder's name and date of birth</strong> — under IRDAI's master circular these two are the mandatory fields. The policy number and PAN are optional fields that sharpen the match, so add them if you have them.</li>
+        <li><strong>Submit and read the match.</strong> On a match, the search confirms the policyholder's name, address on record, policy number and the amount lying unclaimed.</li>
+        <li><strong>Note down the policy number, the amount and the type of amount</strong> (maturity, survival benefit, death claim and so on) before you visit the branch — that one screen is your claim's starting point.</li>
+      </ol>
+      <p>
+        Two practical tips. First, search for <em>every</em> policyholder in the family, including a deceased parent or spouse — nominees and legal heirs are exactly the people this search is built for, and old policies bought decades ago are the ones most often left behind. Second, if the search shows nothing but you hold a policy bond or premium receipts, do not stop: ask the servicing branch for a manual trace, because spelling or date-of-birth variations in old records can defeat the online match.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. How the Claim Is Actually Released (It Is a Branch Process)</h2>
+      <p>
+        The online search only <em>finds</em> the money; releasing it is a branch process with verification, because LIC is paying out to whoever proves entitlement. Expect this sequence:
+      </p>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Visit the servicing branch</strong> (the branch that services the policy) with the search result details and submit a written claim request for the unclaimed amount.</li>
+        <li><strong>Prove identity and entitlement:</strong> photo ID and address proof, PAN, and — depending on the amount's type — the original policy bond and the discharge/claim form the branch gives you. For a maturity amount that is the Form 3825 discharge route described in our <a href="/guides/lic-maturity-claim-form-3825/" class="text-brand-700 font-semibold hover:text-brand-800">maturity claim guide</a>; for a survival-benefit instalment, the process in our <a href="/guides/lic-survival-benefit-claim/" class="text-brand-700 font-semibold hover:text-brand-800">survival benefit guide</a> applies.</li>
+        <li><strong>Give LIC a bank to pay into:</strong> a NEFT mandate form with a cancelled cheque. Claim proceeds are paid electronically; an old, closed bank account on LIC's record is one of the commonest reasons money went unclaimed in the first place.</li>
+        <li><strong>Take the acknowledgement</strong> with the branch's reference and follow up against it. The exact payable figure — including any investment income credited on the unclaimed amount — is what the branch confirms in writing on your policy record; that written confirmation, not any website estimate, is final.</li>
+      </ol>
+      <p>
+        <em>Illustrative example only:</em> a money-back policy paid a survival instalment years ago that the family never collected because they had moved house. The amount sits as an unclaimed amount against that policy number; the policyholder finds it in the search above and claims it at the branch with ID proof, the policy record and a fresh NEFT mandate. How much is payable on <em>your</em> policy — and whether a lapsed policy must first be revived before an instalment can be released — is confirmed only by the servicing branch's written position on the policy.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Special Cases: Lost Bond, and a Claim After the Policyholder's Death</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>The policy bond is lost.</strong> A missing bond does not cancel the entitlement. You claim through the duplicate-bond route — Form 3756 indemnity, with the surety and newspaper steps explained in our <a href="/guides/lic-duplicate-policy-bond-form-3756/" class="text-brand-700 font-semibold hover:text-brand-800">duplicate policy bond guide</a> — and the branch can also settle at claim time through its claim-form procedure when maturity or the payable date is near.</li>
+        <li><strong>The policyholder has died.</strong> The nominee (or, where there is no surviving nominee, the legal heir with the required succession documents) claims. The documents mirror a death claim — intimation, claim and discharge forms, death certificate, policy bond and NEFT details — set out step by step in our <a href="/guides/lic-death-claim-documents-nominee/" class="text-brand-700 font-semibold hover:text-brand-800">death claim checklist</a>. If you are unsure whether the policy is even in force, first run it through the methods in our <a href="/guides/lic-policy-status-check/" class="text-brand-700 font-semibold hover:text-brand-800">policy status check guide</a>.</li>
+        <li><strong>The amount is small or very old.</strong> Claim it anyway. There is no minimum for claiming — the ₹1,000 line only governs what is <em>displayed</em> in the online search, so smaller or older dues are traced at the branch from the policy record.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">5. The 10-Year Clock and the 25-Year Window</h2>
+      <p>
+        This is the part with real deadlines. If an amount stays unclaimed for <strong>more than ten years</strong>, the insurer must transfer it (with the income earned on it) to the government's Senior Citizens' Welfare Fund (SCWF) — for LIC, transfers are made each year for amounts crossing ten years as on 30 September, on or before 1 March of the financial year.
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Transfer to SCWF is not confiscation.</strong> A policyholder or beneficiary remains eligible to claim the amount for up to <strong>25 years from the date of transfer</strong> to the SCWF, and the claim is still made through LIC.</li>
+        <li><strong>After that 25-year window,</strong> if no claim has been made, the amount escheats to the Central Government under the Finance Act, 2015 — at that point it can no longer be claimed. Very old family policies are therefore worth checking sooner rather than later.</li>
+        <li><strong>The website display continues even after transfer,</strong> so the online search in section 2 remains your first step even for decades-old amounts.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Why Money Gets Stuck — and the 10-Minute Prevention</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>The family never knew the policy existed.</strong> The single biggest cause. Tell your nominee where the policies are, and keep a simple list of policy numbers with the family papers.</li>
+        <li><strong>Address, mobile or bank account changed</strong> and LIC's intimation letter or NEFT credit went nowhere. Update your address, mobile and NEFT mandate at the branch whenever any of them changes.</li>
+        <li><strong>The nominee was never told what to do.</strong> A nominee who knows the policy number can run the search in section 2 in minutes; one who doesn't may never look.</li>
+        <li><strong>A money-back instalment fell due during a lapse</strong> or simply went unnoticed. Due survival benefits remain claimable later, and in a money-back policy a due instalment can even be adjusted against revival dues — see our <a href="/guides/lic-survival-benefit-claim/" class="text-brand-700 font-semibold hover:text-brand-800">survival benefit guide</a>.</li>
+      </ul>
+      <p>
+        <strong>One safety rule:</strong> the search and the claim are free, and LIC will never ask for an OTP, a "processing fee" or your bank password to release an unclaimed amount. Anyone who does is a fraud — start only from licindia.in or IRDAI's Bima Bharosa portal, never from a link in a message.
+      </p>
+      <p>
+        While you are tracing old money, it is worth knowing what a policy would pay if it ran its course: our <a href="/lic-maturity-calculator/" class="text-brand-700 font-semibold hover:text-brand-800">LIC maturity calculator</a> gives an estimate you can compare against the branch's written figure for the policy.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Unclaimed-amount search fields, claim documents and SCWF transfer timelines follow IRDAI's master circular on unclaimed amounts and LIC's current servicing practice; the payable amount on any specific policy is confirmed only by the servicing branch in writing.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-maturity-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
