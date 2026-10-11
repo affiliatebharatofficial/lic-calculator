@@ -1,0 +1,147 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'Monthly vs Yearly LIC Premium Cost', url: '/guides/lic-monthly-vs-yearly-premium-cost' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'Monthly vs Yearly LIC Premium: How Much Extra Does Monthly Mode Cost?',
+  description: 'LIC charges different amounts for the same policy depending on payment mode: 2% rebate on yearly premiums, 1% on half-yearly, and no rebate on quarterly or monthly. An illustrative comparison shows what each mode costs, plus how to change your premium mode at the branch.',
+  url: `${siteUrl}/guides/lic-monthly-vs-yearly-premium-cost`,
+  publishedDate: '2026-10-11T00:00:00Z',
+  modifiedDate: '2026-10-11T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="Monthly vs Yearly LIC Premium: How Much Extra Does Monthly Mode Cost?"
+  description="LIC mode rebate explained: yearly mode gets 2% off, half-yearly 1% off, quarterly and monthly get nothing. Illustrative yearly-cost comparison across all four modes, NACH facts, grace-period difference, and how to change your premium mode at the branch."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Premium Payment
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Monthly vs Yearly LIC Premium: How Much Extra Does Monthly Mode Cost?
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        The same LIC policy costs a different amount depending on how you pay — and most policyholders never notice. LIC gives a <strong>mode rebate</strong> on yearly and half-yearly premiums, and nothing on quarterly or monthly. Here is what each mode really costs, and when monthly still makes sense.
+      </p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Mode Rebate: LIC's Price for Your Convenience</h2>
+      <p>
+        LIC fixes a <strong>tabular premium</strong> for every plan — that is the base yearly premium from the rate chart. The actual amount you pay depends on the mode you choose, because LIC applies a mode rebate on the tabular premium (as per current LIC plan brochures):
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Yearly mode:</strong> 2% rebate on the tabular premium</li>
+        <li><strong>Half-yearly mode:</strong> 1% rebate on the tabular premium</li>
+        <li><strong>Quarterly mode:</strong> no rebate (NIL)</li>
+        <li><strong>Monthly mode (NACH) &amp; Salary Savings Scheme:</strong> no rebate (NIL)</li>
+      </ul>
+      <p>
+        So the cheaper the payment frequency, the more it costs you over the year. The rebate is deducted automatically from the final premium — you never claim it separately. Note: very old plans' schedules sometimes show different figures (some legacy brochures mention 3% yearly / 1.5% half-yearly and an extra loading for ordinary monthly), so if your policy is decades old, check its own terms and conditions.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Illustrative: Same Policy, Four Prices</h2>
+      <p>
+        Take a policy whose tabular annual premium is <strong>₹60,000</strong>. Here is what each mode costs per year:
+      </p>
+      <table class="w-full text-sm border-collapse border border-slate-200">
+        <thead>
+          <tr class="bg-slate-50">
+            <th class="border border-slate-200 px-3 py-2 text-left">Mode</th>
+            <th class="border border-slate-200 px-3 py-2 text-left">Per instalment</th>
+            <th class="border border-slate-200 px-3 py-2 text-left">Yearly total</th>
+            <th class="border border-slate-200 px-3 py-2 text-left">Extra vs yearly</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border border-slate-200 px-3 py-2">Yearly (2% rebate)</td>
+            <td class="border border-slate-200 px-3 py-2">₹58,800</td>
+            <td class="border border-slate-200 px-3 py-2">₹58,800</td>
+            <td class="border border-slate-200 px-3 py-2">—</td>
+          </tr>
+          <tr>
+            <td class="border border-slate-200 px-3 py-2">Half-yearly (1% rebate)</td>
+            <td class="border border-slate-200 px-3 py-2">₹29,700</td>
+            <td class="border border-slate-200 px-3 py-2">₹59,400</td>
+            <td class="border border-slate-200 px-3 py-2">+ ₹600</td>
+          </tr>
+          <tr>
+            <td class="border border-slate-200 px-3 py-2">Quarterly (no rebate)</td>
+            <td class="border border-slate-200 px-3 py-2">₹15,000</td>
+            <td class="border border-slate-200 px-3 py-2">₹60,000</td>
+            <td class="border border-slate-200 px-3 py-2">+ ₹1,200</td>
+          </tr>
+          <tr>
+            <td class="border border-slate-200 px-3 py-2">Monthly via NACH (no rebate)</td>
+            <td class="border border-slate-200 px-3 py-2">₹5,000</td>
+            <td class="border border-slate-200 px-3 py-2">₹60,000</td>
+            <td class="border border-slate-200 px-3 py-2">+ ₹1,200</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        On a ₹60,000 tabular premium, paying monthly instead of yearly costs about <strong>₹1,200 extra every year</strong> — roughly ₹24,000 over a 20-year premium-paying term. On a ₹1 lakh tabular premium the yearly rebate alone is ₹2,000, so monthly costs ₹2,000 more per year, ₹40,000 over 20 years. All numbers above are <em>illustrative</em> (rounded, exclusive of taxes; life insurance premiums are <a href="/guides/lic-gst-0-percent-premium-change/" class="text-brand-700 font-semibold hover:text-brand-800">0% GST since 22 September 2025</a>). Your branch's written premium quotation is final.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Monthly Mode Rules People Miss</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>NACH only:</strong> monthly premiums run through NACH auto-debit (or salary deduction). Debit dates allowed are the 7th, 15th, 22nd or 28th of the month, set automatically from your date of commencement. For new NACH policies, two instalments are collected in advance.</li>
+        <li><strong>Shorter grace period:</strong> monthly mode gets only <strong>15 days</strong> of grace versus 30 days for other modes — see the <a href="/guides/lic-premium-grace-period-late-fee/" class="text-brand-700 font-semibold hover:text-brand-800">grace-period guide</a> for what happens after.</li>
+        <li><strong>Extra loading on ordinary monthly:</strong> some LIC schedules add roughly 5% to the ordinary monthly premium, while this extra is waived under the NACH-based facility — another reason to keep monthly on auto-debit. Confirm against your plan's brochure.</li>
+        <li><strong>Missed NACH debits</strong> attract dishonour charges and the missed instalment must be paid at the branch with any late charges due.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">4. When Each Mode Makes Sense</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Yearly</strong> — cheapest overall; best if you can set aside the lump sum (e.g. from a bonus or maturity payout) and want the full 2% rebate.</li>
+        <li><strong>Half-yearly</strong> — a good middle path: 1% rebate, two manageable payments, full 30-day grace period.</li>
+        <li><strong>Quarterly</strong> — same yearly cost as monthly but fewer transactions; worth considering if you pay manually.</li>
+        <li><strong>Monthly</strong> — costs the most, but the only mode where the instalment matches a salaried budget. With NACH auto-debit it is the most lapse-proof option: many policies lapse simply because a big yearly premium could not be arranged in time.</li>
+      </ul>
+      <p>
+        The honest trade-off: monthly protects you from lapsation; yearly protects you from overpaying. If cash flow allows, switch to yearly as income stabilises. You can compare modes against your actual premium with the <a href="/lic-premium-frequency-calculator/" class="text-brand-700 font-semibold hover:text-brand-800">premium frequency calculator</a>.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. How to Change Your Premium Mode</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>Write a letter to the <strong>Manager of your servicing (home) branch</strong> requesting the change; currently this cannot be done online.</li>
+        <li>The change takes effect from the <strong>policy anniversary or the corresponding modal date</strong> (monthly/quarterly/half-yearly dates), and is not allowed within the first policy year.</li>
+        <li><strong>Moving to a cheaper frequency</strong> (monthly → yearly) carries no alteration fee; <strong>moving to a costlier frequency</strong> (yearly → monthly) may attract a small miscellaneous-receipt fee — confirm the current amount at your branch.</li>
+        <li>If you switch <em>to</em> monthly, register a fresh <strong>NACH mandate</strong> (signed mandate form + cancelled cheque at the branch); for switching <em>away</em> from monthly, get the NACH mandate cancelled at the branch so debits stop.</li>
+      </ol>
+      <p>
+        After the change, download the first new premium receipt from the Customer Portal and keep it with your <a href="/guides/lic-premium-payment-online-receipt/" class="text-brand-700 font-semibold hover:text-brand-800">premium-payment records</a> — especially the year's 80C proof pack.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Rebates, loadings and mode-change procedures are per current LIC plan documents and can change; your policy's terms and the branch's written quotation are the final word.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
