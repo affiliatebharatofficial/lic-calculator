@@ -1,0 +1,179 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Bima Kavach (887)', url: '/guides/lic-bima-kavach-887-term-plan' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Bima Kavach (887) Term Plan: ₹2 Crore Cover, Premium & Honest Review',
+  description: 'LIC Bima Kavach (Plan 887) is a pure term plan with a ₹2 crore minimum cover, protection up to age 100, level or increasing cover options, and a life-stage increase benefit. Premium factors, rebates, who it suits — and the honest limits.',
+  url: `${siteUrl}/guides/lic-bima-kavach-887-term-plan`,
+  publishedDate: '2026-10-12T00:00:00Z',
+  modifiedDate: '2026-10-12T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Bima Kavach (887) Term Plan: ₹2 Crore Cover, Premium & Honest Review"
+  description="Bima Kavach 887: pure risk term plan, minimum ₹2 crore sum assured, entry 18–65, cover till age 100. Level vs increasing cover, life-stage benefit, premium rebates (women, non-smokers, online), and who should actually buy it."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Plan Review: Term Insurance
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Bima Kavach (887): ₹2 Crore Cover, Premium & Honest Review
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Bima Kavach is LIC's pure-protection answer to rising incomes: a term plan that starts at a ₹2 crore minimum cover and can run all the way to age 100. No maturity money, no bonuses — it does exactly one job. Here is what it actually costs, how it pays, and where it beats (or loses to) LIC's other term plans.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Size your cover before comparing plans</h2>
+        <p class="text-xs text-brand-700">Use the term insurance calculator to find the cover your family needs — then check which plan delivers it cheapest.</p>
+      </div>
+      <a
+        href="/lic-term-insurance-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Your Term Cover &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What Bima Kavach Is (and Is Not)</h2>
+      <p>
+        Bima Kavach (Plan 887, launched December 2025) is a <strong>non-linked, non-participating pure risk term plan</strong>. Translation: it is insurance and nothing else. If the life assured dies during the term, the nominee gets the sum assured; if the term ends with the life assured alive, <strong>nothing is paid — no maturity, no survival benefit, no surrender value</strong> (except, for single and limited-pay modes, a return of unexpired risk premium in some cases). There are also <strong>no policy loans</strong>, because there is no cash value to borrow against.
+      </p>
+      <p>
+        The headline number is the <strong>minimum basic sum assured of ₹2 crore</strong>, with no stated upper limit — the maximum is decided by underwriting (medical tests, income proof, financial questionnaires). That minimum is deliberate: this plan is aimed at high-income earners, business owners and professionals whose income multiple is genuinely in the ₹2 crore-plus range. If your real need is ₹50 lakh or ₹1 crore, cheaper LIC term plans exist for you.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Eligibility and the "Up to Age 100" Claim</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Entry age</span>
+          <h3 class="font-bold text-slate-900 text-sm">18 to 65 years</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Entries at 60+ are assessed case by case. Proof of income and medicals scale with the cover sought.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Policy term</span>
+          <h3 class="font-bold text-slate-900 text-sm">10 to 82 years</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Maturity age can go as low as 28 and as high as 100 — a 30-year-old could theoretically insure to age 100.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Premium payment</span>
+          <h3 class="font-bold text-slate-900 text-sm">Single, regular, or limited (5/10/15 yrs)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Limited-pay lets you finish paying early while cover continues. Mode options: yearly or half-yearly (regular/limited), single premium one-time.</p>
+        </div>
+      </div>
+      <p>
+        A word on <strong>cover to age 100</strong>: it is technically available, but be sceptical of it as a selling point. Term insurance protects <em>income you would lose</em>. Past retirement, when children are independent and assets exist, paying premium for a ₹2 crore death benefit usually fails the value test — and the premium for very long terms is materially higher. Match the term to your earning years and liabilities (home loan tenure, children's dependency), not to a round-number age.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Level vs Increasing Cover: The Two Options</h2>
+      <p>
+        You choose at policy inception, and <strong>it cannot be changed later</strong>:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Option I — Level Sum Assured:</strong> the cover stays flat for the whole term. Suits people whose liabilities shrink over time — a home loan that amortises, children who become independent.</li>
+        <li><strong>Option II — Increasing Sum Assured:</strong> the death benefit grows by <strong>10% of the basic sum assured each year from the 6th to the 15th policy year</strong> — an inflation hedge built into the contract. Best for young buyers whose responsibilities will grow for a decade (new home, growing family) — though you pay a higher premium for the rising cover.</li>
+      </ul>
+      <p>
+        The <strong>Life-Stage Benefit</strong> is a third flexibility lever, available only with regular premium + Option I: you can increase your cover at defined life events — marriage or the birth of a child — <strong>without fresh medical underwriting</strong>, up to two increases and a capped additional amount. It is genuinely useful, because re-applying for cover at 40 is exactly when underwriting gets stricter and costlier.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. What Drives the Premium: Rebates and Discounts</h2>
+      <p>
+        Premiums depend on age, term, cover option, health and smoking status — your benefit illustration is the only binding quote. But Bima Kavach's published rebate structure is real money:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Online rebate:</strong> buying digitally (e.g. LIC's ANANDA portal) cuts the tabular premium by about <strong>7.5% for regular/limited pay and ~3% for single premium</strong>.</li>
+        <li><strong>High sum-assured rebates:</strong> larger covers attract a tabular rebate — another reason the ₹2 crore-plus bracket is the plan's sweet spot.</li>
+        <li><strong>Special rates for women and non-smokers:</strong> both profiles get preferential premium tables; smokers pay more, as with all term plans.</li>
+        <li><strong>GST:</strong> individual life-insurance premiums attract <strong>0% GST since 22 September 2025</strong> — if any illustration you receive still adds tax, ask for a corrected one. Our <a href="/guides/lic-gst-0-percent-premium-change/" class="text-brand-700 font-semibold hover:text-brand-800">GST-on-premium guide</a> explains the change.</li>
+      </ul>
+      <p>
+        One illustrative data point (not a quote): an independent review published a 30-year-old male non-smoker, ₹2 crore, 20-year term, regular premium at roughly <strong>₹17,500 a year</strong>. Treat all such numbers as <em>illustrative</em> — your age, term, health and the level/increasing choice move this substantially. Media illustrations have shown younger healthy profiles paying roughly ₹900–1,000 a month for the minimum cover. Get the branch's written illustration before deciding.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. How It Compares with LIC's Other Term Plans</h2>
+      <p>
+        LIC now runs three distinct online/flexible term plans. Independent comparison data (30-year-old male non-smoker, ₹2 crore, 20-year term, regular premium — illustrative) showed roughly <strong>₹13,160 (Digi Term) vs ₹16,380 (New Tech-Term) vs ₹17,575 (Bima Kavach)</strong>. The pattern:
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Plan</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Minimum cover</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Entry age</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Distinctive feature</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">LIC Digi Term (876)</td>
+              <td class="px-4 py-3">₹50 lakh</td>
+              <td class="px-4 py-3">18–45</td>
+              <td class="px-4 py-3">Cheapest; fully online, no agent commission. Young cost-conscious buyers.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">LIC New Tech-Term (954)</td>
+              <td class="px-4 py-3">₹50 lakh</td>
+              <td class="px-4 py-3">18–65</td>
+              <td class="px-4 py-3">Optional riders (accident, critical illness). Flexibility without the Bima Kavach minimum.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Bima Kavach (887)</td>
+              <td class="px-4 py-3">₹2 crore</td>
+              <td class="px-4 py-3">18–65</td>
+              <td class="px-4 py-3">Life-stage increases without medicals; cover to age 100. The highest premium of the three.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        The honest read: if your need is under ₹2 crore, Digi Term or New Tech-Term is cheaper and the ₹2 crore floor locks you out of Bima Kavach anyway. If your need <em>is</em> ₹2 crore-plus and you value the life-stage increase option, Bima Kavach is the natural LIC comparison — though private insurers' term plans at this cover size are worth a parallel quote before you sign, since LIC's premiums at high covers are rarely the market's lowest.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Who Should (and Shouldn't) Buy It</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Should consider:</strong> earners whose income multiple genuinely demands ₹2 crore-plus cover (a common rule is 10–15× annual income plus loans minus assets — our <a href="/guides/lic-term-cover-how-much/" class="text-brand-700 font-semibold hover:text-brand-800">how-much-cover guide</a> works it out properly); buyers who expect marriage/children soon and want the life-stage increase without new medicals; anyone wanting LIC's claim-settlement comfort at a large cover.</li>
+        <li><strong>Should look elsewhere:</strong> anyone needing under ₹2 crore (locked out); buyers who want riders like critical illness (New Tech-Term, not Bima Kavach); anyone sold mainly on "cover till 100" — price that term against a term to age 60–65 and ask what the extra decades are protecting.</li>
+        <li><strong>Process notes:</strong> grace period is 30 days for renewal premiums; revival is possible within 5 years of the first unpaid premium, subject to interest and health declarations (see our <a href="/guides/lic-policy-revival/" class="text-brand-700 font-semibold hover:text-brand-800">revival guide</a>). The death benefit can be taken as a lump sum or in instalments over 5, 10 or 15 years — useful for dependants who need income, not a lump sum.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Premium numbers shown are illustrative only — your benefit illustration and the branch's written quotation are the final figures. Plan features follow current brochures; verify against your illustration before paying.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-term-insurance-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
