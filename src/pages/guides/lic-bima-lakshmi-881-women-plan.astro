@@ -1,0 +1,190 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Bima Lakshmi (881)', url: '/guides/lic-bima-lakshmi-881-women-plan' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Bima Lakshmi (881) for Women: Money-Back Options, Guaranteed Additions & Honest Review',
+  description: 'LIC Bima Lakshmi (Plan 881, launched 15 Oct 2025) is a women-only, non-participating money-back plan: 25-year term, 7–15 year premium paying term, 3 survival-benefit options, guaranteed additions at 7% of tabular premium, and an optional female critical-illness rider. Who it suits — and the honest return reality.',
+  url: `${siteUrl}/guides/lic-bima-lakshmi-881-women-plan`,
+  publishedDate: '2026-10-13T00:00:00Z',
+  modifiedDate: '2026-10-13T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Bima Lakshmi (881) for Women: Money-Back Options, Guaranteed Additions & Honest Review"
+  description="Bima Lakshmi 881: women-only LIC money-back plan — 25-yr term, 7–15 yr premium term, 3 payout options, guaranteed additions (7% of annual premium, not sum assured), optional critical-illness rider. What it really returns, the tax catch, and who should skip it."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Plan Review: Women&apos;s Savings Plan
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Bima Lakshmi (881): Money-Back for Women, Explained Honestly
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Launched on 15 October 2025 alongside Jan Suraksha (880), Bima Lakshmi is LIC&apos;s first plan designed <strong>exclusively for women</strong> — a non-participating money-back plan with guaranteed additions, three payout options, and a women-specific critical-illness rider. Here is what each option actually pays, what the much-advertised &ldquo;7%&rdquo; really means, and the two catches most agents won&apos;t lead with.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Price the payouts before you buy</h2>
+        <p class="text-xs text-brand-700">Use the maturity calculator to see what any LIC money-back plan actually pays out at the end of 25 years — then compare the two plans.</p>
+      </div>
+      <a
+        href="/lic-maturity-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Your Maturity Payout &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What Bima Lakshmi Is (and Is Not)</h2>
+      <p>
+        Bima Lakshmi (Plan 881) is a <strong>non-linked, non-participating, limited-premium money-back plan</strong>. Each of those words matters:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Non-participating:</strong> payouts do not depend on LIC&apos;s future bonus declarations — what is in the brochure is guaranteed, unlike participating plans whose &ldquo;bonuses&rdquo; move every year (see our <a href="/guides/lic-bonus-rate-check-plan/" class="text-brand-700 font-semibold hover:text-brand-800">bonus-rates guide</a>).</li>
+        <li><strong>Limited premium:</strong> the policy term is fixed at <strong>25 years</strong>, but you pay premiums for only <strong>7 to 15 years</strong> (your choice at inception).</li>
+        <li><strong>Money-back:</strong> you get periodic payouts during the term plus a maturity payout — your money is not locked silently for 25 years.</li>
+        <li><strong>Women only:</strong> only female lives can be insured; minor girls are covered through a guardian until age 18.</li>
+      </ul>
+      <p>
+        It is <strong>not</strong> a high-return investment and <strong>not</strong> a substitute for term insurance — keep that framing and the rest of this guide reads cleanly.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Eligibility: Who Can Actually Buy</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Entry age</span>
+          <h3 class="font-bold text-slate-900 text-sm">18 to 50 years</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Maximum entry depends on the premium-paying term chosen. Minor girls are covered via a guardian until 18.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Policy term</span>
+          <h3 class="font-bold text-slate-900 text-sm">25 years, fixed</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Premiums are paid for 7–15 years; life cover and payouts continue to year 25. Modes: yearly, half-yearly, quarterly, monthly (electronic).</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Sum assured</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹2 lakh minimum</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">In multiples of ₹10,000; no stated upper limit — decided by underwriting. 0% GST applies on individual life premiums since 22 Sep 2025 (our <a href="/guides/lic-gst-0-percent-premium-change/" class="text-brand-700 font-semibold hover:text-brand-800">GST guide</a>).</p>
+        </div>
+      </div>
+      <p>
+        There is also an <strong>auto-cover facility</strong>: LIC&apos;s announcement confirms cover continues after three full years&apos; premiums are paid, even if later premiums stop. Reported detail puts this at 6 months&apos; cover after 3 years of premiums and 2 years after 5 years — confirm the exact table in your benefit illustration.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. The Three Money-Back Options, Compared</h2>
+      <p>
+        You pick one option at inception and <strong>cannot switch later</strong>. All three pay percentages of the basic sum assured:
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Option</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Payout pattern</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">On ₹5 lakh sum assured (illustrative)</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Best for</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Option A</td>
+              <td class="px-4 py-3">50% of basic sum assured as a lump sum at the <strong>end of the premium-paying term</strong></td>
+              <td class="px-4 py-3">₹2,50,000 in one shot at year 7–15</td>
+              <td class="px-4 py-3">A big one-time goal — daughter&apos;s college fund, a down payment</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Option B</td>
+              <td class="px-4 py-3">12 payouts of <strong>7.5% of basic sum assured every 2 years</strong></td>
+              <td class="px-4 py-3">₹37,500 × 12 = ₹4,50,000 spread over the term</td>
+              <td class="px-4 py-3">Regular top-ups to household income or SIP funding</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Option C</td>
+              <td class="px-4 py-3">6 payouts of <strong>15% of basic sum assured every 4 years</strong></td>
+              <td class="px-4 py-3">₹75,000 × 6 = ₹4,50,000 spread over the term</td>
+              <td class="px-4 py-3">Bigger periodic sums with less frequent paperwork</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        The numbers above are arithmetic from the stated percentages, not quotes — your sum assured choice scales them. Note that money-back payouts are <strong>tax-free survival benefits during the term</strong>, and there is an option to <strong>defer</strong> a survival payout to a later date, plus an option to receive maturity or death benefits in instalments. On maturity you receive the <strong>sum assured plus all accrued guaranteed additions</strong>; on death during the term, the nominee receives the death benefit — broadly the basic sum assured plus guaranteed additions accrued so far. Your benefit illustration is the binding reference for both.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. The &ldquo;7% Guaranteed&rdquo; — Decoded Carefully</h2>
+      <p>
+        This is the single most misunderstood figure in the plan. The guaranteed additions accrue at <strong>7% of the total tabular annual premium per year</strong> for in-force policies (a proportionate rate for paid-up policies) — <strong>not 7% of the sum assured</strong>. If your annual premium is ₹50,000, the yearly addition is ₹3,500 — which is 0.7% of a ₹5 lakh sum assured, not 7%. Over 25 years the additions still compound into a meaningful maturity top-up, but anyone reading &ldquo;guaranteed 7%&rdquo; as a return on investment is misreading the brochure. On the plus side, it <em>is</em> guaranteed — immune to LIC&apos;s annual bonus decisions and market swings — and keeps accruing even after you stop paying premiums in the limited-pay tail.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. The &ldquo;Illness Cover&rdquo; Is a Paid Rider, Not Built-In</h2>
+      <p>
+        Some summaries present Bima Lakshmi as carrying illness cover by default. It does not. The illness protection comes from an <strong>optional Female Critical Illness rider</strong> bought at extra premium, with three modules:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Module 1 — early-stage / major cancer:</strong> rider sum assured ₹1–4 lakh, paid at 100%</li>
+        <li><strong>Module 2 — common surgeries:</strong> rider sum assured ₹1–4 lakh, paid at 100%</li>
+        <li><strong>Module 3 — pregnancy complications:</strong> rider sum assured ₹1–2 lakh, paid at 200%</li>
+      </ul>
+      <p>
+        Accidental death &amp; disability and term assurance riders are also available. The rider sums assured (₹1–4 lakh) are modest against real treatment costs — treat the rider as a small buffer, not a health-insurance substitute. Policy loans are available (reported after one year of premiums), and surrender is subject to the <a href="/guides/lic-irdai-surrender-rules-2024/" class="text-brand-700 font-semibold hover:text-brand-800">new IRDAI surrender norms</a> — value after the first year, with a fairer G-Sec-linked special surrender value.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. The Honest Return Reality</h2>
+      <p>
+        Independent reviews of the plan land on the same verdict: this is a <strong>guaranteed savings plan with life cover, not a high-return investment</strong>. Expected returns sit well below long-term fixed-income alternatives — PPF pays 7.1% and bank fixed deposits around 6%+, per independent 2026 reviews — while Bima Lakshmi locks your money for 25 years and early exit sharply reduces what you receive. The guarantees have real value for a conservative saver who wants forced discipline with payouts, but run the comparison honestly before signing.
+      </p>
+      <p>
+        And the protection order matters: if the family&apos;s financial security is the goal, <strong>term insurance comes first</strong> — women typically pay noticeably lower term premiums than men because of lower mortality rates, making it the cheapest way to secure a large cover. Only after term protection (and adequate health cover) is in place does a plan like Bima Lakshmi make sense as a savings instrument. Our <a href="/guides/lic-term-cover-how-much/" class="text-brand-700 font-semibold hover:text-brand-800">how-much-cover guide</a> sizes the protection need properly.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Tax: The Limited-Pay Trap Worth Checking</h2>
+      <p>
+        Premiums qualify for Section 80C deduction (old regime only) and payouts fall under Section 10(10D) — but the exemption has two tests (our <a href="/guides/lic-maturity-tax-10-10d-explained/" class="text-brand-700 font-semibold hover:text-brand-800">tax guide</a> details both): the annual premium must be <strong>within 10% of the sum assured</strong>, and for policies issued on/after 1 April 2023 the <strong>aggregate annual premium must stay within ₹5 lakh</strong>. Limited-pay money-back plans compress 25 years of cover into 7–15 years of premiums, so the annual premium is often far above 10% of the sum assured — which means <strong>many Bima Lakshmi buyers will fail the first test and find their maturity payout taxable</strong>. Check your benefit illustration&apos;s annual premium against 10% of your sum assured before assuming a tax-free maturity.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">8. Who Should (and Shouldn&apos;t) Buy It</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Should consider:</strong> women wanting a guaranteed, disciplined 25-year savings instrument with periodic payouts — for goals like a daughter&apos;s education (compare with our <a href="/guides/lic-child-plan-amritbaal-774/" class="text-brand-700 font-semibold hover:text-brand-800">child-plans guide</a>); conservative savers who value guaranteed additions over market-linked returns; buyers choosing the deferral or instalment payout options for cash-flow planning.</li>
+        <li><strong>Should look elsewhere:</strong> anyone whose primary need is family protection — buy term insurance first; anyone chasing high returns (PPF/FD comparisons will win on yield); anyone uncomfortable locking money for 25 years with a painful early exit; buyers who would fail the 10(10D) premium tests and lose the tax-free maturity.</li>
+        <li><strong>Process notes:</strong> grace period is 30 days for yearly/half-yearly/quarterly modes and 15 days for monthly mode (see our <a href="/guides/lic-premium-grace-period-late-fee/" class="text-brand-700 font-semibold hover:text-brand-800">grace-period guide</a>); missed a premium after the plan started paying out? Check your <a href="/guides/lic-policy-status-check/" class="text-brand-700 font-semibold hover:text-brand-800">policy status</a> before panicking; survival-benefit payouts you missed can be claimed per our <a href="/guides/lic-survival-benefit-claim/" class="text-brand-700 font-semibold hover:text-brand-800">survival-benefit guide</a>.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Worked examples are illustrative only — your benefit illustration and the branch&apos;s written quotation are the final figures. Plan features follow LIC&apos;s October 2025 announcement and advisor/press reporting; verify against your illustration before paying.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-maturity-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
