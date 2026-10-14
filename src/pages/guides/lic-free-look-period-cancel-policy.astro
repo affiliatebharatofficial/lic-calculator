@@ -1,0 +1,202 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Free-Look Period', url: '/guides/lic-free-look-period-cancel-policy' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Free-Look Period: Cancel a New Policy in 30 Days and Get a Near-Full Refund',
+  description: 'IRDAI\'s 30-day free-look window lets you return a new LIC policy if the terms don\'t match what the agent promised. What you get back (premium minus medical, stamp duty and proportionate risk cover), the exact branch cancellation steps, and what to do if the window has already closed.',
+  url: `${siteUrl}/guides/lic-free-look-period-cancel-policy`,
+  publishedDate: '2026-10-14T00:00:00Z',
+  modifiedDate: '2026-10-14T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Free-Look Period: Cancel a New Policy in 30 Days and Get a Near-Full Refund"
+  description="New LIC policy not what the agent promised? IRDAI gives you a 30-day free-look period from receiving the policy document to cancel for a near-full refund. Exact deductions, branch cancellation steps, and options if the window has closed."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Consumer Rights
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Free-Look Period: Cancel a New Policy in 30 Days and Get a Near-Full Refund
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Agent ne jo plan samjhaya tha, policy document me wahi likha hai ya nahi? IRDAI ne is sawal ke liye ek legal safety net di hai — the <strong>free-look period</strong>. New policy milne ke baad aapke paas ek window hoti hai jisme document padhkar policy wapas karke cancel kar sakte ho, bina heavy surrender loss ke. Yahan hai exact rules, kitna paisa wapas milta hai, aur branch me cancel ka step-by-step process.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Re-price the plan before you decide</h2>
+        <p class="text-xs text-brand-700">Run the premium calculator to see what the policy actually costs versus what was quoted to you — then compare it against the terms in your policy document.</p>
+      </div>
+      <a
+        href="/lic-premium-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Check Your Premium Cost &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. Free-Look Period Kya Hai (Aur 30 Days Kab Se)</h2>
+      <p>
+        Free-look period wo samay hai jab naya policyholder policy document receive karne ke baad uski <strong>terms and conditions padhkar</strong> policy wapas karke cancel kar sakta hai, agar kuch bhi acceptable na ho. Ye IRDAI ka mandatory consumer-protection rule hai — sabhi life insurers, including LIC, ko ye dena hi padta hai.
+      </p>
+      <p>
+        <strong>Current rule (IRDAI Master Circular on Life Insurance Products, 12 June 2024):</strong> free-look period ab <strong>30 days hai, policy document receive hone ki date se</strong> — sabhi life insurance policies ke liye, chahe agent se li ho, branch se, ya online. Isse pehle ka purana rule tha: 15 days standard, aur 30 days sirf electronic policies ya distance-mode (online/telemarketing) sales ke liye. Aapki policy document me free-look clause likha hota hai — wahi final word hai, use verify kar lo.
+      </p>
+      <div class="not-prose bg-amber-50 border border-amber-200 rounded-2xl p-5">
+        <p class="text-xs font-bold text-amber-900 mb-2">Clock kab start hoti hai?</p>
+        <p class="text-xs text-amber-800 leading-relaxed">Free-look period <strong>policy document receive karne ki date</strong> se shuru hoti hai — premium pay karne ki date se nahi. Physical bond mile to delivery date se, electronic policy mile to e-mail/download date se. Date ka proof sambhal kar rakho (courier POD, email timestamp).</p>
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Cancel Karne Par Kitna Paisa Wapas Milta Hai</h2>
+      <p>
+        IRDAI ke hisaab se, agar free-look period me koi claim nahi hua hai, to policyholder entitled hai:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Paid premium ka full refund</strong> minus sirf ye allowed deductions:</li>
+        <li><strong>Medical examination ke expenses</strong> jo insurer ne aapke liye kharch kiye (agar hue).</li>
+        <li><strong>Stamp duty charges</strong> policy document par.</li>
+        <li><strong>Proportionate risk premium</strong> — agar risk (life cover) already commence ho chuka hai, to cover period ke proportionate dinon ka risk premium kat sakta hai. Agar sirf part coverage shuru hui thi, to usi hisaab se proportionate premium.</li>
+        <li><strong>ULIP ke case me:</strong> upar ke deductions ke alawa, insurer units ko <strong>cancellation date wale unit price</strong> par repurchase karega — NAV upar-neeche ho sakta hai, isliye ULIP refund market price par depend karta hai.</li>
+      </ul>
+      <p>
+        Practical me deductions chhote hote hain — medicals ₹500–2,000 ke aas-paas, stamp duty nominal, aur risk premium kuch dinon ka. Isliye free-look refund <strong>near-full</strong> hota hai, jo baad ke surrender se bahut alag hai.
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Item</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Illustrative amount</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">First premium paid</td>
+              <td class="px-4 py-3">₹52,000</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Minus: medical examination expenses</td>
+              <td class="px-4 py-3">− ₹800</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Minus: stamp duty on the policy document</td>
+              <td class="px-4 py-3">− ₹200</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Minus: proportionate risk premium (12 days of cover)</td>
+              <td class="px-4 py-3">− ₹300 (illustrative)</td>
+            </tr>
+            <tr class="bg-brand-50/50">
+              <td class="px-4 py-3 font-bold text-slate-900">Refund you receive</td>
+              <td class="px-4 py-3 font-bold text-slate-900">≈ ₹50,700 (about 97.5% of premium)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-slate-500">
+        Illustrative example only — aapke deductions aapki policy ke actual medical/stamp-duty kharch aur risk premium par depend karte hain. Branch ka written refund statement final hota hai.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Free-Look vs Surrender — Ye Dono Bilkul Alag Hain</h2>
+      <p>
+        Log aksar inhe confuse karte hain. Antar seedha hai:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Free-look cancellation:</strong> sirf first 30 days me. Near-full refund (sirf upar wale 3–4 deductions). Koi surrender charge nahi, koi Form 5074 nahi.</li>
+        <li><strong>Surrender:</strong> free-look window ke baad. IRDAI ke naye rules (1 Oct 2024 se) ke under <strong>1 saal ke baad</strong> surrender value milti hai — lekin value premiums paid se <strong>kaafi kam</strong> hoti hai, khaas taur par early years me. Process branch-only hoti hai aur paisa aane me 7–15 din lagte hain (hamari <a href="/guides/lic-irdai-surrender-rules-2024/" class="text-brand-700 font-semibold hover:text-brand-800">IRDAI surrender rules guide</a> dekhein).</li>
+      </ul>
+      <p>
+        Isliye mis-selling ka doubt ho to <strong>free-look window ke andar hi faisla</strong> lo — window band hone ke baad wahi policy exit karna expensive ho jaata hai.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. LIC Policy Cancel Kaise Karein — Step by Step</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Document padho, CIS ke saath:</strong> policy document ke saath aaya <strong>Customer Information Sheet (CIS)</strong> — IRDAI ke 2024 reforms ke baad har policy ke saath ye simple-language summary milta hai (cover, exclusions, benefits). CIS aur full document dono padho.</li>
+        <li><strong>Written cancellation request likho:</strong> insurer ko <strong>likhit me</strong> request deni hoti hai — policy number, plan ka naam, agent ka naam (agar tha), aur cancellation ka reason likho. Reason dena regulator ke framework ka hissa hai; mis-selling ka reason ho to clearly likho.</li>
+        <li><strong>Original policy bond wapas karo:</strong> physical policy mili hai to original document/bond request ke saath submit karo. Electronic policy ke case me cancellation request me policy details kaafi hoti hain.</li>
+        <li><strong>Servicing branch me submit karo, acknowledgement lo:</strong> request ki copy par branch se <strong>received stamp / acknowledgement</strong> zaroor lo — date-proof ke liye. Online kharidi policy ke liye LIC ka customer portal/email channel bhi check karo.</li>
+        <li><strong>Retention call ke liye ready raho:</strong> request milne ke baad LIC ki taraf se call aa sakti hai — issue resolve karne ya policy continue rakhne ke liye manane ki koshish hogi. <strong>Aapko force nahi kiya ja sakta.</strong> Agar decision firm hai, to clearly cancellation proceed karne ko kaho.</li>
+        <li><strong>Refund track karo:</strong> IRDAI ka rule hai ki free-look cancellation request milne ke baad insurer ko <strong>promptly process karke 7 din ke andar premium refund</strong> karna chahiye. Refund aam taur par aapke bank account me NEFT se aata hai — isliye request ke saath apna bank/NEFT mandate updated rakho (hamari <a href="/guides/lic-premium-payment-online-receipt/" class="text-brand-700 font-semibold hover:text-brand-800">premium receipt guide</a> me bank detail update ka process hai).</li>
+      </ol>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Document Me Ye 6 Red Flags Check Karo</h2>
+      <p>
+        Free-look period ka asli kaam ye hai — agent ne jo kaha tha, document me wahi hai ya nahi:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Plan ka naam alag:</strong> agent ne &ldquo;Jeevan Labh&rdquo; bola, document me koi aur plan? Mis-selling ka sabse common sign.</li>
+        <li><strong>Premium/term mismatch:</strong> premium amount, payment mode (yearly/monthly) ya policy term agent ke quote se alag ho — <a href="/lic-premium-calculator/" class="text-brand-700 font-semibold hover:text-brand-800">premium calculator</a> se cross-check karo.</li>
+        <li><strong>&ldquo;Returns&rdquo; ka sach:</strong> agent ne &ldquo;10% return&rdquo; bola lekin document me 10% of <em>sum assured</em> likha ho (jaise <a href="/guides/lic-jeevan-utsav-771-income-truth/" class="text-brand-700 font-semibold hover:text-brand-800">Jeevan Utsav ke case me</a>) — ye income hai, return nahi.</li>
+        <li><strong>ULIP charges chhupe hon:</strong> ULIP me allocation, fund management aur mortality charges document me check karo — hamari <a href="/guides/lic-ulip-vs-traditional/" class="text-brand-700 font-semibold hover:text-brand-800">ULIP vs traditional guide</a> farq samjhati hai.</li>
+        <li><strong>Nominee missing:</strong> IRDAI ke naye framework ke under life policy bina nomination ke issue nahi honi chahiye. Nominee galat ya missing ho to hamari <a href="/guides/lic-change-nominee-form-3750/" class="text-brand-700 font-semibold hover:text-brand-800">nominee change guide</a> dekho.</li>
+        <li><strong>Benefits ka jumla:</strong> maturity, death benefit aur surrender benefit — teeno alag-alag check karo. Jo benefit document me nahi, wo milega nahi.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Window Miss Ho Gayi? Ab Options Kya Hain</h2>
+      <p>
+        Agar 30 din nikal gaye, to free-look refund ab nahi milega — lekin sab khatm nahi hua:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Surrender (1 saal ke baad):</strong> naye IRDAI rules ke under 1 policy year complete hone ke baad surrender value milti hai — lekin loss kaafi hota hai. Surrender se pehle hamare <a href="/lic-surrender-value-calculator/" class="text-brand-700 font-semibold hover:text-brand-800">surrender value calculator</a> aur <a href="/lic-surrender-loss-calculator/" class="text-brand-700 font-semibold hover:text-brand-800">surrender-loss calculator</a> se exact loss dekho.</li>
+        <li><strong>Paid-up karwao (3+ saal premium diye hon):</strong> premium dena band karke policy ko paid-up bana sakte ho — maturity par reduced amount milta hai, surrender se aksar behtar. <a href="/guides/lic-paid-up-vs-surrender/" class="text-brand-700 font-semibold hover:text-brand-800">Paid-up vs surrender comparison</a> aur <a href="/lic-paid-up-calculator/" class="text-brand-700 font-semibold hover:text-brand-800">paid-up calculator</a> dekho.</li>
+        <li><strong>Revival (5 saal ke andar):</strong> policy lapse ho gayi ho to 5 saal ke andar revive kar sakte ho — <a href="/guides/lic-policy-revival/" class="text-brand-700 font-semibold hover:text-brand-800">revival guide</a> me cost aur process hai.</li>
+        <li><strong>Mis-selling complaint:</strong> agar agent ne galat becha aur free-look miss ho gaya, to LIC ke grievance cell, phir IRDAI ke Bima Bharosa portal par complaint ka option hota hai — policy documents aur agent ke promises ke proof sambhal kar rakho.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Quick FAQs</h2>
+      <p>
+        <strong>Kya free-look me full premium refund milta hai?</strong><br />
+        Almost — sirf medical examination expenses, stamp duty, aur cover period ka proportionate risk premium kat sakta hai (ULIP me unit price ka farq bhi). Surrender charges bilkul nahi lagte.
+      </p>
+      <p>
+        <strong>Kya online kharidi LIC policy par bhi free-look milta hai?</strong><br />
+        Haan — June 2024 ke IRDAI master circular ke baad 30-day free-look <strong>sabhi</strong> life policies par milta hai, chahe agent, branch ya online se li ho. Pehle online/distance-mode policies par hi 30 days milte the.
+      </p>
+      <p>
+        <strong>Refund kitne din me aata hai?</strong><br />
+        IRDAI kehta hai request milne ke <strong>7 din ke andar</strong> refund process ho. Practical me bank NEFT ke saath 7–15 din ka window rakho, aur branch se acknowledgement lena na bhoolo.
+      </p>
+      <p>
+        <strong>Kya free-look ke baad wahi policy dobara le sakte hain?</strong><br />
+        Haan — cancel ke baad aap naye sire se koi bhi plan le sakte ho, lekin naye medicals/underwriting phir se honge, aur age badhne se premium thoda badh sakta hai. Isliye cancel tabhi karo jab plan sach me galat ho.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Free-look rules follow IRDAI&apos;s Master Circular on Life Insurance Products (12 June 2024) and press/explainer reporting as of October 2026 — your policy document&apos;s free-look clause is the binding reference. Worked examples are illustrative only; the branch&apos;s written refund statement is final.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-premium-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
