@@ -1,0 +1,147 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'Update Address, Mobile & NEFT Bank Details', url: '/guides/lic-address-mobile-bank-neft-update' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'Update Your Address, Mobile Number & Bank (NEFT) Details in Your LIC Policy',
+  description: 'Stale contact and bank details cause the two most common LIC failures: missed premium intimations and delayed maturity payouts. The branch letter for address change, the mobile registration that unlocks SMS and WhatsApp services, and the NEFT mandate that decides where your money lands — with exactly what to carry.',
+  url: `${siteUrl}/guides/lic-address-mobile-bank-neft-update`,
+  publishedDate: '2026-10-15T00:00:00Z',
+  modifiedDate: '2026-10-15T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="Update Address, Mobile & Bank (NEFT) in LIC Policy: Branch Process"
+  description="How to change your address, registered mobile number and NEFT bank details in an LIC policy: the branch letter for address, the mobile update that unlocks SMS/WhatsApp services, and the NEFT mandate form with cancelled cheque. What to carry, how long it takes."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Policy Servicing
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Update Your Address, Mobile Number &amp; Bank (NEFT) Details in Your LIC Policy
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        You moved house, changed your phone number, or switched banks — and LIC still has the old ones. That sounds harmless until the premium-due SMS goes to a dead number, the maturity money bounces from a closed account, and the claim cheque is mailed to an address you left years ago. These are branch-level KYC records, and keeping them current is entirely your responsibility. Here is what to update, in what order, and what to carry to the branch.
+      </p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. Why Stale Details Cost Real Money</h2>
+      <p>
+        Three failures trace back to outdated records again and again:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>No premium intimation:</strong> LIC sends renewal reminders, lapse alerts and bonus intimations by SMS only to the mobile number in its policy master. If your number is missing or old, you simply never get them — and missing a due date without knowing it is one of the commonest reasons policies lapse.</li>
+        <li><strong>Bounced payouts:</strong> maturity, survival-benefit and claim money is credited through NEFT to the bank account on record. A closed or changed account means the credit fails and the money waits while you redo the paperwork.</li>
+        <li><strong>Lost paper trail:</strong> receipts, intimation letters and the policy bond go to the recorded address. For a decades-old policy, "address on record" and "address where you live" are different more often than people admit.</li>
+      </ul>
+      <p>
+        Update in this priority order: <strong>mobile number first</strong> (it unlocks everything else digitally), then <strong>bank details</strong> (where your money lands), then <strong>address</strong>.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Mobile Number: Register or Update It First</h2>
+      <p>
+        Your registered mobile number is the key to LIC's digital services: the Customer Portal's OTP login, premium-due and lapse SMS alerts, and the WhatsApp service (text "Hi" to <strong>8976862090</strong> from your registered number to check premium due, policy status, bonus information, loan quotations and premium paid certificates). Without a registered number, none of this works.
+      </p>
+      <p>
+        There are four ways to register or change the number:
+      </p>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>LIC website:</strong> use the "Update contact details" option under Customer Services on licindia.in. Name, date of birth and the new mobile number are the compulsory fields; LIC verifies the details before updating the records.</li>
+        <li><strong>Customer Portal:</strong> logged-in users can update the mobile number and email address from the profile management section.</li>
+        <li><strong>Branch:</strong> approach the servicing branch and submit the new number; it gets recorded in the policy master.</li>
+        <li><strong>Agent or helpline:</strong> your agent can get it registered at the branch, or call the LIC helpline at <strong>022 68276827</strong> (24×7).</li>
+      </ol>
+      <p>
+        After updating, verify it yourself: send <strong>ASKLIC &lt;policy number&gt; STAT</strong> from the new number to <strong>56767877</strong> or <strong>9222492224</strong>. If a status reply comes back, the number is live in LIC's records.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Bank Details: the NEFT Mandate That Decides Where Your Money Lands</h2>
+      <p>
+        LIC pays maturity, survival benefits and claims by electronic credit — NEFT — directly to the account registered on the policy. It does not matter that "they know my account from the premium debits"; the payout account is a separate registration, and it is what the claim department pays into.
+      </p>
+      <p>
+        The registration is done with the <strong>NEFT Mandate Form</strong>, available at any LIC office. Carry and submit:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>The filled, signed NEFT mandate form with the policy number, account holder name, account number, bank branch and IFSC code</li>
+        <li>A <strong>cancelled cheque</strong> (CTS cheque leaf) of the account, or a copy of the bank passbook/statement</li>
+        <li>A self-attested <strong>PAN card copy</strong> — needed where the payout amount is above ₹50,000</li>
+        <li>A copy of the policy document, if the branch asks</li>
+      </ul>
+      <p>
+        Two rules to remember: <strong>bank-detail changes go through the servicing branch only</strong> — the Customer Portal shows the status of a NEFT registration request ("track request status") but changing the account itself is a branch visit. And if you change banks, file a fresh mandate <em>before</em> closing the old account; updating after the fact means the credit fails first and the branch has to chase it. LIC sends an SMS when a NEFT (or NACH) mandate is registered — or rejected, in which case fix the error and resubmit.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Address Change: the Branch Letter Route</h2>
+      <p>
+        Changing the recorded address is a written, branch-level process:
+      </p>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>Draft a short letter to the servicing branch stating the address change request, including the policy number and the reason.</li>
+        <li>Attach <strong>address proof</strong> for the new address, <strong>identity proof</strong>, and a photocopy of the policy document.</li>
+        <li>Submit it at the branch's customer service counter. The branch verifies the documents and updates the policy master — typically within a few working days.</li>
+        <li>Track the request on the Customer Portal under Service Requests → Track Request Status, and confirm the new address appears in your policy details afterwards.</li>
+      </ol>
+      <p>
+        One caution for frequent movers: the address on the policy is the address LIC treats as your legal contact point for notices. Update it when you move, not when a claim forces the issue. NRIs should call or email the servicing branch first; the branch will confirm the accepted documents for an overseas address.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. What Needs the Branch vs What You Can Do Online</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Mobile number:</strong> online (licindia.in contact-details update or Customer Portal profile) <em>or</em> branch, agent, helpline.</li>
+        <li><strong>Email address:</strong> Customer Portal profile, online.</li>
+        <li><strong>Bank/NEFT details:</strong> servicing branch only, with the mandate form and cancelled cheque.</li>
+        <li><strong>Address:</strong> written request at the servicing branch with proofs; track the request online.</li>
+        <li><strong>PAN/KYC documents:</strong> branch, against the originals.</li>
+      </ul>
+      <p>
+        When in doubt, default to the branch. An update the branch has acknowledged is an update that counts — keep the acknowledgement or request number until the change reflects in your records.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Verification Checklist After Any Update</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>Send <strong>ASKLIC &lt;policy number&gt; STAT</strong> to 56767877 or 9222492224 — a reply confirms your mobile number is live.</li>
+        <li>Text <strong>"Hi"</strong> to <strong>8976862090</strong> on WhatsApp from the registered number and check that policy status and premium-due services work (policies must be registered on the Customer Portal).</li>
+        <li>Open the Customer Portal and confirm the address, email and bank details shown match what you submitted.</li>
+        <li>Watch for the SMS confirming the NEFT/NACH mandate registration — do not assume the form submission alone finished the job.</li>
+        <li>If a maturity or survival-benefit payout is due within the next few months, do the bank update first and confirm it <em>before</em> the payout date.</li>
+      </ol>
+      <p>
+        Finally, the same review is worth doing once a year: correct contact details are the cheapest insurance against a lapsed policy or a delayed claim, and this five-minute check costs nothing. If you are unsure what is currently on record, our guide to <a href="/guides/lic-policy-status-check/" class="text-brand-700 font-semibold hover:text-brand-800">checking your LIC policy status</a> walks through the SMS, WhatsApp and portal routes. And if a payout is approaching, read the <a href="/guides/lic-maturity-claim-form-3825/" class="text-brand-700 font-semibold hover:text-brand-800">maturity claim Form 3825 checklist</a> — a registered NEFT mandate is on that list too.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC or IRDAI advice. Branch processes, forms and helpline numbers follow LIC's published service information as of October 2026; the branch servicing your policy is the final authority on accepted documents, and its written quotation or acknowledgement prevails over anything here.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/guides/lic-policy-status-check" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
