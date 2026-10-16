@@ -1,0 +1,216 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'Jeevan Anand 715', url: '/guides/lic-jeevan-anand-715-maturity-continue-or-exit' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Jeevan Anand (715): Maturity + Lifetime Cover — Continue, Surrender or Go Paid-Up at Year 8?',
+  description: 'Jeevan Anand 715 pays your maturity benefit and still keeps life cover running afterwards. What you get at maturity, the year-8 continue-vs-surrender-vs-paid-up maths, the old 915/815 vs new 715 difference, and how to decide.',
+  url: `${siteUrl}/guides/lic-jeevan-anand-715-maturity-continue-or-exit`,
+  publishedDate: '2026-10-16T00:00:00Z',
+  modifiedDate: '2026-10-16T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Jeevan Anand (715): Maturity + Lifetime Cover — Continue, Surrender or Go Paid-Up at Year 8?"
+  description="LIC Jeevan Anand 715 combines an endowment maturity payout with life cover that continues after maturity. The verified plan facts (entry 18–50, term 15–35, ₹2 lakh minimum SA), death-before vs death-after-maturity formulas, and a year-8 continue/surrender/paid-up decision framework."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Plan Review
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Jeevan Anand (715): Maturity + Lifetime Cover — Continue, Surrender or Go Paid-Up at Year 8?
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Jeevan Anand LIC ka sabse alag plan hai — maturity par poora paisa milta hai <strong>aur uske baad bhi life cover aage chalta hai, bina ek aur premium diye</strong>. Agar aapne ye plan 7–8 saal pehle liya tha aur soch rahe ho ki continue karein, surrender kar dein ya paid-up banwa dein, to ye guide decision ka framework deti hai — plan ke verified facts, teeno options ka maths, aur wo post-maturity cover jo sabse zyada misunderstood hai.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Test the surrender cost before you decide</h2>
+        <p class="text-xs text-brand-700">Run the surrender and surrender-loss calculators on your own policy years before signing anything — the loss band at year 8 is very different from year 3.</p>
+      </div>
+      <a
+        href="/lic-surrender-loss-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Check Your Surrender Loss &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. Jeevan Anand 715 Kya Hai — Aur 715, 915, 815 Me Farq</h2>
+      <p>
+        New Jeevan Anand (Plan 715, UIN 512N279V03) ek <strong>participating, non-linked individual savings plan</strong> hai — matlab endowment + whole-life ka combination. Aapne jis version ka naam suna hai, uska plan number aapke policy schedule par printed hota hai. Purane withdrawn versions ke alag plan numbers (jaise 915 aur usse pehle 815) the, jinme terms bhi alag the. <strong>Ab jo policy issue ho rahi hai, wo Plan 715 hai</strong> — isliye niche jo facts hain, wo current 715 brochure (22 September 2025 se applicable) ke hisaab se hain.
+      </p>
+      <p>
+        <strong>Verified eligibility (current brochure):</strong>
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Entry age:</strong> minimum 18 years (completed), maximum 50 years (nearer birthday).</li>
+        <li><strong>Policy term:</strong> 15 se 35 saal; premium poore term me payable hota hai.</li>
+        <li><strong>Maximum maturity age:</strong> 75 years (nearer birthday).</li>
+        <li><strong>Minimum Basic Sum Assured:</strong> ₹2,00,000; maximum par koi limit nahi.</li>
+        <li><strong>Premium modes:</strong> yearly, half-yearly, quarterly aur monthly (monthly NACH ke through).</li>
+      </ul>
+      <div class="not-prose bg-amber-50 border border-amber-200 rounded-2xl p-5">
+        <p class="text-xs font-bold text-amber-900 mb-2">Apna version check karo</p>
+        <p class="text-xs text-amber-800 leading-relaxed">Agar aapki policy 3+ saal purani hai, to wo shayad <strong>Plan 915</strong> par hai (jo purana Jeevan Anand tha) — minimum SA ₹1,00,000 wala. Neeche ke benefit formulas us version me alag ho sakte hain. Decision se pehle <strong>policy schedule par plan number</strong> zaroor verify karo — wahi aapka binding contract hai.</p>
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Maturity Par Kya Milta Hai — Aur Sabse Bada Misunderstanding</h2>
+      <p>
+        Term end par agar policy in-force hai aur saare premiums paid hain, to maturity benefit = <strong>Basic Sum Assured + vested Simple Reversionary Bonus + Final Additional Bonus (FAB), agar declared ho</strong>. Yahan tak sab endowment plans jaisa hi hai.
+      </p>
+      <p>
+        <strong>Ab wo cheez jo Jeevan Anand ko alag banati hai:</strong> maturity ka paisa milne ke baad policy khatm nahi hoti. LIC ki brochure kehti hai ki <strong>stipulated maturity date ke baad death hone par Basic Sum Assured payable hota hai</strong> — ye pehle mile maturity proceeds se alag, additional payment hai. Cover aapki lifetime chalta hai, bina aage premium diye.
+      </p>
+      <p>
+        Lekin yahan ek common galatfehmi hai: <strong>death after maturity par sirf Basic Sum Assured milta hai — bonuses dubara nahi milte.</strong> Bonuses maturity benefit ke hisse ke roop me already settle ho chuke hote hain. Post-maturity cover ek clean, simple BSA payout hai, koi second "return" nahi. Isi wajah se 715 ka premium comparable endowment-only plan (jaise New Endowment 714) se thoda zyada hota hai — extra premium me aapko permanent life cover mil raha hai.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Death Benefit — Term Ke Andar vs Maturity Ke Baad</h2>
+      <p>
+        Teenon situations alag-alag hain, aur isi table me decide hota hai ki plan kisko suit karta hai:
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Situation</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Nominee ko kya milta hai</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Term ke dauraan death (policy in-force)</td>
+              <td class="px-4 py-3">Sum Assured on Death + vested SRB + FAB (agar ho). Sum Assured on Death = <strong>125% of Basic SA ya 7× annualised premium me se jo zyada ho</strong>, subject to minimum <strong>105% of total premiums paid</strong>.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Maturity par survival</td>
+              <td class="px-4 py-3">Basic SA + vested SRB + FAB (agar ho) — lump sum.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Maturity ke baad death (free cover period)</td>
+              <td class="px-4 py-3">Sirf <strong>Basic Sum Assured</strong> — bonuses is payment me included nahi hain.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-slate-500">
+        Ye formulas current 715 brochure ke reported terms hain (Oct 2026 tak verify). "Annualised premium" aur "total premiums paid" defined terms hain — taxes, riders aur extra premiums excluded hote hain. Aapki policy ka exact benefit aapke schedule par likha hai.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Year 8 Pe Decision Framework — Continue, Surrender, Ya Paid-Up?</h2>
+      <p>
+        Plan ke 7–8 saal baad aksar policyholder teeno options ke beech phas jaata hai. Neeche illustrative example hai — <strong>maan lete hain BSA ₹10,00,000, term 25 saal, annual premium ₹52,000 (illustrative figure, aapka actual premium schedule par dekho)</strong>:
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Option (year 8 par)</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Kya hota hai (illustrative)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Continue (remaining 17 saal premium)</td>
+              <td class="px-4 py-3">₹8.84 lakh aur premium dena hoga (17 × ₹52,000). Maturity par BSA ₹10L + 25 saal ke vested bonuses + FAB, <strong>plus</strong> uske baad lifetime BSA cover free. Pura upside isi me hai.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Surrender</td>
+              <td class="px-4 py-3">Year 8 par paid premiums = ₹4.16 lakh. Surrender value applicable GSV/SSV me se jo zyada ho — <strong>premiums paid se kaafi kam hogi</strong>. Saath me free lifetime cover bhi khatm. Saab se mehnga exit hai.</td>
+            </tr>
+            <tr class="bg-brand-50/50">
+              <td class="px-4 py-3 font-bold text-slate-900">Paid-up banwao</td>
+              <td class="px-4 py-3 font-bold text-slate-900">Premium dena band; maturity par reduced amount = roughly <strong>8/25 × ₹10L = ₹3.2L SA</strong> + ab tak vested bonuses. Bina naye premium ke policy chalti rehti hai — surrender se aksar behtar middle path.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-slate-500">
+        Illustrative example only — actual surrender value LIC ke written quotation par depend karti hai (special surrender value G-Sec linked hoti hai). Branch ka written statement final hota hai. Hamari <a href="/guides/lic-irdai-surrender-rules-2024/" class="text-brand-700 font-semibold hover:text-brand-800">IRDAI surrender rules guide</a> me GSV/SSV ka poora mechanism hai.
+      </p>
+      <p>
+        <strong>Practical decision rules:</strong>
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Affordability fine hai aur maturity ka lakshya intact hai → continue.</strong> 8 saal ke baad aap worst surrender-loss band se bahar ho, aur post-maturity free cover hi is plan ka asli moat hai — surrender karke use kho dena usually sabse kharab trade hai.</li>
+        <li><strong>Premium bojh lag raha hai lekin policy acchi hai → paid-up.</strong> Surrender se pehle <a href="/lic-paid-up-calculator/" class="text-brand-700 font-semibold hover:text-brand-800">paid-up calculator</a> se reduced maturity value dekho; paid-up me vested bonuses attached rehte hain (brochure terms ke under), lekin future bonus band ho jaata hai.</li>
+        <li><strong>Emergency me cash chahiye → surrender se pehle loan.</strong> 715 par surrender value acquire hone ke baad loan facility milti hai — loan lene se policy aur post-maturity cover dono bache rehte hain. <a href="/guides/lic-how-much-loan-on-policy/" class="text-brand-700 font-semibold hover:text-brand-800">Loan eligibility guide</a> aur <a href="/lic-loan-calculator/" class="text-brand-700 font-semibold hover:text-brand-800">loan calculator</a> dekho.</li>
+        <li><strong>Grace period use karo, lapse mat karo:</strong> yearly/half-yearly/quarterly mode par 30 din, monthly par 15 din ka grace milta hai — grace me risk cover continue rehta hai. Lapse ho jaaye to <a href="/guides/lic-policy-revival/" class="text-brand-700 font-semibold hover:text-brand-800">5 saal ke andar revival</a> possible hai.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Bonus Aur Return Ka Sach — Illustrations Guarantee Nahi Hain</h2>
+      <p>
+        Jeevan Anand <strong>participating (with-profits)</strong> plan hai: Simple Reversionary Bonus LIC har saal declare karti hai (per ₹1,000 sum assured) aur wo policy in-force rehne par vest hota hai. Final Additional Bonus one-time hota hai — maturity ya death claim ke time, agar declared ho.
+      </p>
+      <p>
+        <strong>Do warnings jo har policyholder ko pata honi chahiye:</strong>
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Future bonus guaranteed nahi hai.</strong> Pichhle saal ka bonus rate agle saal repeat hoga — iski koi guarantee nahi. Benefit illustration ke projected column ko assured return ki tarah mat padho.</li>
+        <li><strong>"10% return" jaisa claim suno to turant check karo</strong> — aksar wo sum assured ka 10% hota hai (jaise hamari <a href="/guides/lic-jeevan-utsav-771-income-truth/" class="text-brand-700 font-semibold hover:text-brand-800">Jeevan Utsav reality-check guide</a> me dikhaya), premium par 10% return nahi. <a href="/lic-bonus-calculator/" class="text-brand-700 font-semibold hover:text-brand-800">Bonus calculator</a> se apna actual bonus estimate karo.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Tax Aur GST — Aaj Ke Rules</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>80C deduction:</strong> old tax regime me annual premium par 80C deduction milta hai (overall limit aur premium-to-SA ratio rules ke under). New (default) regime me ye deduction aam taur par nahi milta — <a href="/guides/lic-80c-old-vs-new-regime/" class="text-brand-700 font-semibold hover:text-brand-800">old vs new regime guide</a> dekho.</li>
+        <li><strong>Maturity ka 10(10D):</strong> 1 April 2023 ke baad issue hui policies ke liye aggregate annual premium ₹5 lakh wala rule maturity proceeds ko affect kar sakta hai — poora decision tree hamari <a href="/guides/lic-maturity-tax-10-10d-explained/" class="text-brand-700 font-semibold hover:text-brand-800">maturity tax guide</a> me hai. Death benefit alag treatment rakhta hai.</li>
+        <li><strong>GST:</strong> September 2025 ke GST Council decision ke baad individual life insurance premiums par GST 0% hai — apne latest premium receipt par check karo ki GST charged nahi hua (<a href="/guides/lic-gst-0-percent-premium-change/" class="text-brand-700 font-semibold hover:text-brand-800">GST change guide</a>).</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Quick FAQs</h2>
+      <p>
+        <strong>Kya maturity ke baad bhi premium dena padta hai?</strong><br />
+        Nahi — maturity ke baad premium band ho jaata hai, aur Basic SA ka life cover <strong>free</strong> chalta rehta hai. Ye paid-up policy jaisa nahi hai; cover amount reduce nahi hota.
+      </p>
+      <p>
+        <strong>Kya post-maturity death par bonus bhi milta hai?</strong><br />
+        Nahi — maturity ke baad death par <strong>sirf Basic Sum Assured</strong> milta hai. Bonuses maturity benefit me already mil chuke hote hain.
+      </p>
+      <p>
+        <strong>Meri policy 915 plan par hai — kya ye facts apply honge?</strong><br />
+        Eligibility aur benefit formulas purane version me alag ho sakte hain. Upar ke facts <strong>current Plan 715</strong> ke hain — apna plan number policy schedule par verify karo, phir us schedule ke terms follow karo.
+      </p>
+      <p>
+        <strong>Surrender karne se pehle kitna wait karna chahiye?</strong><br />
+        715 par ek poore saal ka premium dene ke baad surrender allowed hai; guaranteed surrender value ke liye do poore saalon ka premium chahiye. Early years me surrender value premiums paid se kaafi kam hoti hai — isliye hamara <a href="/lic-surrender-loss-calculator/" class="text-brand-700 font-semibold hover:text-brand-800">surrender-loss calculator</a> pehle check karo.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Plan facts follow LIC&apos;s New Jeevan Anand (Plan 715, UIN 512N279V03) sales brochure applicable from 22 September 2025, as reported in October 2026 — your policy schedule is the binding contract. Worked examples are illustrative only; the branch&apos;s written quotation is final. Tax position depends on your policy issue date, premium totals and tax regime — consult a tax professional for your case.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-maturity-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
