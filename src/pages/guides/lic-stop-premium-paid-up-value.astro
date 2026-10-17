@@ -1,0 +1,215 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'Paid-Up Value', url: '/guides/lic-stop-premium-paid-up-value' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'Stop Paying LIC Premium After 3 Years? Paid-Up Value You’ll Get at Maturity',
+  description: 'Stopped paying your LIC premium and wondering what happens now? How paid-up value is calculated (sum assured × premiums paid ÷ premiums payable), what happens to vested bonuses, the 1-year eligibility rule under the new IRDAI norms, and the 5-year revival window.',
+  url: `${siteUrl}/guides/lic-stop-premium-paid-up-value`,
+  publishedDate: '2026-10-17T00:00:00Z',
+  modifiedDate: '2026-10-17T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="Stop Paying LIC Premium After 3 Years? Paid-Up Value You’ll Get at Maturity"
+  description="If you stop paying LIC premiums, your policy can convert to paid-up status — reduced sum assured payable at the original maturity date. The verified paid-up formula, what happens to your vested bonuses, the new 1-year rule, and when revival or surrender is the better call."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Policy Decision
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Stop Paying LIC Premium After 3 Years? Paid-Up Value You’ll Get at Maturity
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Premium dena band karna <strong>surrender jaisa nahi hota</strong> — policy aksar "paid-up" ban jaati hai: premium band, lekin maturity date par reduced amount milta hai. Is guide me paid-up value ka <strong>verified formula</strong>, vested bonus ka kya hota hai, naye IRDAI rules me 1-year eligibility, aur wo 5-saal ka revival window jo hamesha open rehta hai.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">See your reduced maturity value in 30 seconds</h2>
+        <p class="text-xs text-brand-700">Enter your sum assured, term and premiums paid — the paid-up calculator shows what your policy will actually pay at maturity after you stop paying.</p>
+      </div>
+      <a
+        href="/lic-paid-up-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Paid-Up Value &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. Paid-Up Ka Matlab — Premium Band, Policy Khatm Nahi</h2>
+      <p>
+        Jab aap premium dena band kar dete ho aur grace period bhi khatm ho jaata hai, to policy <strong>automatically paid-up</strong> convert ho jaati hai (ek saal ka minimum premium paid hone ke baad — naye rules ke hisaab se). "Paid-up" ka matlab simple hai: <strong>aapko aage koi premium nahi dena, aur policy apne original maturity date tak chalti rehti hai — lekin sum assured reduce ho jaata hai.</strong>
+      </p>
+      <p>
+        Ye <strong>surrender se alag</strong> hai: surrender me aapko aaj cash milta hai aur policy khatm; paid-up me aapko kuch nahi milta aaj, lekin maturity par reduced payout + term ke dauraan death par reduced death benefit milta hai. Aur ye <strong>lapsed se bhi alag</strong> hai: lapsed policy (jisme paid-up value acquire nahi hui) ka cover khatm ho jaata hai, paid-up ka cover proportionately kam hokar continue rehta hai.
+      </p>
+      <div class="not-prose bg-amber-50 border border-amber-200 rounded-2xl p-5">
+        <p class="text-xs font-bold text-amber-900 mb-2">Minimum eligibility check karo</p>
+        <p class="text-xs text-amber-800 leading-relaxed">Paid-up status tabhi milta hai jab <strong>kam se kam 1 poore saal ka premium</strong> paid ho (1 October 2024 se applicable IRDAI norms). Agar aapne 1 saal bhi poora premium nahi diya aur band kar diya, to policy paid-up nahi banegi — wo lapse ho jaayegi aur paid benefits cease ho jaayenge. Apna minimum apne policy schedule/brochure se verify karo.</p>
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Paid-Up Value Ka Formula — Verified Calculation</h2>
+      <p>
+        Paid-up value koi guess nahi — ek standard IRDAI formula se calculate hoti hai:
+      </p>
+      <p class="text-base font-bold text-slate-900">
+        Paid-Up Value = Original Sum Assured × (Number of Premiums Paid ÷ Total Number of Premiums Payable)
+      </p>
+      <p>
+        <strong>Illustrative example:</strong> Maan lo aapne 20 saal ka plan liya, Sum Assured <strong>₹10,00,000</strong>, aur 8 saal premium dekar band kar diya:
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Item</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Illustrative value</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Original Sum Assured</td>
+              <td class="px-4 py-3">₹10,00,000</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Premiums paid</td>
+              <td class="px-4 py-3">8 (of 20)</td>
+            </tr>
+            <tr class="bg-brand-50/50">
+              <td class="px-4 py-3 font-bold text-slate-900">Paid-up Sum Assured</td>
+              <td class="px-4 py-3 font-bold text-slate-900">₹10,00,000 × (8 ÷ 20) = <strong>₹4,00,000</strong></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Maturity par kya milega</td>
+              <td class="px-4 py-3">₹4,00,000 (paid-up SA) + ab tak <strong>vested bonuses</strong> (face value par, agar plan participating hai)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-slate-500">
+        Illustrative example only — aapka actual paid-up value aapke policy schedule aur LIC ke written quotation par depend karta hai. Formula me taxes, riders aur extra premiums excluded hote hain; branch ka written statement final hota hai.
+      </p>
+      <p>
+        <strong>Do fine print points:</strong>
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Riders terminate ho jaate hain.</strong> Paid-up convert hone par saare riders (accidental, critical illness waghera) instant terminate hote hain, aur unke liye diya gaya extra premium calculation se exclude hota hai.</li>
+        <li><strong>Pure term plans me paid-up nahi milta.</strong> LIC ke pure-risk term plans (jaise Digi Term, Tech-Term, Jeevan Amar) primarily protection-oriented hain — unme reduced paid-up ka provision plan variant par depend karta hai. Endowment/money-back/whole-life plans me hi ye feature standard hai.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Vested Bonus Ka Kya Hota Hai — Freeze, Not Lost</h2>
+      <p>
+        Ye paid-up ka sabse misunderstood hissa hai: <strong>jo bonus ab tak vest ho chuka hai (Simple Reversionary Bonus, har saal declare hokar attach hota hai), wo safely face value par rehta hai</strong> aur maturity ya death claim ke time paid-up sum assured ke saath milta hai. Premium band hone ke baad <strong>naya bonus accrue hona band</strong> ho jaata hai — future years ke liye LIC aapki policy par koi bonus declare nahi karegi.
+      </p>
+      <p>
+        <strong>Final Additional Bonus (FAB):</strong> ye one-time bonus maturity ya death claim ke time milta hai, agar declared ho. Paid-up policy par FAB ka entitlement plan terms par depend karta hai — kuch plans me paid-up status par FAB ka claim limited ho sakta hai. Apne plan brochure ke "paid-up value" clause me ye specifically check karo.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. New IRDAI Rules (1 Oct 2024) — 1 Saal Me Paid-Up</h2>
+      <p>
+        1 October 2024 se applicable IRDAI master circular ne paid-up eligibility ko kaafi ease kar diya:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>1 poore saal ka premium → paid-up value acquire.</strong> Pehle (kayi plans me) 2–3 saal ka premium chahiye hota tha; ab ek full policy year ka premium dene ke baad policy paid-up ban sakti hai.</li>
+        <li><strong>Surrender bhi 1 saal ke baad allowed</strong>, lekin <strong>guaranteed surrender value (GSV) ke liye 2 poore saalon</strong> ka premium chahiye. Special surrender value (SSV) G-Sec-linked hoti hai — poora mechanism hamari <a href="/guides/lic-irdai-surrender-rules-2024/" class="text-brand-700 font-semibold hover:text-brand-800">IRDAI surrender rules guide</a> me hai.</li>
+        <li><strong>Policy loans aur partial withdrawals</strong> bhi paid-up/surrender value acquire karne ke baad available hote hain — emergency me paid-up karane se pehle loan lena aksar behtar option hai (<a href="/guides/lic-how-much-loan-on-policy/" class="text-brand-700 font-semibold hover:text-brand-800">loan eligibility guide</a>).</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Paid-Up vs Surrender vs Revival — Kaunsa Kab?</h2>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Option</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Kab sahi hai</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Paid-up (premium band, policy chalti rahe)</td>
+              <td class="px-4 py-3">Affordability temporary problem hai lekin plan accha hai; maturity date door hai aur vested bonuses bade hain. Koi cash emergency nahi hai — bas premium ka bojh hatana hai.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Surrender (aaj cash lo)</td>
+              <td class="px-4 py-3">Sirf tab jab cash emergency me chahiye aur loan option khatm ho. Early years me surrender value premiums paid se kaafi kam hoti hai — pehle <a href="/lic-surrender-loss-calculator/" class="text-brand-700 font-semibold hover:text-brand-800">surrender-loss calculator</a> check karo.</td>
+            </tr>
+            <tr class="bg-brand-50/50">
+              <td class="px-4 py-3 font-bold text-slate-900">Revival (5 saal ke andar policy wapas full karo)</td>
+              <td class="px-4 py-3 font-bold text-slate-900">Financial situation improve ho gayi ho aur plan waqai worth ho. <strong>First unpaid premium se 5 consecutive complete years</strong> tak revival possible hai — arrears + interest + medical/underwriting ke saath. Paid-up banne ke baad bhi revival window open rehti hai.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Loan (policy bachao)</td>
+              <td class="px-4 py-3">Cash chahiye lekin plan bhi rakhna hai — surrender value acquire hone ke baad loan le lo; policy, bonuses aur post-maturity benefits sab safe rehte hain.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        <strong>Detail comparisons:</strong> Paid-up vs surrender ka full financial trade-off hamari <a href="/guides/lic-paid-up-vs-surrender/" class="text-brand-700 font-semibold hover:text-brand-800">paid-up vs surrender decision guide</a> me; revival ka exact cost aur process <a href="/guides/lic-policy-revival/" class="text-brand-700 font-semibold hover:text-brand-800">revival guide</a> me; grace period aur late fee <a href="/guides/lic-premium-grace-period-late-fee/" class="text-brand-700 font-semibold hover:text-brand-800">yahan</a>.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Practical Steps — Premium Band Karne Se Pehle Ye Karo</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Grace period use karo:</strong> yearly/half-yearly/quarterly par 30 din, monthly par 15 din — grace me risk cover continue rehta hai. Lapse mat karo, grace ka fayda uthao.</li>
+        <li><strong>Paid-up value ka written quotation lo:</strong> branch se ya LIC portal se apne policy par exact paid-up sum assured aur vested bonus ka statement lo — estimate par decision mat lo.</li>
+        <li><strong>Mode change socho:</strong> yearly premium bojh lag raha hai to monthly/quarterly NACH me switch karna aksar band karne se behtar hota hai (mode rebates hamari <a href="/guides/lic-monthly-vs-yearly-premium-cost/" class="text-brand-700 font-semibold hover:text-brand-800">monthly vs yearly guide</a> me).</li>
+        <li><strong>Revival deadline note karo:</strong> first unpaid premium ki date se 5 saal — is window ke andar arrears + interest dekar policy poori tarah revive ho sakti hai (<a href="/guides/lic-revival-quotation-interest/" class="text-brand-700 font-semibold hover:text-brand-800">revival quotation guide</a>).</li>
+        <li><strong>Nominee aur NEFT details updated rakho:</strong> paid-up policy ka maturity payout bhi NEFT se aata hai — stale bank details se payout bounce hota hai (<a href="/guides/lic-address-mobile-bank-neft-update/" class="text-brand-700 font-semibold hover:text-brand-800">details update guide</a>).</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Quick FAQs</h2>
+      <p>
+        <strong>Kya paid-up policy par loan mil sakta hai?</strong><br />
+        Haan — paid-up policy par bhi surrender value acquire hone ke baad loan facility available hoti hai (surrender value ke up to ~90% tak, plan terms ke under). Interest loan par accrue hota hai aur claim/maturity ke time deduct ho sakta hai.
+      </p>
+      <p>
+        <strong>Kya paid-up ke baad policy ko revive karke poora cover wapas mil sakta hai?</strong><br />
+        Haan — paid-up convert hone ke baad bhi <strong>first unpaid premium se 5 saal tak</strong> revival possible hai. Revival par arrears + interest dene ke saath original full benefits restore ho jaate hain (underwriting/medical conditions ke under).
+      </p>
+      <p>
+        <strong>Kya premium band karne ke liye branch jaana zaroori hai?</strong><br />
+        Nahi — premium dena band karne ke liye koi form nahi bharna padta; grace period khatm hone ke baad policy automatically paid-up ya lapsed ho jaati hai (eligibility ke hisaab se). Lekin <strong>surrender</strong> ke liye Form 5074 branch me dena hota hai.
+      </p>
+      <p>
+        <strong>Meri policy me paid-up clause hai ya nahi — kaise confirm karoon?</strong><br />
+        Apne plan brochure ya policy schedule me "Paid-Up Value" / "Non-Forfeiture" clause dekho. Agar minimum 1 saal ka premium paid hai aur plan endowment/money-back/whole-life type hai, to aam taur par paid-up apply hota hai. Confusion ho to branch se written confirmation le lo.
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Paid-up formula and eligibility follow the IRDAI master circular on Protection of Interests of Policyholders (June 2024, applicable from 1 Oct 2024) as reported in October 2026 — your plan brochure and policy schedule are the binding contract. Worked examples are illustrative only; the branch&apos;s written quotation is final.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-paid-up-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
