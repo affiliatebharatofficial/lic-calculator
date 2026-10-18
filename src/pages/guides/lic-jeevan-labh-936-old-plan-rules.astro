@@ -1,0 +1,142 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'Jeevan Labh 936 (Old Plan) Rules vs New 736', url: '/guides/lic-jeevan-labh-936-old-plan-rules' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'Own a Jeevan Labh 936 (Old Plan)? Which Rules Apply to You vs the New 736',
+  description: 'Jeevan Labh 936 was withdrawn on 1 October 2024 and replaced by Plan 736 — but existing 936 policies keep their old terms. The real differences: 10x vs 7x death-benefit multiple, surrender and loan after 2 years (not 1), the Critical Illness rider that 736 dropped, and the 15-day vs 30-day free-look window.',
+  url: `${siteUrl}/guides/lic-jeevan-labh-936-old-plan-rules`,
+  publishedDate: '2026-10-18T00:00:00Z',
+  modifiedDate: '2026-10-18T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Jeevan Labh 936 (Old Plan): Your Rules vs the New 736"
+  description="Holding the old Jeevan Labh (Plan 936)? It was withdrawn on 1 Oct 2024, but your policy still runs on 936 terms. Compare the 10x vs 7x death benefit, surrender/loan after 2 years, the Critical Illness rider 736 dropped, and free-look 15 vs 30 days."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Plan Version Check: Jeevan Labh 936 vs 736
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Own a Jeevan Labh 936 (Old Plan)? Which Rules Apply to You vs the New 736
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        LIC's Jeevan Labh (Plan 936) was withdrawn from sale on 1 October 2024 and replaced the same day by Plan 736. If you bought before that date, your policy did <strong>not</strong> get converted — it still runs on the old 936 terms, and a few of those are meaningfully better (or stricter) than the new ones. This guide maps exactly where they differ, so you stop applying 736 articles to a 936 policy.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Estimate your 936 maturity figure</h2>
+        <p class="text-xs text-brand-700">Enter your sum assured and term — the maturity structure (SA + reversionary bonus + FAB) works the same on both versions.</p>
+      </div>
+      <a
+        href="/lic-maturity-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Estimate Maturity Value &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The One Fact That Settles Everything</h2>
+      <p>
+        Plan 936 (UIN 512N304V02) was on sale from 1 February 2020 until 30 September 2024, and Plan 736 (UIN 512N304V03) took over on 1 October 2024. But a withdrawn plan number is <strong>not</strong> a converted policy: your 936 bond still says 936, and its policy conditions still govern your surrender value, loan eligibility, riders and free-look rights. Anything written about "the new Jeevan Labh rules" after October 2024 almost certainly describes 736 — read it as background, not as your rules.
+      </p>
+      <p class="not-prose p-4 rounded-xl bg-amber-50 border border-amber-200 text-sm">
+        <strong>Rule of thumb:</strong> if a blog says "surrender value after 1 year" or "30-day free look", it is describing Plan 736. Your 936 policy follows the old thresholds in sections 3–5 below.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. What Is Identical on Both Versions</h2>
+      <p>Most of the structure never changed, which is why the plans get confused:</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>The three fixed combinations: term <strong>16 / 10</strong>, <strong>21 / 15</strong>, <strong>25 / 16</strong> years (policy term / premium-paying term).</li>
+        <li>Entry age 8 (completed), maximum maturity age 75, minimum Basic Sum Assured ₹2,00,000 with no maximum.</li>
+        <li>Revival: a lapsed policy can be revived within <strong>5 consecutive years</strong> of the first unpaid premium, before maturity — same on both.</li>
+        <li>Bonus machinery: simple reversionary bonus declared yearly per ₹1,000 of sum assured, plus a final additional bonus (if declared) on death or maturity. Neither is guaranteed.</li>
+        <li>Maturity formula: Basic Sum Assured + vested bonuses + FAB. Death benefit floor: never less than <strong>105% of total premiums paid</strong>.</li>
+        <li>Paid-up value after stopping premiums follows the same proportionate formula. See our <a href="/guides/lic-stop-premium-paid-up-value/" class="text-brand-700 font-semibold hover:text-brand-800">stop-premium paid-up guide</a>.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Death Benefit: 10x on 936, 7x on 736</h2>
+      <p>
+        This is the single biggest difference, and it works <strong>in favour of 936 holders</strong>. The "Sum Assured on Death" is defined as the <strong>higher of the Basic Sum Assured or 10 times the annualised premium</strong> under Plan 936 — the new 736 uses <strong>7 times</strong> instead. Bonuses (vested SRB + FAB, if any) sit on top in both versions.
+      </p>
+      <div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">936 — illustrative</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹5L SA, ~₹23,500/yr premium</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">10 × ₹23,500 = ₹2,35,000 — below the ₹5L Basic SA, so the SA wins: <strong>₹5,00,000</strong> + bonuses.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">When the multiple matters</span>
+          <h3 class="font-bold text-slate-900 text-sm">Lower SA, same premium</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">On a small policy where 10× premium exceeds the SA, the 936 holder's family gets the multiplied figure — roughly 43% more than the 7× figure a 736 holder would get on the same numbers.</p>
+        </div>
+      </div>
+      <p>
+        (The ₹23,500 figure is illustrative at published rates; your branch's written quotation is the final word on any actual premium.) Note the practical takeaway: because of the 10x multiple, your 936 policy carries slightly richer life cover than an identical 736 would — one more reason not to casually replace it. For help sizing cover overall, see <a href="/guides/lic-term-cover-how-much/" class="text-brand-700 font-semibold hover:text-brand-800">how much term cover you need</a>.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Surrender &amp; Loan: 936 Makes You Wait 2 Years</h2>
+      <p>
+        The new IRDAI surrender framework (surrender value from year 1) applies to policies <strong>issued after 1 October 2024</strong> — i.e. Plan 736. Your 936 policy plays by the older schedule:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>936:</strong> surrender value only after <strong>two full years' premiums</strong> are paid; loan facility also only after two years — up to 90% of surrender value for in-force policies, 80% for paid-up ones.</li>
+        <li><strong>736:</strong> a special surrender value can exist from the end of the first policy year, and loans from year 1 — but capped at 50% (in-force) / 40% (paid-up) before two full years' premiums, rising to 80% / 70% after.</li>
+      </ul>
+      <p>
+        If you bought a 936 in 2022–2024 and are thinking of exiting early, the paid-out figure is the <strong>higher of GSV and SSV</strong>, and in the early years it is typically far below premiums paid. Before signing Form 5074, compare with the loan route (see <a href="/guides/lic-how-much-loan-on-policy/" class="text-brand-700 font-semibold hover:text-brand-800">how much loan you can get</a> and <a href="/guides/lic-surrender-after-5-years/" class="text-brand-700 font-semibold hover:text-brand-800">surrender after 5 years</a>) and the paid-up option.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Two 736-Only Touches You Don't Get (and One You Lost)</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Free-look:</strong> 736 gives 30 days; 936 gives <strong>15 days</strong> from receiving the policy document. (Long since irrelevant for existing holders, but it explains why old letters cite 15.)</li>
+        <li><strong>Critical Illness rider:</strong> 936 offered LIC's New Critical Illness Benefit Rider alongside the Accidental Death &amp; Disability, Accident Benefit, Term Assurance and Premium Waiver Benefit riders. Plan 736 trimmed the list to four — the <strong>Critical Illness rider is no longer offered</strong>. If your 936 carries it, that rider continues on its own terms; don't let it lapse unknowingly.</li>
+        <li><strong>Settlement option:</strong> both versions let you take maturity or death benefit in instalments over 5, 10 or 15 years instead of a lump sum.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">6. 936 Holder's Checklist</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Never replace a 936 with a 736 on the surrender/loan myth.</strong> The 936's 10x death-benefit multiple and CI rider are gone from the new plan — a "fresh" 736 is not strictly better.</li>
+        <li><strong>Get a current benefit illustration from your agent or branch</strong> before any revival, surrender or loan decision — it shows your exact surrender value, paid-up value and loan eligibility on <em>your</em> bond's terms.</li>
+        <li><strong>Watch the 5-year revival window.</strong> If you stopped premiums, revival is possible within 5 consecutive years of the first unpaid premium — with arrears plus interest and health requirements. Our <a href="/guides/lic-policy-revival/" class="text-brand-700 font-semibold hover:text-brand-800">revival guide</a> walks through the quotation.</li>
+        <li><strong>Read any "new rules" article against the issue date of your policy,</strong> not today's date — the IRDAI October-2024 surrender norms (<a href="/guides/lic-irdai-surrender-rules-2024/" class="text-brand-700 font-semibold hover:text-brand-800">explained here</a>) apply to your policy only from the year they took effect.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Premium figures are illustrative at published rates and are not guaranteed; the death-benefit multiples, surrender thresholds and rider lists are per LIC's plan documents, but the agent's benefit illustration and your policy bond are the authoritative figures for your case. A branch's written quotation is final.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-jeevan-labh-936-old-plan-rules" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
