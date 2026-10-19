@@ -1,0 +1,205 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Pension Plans Compared: Saral vs Shanti vs Umang', url: '/guides/lic-pension-plans-compared-saral-shanti-umang' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Pension Plans Compared: Saral Pension vs Jeevan Shanti vs Jeevan Umang Income',
+  description: 'Three LIC "pension" products work completely differently: Saral Pension pays from next month (immediate annuity), Jeevan Shanti pays after a 1–12 year wait you choose (deferred annuity), and Jeevan Umang pays 8% of the sum assured yearly after 15–30 years of premiums. A head-to-head comparison with illustrative ₹10 lakh numbers, one winner per need, and the tax reality of each.',
+  url: `${siteUrl}/guides/lic-pension-plans-compared-saral-shanti-umang`,
+  publishedDate: '2026-10-19T00:00:00Z',
+  modifiedDate: '2026-10-19T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Pension Plans Compared: Saral Pension vs Jeevan Shanti vs Jeevan Umang"
+  description="Saral Pension (859) pays pension from next month, New Jeevan Shanti (858) pays after a 1–12 year deferment you choose, and Jeevan Umang (745) pays 8% of sum assured after 15–30 years of premiums. Head-to-head with illustrative ₹10 lakh figures, one winner per need, and tax notes."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Comparison: Saral Pension (859) vs Jeevan Shanti (858) vs Jeevan Umang (745)
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Pension Plans Compared: Saral Pension vs Jeevan Shanti vs Jeevan Umang Income
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        All three get called "LIC pension plans" in ads and branch conversations, but they answer three different questions. Saral Pension answers "I have a lump sum now and need income next month." Jeevan Shanti answers "I have a lump sum now but I can wait a few years for a bigger pension." Jeevan Umang answers "I have no lump sum — can I build a lifelong income by paying premiums?" Pick the wrong family and no amount of plan-tweaking will fix it.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Price your own lump sum</h2>
+        <p class="text-xs text-brand-700">Enter your purchase price, age and deferment to compare the lifetime pension each route gives you.</p>
+      </div>
+      <a
+        href="/lic-pension-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Estimate Pension Income &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Three Families, in One Table</h2>
+      <div class="not-prose overflow-x-auto rounded-2xl border border-slate-200">
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="bg-slate-50 text-slate-700">
+              <th class="text-left p-3 font-bold">Feature</th>
+              <th class="text-left p-3 font-bold">Saral Pension (859)</th>
+              <th class="text-left p-3 font-bold">New Jeevan Shanti (858)</th>
+              <th class="text-left p-3 font-bold">Jeevan Umang (745)</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-600">
+            <tr class="border-t border-slate-100">
+              <td class="p-3 font-semibold">Product type</td>
+              <td class="p-3">Immediate annuity (standard IRDAI plan)</td>
+              <td class="p-3">Deferred annuity, single premium</td>
+              <td class="p-3">Whole-life endowment with survival benefits</td>
+            </tr>
+            <tr class="border-t border-slate-100">
+              <td class="p-3 font-semibold">When income starts</td>
+              <td class="p-3">Immediately — first annuity payable in arrears for the chosen mode</td>
+              <td class="p-3">After a <strong>deferment of 1–12 years</strong> you choose at purchase</td>
+              <td class="p-3">After the <strong>premium-paying term (15/20/25/30 yrs)</strong> ends</td>
+            </tr>
+            <tr class="border-t border-slate-100">
+              <td class="p-3 font-semibold">Entry age</td>
+              <td class="p-3">40–80 (both lives, joint option)</td>
+              <td class="p-3">30–79; pension cannot start after 80</td>
+              <td class="p-3">Varies by term (up to 55 for 15-yr, 40 for 30-yr)</td>
+            </tr>
+            <tr class="border-t border-slate-100">
+              <td class="p-3 font-semibold">Income amount</td>
+              <td class="p-3">Fixed annuity for life, rate locked at inception</td>
+              <td class="p-3">Fixed annuity for life; longer deferment = higher pension</td>
+              <td class="p-3"><strong>8% of Basic Sum Assured yearly</strong> till age 100 — not 8% on premiums</td>
+            </tr>
+            <tr class="border-t border-slate-100">
+              <td class="p-3 font-semibold">What nominee gets</td>
+              <td class="p-3">100% of purchase price returned (both options)</td>
+              <td class="p-3">Purchase price + accrued additions (min 105% of purchase price), per formula</td>
+              <td class="p-3">Basic Sum Assured + vested bonuses (or 7× premium if higher)</td>
+            </tr>
+            <tr class="border-t border-slate-100">
+              <td class="p-3 font-semibold">Bonuses</td>
+              <td class="p-3">None — non-participating</td>
+              <td class="p-3">None — non-participating</td>
+              <td class="p-3">Yes — participating (reversionary + final additional bonus)</td>
+            </tr>
+            <tr class="border-t border-slate-100">
+              <td class="p-3 font-semibold">Premium style</td>
+              <td class="p-3">Single lump sum (min annuity ₹1,000/month)</td>
+              <td class="p-3">Single lump sum (min ₹1,50,000)</td>
+              <td class="p-3">Yearly premiums for 15–30 years (min SA ₹2,00,000)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-slate-500">Plan facts per LIC's current brochures; annuity rates and plan versions are revised periodically — verify the plan number on licindia.in before buying.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Saral Pension (859): Income From Next Month</h2>
+      <p>
+        Saral Pension is LIC's <strong>standard immediate annuity</strong> — IRDAI mandates identical terms for this category across insurers, so the product structure is deliberately plain. You hand over one lump sum and LIC starts paying a <strong>guaranteed, fixed pension for your whole life</strong>, with rates locked on the day of purchase. It offers exactly two options: <strong>Option I — single life</strong> (pension while you live; 100% of purchase price back to the nominee on your death) or <strong>Option II — joint life last survivor</strong> (same pension continues for the spouse after your death; 100% of purchase price returned after the last survivor). The option cannot be changed later, and under joint life the second annuitant can only be the spouse.
+      </p>
+      <div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Illustrative — ₹10 lakh, age 60</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹62,300 / year (single life)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Per LIC's sales brochure for a ₹10,00,000 purchase price at age 60: single life pays about ₹62,300 a year; joint life (spouse 55) about ₹61,600 a year — with the full ₹10 lakh returned to the nominee after death.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Exit options</span>
+          <h3 class="font-bold text-slate-900 text-sm">Surrender after 6 months; loan allowed</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">The policy can be surrendered after six months for 95% of the purchase price (on diagnosis of specified critical illnesses per the brochure), and a policy loan can be taken after six months with the interest capped against the annuity. Available both offline and online via licindia.in.</p>
+        </div>
+      </div>
+      <p class="text-xs text-slate-500">Illustrative brochure figures; the sanctioned illustration for your age and option governs.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. New Jeevan Shanti (858): Wait for a Bigger Pension</h2>
+      <p>
+        Jeevan Shanti asks one extra question Saral doesn't: <strong>when do you need the pension to start?</strong> You pay the single premium today, choose a <strong>deferment of 1–12 years</strong>, and the pension begins after that wait — higher than an immediate annuity on the same money, because LIC has had the lump sum working for years before paying anything. Entry is 30–79, minimum purchase price ₹1,50,000, and there are two options — <strong>deferred annuity for single life</strong> or <strong>joint life</strong> (joint covers spouse, parents, children, grandchildren or siblings — much broader than Saral's spouse-only rule). During deferment an <strong>additional benefit on death</strong> accrues monthly, and the death benefit after annuity starts is at least 105% of the purchase price under the plan formula.
+      </p>
+      <div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Illustrative — ₹10 lakh, age 45, 12-yr deferment</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹99,400 / year (single life)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Per LIC's plan illustration: roughly ₹99,400 a year (single) or ₹94,100 a year (joint) starting at age 57. Compare that with the ₹62,300 immediate annuity — the deferment premium is the price of patience.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Rate incentives</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹5 lakh+ and online get better rates</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Purchase prices of ₹5,00,000 and above earn a higher annuity rate, with a small extra incentive for buying online. Like Saral, modes carry a haircut: roughly 2% less for half-yearly, 3% for quarterly, 4% for monthly versus yearly.</p>
+        </div>
+      </div>
+      <p>
+        Rule of thumb: <strong>defer only across years you can fund from other income.</strong> If you need pension at 60, buying at 48–55 with a deferment ending at 60 usually prices better than buying at 60 with a token deferment. Our <a href="/guides/lic-jeevan-shanti-758-pension/" class="text-brand-700 font-semibold hover:text-brand-800">full Jeevan Shanti guide</a> walks through the deferment maths and the single-vs-joint decision.
+      </p>
+      <p class="text-xs text-slate-500">Illustrative figures from LIC's plan brochure; your sanctioned illustration governs. Historical note: the previous guide on this site uses plan table 758 — the current deferred annuity is Table 858 (New Jeevan Shanti); the mechanics above describe the current version.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Jeevan Umang (745): The 8% That Isn't an 8% Return</h2>
+      <p>
+        Jeevan Umang plays a different game entirely: <strong>no lump sum needed</strong>. You pay premiums for 15, 20, 25 or 30 years, and from the end of that term you receive <strong>8% of the Basic Sum Assured every year until age 100</strong> — on a ₹10 lakh policy, that's a guaranteed ₹80,000 a year. The catch that agents skip: the 8% is on the <strong>sum assured, not on the premiums you paid</strong> — a ₹10 lakh policy over a 20-year term costs roughly ₹14 lakh in premiums (per the agent's current illustration), so the effective yield is fixed-income-level, not "8% returns". It is a <strong>participating whole-life plan</strong>: reversionary bonuses accrue and the sum assured plus bonuses is paid at age 100 or on death (with whole-life cover throughout).
+      </p>
+      <p>
+        Where it wins: a salaried buyer in their 20s–40s with no lump sum can still <strong>build a guaranteed lifelong income floor</strong> plus cover till 100. Where it loses: against any lump-sum annuity for absolute pension per rupee, and against a term plan for cover per rupee. The full reality check is in our <a href="/guides/lic-jeevan-umang-745-income-reality/" class="text-brand-700 font-semibold hover:text-brand-800">Jeevan Umang 745 guide</a>.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. One Winner Per Need</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Retiring in the next 1–2 years with a lump sum (PF, gratuity, maturity):</strong> <strong>Saral Pension</strong>. Income starts immediately, 100% of purchase price comes back to the family, and the structure is the simplest of the three. No deferment maths to get wrong.</li>
+        <li><strong>10+ years from retirement, lump sum available today (matured policy, property sale):</strong> <strong>Jeevan Shanti</strong>. Lock today's guaranteed rates and let the deferment multiply the pension — the ₹10 lakh illustration above shows ~60% more pension than the immediate route.</li>
+        <li><strong>No lump sum, but steady salary and 15–30 paying years ahead:</strong> <strong>Jeevan Umang</strong>. It manufactures an income floor out of premiums, with bonuses and whole-life cover attached — just don't read the 8% as a return.</li>
+        <li><strong>Couple where one pension must carry two people:</strong> <strong>joint-life options</strong> of either annuity (Saral: spouse-only; Shanti: broader family). The ~5% pension reduction is the cheapest longevity insurance in the product.</li>
+        <li><strong>Maximum income per rupee, no legacy motive:</strong> neither — check the <strong>non-ROP options</strong> in the annuity calculator, where giving up the purchase-price return buys a materially higher pension. Only do this if the spouse/dependants have other cover.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">6. The Tax Line (One Paragraph)</h2>
+      <p>
+        Annuity pensions from Saral and Shanti are <strong>taxed as income in your slab</strong> — there is no "pension is tax-free" trick here. The purchase price itself can claim deduction under <strong>Section 80CCC</strong> within the overall 80CCE ceiling of ₹1,50,000 (old regime only — see our <a href="/guides/lic-80c-old-vs-new-regime/" class="text-brand-700 font-semibold hover:text-brand-800">80C old-vs-new guide</a>). Jeevan Umang is different again: premiums get 80C treatment and the maturity at 100 follows the <a href="/guides/lic-maturity-tax-10-10d-explained/" class="text-brand-700 font-semibold hover:text-brand-800">10(10D) ₹5 lakh premium rule</a>. Also ask for the <strong>current GST treatment on the annuity purchase price in your quotation</strong> — the September 2025 exemption reshaped individual life-insurance GST (see our <a href="/guides/lic-gst-0-percent-premium-change/" class="text-brand-700 font-semibold hover:text-brand-800">0% GST guide</a>), and the quotation is the document that matters, not a blog.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Before You Sign Any of Them</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Get the benefit illustration, not the brochure rate.</strong> Annuity tables move with interest-rate cycles; the illustration generated for your age, option and purchase price is the only number that binds.</li>
+        <li><strong>Mode matters:</strong> monthly pension costs roughly 4% of the quoted yearly rate on both annuities. If cash flow allows, yearly mode keeps the full rate.</li>
+        <li><strong>Options are permanent.</strong> Once chosen, the annuity option, deferment (Shanti) and mode are essentially fixed — the flexibility exists only before signature.</li>
+        <li><strong>Nominee death-benefit choice</strong> (lump sum vs instalments vs fresh annuity) is decided by you at proposal on Shanti — the nominee can't change it later.</li>
+        <li><strong>Emergency access:</strong> Saral allows loan/surrender after six months within limits; Shanti has a policy loan after one policy year. Neither is a liquid investment — keep an emergency fund outside.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Annuity rates, plan numbers, entry ages and deferment limits follow LIC's current brochures and are revised periodically — confirm them on licindia.in or in your sanctioned benefit illustration. All ₹ figures above are illustrative at published rates; a branch's written quotation is final.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-pension-plans-compared-saral-shanti-umang" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
