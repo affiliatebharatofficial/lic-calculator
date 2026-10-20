@@ -1,0 +1,196 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Bima Sakhi Yojana', url: '/guides/lic-bima-sakhi-yojana-apply' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Bima Sakhi Yojana: ₹7,000 Monthly Stipend, Eligibility & How to Apply',
+  description: 'LIC Bima Sakhi Yojana (Mahila Career Agent scheme) pays women a monthly stipend of ₹7,000 / ₹6,000 / ₹5,000 over three years, plus commission on policies sold. Eligibility (women 18–70, Class 10 pass), who cannot apply, the 65% persistency condition, documents needed, the online application steps on licindia.in, and the honest maths on what you actually earn.',
+  url: `${siteUrl}/guides/lic-bima-sakhi-yojana-apply`,
+  publishedDate: '2026-10-20T00:00:00Z',
+  modifiedDate: '2026-10-20T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Bima Sakhi Yojana: ₹7,000 Monthly Stipend, Eligibility & How to Apply"
+  description="Bima Sakhi Yojana: LIC's 3-year stipendiary scheme for women career agents. ₹7,000/₹6,000/₹5,000 monthly stipend plus commission, 18–70 eligibility, Class 10 minimum, IRDAI pre-recruitment exam, how to apply on licindia.in, and the real conditions attached to the stipend."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • LIC Agents & Careers
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Bima Sakhi Yojana: ₹7,000 Monthly Stipend, Eligibility & How to Apply
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        LIC's Bima Sakhi Yojana (also called the Mahila Career Agent scheme) trains women to work as licensed LIC insurance agents — and pays a monthly stipend for the first three years <em>on top of</em> normal policy commission. It is a real income opportunity, but it is not a salaried government job, and the stipend comes with conditions. Here is the scheme exactly as LIC has announced it, plus the honest parts most "how to apply" pages skip.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Practice the skill you'll use daily</h2>
+        <p class="text-xs text-brand-700">An agent's core job is sizing the right cover for each family. Try the term cover calculator the way you'd do it for a real customer.</p>
+      </div>
+      <a
+        href="/lic-term-insurance-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate a Family's Term Cover &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What Bima Sakhi Yojana Actually Is</h2>
+      <p>
+        Under the scheme, selected women join LIC as insurance agents ("Bima Sakhis"). You do everything a regular LIC agent does — meet families, explain policies, fill proposal forms through LIC's app, help customers pay premiums through official channels — with flexible working hours, usually from your own locality. The difference from the normal agent route is the <strong>three-year monthly stipend</strong> LIC pays while you build your customer base, plus training and mentoring through a Development Officer. After the three years, you continue as a <strong>regular LIC agent on commission</strong>, and strong performers can later aim for Development Officer roles under LIC's rules.
+      </p>
+      <p>
+        Say it plainly: <strong>this is a commission-based career with stipend support, not a salaried job.</strong> The stipend smooths the first three years while commissions ramp up; it does not replace selling. Anyone telling you otherwise is mis-selling the scheme itself.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Who Can Apply — Eligibility Checklist</h2>
+      <p>
+        LIC has kept the eligibility bar deliberately low so more women can enter:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Gender:</strong> women only.</li>
+        <li><strong>Age:</strong> 18 to 70 years at the time of joining.</li>
+        <li><strong>Education:</strong> minimum <strong>Class 10 pass</strong>.</li>
+        <li><strong>Residency:</strong> permanent resident of India.</li>
+      </ul>
+      <p>
+        And the exclusions — these are strict:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Existing or former LIC agents.</li>
+        <li>Close relatives of LIC agents or LIC employees.</li>
+        <li>Government or PSU employees.</li>
+        <li>Retired LIC staff.</li>
+      </ul>
+      <p>
+        The scheme is aimed at <strong>new women entrants</strong> to the insurance field, not at people already inside the system.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. The Stipend: Year-by-Year Table</h2>
+      <p>
+        As announced by LIC:
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Year</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Monthly stipend</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Condition (as announced)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Year 1</td>
+              <td class="px-4 py-3 font-semibold text-slate-800">₹7,000</td>
+              <td class="px-4 py-3">Meet the year's business norms.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Year 2</td>
+              <td class="px-4 py-3 font-semibold text-slate-800">₹6,000</td>
+              <td class="px-4 py-3">At least 65% of your Year-1 policies still in force.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Year 3</td>
+              <td class="px-4 py-3 font-semibold text-slate-800">₹5,000</td>
+              <td class="px-4 py-3">At least 65% of your Year-2 policies still in force.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">After Year 3</td>
+              <td class="px-4 py-3 font-semibold text-slate-800">Commission only</td>
+              <td class="px-4 py-3">Renewal commission continues on policies you sold.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Two facts matter here. <strong>First, commission on policies sold is paid separately and on top of the stipend</strong> — first-year commission when you sell, renewal commission every year the policy stays active. <strong>Second, the stipend is conditional:</strong> if you miss the business norms, or your customers' policies lapse below the persistency threshold, the stipend can stop. The incentive design is honest — it rewards agents whose customers actually keep paying their premiums. Sell to people who can afford the policy, not just to hit a monthly count.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. How to Apply — Online and at the Branch</h2>
+      <p>
+        <strong>Online (the main route):</strong>
+      </p>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>Go to the official LIC website, <strong>licindia.in</strong>, and open the <strong>Bima Sakhi</strong> page (the licindia.in/lic-s-bima-sakhi section).</li>
+        <li>Click <strong>"Click Here for Bima Sakhi"</strong> to reach the application form.</li>
+        <li>Fill your details carefully — name, age/date of birth, education, mobile number, city and preferred LIC branch. LIC states that incomplete or incorrect applications can be rejected, so re-check before submitting.</li>
+        <li>Save or note your application details for future reference.</li>
+      </ol>
+      <p>
+        <strong>Branch route:</strong> you can also walk into your nearest LIC branch and apply in person — the branch team will guide you through the same form.
+      </p>
+      <p>
+        <strong>Selection process (after the form):</strong> submitting the form is step one, not the finish line. You must clear the <strong>IRDAI-prescribed pre-recruitment test</strong> (the standard insurance-agent exam), submit your documents, attend an interview at the LIC branch office, and then receive your <strong>agency code</strong> before you can start selling.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Documents You'll Need</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Age proof (Aadhaar or other accepted ID).</li>
+        <li>Address proof.</li>
+        <li>Class 10 marksheet or passing certificate.</li>
+        <li>Passport-size photograph.</li>
+        <li>PAN card and bank details (for NEFT payment of stipend and commission).</li>
+      </ul>
+      <p>
+        <strong>A note on fees:</strong> applying under the scheme is free. The IRDAI pre-recruitment examination may carry a small exam fee — if anyone asks you for money, pay only through official LIC channels and confirm the current fee notice at the branch or on licindia.in before paying anything. Never pay a middleman for "guaranteed selection": there is no such thing.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Honest Expectations Before You Sign Up</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Targets exist from day one.</strong> LIC sets monthly and yearly business norms for stipend eligibility; expect to sell policies consistently, not occasionally. Treat the norms your branch gives you in writing as the real requirement.</li>
+        <li><strong>Persistency is your income engine.</strong> Lapsed policies cost you twice — stipend eligibility and renewal commission. This is why ethical selling pays: customers who understand and can afford their policy stay, and you keep earning.</li>
+        <li><strong>Your likely first customers:</strong> families in your own locality — which is also why knowing the products matters. One women-focused product you'll meet early is <a href="/guides/lic-bima-lakshmi-881-women-plan/" class="text-brand-700 font-semibold hover:text-brand-800">LIC Bima Lakshmi (881)</a>, the women-only money-back plan; learn the basics of term vs endowment vs money-back before you pitch anything.</li>
+        <li><strong>Flexible, but still field sales.</strong> You set your hours, but the work is meeting people and following up. If you dislike talking to strangers, the flexible-hours promise won't save the career.</li>
+        <li><strong>Tax on earnings:</strong> stipend and commission are taxable income under your applicable slab; keep records from day one (our <a href="/guides/lic-maturity-tax-10-10d-explained/" class="text-brand-700 font-semibold hover:text-brand-800">maturity-tax guide</a> explains how LIC income is taxed generally — commission follows the same principle).</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Scam Warning — Read This Before You Share Documents</h2>
+      <p>
+        Every popular government-linked scheme attracts fakes. Protect yourself:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Apply only through <strong>licindia.in</strong> or a real LIC branch. Verify any "Bima Sakhi" website carefully — scammers clone scheme pages and harvest personal details.</li>
+        <li>No agent, middleman or "consultant" can guarantee your selection. Selection runs through LIC's exam and interview process.</li>
+        <li>Do not share bank details, OTPs or documents with anyone who contacts you <em>first</em> claiming to be from LIC. Real communication follows <em>your</em> application.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC recruitment advice. Scheme details (stipend amounts, eligibility, conditions) follow LIC's announcements as verified on 20 October 2026 — confirm the current circular at your branch before applying, as terms can change. Numbers and examples shown are illustrative only; the branch's written documents are final.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-bima-lakshmi-881-women-plan" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
