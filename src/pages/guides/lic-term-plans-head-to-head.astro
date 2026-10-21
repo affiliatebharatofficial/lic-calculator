@@ -1,0 +1,190 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Term Plans Head-to-Head', url: '/guides/lic-term-plans-head-to-head' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Term Plans Head-to-Head: New Jeevan Amar (955) vs New Tech-Term (954) vs Digi Term (876) vs Bima Kavach (887)',
+  description: 'LIC changed its term-insurance lineup: old Jeevan Amar (855) and Tech Term (854) are out, New Jeevan Amar (955), New Tech-Term (954), Digi Term (876) and Bima Kavach (887) are in. Head-to-head table, who each plan suits, illustrative premiums, and the honest private-insurer comparison.',
+  url: `${siteUrl}/guides/lic-term-plans-head-to-head`,
+  publishedDate: '2026-10-21T00:00:00Z',
+  modifiedDate: '2026-10-21T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Term Plans Head-to-Head: New Jeevan Amar (955) vs New Tech-Term (954) vs Digi Term (876) vs Bima Kavach (887)"
+  description="LIC's 2026 term lineup explained: New Jeevan Amar (955, offline), New Tech-Term (954, online), Digi Term (876, online) and Bima Kavach (887, ₹2 crore+). Old plans 855/854 discontinued. Head-to-head table, illustrative premiums, who each plan suits — and the honest comparison with private insurers."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Plan Comparison: Term Insurance
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Term Plans Head-to-Head: New Jeevan Amar (955) vs New Tech-Term (954) vs Digi Term (876) vs Bima Kavach (887)
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Searching for LIC's "best term plan" is confusing right now, because half the internet still quotes the old numbers — Jeevan Amar (855) and Tech Term (854) — while LIC's actual 2026 lineup carries new numbers. Here is the current shelf, compared honestly: what each plan costs, who it is for, and where private insurers beat LIC on price.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Size your cover before comparing plans</h2>
+        <p class="text-xs text-brand-700">Use the term insurance calculator to find the cover your family needs — then check which plan delivers it cheapest.</p>
+      </div>
+      <a
+        href="/lic-term-insurance-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Your Term Cover &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What Changed: The Old Numbers Are Gone</h2>
+      <p>
+        Read this first if a blog or agent quoted you <strong>Jeevan Amar (855)</strong> or <strong>Tech Term (854)</strong>:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Jeevan Amar (855, launched 2019, offline)</strong> was replaced by <strong>LIC's New Jeevan Amar (955)</strong>. Existing 855 policies continue on their original terms — only <em>new</em> buyers get 955.</li>
+        <li><strong>LIC Tech Term (854, online)</strong> — and before it, the old eTerm — has been <strong>discontinued</strong>. Its replacement is <strong>LIC's New Tech-Term (954)</strong>, online-only. Existing 854 policies remain covered.</li>
+      </ul>
+      <p>
+        Many aggregator blogs (crawled as recently as October 2026) still show 855 vs 854 comparison tables. They are describing products you can no longer buy. The table below uses only plans available to new buyers in 2026.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. The 2026 Lineup at a Glance</h2>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Plan</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Channel</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Min. cover</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Entry age</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Cover options</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Standout feature</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">New Jeevan Amar (955)</td>
+              <td class="px-4 py-3">Offline (agent)</td>
+              <td class="px-4 py-3">₹25 lakh</td>
+              <td class="px-4 py-3">18–65</td>
+              <td class="px-4 py-3">Level or increasing</td>
+              <td class="px-4 py-3">Agent hand-holding; accident-benefit rider option; limited/single pay choices</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">New Tech-Term (954)</td>
+              <td class="px-4 py-3">Online only</td>
+              <td class="px-4 py-3">₹50 lakh</td>
+              <td class="px-4 py-3">18–65</td>
+              <td class="px-4 py-3">Level or increasing</td>
+              <td class="px-4 py-3">No agent commission — cheapest LIC term per rupee of cover</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Digi Term (876)</td>
+              <td class="px-4 py-3">Online only</td>
+              <td class="px-4 py-3">₹50 lakh</td>
+              <td class="px-4 py-3">18–45</td>
+              <td class="px-4 py-3">Level or increasing</td>
+              <td class="px-4 py-3">Simplest buying process; aimed at young digital-first buyers</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Bima Kavach (887)</td>
+              <td class="px-4 py-3">Agent/branch</td>
+              <td class="px-4 py-3">₹2 crore</td>
+              <td class="px-4 py-3">18–65</td>
+              <td class="px-4 py-3">Level or increasing</td>
+              <td class="px-4 py-3">₹2-crore-plus covers; life-stage increases without fresh medicals; cover possible to age 100</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Common to all four: <strong>non-linked, non-participating pure term</strong> — no maturity payout, no bonuses, no policy loans, no savings element. The nominee gets the sum assured (lump sum or instalments); a surviving policyholder gets nothing at term end. That is the entire point of term insurance: maximum cover per rupee of premium.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Offline vs Online: New Jeevan Amar (955) vs New Tech-Term (954)</h2>
+      <p>
+        These two are the same LIC thinking in two distribution skins. <strong>New Jeevan Amar (955)</strong> is sold through agents and branches: entry 18–65, term 10–40 years, maturity up to age 80, regular/limited/single premium, women get preferential rates, smokers pay more (non-smoker status is verified by a urine cotinine test), and an optional Accident Benefit Rider can be attached. <strong>New Tech-Term (954)</strong> is the online twin — 18–65, term 10–40 years, maturity up to 80, minimum ₹50 lakh.
+      </p>
+      <p>
+        The practical differences:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Price:</strong> online-only Tech-Term skips agent commission, so the same profile pays meaningfully less. Aggregator data for a 30-year-old male non-smoker, ₹1 crore, 30-year term puts Tech-Term around <strong>₹900–1,100/month</strong> vs New Jeevan Amar around <strong>₹1,100–1,300/month</strong> — indicative figures, not quotes. That 15–20% gap compounds over a 30-year policy into lakhs of rupees.</li>
+        <li><strong>Guidance:</strong> Jeevan Amar's agent is the trade-off you are paying for — form-filling help, medical scheduling, claim-handholding for your nominee. If you are comfortable with digital processes and can name a financially literate nominee, the online price advantage wins.</li>
+        <li><strong>Min cover:</strong> ₹25 lakh (Jeevan Amar) vs ₹50 lakh (Tech-Term). If your genuine need is ₹25–40 lakh, Tech-Term's floor locks you out.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Digi Term (876): Who It Is Actually For</h2>
+      <p>
+        Digi Term is LIC's attempt at a friction-free online term plan: ₹50 lakh to ₹5 crore standard cover range (higher considered case by case, subject to underwriting), but with a hard ceiling on <strong>entry age: 18–45 only</strong>. If you are 30 and digital-comfortable, it is arguably the cleanest LIC term purchase — and published illustrative premiums put it slightly cheaper than New Tech-Term for the same profile. Past 45, it is simply not available to you, and New Tech-Term becomes the online default.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Bima Kavach (887): The ₹2 Crore-Plus Specialist</h2>
+      <p>
+        Bima Kavach plays a different game: a <strong>₹2 crore minimum</strong> sum assured, entry 18–65, and terms that can stretch to age 100. Its two genuine differentiators are the <strong>increasing cover option</strong> (death benefit grows by 10% of basic sum assured annually from the 6th to the 15th policy year — an inflation hedge) and the <strong>Life-Stage Benefit</strong>, which lets you raise cover at marriage or the birth of a child <strong>without fresh medical underwriting</strong>. Our full <a href="/guides/lic-bima-kavach-887-term-plan/" class="text-brand-700 font-semibold hover:text-brand-800">Bima Kavach (887) review</a> covers rebates, the online discount, and the honest limits — including why "cover till 100" is usually a selling line, not a need.
+      </p>
+      <p>
+        The lockout is the point: if your need is under ₹2 crore, Bima Kavach is not your plan. If it genuinely is ₹2 crore-plus, this is where LIC's term range starts getting competitive — though private insurers at this cover size are still worth a parallel quote.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. The Claim-Settlement Reality Check</h2>
+      <p>
+        LIC's biggest selling point is trust, and the data point behind it is real: LIC's individual death-claim settlement ratio has been among India's highest (reported around <strong>98.7% for FY2023-24</strong>; check the latest IRDAI annual report for the current figure). But two honest corrections:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>The ratio measures claims filed, not policies bought.</strong> It says nothing about premium fairness. Brand loyalty is not a buying criterion for a product whose entire value is a payout after you are gone.</li>
+        <li><strong>The premium gap is real.</strong> For a ₹1 crore, 30-year term, LIC typically charges <strong>15–25% more</strong> than comparable private plans (e.g. HDFC Life, ICICI Prudential, Tata AIA offerings) for the same sum assured and tenure. Private insurers' settlement ratios at the top end are also in the high-98s, so the trust gap is narrower than agents suggest.</li>
+      </ul>
+      <p>
+        Before signing, size your cover properly — our <a href="/guides/lic-term-cover-how-much/" class="text-brand-700 font-semibold hover:text-brand-800">how-much-cover guide</a> walks through the income-multiple vs human-life-value method — then get one LIC quote <em>and</em> one private quote for the same cover and term. The comparison takes twenty minutes; the policy lasts decades.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Which Plan for Which Buyer (Decision Framework)</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Young, digital-comfortable, need ₹50L–₹1Cr, under 45:</strong> Digi Term (876) or New Tech-Term (954). Cheapest LIC route; skip the agent.</li>
+        <li><strong>Want an agent's help, or need ₹25–40 lakh (below Tech-Term's floor):</strong> New Jeevan Amar (955). Accept the higher premium as the price of hand-holding.</li>
+        <li><strong>Need ₹2 crore-plus, or want cover increases without fresh medicals:</strong> Bima Kavach (887) — but take a private-insurer quote in parallel.</li>
+        <li><strong>Buying mainly on "LIC brand":</strong> stop and compare. A private plan with a similar settlement ratio at 20% less premium is the same protection, cheaper.</li>
+      </ul>
+      <p>
+        Process notes that apply to all four: individual life-insurance premiums attract <strong>0% GST since 22 September 2025</strong> — if an illustration still adds tax, ask for a corrected one (see our <a href="/guides/lic-gst-0-percent-premium-change/" class="text-brand-700 font-semibold hover:text-brand-800">GST-on-premium guide</a>). Grace period is 30 days for renewal premiums; revival is possible within 5 years of the first unpaid premium, subject to interest and health declarations (see our <a href="/guides/lic-policy-revival/" class="text-brand-700 font-semibold hover:text-brand-800">revival guide</a>).
+      </p>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Premium numbers shown are illustrative only — your benefit illustration and the branch's written quotation are the final figures. Plan features follow current brochures; verify against your illustration before paying.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-term-insurance-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
