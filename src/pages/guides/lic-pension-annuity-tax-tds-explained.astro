@@ -1,0 +1,203 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Pension Tax', url: '/guides/lic-pension-annuity-tax-tds-explained' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'Is LIC Pension Taxable? Annuity Tax + TDS on Jeevan Shanti (858) & Jeevan Akshay VII (857)',
+  description: 'LIC annuity income (Jeevan Shanti 858, Jeevan Akshay VII 857) is fully taxable at your slab rate — there is no 10(10D) exemption on annuity payouts. How TDS works on annuity and taxable lump-sum payouts (2% under 194DA above ₹1 lakh), Form 15G/15H to stop TDS, the 80CCC premium deduction (old regime only), and what happens to the death benefit for your nominee.',
+  url: `${siteUrl}/guides/lic-pension-annuity-tax-tds-explained`,
+  publishedDate: '2026-10-22T00:00:00Z',
+  modifiedDate: '2026-10-22T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="Is LIC Pension Taxable? Annuity Tax + TDS on Jeevan Shanti (858) & Jeevan Akshay VII (857)"
+  description="LIC pension payouts (Jeevan Shanti 858, Jeevan Akshay VII 857) are fully taxable at your slab rate — no 10(10D) exemption on annuity. How TDS is deducted, how Form 15G/15H stops it, the 80CCC premium deduction (old regime only), and the nominee's death-benefit tax position."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Tax: Pension & Annuity
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Is LIC Pension Taxable? Annuity Tax + TDS on Jeevan Shanti (858) & Jeevan Akshay VII (857)
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        The biggest tax misconception about LIC pension plans is the word "pension" itself. People hear pension and assume it is treated like a retired employee's pension or a tax-free insurance payout. It is neither. Every rupee of annuity that LIC pays you from Jeevan Shanti (858), Jeevan Akshay VII (857) or Saral Pension (859) is <strong>fully taxable at your slab rate</strong> — there is no section 10(10D) exemption on annuity income. Here is exactly how the tax and TDS work, and the three moves that keep you from overpaying.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Check what your pension plan pays before you judge the tax</h2>
+        <p class="text-xs text-brand-700">Use the pension calculator to estimate annuity on Jeevan Shanti / Jeevan Akshay for your age — then read this guide to see what stays in your pocket after tax.</p>
+      </div>
+      <a
+        href="/lic-pension-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Your Pension &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The One-Line Answer</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Annuity/pension you receive:</strong> 100% taxable as "Income from Other Sources", taxed at your slab rate. This is true under <strong>both</strong> the old and the new tax regime — the new regime removes deductions, but it does not make annuity tax-free.</li>
+        <li><strong>Section 10(10D) does NOT apply to annuity payouts.</strong> The exemption covers death benefits and qualifying maturity proceeds of life policies — not the monthly/quarterly pension you draw while alive.</li>
+        <li><strong>TDS will usually be deducted</strong> by LIC from your annuity payouts. TDS is not the final tax — it is an advance adjustment, claimable or adjustable in your ITR.</li>
+      </ul>
+      <p>
+        If you have also read our <a href="/guides/lic-maturity-tax-10-10d-explained/" class="text-brand-700 font-semibold hover:text-brand-800">maturity-tax guide</a>, keep the two apart: maturity of an endowment plan <em>can</em> be tax-free under 10(10D); annuity income <em>cannot</em>. Different products, different tax heads.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. How the Annuity Is Actually Taxed (Worked Illustration)</h2>
+      <p>
+        The tax head is <strong>"Income from Other Sources"</strong> — the same bucket as FD interest. There is no separate slab or special rate for annuity; it is simply added to your other income and taxed at your marginal rate.
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-900">Illustrative annuitant (all figures illustrative)</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-900">New regime (default)</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-900">Old regime</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr>
+              <td class="px-4 py-3">Annual LIC annuity (₹50 lakh purchase, ~₹3.9 lakh/yr — illustrative only)</td>
+              <td class="px-4 py-3">₹3,90,000</td>
+              <td class="px-4 py-3">₹3,90,000</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Other income (FD interest, say)</td>
+              <td class="px-4 py-3">₹1,60,000</td>
+              <td class="px-4 py-3">₹1,60,000</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Gross total income</td>
+              <td class="px-4 py-3">₹5,50,000</td>
+              <td class="px-4 py-3">₹5,50,000</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Standard deduction</td>
+              <td class="px-4 py-3">₹75,000</td>
+              <td class="px-4 py-3">₹50,000</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">80CCC deduction for the premium paid</td>
+              <td class="px-4 py-3">Nil (not available in new regime)</td>
+              <td class="px-4 py-3">Up to ₹1,50,000 (within 80C cap)</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold">Taxable income (approx.)</td>
+              <td class="px-4 py-3 font-semibold">₹4,75,000</td>
+              <td class="px-4 py-3 font-semibold">₹3,50,000*</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-slate-500">
+        *Old-regime figure assumes the full ₹1.5 lakh 80CCC claim; senior-citizen basic exemption and any 80TTB-type deductions change this further. Numbers are purely illustrative to show the mechanics — your benefit illustration and a tax computation decide your actual bill.
+      </p>
+      <p>
+        The practical takeaway: a ₹3.9 lakh annuity does not mean ₹3.9 lakh in hand. Depending on your slab and other income, 10–30% of it can go in tax. If you are choosing between an annuity and alternatives (SCSS, FDs), always compare <strong>post-tax</strong> cash flows — our <a href="/guides/lic-pension-plans-compared-saral-shanti-umang/" class="text-brand-700 font-semibold hover:text-brand-800">pension comparison guide</a> covers the income side of that decision.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. TDS on Your Annuity — What LIC Deducts and How to Stop It</h2>
+      <p>
+        LIC deducts TDS on annuity/pension payouts at the rate in force (verify the current rate on your annuity advice or LIC's prevailing circular — insurers typically deduct on the payout when the annual amount crosses their internal trigger). Two facts most annuitants miss:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>TDS ≠ final tax.</strong> If LIC deducts more than your slab requires, you get the difference back by filing your ITR. Check Form 26AS / AIS every year and claim the credit.</li>
+        <li><strong>No PAN → 20% TDS.</strong> Keep your PAN updated with LIC's pension-servicing branch. Without it, TDS is deducted at the higher 20% rate regardless of your income.</li>
+        <li><strong>If your total income is below the taxable limit, submit Form 15G (under 60) or Form 15H (60+)</strong> to LIC at the <strong>start of each financial year</strong>. This is a self-declaration that your estimated total income attracts no tax — LIC then pays the full annuity without TDS. One form per financial year, every year; it does not carry over.</li>
+        <li>False declarations are punishable — only file 15G/15H if your total income (annuity + FD interest + everything) genuinely falls below the basic exemption limit for that regime.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">4. The 194DA Case: When a Lump-Sum Payout Attracts 2% TDS</h2>
+      <p>
+        This is a <strong>different TDS</strong> from the annuity one, and it catches people at maturity or surrender time. If a life-insurance payout is <strong>taxable</strong> (i.e. it fails the 10(10D) tests — for example a policy bought on/after 1 April 2023 with annual premiums above ₹5 lakh, or a single-premium policy failing the sum-assured multiple), LIC must deduct TDS under section 194DA:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Rate: 2%</strong> (reduced from 5% w.e.f. 1 October 2024) — deducted only on the <strong>income portion</strong> (payout minus total premiums paid), not the whole payout.</li>
+        <li><strong>No TDS if the total payment in the financial year is below ₹1 lakh.</strong></li>
+        <li><strong>No TDS at all if the payout is exempt under 10(10D)</strong> — which includes death benefits and qualifying maturities.</li>
+        <li>From FY 2026-27 the provision moves under the Income-tax Act 2025 (section 393) — the rate and the ₹1-lakh threshold continue as per the current charts.</li>
+        <li>You can also submit Form 15G/15H against 194DA TDS if your total income attracts no tax.</li>
+      </ul>
+      <p>
+        Example (illustrative): taxable maturity payout ₹8 lakh, premiums paid ₹3 lakh → income portion ₹5 lakh → TDS ₹10,000 (2%). The full ₹8 lakh is still your taxable income; TDS is only a pre-payment.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Premium Deduction: 80CCC Applies — but Only in the Old Regime</h2>
+      <p>
+        The single premium you pay to buy Jeevan Shanti (858) or Jeevan Akshay VII (857) can qualify for deduction under <strong>section 80CCC</strong> — the annuity-plan section — within the overall <strong>₹1.5 lakh</strong> section 80C ceiling. Three caveats:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Old regime only.</strong> If you file under the default new regime, 80CCC/80C deductions are not available at all.</li>
+        <li>The deduction is claimed <strong>in the year you pay the premium</strong> — a single-premium plan gives you the deduction once, not every year.</li>
+        <li><strong>Verify against your brochure</strong> (the current Jeevan Akshay VII is UIN 512N337V07, plan 857; New Jeevan Shanti is plan 858) — the product's tax-disclosure section states the exact sections it claims.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Death Benefit for Your Nominee: Lump Sum vs Annuitized</h2>
+      <p>
+        What your nominee receives after you depends on the annuity option you chose — and the tax differs sharply:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Death benefit paid as a lump sum</strong> (e.g. return-of-purchase-price option, Option F/J): exempt under section 10(10D) in the nominee's hands. No TDS on this leg.</li>
+        <li><strong>Death benefit taken as continued annuity</strong> (joint-life or installment options where the nominee becomes the annuitant): the annuity the nominee receives is <strong>taxable</strong> at the nominee's own slab rate, exactly as it was for you.</li>
+        <li>If you are choosing between lump-sum and installment death benefit for your spouse, model both post-tax — the "safer-looking" monthly option can leave less in hand after the spouse's slab.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">7. New vs Old Regime — the Pensioner's Decision</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Annuity income is taxable in both regimes.</strong> The regime choice changes your deductions and slabs, not the taxability of the annuity itself.</li>
+        <li><strong>Old regime helps</strong> if you paid a large single premium this year (80CCC up to ₹1.5 lakh) or have sizable deduction-eligible outgoes; senior citizens also get the higher basic exemption and the ₹50,000 deduction on deposit interest under the old regime.</li>
+        <li><strong>New regime usually wins</strong> for pensioners whose annuity is their main income and who have few deductions left — run both computations in the income-tax portal's comparison tool before filing.</li>
+        <li>Buying Jeevan Shanti's <strong>deferred</strong> annuity today to start pension years later? The premium deduction is available only in the payment year (old regime) — the future annuity will be taxed at future slabs. Do not mix the two timelines when estimating returns.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">8. Your This-Week Checklist</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Check Form 26AS / AIS</strong> — confirm LIC's TDS on your annuity is actually credited to you; claim any excess in your ITR.</li>
+        <li><strong>Submit Form 15G/15H</strong> to LIC's servicing branch at the start of each FY if your total income is below the taxable limit — otherwise the TDS sits with the government until your refund.</li>
+        <li><strong>Keep PAN updated</strong> with LIC to avoid the 20% no-PAN TDS rate.</li>
+        <li><strong>Review your regime choice</strong> (old vs new) before filing — one computation each way, pick the lower bill.</li>
+        <li><strong>Read the annuity option's death-benefit clause</strong> in your policy document so your nominee knows whether to expect a lump sum or a taxable annuity.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not tax advice. Tax provisions cited (194DA at 2% from 1 Oct 2024, ₹1-lakh threshold, 80CCC within the ₹1.5-lakh 80C cap, old-regime-only deductions) reflect publicly available sources checked on 22 October 2026; rates and sections can change with Finance Acts. Figures are illustrative — your benefit illustration and the branch's written quotation are final. For your specific case, consult a chartered accountant.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-pension-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
