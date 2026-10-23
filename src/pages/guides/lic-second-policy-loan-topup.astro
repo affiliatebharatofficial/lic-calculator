@@ -1,0 +1,156 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Second Policy Loan', url: '/guides/lic-second-policy-loan-topup' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'Second LIC Policy Loan (Top-Up): How Interest Accrues and the Claim-Deduction Trap',
+  description: 'Already have a loan against your LIC policy? A second (top-up) loan is only the difference between 90% of the current surrender value and the first loan plus its accrued interest. See the headroom maths, interest accrual at 10.5% half-yearly, and how two loans shrink a maturity or death claim.',
+  url: `${siteUrl}/guides/lic-second-policy-loan-topup`,
+  publishedDate: '2026-10-23T00:00:00Z',
+  modifiedDate: '2026-10-23T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="Second LIC Policy Loan (Top-Up): Headroom Maths & Claim-Deduction Trap"
+  description="How a second loan against your LIC policy is computed: 90% of current surrender value minus the first loan plus accrued interest. Illustrative interest accrual at 10.5% p.a. half-yearly, foreclosure risk, and the claim-time deduction on maturity or death."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Policy Loans
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Second LIC Policy Loan (Top-Up): How It Works, What It Costs, and the Claim-Deduction Trap
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        If you already have a loan against your LIC policy, the branch can usually give you a second (top-up) loan on the same policy. But the top-up is not a second 90% — it is only the <em>headroom</em> left after the first loan and all its accrued interest. This guide shows that headroom maths, how interest keeps accruing on both loans, and how the pair quietly shrinks a maturity or death claim.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Run your own numbers first</h2>
+        <p class="text-xs text-brand-700">Enter your surrender value and outstanding loan to estimate the top-up headroom and the interest at 1, 3 and 5 years.</p>
+      </div>
+      <a
+        href="/lic-loan-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Loan Interest &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. A Top-Up Is Headroom, Not a Fresh 90%</h2>
+      <p>
+        LIC's standard loan ceiling is <strong>up to 90% of the surrender value</strong> on an in-force policy (lower, around 80–85%, once the policy is paid-up) — the same ceiling our <a href="/guides/lic-policy-loan-rules/" class="text-brand-700 font-semibold hover:text-brand-800">policy loan rules guide</a> covers. For a second loan, the branch does not hand you another 90%. It computes:
+      </p>
+      <p class="font-semibold text-slate-900 bg-slate-50 border border-slate-200 rounded-xl p-4">
+        Top-up available ≈ 90% of the <em>current</em> surrender value − (first loan outstanding + its accrued interest)
+      </p>
+      <p>
+        In practice the branch re-runs the whole loan computation on the policy and adjusts the old outstanding against the new sanction — you receive only the net difference. Because the surrender value usually keeps growing (premiums continue, bonuses accrue), there is often some headroom. But every rupee of unpaid interest on the first loan eats directly into that headroom.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Worked Example: How Headroom Shrinks (Illustrative)</h2>
+      <p>
+        Suppose your policy had a surrender value of ₹5,00,000 when you took a first loan of ₹2,00,000 (well within the ₹4,50,000 ceiling). Two years later the surrender value has grown to ₹5,60,000 — but you never paid the interest. At ~10.5% p.a. compounded half-yearly, the first loan now stands at roughly <strong>₹2,45,425</strong> (principal plus ₹45,425 of interest).
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>New loan ceiling: 90% of ₹5,60,000 = <strong>₹5,04,000</strong></li>
+        <li>Less outstanding (principal + interest): ₹2,45,425</li>
+        <li>Top-up available: <strong>≈ ₹2,58,575</strong></li>
+      </ul>
+      <p>
+        Notice the shape of this: even though the surrender value grew by ₹60,000, nearly half of that growth was consumed by the unpaid interest of the first loan. The faster illustration of the point — had the ₹2 lakh been interest-free, the top-up would have been ₹3,04,000. The interest cost you ₹45,425 of borrowing capacity, not just interest.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Interest Accrues on Both Loans, Every Half Year</h2>
+      <p>
+        There is no grace period between the two loans: the moment the top-up is sanctioned, interest starts accruing on the combined outstanding at the plan's loan rate (~10.5% p.a. half-yearly in recent LIC plan documents — confirm your policy's rate on the quotation; see our <a href="/guides/lic-policy-loan-interest-rate/" class="text-brand-700 font-semibold hover:text-brand-800">interest-rate guide</a>). Here is what the untouched ₹2,00,000 first loan becomes on its own:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">After 1 year</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹2,21,551</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Interest ≈ ₹21,551. Still looks harmless.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">After 3 years</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹2,71,871</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Interest ≈ ₹71,871 — over a third of the loan added.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-rose-700 uppercase block">After 5 years</span>
+          <h3 class="font-bold text-slate-900 text-sm">≈ ₹3,33,619</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Interest ≈ ₹1,33,619 — two-thirds of the original loan, still compounding.</p>
+        </div>
+      </div>
+      <p class="text-xs text-slate-500">Illustrative at 10.5% p.a. compounded half-yearly; your policy's rate and compounding govern the actual figure.</p>
+      <p>
+        Add the top-up on top and the interest compounds on the <em>sum</em> — the "interest-only is fine" habit that worked on one loan silently doubles its base. LIC requires only that interest be serviced periodically; the principal can stay outstanding for years, which is exactly why this drift goes unnoticed.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. The Foreclosure Line: When the Loan Eats the Policy</h2>
+      <p>
+        This is the part almost no one warns about. If the outstanding loan plus accrued interest <strong>ever exceeds the surrender value</strong>, LIC can foreclose the policy — surrender it by the corporation's own action to recover the loan. An untouched ₹2,00,000 loan at 10.5% half-yearly reaches about ₹4,53,500 in 8 years. Against a policy whose surrender value grew slower than that, the policy itself becomes the repayment.
+      </p>
+      <p>
+        With two loans, this line approaches twice as fast: two untouched principals compounding together. Foreclosure ends the life cover too — the nominee's safety net disappears with the policy.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. The Claim-Deduction Trap on Maturity or Death</h2>
+      <p>
+        At maturity or on a death claim, LIC deducts the <strong>total outstanding loan plus all accrued interest</strong> from the payout before the balance is paid. The trap is arithmetic the family never did:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Two loans of ₹2,00,000 each, ignored for 5 years, leave roughly <strong>₹6,67,000</strong> of deductions (₹3,33,619 × 2 at 10.5% half-yearly) — not the ₹4,00,000 "borrowed" the family remembers.</li>
+        <li>A maturity benefit of, say, ₹8,00,000 against that deduction leaves barely ₹1,33,000 in hand — after two decades of premiums.</li>
+        <li>On a death claim, the same deduction comes off before the nominee is paid, and the gap between expected sum assured and actual receipt is the most common source of shock.</li>
+      </ul>
+      <p>
+        The deduction is not a penalty — it is stated in the policy conditions. The trap is that it is invisible until claim time, and doubles with two loans.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Smarter Moves Before Taking a Top-Up</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Ask for the full written quotation first</strong>: gross eligible amount, first-loan outstanding, accrued interest, and the net amount you will actually receive. Get the rate and compounding in writing — your policy conditions rule, not any website.</li>
+        <li><strong>Borrow only the shortfall, not the headroom.</strong> The branch may offer the full available amount; the interest on every rupee compounds on the day it is sanctioned. Borrowing the whole headroom "because it is available" is the fastest route to the foreclosure line.</li>
+        <li><strong>Pay interest annually at minimum.</strong> Interest paid is interest that stops compounding; the half-yearly compounding is where the drift lives.</li>
+        <li><strong>Compare against alternatives honestly.</strong> If the total outstanding is approaching the surrender value, compare the top-up against surrendering the policy (one clean exit) or making it <a href="/guides/lic-paid-up-vs-surrender/" class="text-brand-700 font-semibold hover:text-brand-800">paid-up</a> — a second loan that merely postpones surrender is usually the most expensive option of the three.</li>
+        <li><strong>Set a repayment date when you borrow</strong> — a bonus receipt, salary arrears, an asset sale — and put interest due dates in your diary separate from premium due dates.</li>
+      </ol>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC or IRDAI advice. Policy-loan interest rates, eligibility ceilings and foreclosure terms are set per plan and can be revised; confirm the current rate and terms for your policy at your servicing LIC branch before borrowing. Numbers above are illustrative — the branch's written quotation is final.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-loan-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
