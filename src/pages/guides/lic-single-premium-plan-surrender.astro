@@ -1,0 +1,180 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Single Premium Plan Surrender', url: '/guides/lic-single-premium-plan-surrender' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'Single-Premium LIC Plan Surrender: What You Actually Get Back',
+  description: 'On current LIC single-premium savings plans the guaranteed surrender value is 75% of the net single premium in years 1–3 and 90% from year 4 onwards, plus accrued guaranteed additions — and you can surrender any time. See the year-wise worked example, why the special surrender value is usually higher, and when a policy loan beats surrendering.',
+  url: `${siteUrl}/guides/lic-single-premium-plan-surrender`,
+  publishedDate: '2026-10-24T00:00:00Z',
+  modifiedDate: '2026-10-24T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="Single-Premium LIC Plan Surrender: What You Actually Get Back"
+  description="LIC single-premium plan surrender value explained: 75% of net single premium in years 1–3, 90% from year 4 (current plans), plus guaranteed additions. Illustrative worked example, SSV vs GSV, old vs new plan wording, annuity-plan exceptions, and the loan alternative."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Surrender Value
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Single-Premium LIC Plan Surrender: What You Actually Get Back
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        You paid the whole premium once — so surrendering a single-premium LIC policy is a very different decision from walking away from a regular-premium one. There is no multi-year lock-in before any value appears, and the guaranteed surrender value schedule is gentler. But "gentler" still means a haircut, and the payable amount is almost never just the guaranteed figure. This guide shows the actual year-wise maths.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Run your own numbers first</h2>
+        <p class="text-xs text-brand-700">Enter your single premium, policy year and plan details to estimate the surrender value before you visit the branch.</p>
+      </div>
+      <a
+        href="/lic-surrender-value-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Surrender Value &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Headline Schedule: 75% Then 90%</h2>
+      <p>
+        On LIC's current single-premium savings plans — the ones filed under the IRDAI 2024 product framework (for example the New Jeevan Shree 911, Dhan Vriddhi 869 and Amritbaal single-premium options, whose policy wordings are on licindia.in) — the <strong>guaranteed surrender value (GSV)</strong> is:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Policy years 1–3:</strong> 75% of the net single premium paid</li>
+        <li><strong>Policy year 4 onwards:</strong> 90% of the net single premium paid</li>
+        <li><strong>Plus</strong> the surrender value of any accrued guaranteed additions (accrued additions × the GSV factor for the year of surrender)</li>
+      </ul>
+      <p>
+        "Net single premium" means the premium minus taxes, rider premiums and any extra premium — the GST you paid does not count. Compare this with a regular-premium plan, where the year-2 GSV can be as low as 30% of premiums paid: the single-premium structure is far kinder to early exit, which is one of its honest advantages (see our <a href="/guides/lic-surrender-after-5-years/" class="text-brand-700 font-semibold hover:text-brand-800">5-year surrender maths guide</a> for the contrast).
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Worked Example: ₹5 Lakh Single Premium (Illustrative)</h2>
+      <p>
+        Suppose you paid a net single premium of ₹5,00,000 (GST excluded) on a current single-premium savings plan. Here is the guaranteed floor — before the special surrender value, which is usually higher:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Surrendered in year 2</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹3,75,000 GSV</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">75% of ₹5,00,000. A guaranteed shortfall of ₹1,25,000 against what you paid — plus whatever the guaranteed additions add.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Surrendered in year 4</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹4,50,000 GSV</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">90% of ₹5,00,000 — the shortfall halves just by crossing the three-year line. Accrued additions add on top.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Near maturity</span>
+          <h3 class="font-bold text-brand-700 text-sm">Approaches full value</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">GSV stays at 90%, but the special surrender value usually climbs toward the full maturity benefit as the term runs down.</p>
+        </div>
+      </div>
+      <p class="text-xs text-slate-500">Illustrative — actual payable is the higher of GSV and the special surrender value (SSV) on your policy; the branch's written quotation is final.</p>
+      <p>
+        The shape of this matters for decisions: the single-premium haircut is worst in the first three years and then flattens. If you are surrendering in year 2 for a short-term cash need, the policy loan (section 6) is usually the better move.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. No Two-Year Wait — Single Premium Can Be Surrendered Any Time</h2>
+      <p>
+        Regular-premium policies must wait for at least one full policy year (two under the old wording) before any surrender value exists. A single-premium policy has no such waiting period: the policy wording says it <strong>can be surrendered at any time during the policy term</strong>. Day one, the 75% schedule already applies. This is also why there is no "paid-up" concept for single-premium plans — the premium is already fully paid, so the policy never lapses and never needs revival (contrast our <a href="/guides/lic-stop-premium-paid-up-value/" class="text-brand-700 font-semibold hover:text-brand-800">paid-up guide</a> for regular plans).
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Old Plans Keep Old Wording — Check Your Contract</h2>
+      <p>
+        The 75%/90% schedule is for plans filed under the IRDAI 2024 framework. If your single-premium plan was bought earlier, your policy wording governs, not any general rule. For example:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>The old <strong>Single Premium Endowment Plan 817</strong> worded it as <strong>70% in the first year, 90% thereafter</strong> — slightly worse in year 1, identical after.</li>
+        <li>The <strong>Single Premium Endowment Plan 917</strong> was <strong>withdrawn in October 2024</strong> — existing policyholders keep their original terms, but no new 917 policies are sold.</li>
+        <li>On every old plan, vested simple reversionary bonuses are paid in addition (bonus × the surrender-value factor for bonuses), similar to the new plans' guaranteed-additions treatment.</li>
+      </ul>
+      <p>
+        Contracts are not altered retrospectively. Before you assume the 75% figure, open your own policy document or benefit illustration and read the surrender section — it is printed there, year by year.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. GSV Is the Floor, Not the Payout — The SSV Is Usually Higher</h2>
+      <p>
+        LIC pays the <strong>higher of the guaranteed surrender value (GSV) and the special surrender value (SSV)</strong>. The SSV is an actuarially computed figure, reviewed by LIC periodically, that is typically — though not always — above the GSV. In practice, most policyholders receive the SSV, not the GSV. This is why the worked example above is a floor: your actual quote at the branch can be meaningfully higher, especially in the middle years of the term.
+      </p>
+      <p>
+        The practical instruction is short: ask the branch for <strong>both</strong> figures in writing, and confirm which one you are being paid. The payable surrender value is printed in your benefit illustration too — check the current-year column before you decide anything.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. The Annuity Exception: Not Every Single-Premium Plan Can Be Surrendered</h2>
+      <p>
+        Single-premium <em>annuity</em> plans follow different logic, because you have bought an income stream, not a savings lump sum:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>LIC Jeevan Akshay VII (857):</strong> surrender (and policy loan) is available only on the <strong>return-of-purchase-price options (F and J)</strong>, and only after 3 months — the other annuity options cannot be surrendered at all.</li>
+        <li><strong>New Jeevan Shanti (858)</strong> has a surrender benefit on cash-value terms in emergencies, but on deferred annuity it follows its own surrender table — confirm your option's wording.</li>
+        <li>On annuity plans there is generally no bonus or guaranteed addition to sweeten the exit; the surrender value is a return of the purchase price under the option's formula.</li>
+      </ul>
+      <p>
+        If you hold an annuity plan and need cash, the loan facility (where offered) is usually the only lever — the surrender door may be narrow or shut.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Before Surrendering: The Loan Alternative and the Free-Look Window</h2>
+      <p>
+        Two alternatives beat an early surrender in most situations:
+      </p>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Policy loan.</strong> On many single-premium plans the loan facility opens early — as early as 3 months after issuance on plans like Nav Jeevan Shree 911 — up to about 90% of the surrender value. You keep the life cover, the additions keep accruing, and the lump sum stays reachable in an emergency. The interest (around 9.5% p.a. compounded half-yearly in recent LIC plan documents — confirm your plan's current rate at the branch; mechanics in our <a href="/guides/lic-policy-loan-rules/" class="text-brand-700 font-semibold hover:text-brand-800">loan rules guide</a>) is usually cheaper than surrendering in year 1–3 and forfeiting the haircut plus all future growth.</li>
+        <li><strong>Free-look cancellation.</strong> If the policy is brand new and you are having second thoughts, the 15-day (offline) / 30-day (online) <a href="/guides/lic-free-look-period-cancel-policy/" class="text-brand-700 font-semibold hover:text-brand-800">free-look window</a> returns the premium with only small deductions — far better than any surrender value.</li>
+      </ol>
+      <p>
+        Surrender terminates the policy completely: life cover ends, future bonuses stop, and there is no revival window for a surrendered single-premium policy. Make it the last resort, not the first reaction.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">8. The Tax Angle: 10(10D) on a Single Premium</h2>
+      <p>
+        The maturity payout of a single-premium savings plan is not automatically tax-free. Section 10(10D) exempts the maturity proceeds only if the premium paid is <strong>within 10% of the sum assured</strong> (for policies issued after 1 April 2012). With a single premium, the entire premium is one payment — so this test is the whole story, and on plans where the death benefit is only a small multiple of the premium, it can fail. Our <a href="/guides/lic-maturity-tax-10-10d-explained/" class="text-brand-700 font-semibold hover:text-brand-800">10(10D) guide</a> walks through the decision tree; run it before assuming the surrender or maturity proceeds are exempt.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">9. The Surrender Process at the Branch</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>Visit your <strong>servicing (home) branch</strong> — surrender is a branch process; do not trust websites claiming instant online surrender.</li>
+        <li>Ask for the <strong>written surrender-value quotation</strong> first: GSV, SSV, and the payable figure for today's date.</li>
+        <li>Fill the surrender discharge form (commonly referenced as <strong>Form 5074</strong>), and carry the original policy bond (or the duplicate-bond process if lost — see our <a href="/guides/lic-duplicate-policy-bond-form-3756/" class="text-brand-700 font-semibold hover:text-brand-800">duplicate bond guide</a>), ID proof, and a cancelled cheque for NEFT.</li>
+        <li>Any outstanding policy loan plus its accrued interest is deducted from the payout before you are paid.</li>
+        <li>Expect the credit in roughly <strong>7–15 working days</strong> by NEFT; keep the acknowledgement and the payout advice for your tax records.</li>
+      </ol>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC or IRDAI advice. Surrender-value schedules, bonus factors and loan rates are set per plan and can be revised; your own policy wording and the branch's written quotation are final. Numbers above are illustrative — confirm the current figures for your policy at your servicing LIC branch before acting.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-surrender-value-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
