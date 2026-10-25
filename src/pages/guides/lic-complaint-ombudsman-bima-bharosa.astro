@@ -1,0 +1,203 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Complaint Not Resolved', url: '/guides/lic-complaint-ombudsman-bima-bharosa' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Complaint Not Resolved? The IGMS → Bima Bharosa → Insurance Ombudsman Route',
+  description: 'If LIC has not resolved your complaint, the escalation ladder is fixed: written complaint to LIC first (30 days), then IRDAI Bima Bharosa, then the free Insurance Ombudsman for disputes up to ₹50 lakh — filed within one year of LIC\'s final reply. Steps, documents, timelines and the mistakes that kill a case.',
+  url: `${siteUrl}/guides/lic-complaint-ombudsman-bima-bharosa`,
+  publishedDate: '2026-10-25T00:00:00Z',
+  modifiedDate: '2026-10-25T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Complaint Not Resolved? The IGMS → Bima Bharosa → Insurance Ombudsman Route"
+  description="LIC complaint escalation explained: complain to LIC in writing first, escalate to IRDAI Bima Bharosa (the portal that replaced IGMS), then the free Insurance Ombudsman for disputes up to ₹50 lakh within one year. Timelines, documents, and mistakes to avoid."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Grievance Redressal
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Complaint Not Resolved? The IGMS → Bima Bharosa → Insurance Ombudsman Route
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        A delayed maturity payment, a rejected claim, a premium wrongly debited, a policy mis-sold as something it is not — when LIC does not fix it at the branch, most policyholders give up. They should not: India has a fixed, free escalation ladder for exactly this situation, and it works best for the people who climb it in the right order. Skip a rung and your case gets sent back; miss a deadline and it can be closed for good.
+      </p>
+    </div>
+
+    <!-- Quick Summary Box -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 space-y-3">
+      <h2 class="text-sm font-bold text-brand-900">The route in one view</h2>
+      <ol class="list-decimal pl-5 space-y-2 text-sm text-brand-800 leading-relaxed">
+        <li><strong>LIC, in writing:</strong> complaint to the servicing branch or LIC's Grievance Redressal Officer. LIC gets <strong>30 days</strong> to deal with it.</li>
+        <li><strong>IRDAI Bima Bharosa:</strong> if LIC's reply is unsatisfactory or 30 days pass with no reply, register the grievance on <strong>bimabharosa.irdai.gov.in</strong> (the portal that replaced the old IGMS system).</li>
+        <li><strong>Insurance Ombudsman:</strong> if that still does not resolve it, file free with the Ombudsman — for disputes up to <strong>₹50 lakh</strong>, within <strong>one year</strong> of LIC's rejection or final reply.</li>
+      </ol>
+      <p class="text-xs text-brand-700">Above ₹50 lakh, or if the same dispute is already before a court or consumer forum, the Ombudsman cannot take the case — the consumer commission or civil court is the forum instead.</p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. Step 1: Complain to LIC in Writing — and Get a Complaint Number</h2>
+      <p>
+        The Ombudsman and Bima Bharosa both require that you complained to the insurer first. A phone call that nobody logged does not count. Do it in writing, through one of these routes:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Servicing (home) branch:</strong> a written complaint, submitted in person, with an acknowledgement stamp and date. Keep a photocopy.</li>
+        <li><strong>LIC customer portal</strong> (licindia.in → customer services) — register the complaint online and save the reference number.</li>
+        <li><strong>Central complaints email:</strong> co_complaints@licindia.com — use this for a dated, searchable paper trail.</li>
+        <li><strong>LIC call centre:</strong> 022-68276827 (available 24×7) — useful for a first report, but follow it up in writing and insist on a complaint/service-request number.</li>
+        <li><strong>Divisional / zonal Grievance Redressal Officer (GRO):</strong> if the branch sits on it, escalate to your division's GRO — the GRO directory is published on licindia.in under Grievance Redressal.</li>
+      </ul>
+      <p>
+        Say exactly what happened, what you want (payment, correction, refund, revival), and attach the documents that prove it. The clock that matters starts here: <strong>LIC must deal with your complaint within 30 days</strong>. If 30 days pass without a reply, or the reply is unsatisfactory, the next rung is open — you do not need LIC's permission to move on.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Step 2: IRDAI Bima Bharosa — the Regulator's Grievance Record</h2>
+      <p>
+        <strong>Bima Bharosa</strong> (bimabharosa.irdai.gov.in) is IRDAI's grievance registration and tracking portal — it replaced the older IGMS system, so if an old article tells you to file on IGMS, Bima Bharosa is where you go now. Register, describe the complaint, and upload your earlier complaint to LIC plus LIC's reply (or proof that 30 days passed without one). You get a token number, and the insurer's status updates are mirrored on the portal.
+      </p>
+      <p>
+        Understand what Bima Bharosa is and is not: it is <strong>not a court</strong> and it does not itself award you the disputed amount. Its power is the regulatory record — your complaint is now visible to the regulator, the insurer must attend to it, and the trail strengthens any later Ombudsman filing. If you prefer phone or email, IRDAI's grievance channels are toll-free <strong>155255</strong> or <strong>1800-4254-732</strong> and complaints@irdai.gov.in — but the portal record is the one that travels with your case.
+      </p>
+      <p>
+        If Bima Bharosa does not produce a satisfactory resolution, you have the strongest possible file for the final rung: a dated LIC complaint, LIC's reply (or silence), and a Bima Bharosa token number.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Step 3: The Insurance Ombudsman — Free, and Binding on LIC</h2>
+      <p>
+        The <strong>Insurance Ombudsman</strong> is a quasi-judicial forum run through the Council for Insurance Ombudsmen (cioins.co.in). It costs nothing to file, you do not need a lawyer, and it first tries mediation — if mediation fails, it passes a formal award. Once you accept the award in writing, it is <strong>binding on the insurer</strong>, which must then comply within 30 days. If you reject the award, you keep your right to go to the consumer commission instead.
+      </p>
+      <p>
+        Before you file, run this eligibility checklist — every box must be ticked:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>You complained to LIC first</strong> and either got an unsatisfactory reply or no reply within 30 days.</li>
+        <li><strong>Within one year</strong> of LIC's rejection, repudiation or partial settlement (or one year plus 30 days if LIC stayed silent) — delay can be condoned only for a recorded satisfactory reason, so do not rely on that discretion.</li>
+        <li><strong>Value up to ₹50 lakh</strong> — the claim value including expenses must not exceed ₹50 lakh.</li>
+        <li><strong>No other forum</strong> — the same subject matter must not already be pending before, or decided by, a court, consumer forum or arbitrator.</li>
+        <li><strong>Your complaint type fits:</strong> delay in claim settlement, partial or total repudiation of a claim, disputes over premium paid or payable, misrepresentation of policy terms, or policy servicing grievances — all of these are squarely in the Ombudsman's remit.</li>
+      </ul>
+      <p>
+        File online through cioins.co.in, by post, or in person at the Ombudsman office for your city's jurisdiction. The target is a decision within about three months of complete papers. Note one practical point: the Ombudsman decides on documents and a hearing — so the evidence file in section 4 is not paperwork for its own sake, it is the case.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Your Evidence File: What to Keep From Day One</h2>
+      <p>
+        Every successful escalation is built on the same folder. Start it the day the problem appears:
+      </p>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Policy copy</strong> and the original benefit illustration / proposal form (critical for mis-selling claims).</li>
+        <li><strong>Every complaint, dated:</strong> branch acknowledgement, portal reference, emails — with LIC's replies attached.</li>
+        <li><strong>Proof of payment:</strong> premium receipts, bank statements showing debits, NEFT/cheque details.</li>
+        <li><strong>Claim papers:</strong> the claim form, documents submitted, and any rejection letter with its stated reason.</li>
+        <li><strong>Bima Bharosa token number</strong> and its status trail, if you escalated there.</li>
+        <li><strong>A one-page timeline:</strong> what happened, on which date, and what you asked for. Adjudicators love a clean timeline; a 40-page dump without one gets skimmed.</li>
+      </ol>
+      <p>
+        For a rejected claim, the rejection reason decides your strategy: a missing document can be cured and re-filed, while a repudiation on grounds of non-disclosure needs the proposal-form evidence. Our <a href="/guides/lic-death-claim-documents-nominee/" class="text-brand-700 font-semibold hover:text-brand-800">death-claim documents guide</a> and <a href="/guides/lic-maturity-claim-form-3825/" class="text-brand-700 font-semibold hover:text-brand-800">maturity-claim guide</a> list exactly what a complete claim file looks like, so a rejection cannot be blamed on your paperwork.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Illustrative Timeline: How the Clocks Actually Run</h2>
+      <p>
+        Dates below are illustrative — they show how the three clocks fit together, not a promise for your case:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Day 0 — Complain to LIC</span>
+          <h3 class="font-bold text-slate-900 text-sm">Written complaint filed</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Branch acknowledgement or email to co_complaints@licindia.com. Keep the complaint number — without it, the later steps are harder.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Day 30 — Bima Bharosa opens</span>
+          <h3 class="font-bold text-slate-900 text-sm">No reply? Escalate</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">If LIC has not replied in 30 days, or the reply is unsatisfactory, register on bimabharosa.irdai.gov.in with your complaint and LIC's reply (or proof of silence).</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Within 1 year — Ombudsman</span>
+          <h3 class="font-bold text-brand-700 text-sm">Free filing, award binds LIC</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">File within one year of LIC's final reply. Mediation first, then an award — binding on LIC once you accept it in writing.</p>
+        </div>
+      </div>
+      <p class="text-xs text-slate-500">Illustrative — the one-year Ombudsman clock runs from LIC's actual rejection or final reply in your case; check it before you delay.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. When the Ombudsman Cannot Help — and What to Do Instead</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Dispute above ₹50 lakh:</strong> the consumer commission or civil court is the forum. Do not waste the one-year Ombudsman clock finding this out — check the value first.</li>
+        <li><strong>Already before another forum:</strong> the Ombudsman will not take a matter pending before a court, consumer forum or arbitrator. Pick one forum and stay with it.</li>
+        <li><strong>Missed the one-year window:</strong> the consumer commission has its own limitation period — take advice promptly rather than letting a second clock run out.</li>
+        <li><strong>Mis-selling caught early:</strong> if the policy is brand new, the <a href="/guides/lic-free-look-period-cancel-policy/" class="text-brand-700 font-semibold hover:text-brand-800">free-look window (15 days offline / 30 days online)</a> returns the premium with only small deductions — far faster than any complaint ladder. Use it first if it is still open.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Three Mistakes That Kill Otherwise Good Cases</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Verbal-only complaints.</strong> A branch visit with no written acknowledgement leaves you with no proof you ever complained — and no start date for the 30-day clock. Always get it in writing.</li>
+        <li><strong>Going straight to the Ombudsman.</strong> Skipping the written LIC complaint gets the case returned, and the return journey eats your one-year clock.</li>
+        <li><strong>Paying anyone who promises a fast result.</strong> The Ombudsman and Bima Bharosa are free. LIC staff and the Ombudsman will never ask you to pay a "processing fee" to release maturity money, and never ask for your customer-portal password. Fake helplines advertising on search results are a known scam — use only licindia.in, bimabharosa.irdai.gov.in and cioins.co.in.</li>
+      </ol>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC or IRDAI advice. Grievance procedures, contact details and monetary limits are as published by IRDAI and the Council for Insurance Ombudsmen at the time of writing; verify the current details on bimabharosa.irdai.gov.in, cioins.co.in and licindia.in before filing. Your own policy wording and the branch's written reply are final for your case.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks
+      currentPath="/guides/lic-complaint-ombudsman-bima-bharosa"
+      customLinks={[
+        {
+          title: 'LIC Death Claim Documents Checklist for Nominee',
+          description: 'Forms 3783 & 3801, death certificate, original bond and NEFT details — a complete claim file leaves no room for rejection.',
+          url: '/guides/lic-death-claim-documents-nominee/',
+          category: 'Claims',
+          type: 'guide'
+        },
+        {
+          title: 'LIC Maturity Claim: Form 3825 & NEFT Timeline',
+          description: 'Exact papers for a maturity claim, the home-branch rule, and how many days NEFT credit takes.',
+          url: '/guides/lic-maturity-claim-form-3825/',
+          category: 'Claims',
+          type: 'guide'
+        },
+        {
+          title: 'Free-Look Period: Cancel a New LIC Policy',
+          description: 'If mis-selling is caught early, the 15/30-day free-look window refunds the premium — faster than any complaint ladder.',
+          url: '/guides/lic-free-look-period-cancel-policy/',
+          category: 'Policy Rights',
+          type: 'guide'
+        },
+        {
+          title: 'LIC Policy Lapsed? Revival Process & Cost',
+          description: 'Revival quotation, medical triggers and the 5-year revival window for a lapsed policy.',
+          url: '/guides/lic-policy-revival/',
+          category: 'Policy Servicing',
+          type: 'guide'
+        }
+      ]}
+    />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
