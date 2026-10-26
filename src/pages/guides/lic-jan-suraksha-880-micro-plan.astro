@@ -1,0 +1,237 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Jan Suraksha (880) Micro Plan', url: '/guides/lic-jan-suraksha-880-micro-plan' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Jan Suraksha (880) Micro Plan: ₹1–2 Lakh Cover, 4% Guaranteed Additions & Who It Actually Suits',
+  description: 'LIC Jan Suraksha (Plan 880, UIN 512N388V01) is a micro-insurance endowment plan for lower-income families: entry 18–55, sum assured ₹1–2 lakh, term 12–20 years, premium paying term 5 years shorter, guaranteed additions of 4% of annualised premium every year, auto cover after 3 years and a loan after 1 year. What it pays at maturity and on death, an illustrative worked example, and who should — and should not — buy it.',
+  url: `${siteUrl}/guides/lic-jan-suraksha-880-micro-plan`,
+  publishedDate: '2026-10-26T00:00:00Z',
+  modifiedDate: '2026-10-26T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Jan Suraksha (880) Micro Plan: ₹1–2 Lakh Cover, 4% Guaranteed Additions & Who It Actually Suits"
+  description="LIC Jan Suraksha (880) explained: a micro endowment plan for lower-income families — ₹1–2 lakh sum assured, 12–20 year term, 4% guaranteed additions, auto cover after 3 years, loan after 1 year. Maturity and death benefits, an illustrative example, and the honest limits of a ₹2 lakh cap."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Micro Insurance Plan
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Jan Suraksha (880) Micro Plan: ₹1–2 Lakh Cover, 4% Guaranteed Additions & Who It Actually Suits
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Most LIC plans start at sums assured that a daily-wage earner or small shopkeeper cannot comfortably afford. Jan Suraksha (Plan 880) is LIC's answer to exactly that gap: a micro-insurance endowment plan with a sum assured of just ₹1–2 lakh, launched on 15 October 2025 alongside the women-only Bima Lakshmi (881) as LIC's first plans under the next-generation GST regime. It is simple, cheap and guaranteed — and it has a hard ceiling that every buyer should understand before signing.
+      </p>
+    </div>
+
+    <!-- Quick Summary Box -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 space-y-3">
+      <h2 class="text-sm font-bold text-brand-900">Jan Suraksha (880) in one view</h2>
+      <ul class="list-disc pl-5 space-y-2 text-sm text-brand-800 leading-relaxed">
+        <li><strong>What it is:</strong> a non-participating, non-linked individual savings (endowment) micro plan — UIN 512N388V01. No market link, no declared bonuses; the extra is a fixed guaranteed addition.</li>
+        <li><strong>Cover:</strong> basic sum assured <strong>₹1,00,000 to ₹2,00,000</strong> per life, in multiples of ₹5,000.</li>
+        <li><strong>Who can buy:</strong> entry age <strong>18 (completed) to 55</strong>; standard healthy lives need <strong>no medical examination</strong>.</li>
+        <li><strong>Term:</strong> <strong>12 to 20 years</strong>; premium paying term is the policy term <strong>minus 5 years</strong> (so 7–15 years of premiums).</li>
+        <li><strong>Guaranteed additions:</strong> <strong>4% of the annualised premium</strong> at the end of each policy year, throughout the term.</li>
+        <li><strong>Safety nets:</strong> auto cover after 3 full years' premiums; policy loan after 1 full year's premium and completion of the first policy year.</li>
+      </ul>
+      <p class="text-xs text-brand-700">Individual life-insurance premiums carry 0% GST since 22 September 2025, so the premium in your benefit illustration should show no GST loading — if it does, ask the branch why.</p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What Jan Suraksha Is — and What It Is Not</h2>
+      <p>
+        Jan Suraksha is an <strong>endowment micro plan</strong>: it pays a lump sum if you survive the term, and it pays your family if you die during the term. It is aimed squarely at lower-income households — the segment that most often has no life cover at all because regular plans feel out of reach. Because it is <strong>non-participating</strong>, there are no reversionary bonuses and no terminal bonus to hope for; what you get over and above the sum assured is only the guaranteed addition, fixed at 4% of your annualised premium per year. That makes the plan predictable — and it also caps the upside, which matters for the honest assessment in section 6.
+      </p>
+      <p>
+        Do not confuse it with its launch sibling: <a href="/guides/lic-bima-lakshmi-881-women-plan/" class="text-brand-700 font-semibold hover:text-brand-800">Bima Lakshmi (881)</a> is women-only, money-back, with 7% guaranteed additions and a ₹2 lakh minimum. Jan Suraksha is open to all, pays only at maturity or death, and tops out at ₹2 lakh.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Eligibility & Limits at a Glance</h2>
+      <div class="overflow-x-auto not-prose">
+        <table class="w-full text-sm border border-slate-200 rounded-xl overflow-hidden">
+          <thead>
+            <tr class="bg-slate-50 text-left">
+              <th class="border border-slate-200 px-3 py-2">Feature</th>
+              <th class="border border-slate-200 px-3 py-2">Jan Suraksha (880)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Plan type / UIN</td>
+              <td class="border border-slate-200 px-3 py-2">Non-par, non-linked individual savings (endowment) micro plan — UIN 512N388V01</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Entry age</td>
+              <td class="border border-slate-200 px-3 py-2">18 years (completed) to 55 years</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Maximum maturity age</td>
+              <td class="border border-slate-200 px-3 py-2">70 years (nearer birthday)</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Basic sum assured</td>
+              <td class="border border-slate-200 px-3 py-2">₹1,00,000 minimum — ₹2,00,000 maximum per life, in multiples of ₹5,000</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Policy term</td>
+              <td class="border border-slate-200 px-3 py-2">12 to 20 years</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Premium paying term</td>
+              <td class="border border-slate-200 px-3 py-2">Policy term minus 5 years (7–15 years)</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Guaranteed additions</td>
+              <td class="border border-slate-200 px-3 py-2">4% of annualised premium at the end of each policy year, throughout the term</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Medical examination</td>
+              <td class="border border-slate-200 px-3 py-2">Not required for standard healthy lives</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Optional riders</td>
+              <td class="border border-slate-200 px-3 py-2">Accidental Death & Disability Benefit Rider and Accident Benefit Rider, as per the brochure</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-slate-500">Offline-channel entry and maturity-age caps can be lower than the headline figures — the benefit illustration issued for your age, term and sum assured is final. Confirm the plan is still open for sale on licindia.in before you apply, as LIC withdraws plans from time to time.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. What It Pays: Maturity Benefit and Death Benefit</h2>
+      <p>
+        <strong>On maturity</strong> (you survive the term with all premiums paid): you receive the <strong>sum assured on maturity (equal to the basic sum assured) plus all accrued guaranteed additions</strong>. There is no money-back instalment during the term — the whole amount arrives once, at the end.
+      </p>
+      <p>
+        <strong>On death</strong> during the term (policy in force): your nominee receives the <strong>sum assured on death plus accrued guaranteed additions</strong>, where the sum assured on death is the higher of <strong>7 times the annualised premium</strong> or the <strong>basic sum assured</strong> — and never less than <strong>105% of total premiums paid</strong> up to the date of death. The policy then terminates.
+      </p>
+      <p>
+        Note the 7-times rule in practice: for most small-premium buyers, 7 times the annual premium will be below the ₹1–2 lakh sum assured, so the basic sum assured is usually the figure that actually pays. The 105% floor matters mainly for very early deaths, when few premiums have been paid.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Illustrative Example: What the 4% Addition Really Adds</h2>
+      <p>
+        The example below is <strong>illustrative only</strong> — the premium is a round figure chosen to show the maths, not a quotation. Your actual premium depends on your age, term and sum assured, and the branch's written benefit illustration is final.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Illustrative case</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹1 lakh cover, 15-year term</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Illustrative annual premium ₹9,000. Premium paying term = 15 − 5 = 10 years, so total premiums paid = ₹9,000 × 10 = ₹90,000.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Guaranteed additions</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹360 a year × 15 years</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">4% of ₹9,000 = ₹360 per policy year, accruing through the full 15-year term = ₹5,400 in total additions.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">At maturity</span>
+          <h3 class="font-bold text-brand-700 text-sm">₹1,00,000 + ₹5,400 = ₹1,05,400</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Against ₹90,000 paid in. The gain over premiums is modest by design — this is protection plus forced savings, not a wealth-creation plan.</p>
+        </div>
+      </div>
+      <p>
+        Two lessons fall out of that maths. First, the guaranteed addition is calculated on the <strong>annual premium</strong>, not on the sum assured — so it is a small number on a small premium, and anyone quoting you "4%" as if it were 4% of ₹1 lakh is misleading you. Second, because premiums stop 5 years before maturity, the last 5 years add guaranteed additions without any new premium going in — the limited-pay structure is the plan's quiet advantage.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. If Money Gets Tight: Auto Cover, Loan, Paid-Up, Surrender & Revival</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Auto cover:</strong> after <strong>3 full years' premiums</strong>, the policy carries an auto-cover facility — if a later premium is missed, cover does not vanish immediately on the old terms. Check the exact auto-cover period in your policy document; it is not unlimited.</li>
+        <li><strong>Policy loan:</strong> available after <strong>one full year's premium and completion of the first policy year</strong> — useful for a short emergency, but interest accrues and any outstanding loan plus interest is deducted from maturity or death payouts. Our <a href="/guides/lic-policy-loan-interest-rate/" class="text-brand-700 font-semibold hover:text-brand-800">loan interest guide</a> explains the cost over time.</li>
+        <li><strong>Stopping premiums:</strong> if you stop paying, the policy may convert to a reduced paid-up policy (if eligible) or lapse, depending on how many premiums you have paid. The paid-up maturity value is proportionally lower — see our <a href="/guides/lic-stop-premium-paid-up-value/" class="text-brand-700 font-semibold hover:text-brand-800">stop-premium guide</a> for the formula.</li>
+        <li><strong>Surrender:</strong> under the IRDAI rules in force since 1 October 2024, a surrender value is available after 1 year. The branch's written surrender quotation is the only figure LIC will pay — never accept an agent's verbal estimate. Our <a href="/guides/lic-check-surrender-value/" class="text-brand-700 font-semibold hover:text-brand-800">surrender-value guide</a> shows the three ways to get that figure.</li>
+        <li><strong>Revival:</strong> a lapsed policy can generally be revived within 5 years of the first unpaid premium, on payment of arrears plus interest and any health requirements — see our <a href="/guides/lic-policy-revival/" class="text-brand-700 font-semibold hover:text-brand-800">revival guide</a>. One caution: micro plans received a 100% late-fee waiver in LIC's Special Revival Campaign of January–March 2026, but that campaign has closed — do not wait for the next one; revive on the standard terms if the policy matters to your family.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Who It Suits — and Who Should Look Elsewhere</h2>
+      <p>
+        <strong>Jan Suraksha is a good fit if:</strong> your household has no life cover at all and the budget only stretches to a few hundred rupees a month; you want a simple, guaranteed, no-medicals policy; or you want a small forced-savings lump sum (a daughter's education, a house repair) tied to life cover.
+      </p>
+      <p>
+        <strong>Look elsewhere — or add to it — if:</strong> your family depends on your income and would need ₹20–50 lakh to survive your death. A ₹2 lakh cap cannot replace an income, however well-intentioned the purchase. In that case a pure term plan is the honest first buy (see our <a href="/guides/lic-term-plans-head-to-head/" class="text-brand-700 font-semibold hover:text-brand-800">term-plan comparison</a>), with Jan Suraksha as a supplement, not the whole plan. Likewise, if you are buying mainly for returns, the section 4 maths should end that idea: guaranteed additions on a small premium produce a small gain.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">7. How to Buy: Checklist Before You Sign</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Confirm the plan is open for sale</strong> on licindia.in or at the branch, and get the benefit illustration for your exact age, term and sum assured — in writing.</li>
+        <li><strong>Check the sum assured band:</strong> ₹1–2 lakh, in ₹5,000 multiples. If the illustration shows anything outside that band, something is wrong.</li>
+        <li><strong>Read the guaranteed-addition line:</strong> it should read 4% of the annualised premium per year. Some advisor tables cite a small extra incentive at the ₹2 lakh band — if yours claims it, make sure it appears in the official illustration, not just in a sales pitch.</li>
+        <li><strong>Name a nominee</strong> and give the branch a cancelled cheque / NEFT mandate, so any payout reaches the bank account without a second round of paperwork.</li>
+        <li><strong>Set up auto-debit (NACH)</strong> where available, so a forgotten premium does not put the policy into the <a href="/guides/lic-premium-grace-period-late-fee/" class="text-brand-700 font-semibold hover:text-brand-800">grace-period trap</a> — 30 days for yearly/half-yearly/quarterly modes, 15 days for monthly.</li>
+        <li><strong>Keep the original bond safe</strong> and note the policy number where your family can find it. If the bond is ever lost, our <a href="/guides/lic-duplicate-policy-bond-form-3756/" class="text-brand-700 font-semibold hover:text-brand-800">duplicate-bond guide</a> covers the Form 3756 route.</li>
+      </ol>
+
+      <h2 class="text-xl font-bold text-slate-900">8. Three Mistakes First-Time Buyers Make With Micro Plans</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Treating ₹2 lakh as "fully insured".</strong> It is a start, not a safety net. Compare the sum assured with one year's household expenses — if it covers only a few months, add term cover.</li>
+        <li><strong>Reading "4% guaranteed" as 4% of the sum assured.</strong> It is 4% of the annual premium. On a ₹9,000 premium that is ₹360 a year, not ₹4,000 — the section 4 example shows why the distinction matters.</li>
+        <li><strong>Letting the policy lapse quietly.</strong> A micro plan lapses just as easily as a big one, and a lapsed policy pays nothing on death. Auto-debit plus a nominee who knows the policy exists are the two cheapest protections you can buy.</li>
+      </ol>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Plan features, limits and guaranteed-addition rates are as published for LIC Jan Suraksha (Plan 880, UIN 512N388V01) at the time of writing; verify the current brochure and your benefit illustration on licindia.in or at the servicing branch before buying. Worked examples are illustrative — the branch's written quotation and your policy document are final for your case.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks
+      currentPath="/guides/lic-jan-suraksha-880-micro-plan"
+      customLinks={[
+        {
+          title: 'LIC Bima Lakshmi (881) for Women — Money-Back Options & Honest Review',
+          description: 'Jan Suraksha\'s launch sibling: women-only money-back plan with 7% guaranteed additions and a ₹2 lakh minimum.',
+          url: '/guides/lic-bima-lakshmi-881-women-plan/',
+          category: 'Plans',
+          type: 'guide'
+        },
+        {
+          title: 'LIC Term Plans Head-to-Head — New Jeevan Amar vs Tech-Term vs Digi Term vs Bima Kavach',
+          description: 'If ₹2 lakh is not enough cover for your family, a pure term plan is the honest first buy — here is how LIC\'s four term plans compare.',
+          url: '/guides/lic-term-plans-head-to-head/',
+          category: 'Plans',
+          type: 'guide'
+        },
+        {
+          title: 'LIC Policy Lapsed? Revival Process & Cost',
+          description: 'Revival quotation, medical triggers and the 5-year revival window for a lapsed policy.',
+          url: '/guides/lic-policy-revival/',
+          category: 'Policy Servicing',
+          type: 'guide'
+        },
+        {
+          title: 'How to Check Your LIC Surrender Value',
+          description: 'Portal, IVR and branch quotation — the three ways to learn your surrender value, and the Form 5074 process if you proceed.',
+          url: '/guides/lic-check-surrender-value/',
+          category: 'Surrender',
+          type: 'guide'
+        }
+      ]}
+    />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
