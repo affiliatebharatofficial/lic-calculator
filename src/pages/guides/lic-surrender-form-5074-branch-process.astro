@@ -1,0 +1,262 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Surrender Form 5074', url: '/guides/lic-surrender-form-5074-branch-process' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Surrender Form 5074: How to Surrender at the Branch & Days to Get Your Money',
+  description: 'Form 5074 is LIC\'s surrender discharge voucher — the paper that actually closes your policy. Surrender cannot be completed online: you submit it at your servicing branch with the original bond, NEFT mandate, cancelled cheque and ID proof, and the money typically reaches your bank account in 7–15 working days after approval, after any outstanding loan plus interest is deducted. Documents checklist, step-by-step branch process, an illustrative loan-adjusted example, and the mistakes that delay payment.',
+  url: `${siteUrl}/guides/lic-surrender-form-5074-branch-process`,
+  publishedDate: '2026-10-27T00:00:00Z',
+  modifiedDate: '2026-10-27T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Surrender Form 5074: How to Surrender at the Branch & Days to Get Your Money"
+  description="LIC surrender Form 5074 explained: the surrender discharge voucher, documents (original bond, NEFT mandate, cancelled cheque, ID/PAN), servicing-branch-only submission, 7–15 working day NEFT timeline, loan deduction, and tax notes. Get the branch's written quotation before you sign — the portal figure is only an estimate."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Surrender Process
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Surrender Form 5074: How to Surrender at the Branch & Days to Get Your Money
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Every surrender-value calculator and "how much will I get" guide stops one step short of the money: the actual surrender happens on a single paper form. Form 5074 — the surrender discharge voucher — is the document that closes your LIC policy, and it can only be submitted at your servicing branch. This guide covers what the form is, the exact documents to carry, what the branch does with your papers, how long the NEFT credit takes, and the one step to take before you sign anything: getting the branch's written surrender quotation, because the figure on the customer portal is only an estimate.
+      </p>
+    </div>
+
+    <!-- Quick Summary Box -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 space-y-3">
+      <h2 class="text-sm font-bold text-brand-900">Form 5074 surrender in one view</h2>
+      <ul class="list-disc pl-5 space-y-2 text-sm text-brand-800 leading-relaxed">
+        <li><strong>What it is:</strong> Form 5074 is LIC's surrender discharge voucher. Signing it authorises LIC to close the policy and pay the surrender value to your bank account.</li>
+        <li><strong>Where it goes:</strong> your <strong>servicing branch only</strong>, in person. The portal shows estimates and lets you download forms, but it does not list online surrender as a completed e-service — final submission is at the branch.</li>
+        <li><strong>Carry:</strong> original policy bond, filled and signed Form 5074, NEFT mandate, cancelled cheque with your name printed (or passbook copy), original ID proof plus copies, and a PAN copy.</li>
+        <li><strong>Timeline:</strong> typically <strong>7–15 working days</strong> after approval for the NEFT credit, varying with branch workload and document completeness.</li>
+        <li><strong>Net payout:</strong> surrender value <strong>minus any outstanding policy loan plus accrued interest</strong>. The branch's written quotation is the only figure LIC will pay.</li>
+        <li><strong>Irreversible:</strong> once surrendered, the policy ends permanently — it cannot be revived later, unlike a lapsed policy.</li>
+      </ul>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What Form 5074 Is — and the One Thing It Ends Permanently</h2>
+      <p>
+        Form 5074 is called the <strong>surrender discharge voucher</strong>. It carries your policy number, your details, your bank account for the NEFT credit, the reason for surrender, and a declaration that you understand what surrendering means: your life cover ends, all policy benefits cease, and the decision cannot be undone. The branch treats your signature on this form as the formal instruction to terminate the contract — which is why the form also asks you to confirm that you are aware of the approximate surrender value before you sign.
+      </p>
+      <p>
+        Two confusions to clear up first. Form 5074 is <strong>not</strong> the maturity claim form (that is Form 3825 — see our <a href="/guides/lic-maturity-claim-form-3825/" class="text-brand-700 font-semibold hover:text-brand-800">maturity claim guide</a>), and it is not something your agent can file on your behalf from their office. You — the policyholder — sign it, and you submit it at the branch where your policy is serviced.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Before You Fill It: Get the Written Quotation First</h2>
+      <p>
+        Do this before you sign anything. Ask the servicing branch for a <strong>written surrender value quotation</strong> for your policy. The customer portal's "Loan &amp; Bonus details" figure and any online calculator give estimates; the branch figure accounts for your exact bonus vesting dates, the surrender factor for your policy year, and any outstanding loan interest — and it is the figure LIC will actually pay. Our <a href="/guides/lic-check-surrender-value/" class="text-brand-700 font-semibold hover:text-brand-800">surrender-value guide</a> explains the three ways to get that number.
+      </p>
+      <p>
+        At the same visit, price the two alternatives you are giving up. A <strong>paid-up policy</strong> keeps a reduced cover alive to maturity with no more premiums (see our <a href="/guides/lic-stop-premium-paid-up-value/" class="text-brand-700 font-semibold hover:text-brand-800">stop-premium guide</a>), and a <strong>policy loan</strong> gives you cash while keeping the cover (see our <a href="/guides/lic-policy-loan-interest-rate/" class="text-brand-700 font-semibold hover:text-brand-800">loan interest guide</a>). Surrender is the only one of the three that ends the cover outright — which is exactly why the branch will ask you to confirm you understand the consequences.
+      </p>
+      <h3 class="text-base font-bold text-slate-900">Is your policy even eligible to surrender?</h3>
+      <div class="overflow-x-auto not-prose">
+        <table class="w-full text-sm border border-slate-200 rounded-xl overflow-hidden">
+          <thead>
+            <tr class="bg-slate-50 text-left">
+              <th class="border border-slate-200 px-3 py-2">Policy</th>
+              <th class="border border-slate-200 px-3 py-2">When surrender value starts</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Issued on or after 1 Oct 2024 (new IRDAI norms)</td>
+              <td class="border border-slate-200 px-3 py-2">Special surrender value after <strong>1 full year's premium</strong> is paid, per our <a href="/guides/lic-irdai-surrender-rules-2024/" class="text-brand-700 font-semibold hover:text-brand-800">IRDAI surrender-rules guide</a></td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Issued before 1 Oct 2024</td>
+              <td class="border border-slate-200 px-3 py-2">Per your original policy terms — generally after <strong>2–3 full years</strong> of premiums, depending on plan and term</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Single-premium plan</td>
+              <td class="border border-slate-200 px-3 py-2">Different surrender maths from regular-premium plans — see our <a href="/guides/lic-single-premium-plan-surrender/" class="text-brand-700 font-semibold hover:text-brand-800">single-premium surrender guide</a></td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Policy that never acquired a surrender value</td>
+              <td class="border border-slate-200 px-3 py-2">Pays <strong>nothing</strong> on surrender — the policy simply lapses. Check eligibility before travelling to the branch</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-slate-500">If your policy lapsed after acquiring a surrender value, ask the branch whether a paid-up policy can still be surrendered — the answer depends on your plan's terms, so get it in writing rather than assuming.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Documents Checklist: Carry All of These</h2>
+      <p>
+        Missing papers are the single biggest cause of delayed surrender payments. Branches verify originals and keep photocopies, so carry both.
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="w-full text-sm border border-slate-200 rounded-xl overflow-hidden">
+          <thead>
+            <tr class="bg-slate-50 text-left">
+              <th class="border border-slate-200 px-3 py-2">Document</th>
+              <th class="border border-slate-200 px-3 py-2">Why the branch needs it</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Form 5074, filled and signed</td>
+              <td class="border border-slate-200 px-3 py-2">The surrender discharge voucher itself — available at the branch or downloadable from licindia.in</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Original policy bond</td>
+              <td class="border border-slate-200 px-3 py-2">Proof of the contract being closed. Lost it? Sort the duplicate first — see our <a href="/guides/lic-duplicate-policy-bond-form-3756/" class="text-brand-700 font-semibold hover:text-brand-800">duplicate-bond guide (Form 3756)</a></td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">NEFT mandate form</td>
+              <td class="border border-slate-200 px-3 py-2">Authorises direct credit to your bank account; LIC no longer routinely issues payout cheques</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Cancelled cheque (your name printed) or passbook copy</td>
+              <td class="border border-slate-200 px-3 py-2">Verifies the account number and IFSC for the NEFT credit</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Original ID proof + photocopy</td>
+              <td class="border border-slate-200 px-3 py-2">Aadhaar, PAN, passport or driving licence — originals are verified and returned</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">PAN card copy</td>
+              <td class="border border-slate-200 px-3 py-2">Needed for tax reporting on the payout (see section 7)</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Short surrender request letter</td>
+              <td class="border border-slate-200 px-3 py-2">A handwritten or typed letter stating the reason for surrender — some branches ask for it alongside Form 5074</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        <strong>If the policy is assigned</strong> — for example to a bank against a housing loan — the branch will need the assignee's consent before it can close the policy, because assignment transfers the policyholder's rights. Sort this out before your branch visit, or the file stalls at verification.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Step by Step at the Servicing Branch</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Go to the servicing branch</strong> — the branch where your policy is registered, not just any LIC office. Your proposal papers, loan records and bonus details live there, which is why surrender is servicing-branch-only.</li>
+        <li><strong>Collect Form 5074 and the NEFT mandate</strong> at the counter if you have not already downloaded them, and ask for the written surrender quotation (section 2) if you do not have it yet.</li>
+        <li><strong>Fill in Form 5074 carefully:</strong> policy number, your name and contact details, bank account number and IFSC, reason for surrender, and your signature in the marked spaces. An incomplete form is the easiest delay to avoid.</li>
+        <li><strong>Submit everything together</strong> — form, original bond, NEFT mandate, cancelled cheque, ID proof and PAN copy — and let the branch verify the originals against your photocopies.</li>
+        <li><strong>Confirm the consequences on record.</strong> Expect the branch to confirm that you understand the cover ends permanently and that the quoted value is approximate until final computation. This is normal, not a reason to be talked out of your decision — but it is your last natural moment to switch to paid-up or a loan instead.</li>
+        <li><strong>Collect the acknowledgement receipt</strong> and keep it with photocopies of everything you submitted. The acknowledgement is your proof if the payment is delayed or queried later.</li>
+        <li><strong>Wait for approval and NEFT credit</strong> (section 5). The branch computes the final value — the higher of guaranteed and special surrender value — deducts any outstanding loan plus accrued interest, and releases the net amount to your account.</li>
+      </ol>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Timeline: How Many Days Until the Money Arrives?</h2>
+      <p>
+        Once the surrender request is approved, the NEFT credit typically takes <strong>7–15 working days</strong> to reach your bank account. Published branch-experience reports vary — some cite 7–10 working days, others up to 15 — so treat 7–15 working days as the planning range, not a promise. LIC sends an SMS or email confirmation when the payment is released.
+      </p>
+      <p>
+        The usual causes of delay are all avoidable: a missing document, a name mismatch between the policy and the bank account, an unclosed policy loan whose interest is still being computed, or an assigned policy awaiting the assignee's consent. If 15 working days pass with no credit and no message, go back to the branch with your acknowledgement receipt and ask for the file status — or call LIC's helpline on 022-6827-6827 with the policy number. Do not file a fresh surrender request; that creates a second file for the same policy.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Illustrative Example: Loan Adjustment on the Final Payout</h2>
+      <p>
+        The example below is <strong>illustrative only</strong> — round figures chosen to show the deduction maths, not a quotation. Your branch's written quotation is final for your policy.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Illustrative case</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹60,000 a year, 6 years paid</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Total premiums paid = ₹60,000 × 6 = ₹3,60,000. Branch-quoted surrender value (illustrative) = ₹2,10,000.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Loan deduction</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹50,000 loan + ₹5,000 interest</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Outstanding policy loan principal plus accrued interest is deducted from the surrender value before payment — ₹55,000 in this example.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Net NEFT credit</span>
+          <h3 class="font-bold text-brand-700 text-sm">₹2,10,000 − ₹55,000 = ₹1,55,000</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Against ₹3,60,000 paid in — a ₹2,05,000 gap. That gap is why section 2's quotation-first rule matters: never surrender on a verbal estimate.</p>
+        </div>
+      </div>
+      <p>
+        Note what the deduction does <em>not</em> include: the surrender value itself is the higher of the guaranteed surrender value and the special surrender value for your policy year, and future bonuses stop accruing the day the policy closes. If the loan plus interest ever approaches the surrender value, the branch will flag it — a policy can lapse into foreclosure on its own if a loan is ignored long enough, which is another reason to deal with loans deliberately rather than by default.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Tax Notes on a Surrender Payout</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>80C reversal within 2 years:</strong> if the policy is terminated within 2 years of commencement, the 80C deductions claimed on its premiums in earlier years can be added back to your income. This is one more reason early surrender is expensive beyond the value gap itself.</li>
+        <li><strong>TDS on the income portion:</strong> where the payout is taxable, TDS at <strong>2% under section 194DA</strong> applies on the income portion when the aggregate payout exceeds <strong>₹1 lakh</strong> (rate reduced from 5% with effect from 1 October 2024). The branch deducts it before crediting the net amount.</li>
+        <li><strong>Policies outside the 10(10D) exemption:</strong> for policies issued on or after 1 April 2023 where aggregate annual premiums exceed ₹5 lakh, maturity and surrender proceeds are taxable — our <a href="/guides/lic-maturity-tax-10-10d-explained/" class="text-brand-700 font-semibold hover:text-brand-800">maturity-tax guide</a> explains the ₹5 lakh rule in full.</li>
+        <li><strong>Death benefit contrast:</strong> none of this applies to a death claim, which stays exempt — surrender tax only bites while the policyholder is alive and exits voluntarily. When in doubt, confirm the tax treatment with the branch or your chartered accountant before signing.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">8. Five Mistakes That Delay or Shrink the Payout</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Signing on a portal estimate.</strong> The portal figure ignores bonus vesting dates and loan interest. Only the branch quotation is payable — get it first.</li>
+        <li><strong>Forgetting the loan.</strong> Borrowers remember the principal and forget the accrued interest. Both come off the payout, as section 6 shows.</li>
+        <li><strong>Going without the original bond.</strong> A lost bond means a duplicate-bond detour (Form 3756) before surrender can even be filed. Check the bond is in hand before the branch trip.</li>
+        <li><strong>Leaving without an acknowledgement.</strong> No receipt means no reference if the credit stalls. Photocopy everything, keep the receipt.</li>
+        <li><strong>Confusing surrender with free-look cancellation.</strong> Free-look (15–30 days from receiving a <em>new</em> policy — see our <a href="/guides/lic-free-look-period-cancel-policy/" class="text-brand-700 font-semibold hover:text-brand-800">free-look guide</a>) returns nearly the full premium. Surrender after that window returns only the surrender value. They are different exits with very different money.</li>
+      </ol>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Form numbers, branch procedure and timelines are as published for LIC policy surrender at the time of writing; the servicing branch's written quotation and your policy document are final for your case. Worked examples are illustrative — the branch's written quotation is the only figure LIC will pay.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks
+      currentPath="/guides/lic-surrender-form-5074-branch-process"
+      customLinks={[
+        {
+          title: 'How to Check Your LIC Surrender Value',
+          description: 'Portal, IVR and branch quotation — the three ways to learn your surrender value before you sign Form 5074.',
+          url: '/guides/lic-check-surrender-value/',
+          category: 'Surrender',
+          type: 'guide'
+        },
+        {
+          title: 'LIC Surrender After 5 Years — Value, Loss % & Better Alternatives',
+          description: 'Year-5 payout and loss bands, and the paid-up and loan alternatives to price before surrendering.',
+          url: '/guides/lic-surrender-after-5-years/',
+          category: 'Surrender',
+          type: 'guide'
+        },
+        {
+          title: 'Stop Paying LIC Premium After 3 Years? Your Paid-Up Value at Maturity',
+          description: 'The alternative that keeps a reduced cover alive: paid-up value formula, bonus freeze and the 5-year revival window.',
+          url: '/guides/lic-stop-premium-paid-up-value/',
+          category: 'Policy Servicing',
+          type: 'guide'
+        },
+        {
+          title: 'LIC Policy Loan Interest Rate Today — Cost Over 1, 3 & 5 Years',
+          description: 'What a loan costs over time, and why outstanding loan interest comes off your surrender payout.',
+          url: '/guides/lic-policy-loan-interest-rate/',
+          category: 'Loans',
+          type: 'guide'
+        }
+      ]}
+    />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
