@@ -1,0 +1,228 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC NACH Auto-Debit', url: '/guides/lic-nach-auto-debit-premium' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC NACH Auto-Debit for Premium: Setup, Debit Dates, Bounce Charges & Failed-Debit Rules',
+  description: 'NACH auto-debit is how LIC collects monthly premiums straight from your bank account — one mandate per policy, debit dates fixed by your policy commencement date (7th, 15th, 22nd or 28th), and no bank attestation needed. What to submit, how long activation takes, what a bounced debit costs (₹125 dishonour charge plus GST for insufficient funds or a closed account), why further debits stop until dues are paid up to date, and how to change bank or stop the mandate without letting the policy lapse.',
+  url: `${siteUrl}/guides/lic-nach-auto-debit-premium`,
+  publishedDate: '2026-10-28T00:00:00Z',
+  modifiedDate: '2026-10-28T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC NACH Auto-Debit for Premium: Setup, Debit Dates, Bounce Charges & Failed-Debit Rules"
+  description="LIC NACH auto-debit explained: mandate setup (one per policy, cancelled cheque, no bank attestation), debit dates 7th/15th/22nd/28th by commencement date, bounce rules (₹125 + GST dishonour charge, debits stop until dues are paid), and changing or stopping a mandate. Branch confirmation is final for your policy."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Premium Payment
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC NACH Auto-Debit for Premium: Setup, Debit Dates, Bounce Charges &amp; Failed-Debit Rules
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        NACH (National Automated Clearing House, run by NPCI) is the system behind LIC's monthly auto-debit: you sign one mandate per policy, your bank debits the premium on a fixed date each month, and you never queue at a branch counter. It replaced the older ECS system, and it is the reason most monthly LIC premiums now leave the account without the policyholder doing anything. This guide covers how to set it up, which date the money leaves, what happens — and what it costs — when a debit bounces, and how to change bank or stop the mandate without accidentally letting the policy lapse. The servicing branch's written confirmation is final for your policy.
+      </p>
+    </div>
+
+    <!-- Quick Summary Box -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 space-y-3">
+      <h2 class="text-sm font-bold text-brand-900">NACH auto-debit in one view</h2>
+      <ul class="list-disc pl-5 space-y-2 text-sm text-brand-800 leading-relaxed">
+        <li><strong>What it is:</strong> a standing instruction to your bank, via LIC and NPCI, to debit your LIC premium automatically. One mandate per policy — a separate form for each policy, even at the same branch.</li>
+        <li><strong>Debit dates:</strong> fixed by your policy's commencement date — the <strong>7th, 15th, 22nd or 28th</strong> of the month (see the table in section 3). You do not choose the date freely.</li>
+        <li><strong>Setup:</strong> mandate form signed by the policyholder (and the account holder, if different) plus a cancelled cheque or passbook copy, submitted at an LIC branch. No bank attestation is needed — LIC sends the scanned mandate to your bank for validation, and your bank confirms acceptance by SMS.</li>
+        <li><strong>Activation gap:</strong> debiting starts only after your bank accepts the mandate <em>and</em> LIC updates that acceptance in its database. Any premium falling due in the meantime must be paid at the counter or through another channel — do not assume the mandate covers it.</li>
+        <li><strong>Bounced debit:</strong> LIC writes to you with the reason. Further NACH debits <strong>stop</strong> until all dues are paid up to date at the branch. For insufficient funds or a closed account, a <strong>₹125 dishonour charge plus GST</strong> applies on top of the premium and any late fee — and your bank may charge separately under its own rules.</li>
+        <li><strong>Two strikes on a closed account:</strong> if NACH is dishonoured twice because the account is closed (or no such account exists), no further debit happens until you submit a fresh mandate.</li>
+      </ul>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What NACH Is — and What It Replaced</h2>
+      <p>
+        NACH is NPCI's centralised bulk-debit system: instead of you remembering each due date, LIC presents the premium to your bank on the scheduled date and your bank debits it. It is the successor to ECS (Electronic Clearing Service), the older city-by-city system — which is why older LIC documents, agent notes and even some branch forms still say "ECS/NACH" as if they were the same thing. For a new registration today, the operative system is NACH, and the mandate form you sign is a NACH mandate.
+      </p>
+      <p>
+        Two eligibility conditions matter before you start. Your bank must be on the NACH network and your account must be CBS (core-banking) compatible — in practice, almost every major bank qualifies, but a small cooperative or a dormant account can fail validation, which is exactly what the SMS-rejection step in section 2 exists to catch. And NACH is a <em>premium-collection</em> instruction, not a policy-servicing change: it does not change your premium amount, your mode's rebate, or your nominee — it only changes how the money reaches LIC.
+      </p>
+      <p>
+        One cost point up front, because monthly payers often miss it: monthly mode gets <strong>no modal rebate</strong>, while yearly mode gets 2% off the tabular premium and half-yearly 1% (see our <a href="/guides/lic-monthly-vs-yearly-premium-cost/" class="text-brand-700 font-semibold hover:text-brand-800">monthly vs yearly cost guide</a>). NACH itself is a free service to LIC policyholders, but your bank may charge something for mandate validation or registration — ask your bank, not LIC, what that charge is before you sign.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Setup Step by Step: From Form to First Debit</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Collect the NACH mandate form</strong> at any LIC branch. You need a separate mandate for each policy — one form does not cover two policies, even if both are yours and both are serviced at the same branch.</li>
+        <li><strong>Fill it in and sign it.</strong> The policyholder signs; if the bank account belongs to someone else (for example a spouse paying for your policy), the account holder signs too. Attach a cancelled cheque leaf (with your name printed) or a copy of the passbook page so the bank details can be validated.</li>
+        <li><strong>Do not take it to your bank for attestation.</strong> Unlike the old ECS process, the customer is not required to get the NACH mandate attested or validated by their bank. Submit it at the LIC branch; LIC sends the scanned mandate to its sponsor bank, which uploads it to the NPCI platform, and your bank validates it against its own records.</li>
+        <li><strong>Watch for the SMS.</strong> If your bank accepts the mandate, you get an SMS confirming acceptance for debiting future premiums under that policy. If the bank finds a discrepancy — a signature mismatch, a wrong account number, a closed account — you get an SMS about the rejection instead, and you must submit a fresh mandate to the servicing branch after correcting the problem.</li>
+        <li><strong>Keep your copy and check the registration letter.</strong> Keep a photocopy of the mandate, collect the NACH registration letter from the branch, and verify every detail on it (policy number, account number, premium amount). A wrong digit caught now is a rejected debit later — report any discrepancy to the branch immediately.</li>
+        <li><strong>Pay any premium that falls due before activation yourself.</strong> NACH deduction can start only after the bank's acceptance is updated in LIC's database. If a premium falls due in that gap, pay it at the cash counter or through an alternate channel; the mandate will not retrospectively collect it.</li>
+        <li><strong>For a new monthly policy, expect two instalments up front.</strong> For NACH monthly-mode cases, two instalments of premium are collected for new policies (in addition to any instalments for back-dating, where the policy is back-dated). Confirm the exact first collection with the branch so the first debit does not surprise you.</li>
+      </ol>
+      <p>
+        A restriction that catches people out: once a policy is on NACH, you generally <strong>cannot</strong> also pay its premiums at the counter or through another channel at will. Counter or alternate-channel payment for a NACH policy is allowed only in three situations — while NACH acceptance is still pending from the bank, after a NACH deduction has been dishonoured, or after the grace period has passed without the premium being received through NACH. Outside those windows, the mandate is the payment route.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Debit Dates: Your Commencement Date Decides, Not You</h2>
+      <p>
+        NACH debit dates are not chosen by the policyholder. They are calculated automatically from the policy's date of commencement, on this fixed grid:
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="w-full text-sm border border-slate-200 rounded-xl overflow-hidden">
+          <thead>
+            <tr class="bg-slate-50 text-left">
+              <th class="border border-slate-200 px-3 py-2">Date of commencement</th>
+              <th class="border border-slate-200 px-3 py-2">NACH debit date each month</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">1st to 7th</td>
+              <td class="border border-slate-200 px-3 py-2">7th of the month</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">8th to 15th</td>
+              <td class="border border-slate-200 px-3 py-2">15th of the month</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">16th to 22nd</td>
+              <td class="border border-slate-200 px-3 py-2">22nd of the month</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">23rd to 28th</td>
+              <td class="border border-slate-200 px-3 py-2">28th of the month</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        The practical consequence is simple: keep funds in the account <em>before</em> your debit date, not on it. A salary that lands on the 8th will not save a debit dated the 7th, and the bounce rules in section 5 apply even if the money arrives a day later. If your income date and your debit date are permanently misaligned, the fix is not to fight the grid — it is to hold a one-month premium buffer in the debit account.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. When a Debit Bounces: The Exact Sequence</h2>
+      <p>
+        A dishonour is not a silent event, and it is not a one-day problem. Here is what happens, in order:
+      </p>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>LIC writes to you.</strong> For a NACH dishonour, LIC sends a letter to the policyholder stating the dishonour and its reason — insufficient funds, account closed, signature mismatch, or another bank return reason. Keep this letter; it is the record of which instalment failed and why.</li>
+        <li><strong>Further NACH debits stop automatically.</strong> If a NACH debit is dishonoured, deduction stops for further dues until the premiums that have fallen due are paid up to date. The mandate does not simply retry next month on its own — the arrears must be cleared first (see step 3).</li>
+        <li><strong>You pay the arrears at the branch (or an alternate channel).</strong> The dishonoured instalment is paid at any LIC branch's cash counter in cash or by demand draft, or through an alternate channel. When you pay, you must pay <em>all</em> premiums due up to the date of payment, plus any premiums falling due within the next 15 days — not just the single bounced instalment.</li>
+        <li><strong>The dishonour charge is added where it applies.</strong> LIC levies a dishonour charge of <strong>₹125 plus GST</strong> when the reason is "insufficient funds" or "account closed". For other return reasons, LIC's charge does not apply in the same way — but your bank may still charge you under its own rules for a returned debit, whatever the reason. The branch receipt will show the exact GST amount; do not assume a round total.</li>
+        <li><strong>Late fee applies if the grace period has passed.</strong> A bounced debit does not extend your grace period. Monthly policies get a 15-day grace period and yearly, half-yearly and quarterly policies get 30 days (see our <a href="/guides/lic-premium-grace-period-late-fee/" class="text-brand-700 font-semibold hover:text-brand-800">grace-period guide</a>). If the arrears are still unpaid when grace expires, the policy lapses — and revival, with interest and possible medical requirements, is the only way back (see our <a href="/guides/lic-policy-revival/" class="text-brand-700 font-semibold hover:text-brand-800">revival guide</a>).</li>
+      </ol>
+      <p>
+        One more hard rule: if NACH is dishonoured <strong>twice</strong> because the account is closed or no such account exists, no further debit will happen at all until a fresh NACH mandate is submitted to the servicing branch. At that point you are not "fixing a bounce" — you are re-registering, which means clearing all dues first and going through section 2 again.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Illustrative Example: What One Bounced Monthly Premium Actually Costs</h2>
+      <p>
+        The example below is <strong>illustrative only</strong> — round figures chosen to show how the charges stack, not a quotation. Your branch's receipt is final for your policy.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Illustrative case</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹5,000 monthly premium, debit on the 15th</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Balance on the 15th is short, so the debit bounces for insufficient funds. The policyholder pays at the branch on the 25th, within the 15-day grace period.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">What is payable</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹5,000 + ₹125 + GST, no late fee yet</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">The bounced ₹5,000 instalment, plus the ₹125 dishonour charge with GST on top (exact GST as shown on the branch receipt), plus any premium falling due within the next 15 days. No late fee here because grace had not expired — but the bank's own return charge, if any, is separate.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">If payment slips past grace</span>
+          <h3 class="font-bold text-brand-700 text-sm">Late fee joins the bill — then lapse</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Paid after the 15-day monthly grace period, the same bill gains LIC's late fee (interest on the delayed premium), and if it stays unpaid the policy lapses. A ₹125 charge is cheap; a lapsed policy with a revival medical is not.</p>
+        </div>
+      </div>
+      <p>
+        The lesson of the example is about timing, not about ₹125. The dishonour charge is small; the real cost of a bounce is the stopped mandate plus the lapse risk if the arrears drift past grace. Pay the arrears the week they bounce, not the month after.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Changing Bank or Stopping the Mandate</h2>
+      <p>
+        <strong>Changing bank:</strong> submit a fresh mandate form to the servicing branch — a bank change is a new mandate, not an edit to the old one. Clear any pending premiums and dishonour or late charges first, and allow processing time before the next debit date: branch guidance cites a minimum gap of 15 days before the next debit date for monthly mode and 30 days for other modes, with all premiums due in that window already paid. If you are currently on NACH monthly mode, branch guides also note that the mode must first be converted from NACH monthly to an ordinary mode before a fresh mandate can be registered — ask the branch to confirm this step for your policy, because it determines whether the new mandate can even be accepted.
+      </p>
+      <p>
+        <strong>Stopping auto-debit:</strong> do it in writing at the servicing branch <em>and</em> instruct your bank, and do not stop paying in the meantime. Until LIC confirms the mandate has ended, pay each premium through another channel (see our <a href="/guides/lic-premium-payment-online-receipt/" class="text-brand-700 font-semibold hover:text-brand-800">online premium-payment guide</a>) so no due date passes unpaid while the two systems catch up with each other. Stopping the mandate stops the debit — it does not stop the premium falling due, and it does not cancel the policy. If you stop paying entirely, the policy simply lapses after grace, which is the worst way to end a mandate.
+      </p>
+      <p>
+        <strong>Changing the debit account's details without changing bank</strong> (for example after a merger renumbers your account): treat it like a bank change and tell the branch promptly, and update your NEFT/bank details for claims at the same time — see our <a href="/guides/lic-address-mobile-bank-neft-update/" class="text-brand-700 font-semibold hover:text-brand-800">address, mobile and bank-update guide</a>. A mandate pointing at an old account number bounces exactly like a closed account, including the two-dishonour rule in section 4.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Five Mistakes That Turn Auto-Debit Into a Lapse</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Assuming the first premium is covered.</strong> The mandate only debits after bank acceptance is updated in LIC's database. Premiums due before that are yours to pay — and they are the most commonly missed instalments on new NACH policies.</li>
+        <li><strong>Keeping the account at zero between salary dates.</strong> Your debit date is fixed by commencement date (section 3), not by payday. A one-month buffer in the debit account is the only reliable fix for a permanent mismatch.</li>
+        <li><strong>Ignoring the dishonour letter.</strong> A bounced debit stops all further debits until arrears are cleared. Waiting for a "retry next month" that never comes is how a one-month slip becomes a lapsed policy.</li>
+        <li><strong>Paying only the bounced instalment.</strong> The branch requires all dues up to the payment date plus dues falling within the next 15 days. Paying one instalment and leaving the rest still leaves the mandate stopped.</li>
+        <li><strong>Closing the debit account without a fresh mandate.</strong> Two dishonours on a closed account end debiting entirely. Submit the fresh mandate <em>before</em> the old account closes, with dues cleared — not after the first bounce tells you it was already too late.</li>
+      </ol>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. NACH procedure, debit dates, dishonour charges and grace periods are as published for LIC premium collection at the time of writing; the servicing branch's written confirmation and your policy document are final for your case. Worked examples are illustrative — the branch's receipt is the only figure LIC will charge.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks
+      currentPath="/guides/lic-nach-auto-debit-premium"
+      customLinks={[
+        {
+          title: 'LIC Premium Payment Online: Portal, UPI Apps & Receipt Download',
+          description: 'The alternate channel to pay while a mandate is pending, after a bounce, or after stopping auto-debit — plus the receipt for 80C/ITR.',
+          url: '/guides/lic-premium-payment-online-receipt/',
+          category: 'Premium Payment',
+          type: 'guide'
+        },
+        {
+          title: 'Monthly vs Yearly LIC Premium: How Much Extra Does Monthly Mode Cost?',
+          description: 'Why monthly mode costs more: no modal rebate versus 2% yearly and 1% half-yearly, plus the shorter 15-day grace period.',
+          url: '/guides/lic-monthly-vs-yearly-premium-cost/',
+          category: 'Premium Payment',
+          type: 'guide'
+        },
+        {
+          title: 'Missed LIC Premium? Grace Period (15/30 Days), Late Fee & What Happens Next',
+          description: 'A bounced debit does not extend grace: 15 days for monthly, 30 days for other modes, then lapse and the revival route.',
+          url: '/guides/lic-premium-grace-period-late-fee/',
+          category: 'Policy Servicing',
+          type: 'guide'
+        },
+        {
+          title: 'LIC Policy Lapsed? Revival Process, Cost & Last Date (5-Year Rule)',
+          description: 'If arrears drift past grace, revival within 5 years — quotation, interest and medical triggers — is the way back.',
+          url: '/guides/lic-policy-revival/',
+          category: 'Policy Servicing',
+          type: 'guide'
+        }
+      ]}
+    />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
