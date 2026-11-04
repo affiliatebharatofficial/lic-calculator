@@ -1,0 +1,263 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Jeevan Akshay vs Jeevan Shanti', url: '/guides/lic-jeevan-akshay-vs-jeevan-shanti' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Jeevan Akshay VII (857) vs Jeevan Shanti (858): Single-Premium Annuity Choice — Income Now or Bigger Pension Later?',
+  description: 'Both plans take one lump sum and pay a guaranteed pension for life, but they answer opposite questions. Jeevan Akshay VII (857) is an immediate annuity — income starts from the next instalment after purchase, with 10 options including return of purchase price. New Jeevan Shanti (858) is a deferred annuity — you wait 1–12 years you choose, and the pension is higher because LIC held the money longer. Entry ages, minimum purchase prices, death benefits, the F-and-J-only surrender and loan rule, tax treatment, and the decision rule for which one fits your retirement date.',
+  url: `${siteUrl}/guides/lic-jeevan-akshay-vs-jeevan-shanti`,
+  publishedDate: '2026-11-04T00:00:00Z',
+  modifiedDate: '2026-11-04T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Jeevan Akshay VII (857) vs Jeevan Shanti (858): Single-Premium Annuity Choice — Income Now or Bigger Pension Later?"
+  description="Jeevan Akshay VII (857) pays pension immediately; New Jeevan Shanti (858) pays after a 1–12 year deferment you choose, at a higher rate. Options A–J vs single/joint, entry ages, minimum purchase prices, death benefits, surrender and loan rules, and tax — plus the one question that decides between them. Branch quotation is final."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Pension &amp; Annuity
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Jeevan Akshay VII (857) vs Jeevan Shanti (858): Single-Premium Annuity Choice — Income Now or Bigger Pension Later?
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        A retiree with a lump sum — provident fund, gratuity, a matured policy, a property sale — walks into an LIC branch with one question: "I have this money once; how do I turn it into monthly income for life?" LIC's two single-premium answers look almost identical on a brochure cover, and they are routinely confused with each other. The difference is a single word: <strong>immediate</strong> versus <strong>deferred</strong>. Jeevan Akshay VII (857) starts paying from the next instalment after you buy. New Jeevan Shanti (858) makes you wait 1–12 years you choose — and pays more per month for the wait. Everything else in this guide — the 10 options versus 2, the entry ages, the death benefits, the exit rules — flows from that one difference. Get both quotations for your age before deciding; the branch's written quotation is final for your case.
+      </p>
+    </div>
+
+    <!-- Quick Summary Box -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 space-y-3">
+      <h2 class="text-sm font-bold text-brand-900">Akshay vs Shanti in one view</h2>
+      <ul class="list-disc pl-5 space-y-2 text-sm text-brand-800 leading-relaxed">
+        <li><strong>Jeevan Akshay VII (857) — immediate annuity:</strong> single premium, non-participating, non-linked. Pension starts from the next instalment (monthly, quarterly, half-yearly or yearly) after purchase. <strong>10 annuity options (A–J)</strong>, including life-only, guaranteed periods of 5/10/15/20 years, return of purchase price, 3% yearly increase, and joint-life variants.</li>
+        <li><strong>New Jeevan Shanti (858) — deferred annuity:</strong> single premium, non-participating, non-linked. You choose a <strong>deferment of 1–12 years</strong>; pension starts only after it ends, but at a higher rate than an immediate annuity on the same money, because LIC held the lump sum in the meantime. Only <strong>2 options</strong>: deferred annuity for single life or joint life.</li>
+        <li><strong>The deciding question:</strong> when do you need the first pension cheque? If the answer is "next month", Akshay is the route. If you have other income until a known retirement date, Shanti's deferment usually buys a materially bigger pension for the same lump sum.</li>
+        <li><strong>Name trap, cleared:</strong> Jeevan Akshay <strong>VI is discontinued</strong>. The current plan is Jeevan Akshay <strong>VII, plan 857, UIN 512N337V07</strong>. If a brochure, agent note or old article says "VI", it is describing a plan you can no longer buy.</li>
+        <li><strong>Both are irreversible:</strong> the annuity option you choose at purchase cannot be changed later, in either plan. The choice is made once, before signature — spend your comparison effort there.</li>
+        <li><strong>Tax is the same for both:</strong> every rupee of annuity is taxable at your slab rate — no 10(10D) exemption on annuity income. The purchase price can qualify under section 80CCC within the ₹1.5 lakh 80C ceiling, old regime only (see our <a href="/guides/lic-pension-annuity-tax-tds-explained/" class="text-brand-700 font-semibold hover:text-brand-800">pension tax guide</a>).</li>
+      </ul>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The One Difference That Decides Everything</h2>
+      <p>
+        Both plans convert a lump sum into a guaranteed pension for life, at rates fixed when you buy — market movements afterwards do not change your pension. The difference is timing, and timing changes the maths completely.
+      </p>
+      <p>
+        With <strong>Akshay VII</strong>, LIC starts paying almost immediately: choose monthly mode and the first pension arrives the next month. That immediacy costs you — the pension per rupee is lower than a deferred annuity's, because LIC starts paying out before it has earned anything on your money. With <strong>Shanti</strong>, you hand over the same lump sum and receive nothing for the deferment period — 1 year at minimum, 12 at maximum, subject to pension starting no later than age 80. In exchange, LIC credits guaranteed additions during the wait, and the pension that eventually starts is higher per rupee. Our Shanti guide quotes LIC's brochure illustration: ₹10 lakh at age 45 with the maximum 12-year deferment illustrates to roughly ₹99,400 a year (single life) starting at 57 — against roughly ₹62,300 a year for an immediate annuity on the same money in the comparison in our <a href="/guides/lic-pension-plans-compared-saral-shanti-umang/" class="text-brand-700 font-semibold hover:text-brand-800">pension plans comparison</a>. That gap — about 60% more pension — is the price of patience, and it is the entire reason Shanti exists.
+      </p>
+      <p>
+        The practical rule follows directly: <strong>defer only across years you can fund from other income.</strong> If you retire at 60 and buy at 60, a 5-year Shanti deferment means five years with no pension from this money — you would need salary, another pension, or savings to bridge them. If you buy at 52 with a lump sum already in hand and a deferment ending at 60, the wait costs you nothing you were counting on, and the higher pension is nearly free money.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Head-to-Head Table</h2>
+      <div class="overflow-x-auto not-prose">
+        <table class="w-full text-sm border border-slate-200 rounded-xl overflow-hidden">
+          <thead>
+            <tr class="bg-slate-50 text-left">
+              <th class="border border-slate-200 px-3 py-2">Feature</th>
+              <th class="border border-slate-200 px-3 py-2">Jeevan Akshay VII (857)</th>
+              <th class="border border-slate-200 px-3 py-2">New Jeevan Shanti (858)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Annuity type</td>
+              <td class="border border-slate-200 px-3 py-2">Immediate — pension from the next instalment</td>
+              <td class="border border-slate-200 px-3 py-2">Deferred — pension after 1–12 years you choose</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Premium</td>
+              <td class="border border-slate-200 px-3 py-2">Single premium (purchase price), no maximum</td>
+              <td class="border border-slate-200 px-3 py-2">Single premium (purchase price), no maximum</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Minimum purchase price</td>
+              <td class="border border-slate-200 px-3 py-2">₹1,00,000 for ages 30+ (₹10,00,000 for ages 25–29; ₹50,000 in specified disability cases), subject to minimum annuity</td>
+              <td class="border border-slate-200 px-3 py-2">₹1,50,000 (₹50,000 where bought for a dependent person with disability), subject to minimum annuity</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Entry age</td>
+              <td class="border border-slate-200 px-3 py-2">25–85 years (up to 100 for Option F, return of purchase price)</td>
+              <td class="border border-slate-200 px-3 py-2">30–79 years; pension (vesting) age 31–80</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Annuity options</td>
+              <td class="border border-slate-200 px-3 py-2">10 options (A–J) — see section 3</td>
+              <td class="border border-slate-200 px-3 py-2">2 options — single life or joint life</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Minimum annuity</td>
+              <td class="border border-slate-200 px-3 py-2">₹1,000/month, ₹3,000/quarter, ₹6,000/half-year, ₹12,000/year</td>
+              <td class="border border-slate-200 px-3 py-2">₹1,000/month, ₹3,000/quarter, ₹6,000/half-year, ₹12,000/year</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Death benefit</td>
+              <td class="border border-slate-200 px-3 py-2">Depends on option: nothing (A), guaranteed-period balance (B–E), purchase price returned (F, J), or joint-life continuation (H–J)</td>
+              <td class="border border-slate-200 px-3 py-2">During deferment: higher of 105% of purchase price or purchase price plus accrued additional benefit; after vesting, purchase price returned to nominee under the plan formula</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Surrender &amp; loan</td>
+              <td class="border border-slate-200 px-3 py-2">Only under Options F and J, after 3 months from issue or free-look expiry, whichever is later; loan capped so annual interest ≤ 50% of annual annuity and loan ≤ 80% of surrender value</td>
+              <td class="border border-slate-200 px-3 py-2">Surrender available during the term; loan available after 3 months from issue, per plan terms</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Medical exam</td>
+              <td class="border border-slate-200 px-3 py-2">Not required</td>
+              <td class="border border-slate-200 px-3 py-2">Not required</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Free-look period</td>
+              <td class="border border-slate-200 px-3 py-2">30 days from receipt of the policy document</td>
+              <td class="border border-slate-200 px-3 py-2">Per current plan terms — confirm in your policy document</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Two rows deserve emphasis. First, Akshay's entry age starts at 25 while Shanti's starts at 30 — a 27-year-old with a lump sum can buy Akshay but not Shanti. Second, Shanti's maximum vesting age of 80 caps the deferment: a 75-year-old can defer at most 5 years, not 12. Both constraints are checked at purchase, not at pension start.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Akshay's 10 Options (A–J): Pick by What Happens After You</h2>
+      <p>
+        Akshay's real selling point is choice. The 10 options are not 10 different plans — they are 10 answers to "what happens to the money after I die, and does the pension grow?" Grouped by what they protect:
+      </p>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Maximum income, nothing back — Option A (annuity for life).</strong> The highest pension while you live; on death, payments stop and nothing goes to heirs. Right only if there is no one depending on this money after you, and you want every rupee converted to lifetime income.</li>
+        <li><strong>Guaranteed period — Options B–E (5, 10, 15 or 20 years, then life).</strong> If you die within the guaranteed period, the pension continues to your nominee until the period ends, then stops. A middle path: higher pension than return-of-price options, with a floor of years your family is protected for.</li>
+        <li><strong>Money back to family — Option F (life with return of purchase price).</strong> A lower pension than A, but on death the full purchase price returns to the nominee. This is the option that also unlocks surrender and loan (section 5). The most popular choice for buyers who cannot accept the lump sum "disappearing".</li>
+        <li><strong>Growing pension — Option G (life, increasing 3% simple every year).</strong> Starts lower than A, then rises 3% a year on a simple basis. Worth considering if you expect a long retirement and worry about inflation — but note 3% simple growth trails actual inflation in most years, so it softens rather than solves the problem.</li>
+        <li><strong>Joint life — Options H, I, J.</strong> H pays 50% to the surviving spouse (or second annuitant) after the first death; I pays 100% as long as either annuitant lives; J pays 100% plus returns the purchase price when the last survivor dies. Joint life can cover spouse, parents, children, grandchildren or siblings — broader than a spouse-only rule. For a couple living on one lump sum, J is usually the option to price first, then compare against I.</li>
+      </ol>
+      <p>
+        The pension ordering is predictable: A pays most, guaranteed-period options slightly less, F and J least (because LIC must fund the return of your money). Do not pick A for its headline pension and then regret the missing legacy — and do not pick J for safety and then complain the monthly figure is lower. Both complaints come from choosing on one number instead of the whole deal.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Shanti's Deferment: How the Wait Pays You Back</h2>
+      <p>
+        Shanti has no A–J menu — just single life or joint life, and one lever: the deferment. During deferment, an additional benefit accrues on death (so if you die before pension starts, your nominee gets more than you paid — the higher of 105% of purchase price or purchase price plus the accrued additional benefit). After vesting, the pension runs for life at the rate guaranteed when you bought, and the purchase price returns to the nominee under the plan formula.
+      </p>
+      <p>
+        The deferment maths is why buyers with time on their side prefer Shanti: a longer wait means a higher pension, and the rate is locked at purchase, so you are also insuring against falling interest rates over the wait. The risk runs the other way too — if interest rates rise sharply during your deferment, a fresh immediate annuity bought later might have paid more, but you cannot switch. That is the trade you are making: certainty today against flexibility tomorrow.
+      </p>
+      <p>
+        Mode matters in both plans and is easy to overlook: monthly mode pays less per year than yearly mode (the site's Shanti guide notes a roughly 4% monthly-mode haircut). If you can manage your cash flow on a quarterly or half-yearly pension, you keep more of the headline rate. Ask for the quotation in your actual mode, not the yearly figure on the brochure.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Illustrative Example: The Same ₹20 Lakh, Two Retirements</h2>
+      <p>
+        The example below is <strong>illustrative only</strong> — it shows the structure of the choice, not a quotation. Actual annuity figures depend on age, option, deferment, purchase-price incentives (higher purchase prices earn better rates), and LIC's annuity table on the purchase date. Your branch's written quotation is final.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Illustrative case</span>
+          <h3 class="font-bold text-slate-900 text-sm">Age 60, ₹20 lakh lump sum, spouse to protect</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Two buyers with the same money and the same spouse: one needs income from next month, the other has a company pension covering the next 5 years and retires fully at 65.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Buyer 1: income now</span>
+          <h3 class="font-bold text-slate-900 text-sm">Akshay VII, Option J</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Pension starts next month, continues at 100% to the spouse after the first death, and the ₹20 lakh purchase price returns to the nominee when the last survivor dies. Surrender and loan remain available under J if an emergency hits. The monthly pension is lower than Shanti's eventual figure — that is the price of starting now and of returning the capital.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Buyer 2: can wait 5 years</span>
+          <h3 class="font-bold text-slate-900 text-sm">Shanti, joint life, 5-year deferment</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">No pension for 5 years — the company pension bridges them. From age 65, a higher monthly pension for life, continuing to the spouse, with the purchase price returned under the plan formula. If the buyer dies during deferment, the nominee gets the higher of 105% of purchase price or purchase price plus accrued additional benefit. Total received overtakes Buyer 1 only if the annuitants live long enough past 65 for the higher monthly figure to repay the 5 silent years.</p>
+        </div>
+      </div>
+      <p>
+        That last sentence is the honest crossover test, and it is the question to put to both quotations: <strong>at what age does Shanti's higher pension repay its silent years?</strong> If that age is well within your family's life expectancy, deferment wins. If you need the money now, or your health makes a long retirement uncertain, the crossover may never arrive — and Akshay's immediate income is the right answer even though its monthly figure looks smaller.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Who Should Pick Which: A Decision Rule</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Pick Akshay VII if income must start now</strong> — retirement is here, the salary has stopped, and this lump sum is the pension. Also pick Akshay if you want the 10-option menu: a guaranteed period, a 3% increasing pension, or a specific joint-life shape that Shanti's two options cannot express.</li>
+        <li><strong>Pick Shanti if the lump sum is in hand years before retirement</strong> — a matured policy at 52, a property sale at 55, a retirement corpus received early — and other income covers you until the pension starts. The longer the affordable deferment, the stronger Shanti's case.</li>
+        <li><strong>Pick Akshay Option F or J if exit flexibility matters.</strong> Only F and J allow surrender or a policy loan in Akshay. Every other Akshay option is permanent: once bought, there is no exit, no loan, no change. If you might need the capital back, F or J is the only Akshay answer — and Shanti's surrender availability is worth pricing against it.</li>
+        <li><strong>For a couple, price joint life first in both plans</strong> — Akshay J versus Shanti joint life — before comparing single-life figures. A single-life pension that dies with the first spouse leaves the survivor with nothing from this money, which is the most expensive mistake in this whole comparison.</li>
+        <li><strong>Never buy on the brochure's yearly figure.</strong> Get the quotation in your mode (monthly/quarterly/half-yearly/yearly), your option, and your deferment, for both plans, on the same day — annuity tables move, and a comparison made from two different months' tables is not a comparison.</li>
+      </ol>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Tax, GST and the Quotation: What to Check Before Signing</h2>
+      <p>
+        Annuity income from either plan is <strong>fully taxable at your slab rate</strong> as income from other sources, in both old and new regimes — there is no 10(10D) exemption on annuity payouts, and the death-benefit position differs between a returned lump sum (exempt for the nominee) and a continued annuity (taxable at the nominee's slab). The purchase price itself can qualify for deduction under <strong>section 80CCC within the overall ₹1.5 lakh section 80C ceiling, old regime only</strong> — new-regime filers get no deduction. Full detail, including TDS and Form 15G/15H, is in our <a href="/guides/lic-pension-annuity-tax-tds-explained/" class="text-brand-700 font-semibold hover:text-brand-800">pension tax guide</a>.
+      </p>
+      <p>
+        On GST, do not trust a blog figure — including this one — over your quotation. The September 2025 exemption reshaped GST on individual life insurance (see our <a href="/guides/lic-gst-0-percent-premium-change/" class="text-brand-700 font-semibold hover:text-brand-800">0% GST guide</a>), and annuity purchase-price treatment is exactly the kind of detail that belongs on the quotation, not in a general article. Check the tax line on both quotations before comparing their monthly pensions, or you will compare a pre-tax figure against a post-tax one.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">8. Five Mistakes That Lock In the Wrong Annuity</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Buying Shanti when you need income now.</strong> A 5-year deferment with no bridging income is not patience — it is five years of borrowing or cutting expenses. If the bridge does not exist, Akshay wins by default.</li>
+        <li><strong>Choosing Akshay Option A for the biggest monthly figure, then worrying about heirs.</strong> A pays most precisely because nothing returns. If leaving the capital matters at all, price F or J first and treat A's figure as the ceiling, not the target.</li>
+        <li><strong>Forgetting the option is permanent.</strong> In both plans the option — and in Shanti, the deferment — cannot be changed after purchase. A single-life choice that leaves a spouse unprotected cannot be fixed later at any price.</li>
+        <li><strong>Assuming Akshay can always be surrendered.</strong> It cannot: surrender and loan exist only under Options F and J, and only after 3 months from issue or free-look expiry, whichever is later. Buyers of A–E, G, H and I have no exit — a fact worth knowing before, not after, signature.</li>
+        <li><strong>Comparing quotations from different dates or modes.</strong> Annuity rates, incentives for higher purchase prices, and mode adjustments all move the monthly figure. Same day, same mode, same purchase price — otherwise the "better" plan is just the better-timed quote.</li>
+      </ol>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Plan numbers, entry ages, minimum purchase prices, options, deferment limits and surrender/loan rules follow LIC's current brochures (Jeevan Akshay VII, plan 857, UIN 512N337V07; New Jeevan Shanti, plan 858) at the time of writing and are revised periodically — confirm them on licindia.in or in your sanctioned benefit illustration. Worked examples are illustrative — the branch's written quotation is the only figure LIC will pay.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks
+      currentPath="/guides/lic-jeevan-akshay-vs-jeevan-shanti"
+      customLinks={[
+        {
+          title: 'LIC Pension Plans Compared: Saral Pension vs Jeevan Shanti vs Jeevan Umang Income',
+          description: 'The three-way pension comparison this guide builds on — immediate vs deferred vs survival-benefit income, with one winner per need.',
+          url: '/guides/lic-pension-plans-compared-saral-shanti-umang/',
+          category: 'Pension & Annuity',
+          type: 'guide'
+        },
+        {
+          title: 'Is LIC Pension Taxable? Annuity Tax + TDS on Jeevan Shanti (858) & Jeevan Akshay VII (857)',
+          description: 'Slab-rate tax on every annuity rupee, 2% 194DA TDS on taxable lump sums above ₹1 lakh, Form 15G/15H, and the 80CCC old-regime-only deduction.',
+          url: '/guides/lic-pension-annuity-tax-tds-explained/',
+          category: 'Pension & Annuity',
+          type: 'guide'
+        },
+        {
+          title: 'LIC Jeevan Shanti (758): Pension on ₹10 Lakh — Single Life vs Joint Life, Deferment 1–12 Years',
+          description: 'The full Shanti walkthrough: deferment maths, the monthly-mode haircut, and the single-vs-joint decision (note: current deferred annuity is Table 858).',
+          url: '/guides/lic-jeevan-shanti-758-pension/',
+          category: 'Pension & Annuity',
+          type: 'guide'
+        },
+        {
+          title: 'Single-Premium LIC Plan Surrender — What You Actually Get Back',
+          description: 'Why single-premium surrender maths differs from regular-premium plans — and why Akshay options other than F and J cannot be surrendered at all.',
+          url: '/guides/lic-single-premium-plan-surrender/',
+          category: 'Policy Servicing',
+          type: 'guide'
+        }
+      ]}
+    />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="November 2026" />
+  </article>
+</BaseLayout>
