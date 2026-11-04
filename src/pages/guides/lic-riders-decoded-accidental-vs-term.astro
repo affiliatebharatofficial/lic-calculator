@@ -1,0 +1,234 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Riders Decoded', url: '/guides/lic-riders-decoded-accidental-vs-term' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Riders Decoded: Accidental Death & Disability vs Term Assurance Rider — Cost, Cover & Who Should Take Which',
+  description: 'LIC riders are cheap add-ons to a base policy, not policies on their own. The Accidental Death and Disability Benefit Rider pays extra only for accidents (death within 180 days, or total permanent disability paid over 10 years), while the New Term Assurance Rider pays its sum assured on death from any covered cause during its term — but is capped at Rs 25 lakh and can only be added at inception. Head-to-head table, illustrative cost maths, and the traps that make a rider worthless.',
+  url: `${siteUrl}/guides/lic-riders-decoded-accidental-vs-term`,
+  publishedDate: '2026-10-30T00:00:00Z',
+  modifiedDate: '2026-10-30T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Riders Decoded: Accidental Death & Disability vs Term Assurance Rider — Cost, Cover & Who Should Take Which"
+  description="LIC riders explained: ADDB rider pays extra only on accidental death or total permanent disability, Term Assurance Rider pays on death from any covered cause but caps at ₹25 lakh and only at inception. Illustrative costs, exclusions, and who should take which — branch quotation is final."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Riders & Add-ons
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Riders Decoded: Accidental Death &amp; Disability vs Term Assurance Rider — Cost, Cover &amp; Who Should Take Which
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        An agent says “rider le lo, sirf thoda extra premium hai” — and it usually is cheap. The trap is not the price, it is the trigger. One LIC rider pays only when an accident causes death or total permanent disability; the other pays on death from any covered cause, but its cover is capped at ₹25 lakh and it can only be added when the base policy starts. Buy the wrong trigger and your family gets nothing extra at exactly the moment they expected it. This guide separates the two riders LIC buyers are most often sold, with their published limits, sample costs and exclusions — and the branch quotation is final for your policy.
+      </p>
+    </div>
+
+    <!-- Quick Summary Box -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 space-y-3">
+      <h2 class="text-sm font-bold text-brand-900">Riders in one view</h2>
+      <ul class="list-disc pl-5 space-y-2 text-sm text-brand-800 leading-relaxed">
+        <li><strong>A rider is an add-on, never a standalone policy.</strong> It lives and dies with the base policy: if the base lapses or goes paid-up, the rider benefit ceases too. Neither rider below pays anything on survival or maturity.</li>
+        <li><strong>Accidental Death and Disability Benefit Rider (ADDB, UIN 512B209V02):</strong> extra cover only for accidents. Accidental death (within 180 days of the accident) pays the Accident Benefit Sum Assured; total permanent disability pays the same sum in monthly instalments over 10 years, and future premiums are waived to the extent of that sum.</li>
+        <li><strong>New Term Assurance Rider (TAR, UIN 512B210V02):</strong> extra life cover for death from any covered cause during the rider term. Entry 18–60, cover to age 75, term 5–35 years — but the rider sum assured is capped at <strong>₹25 lakh across all LIC policies</strong> and cannot exceed the base sum assured.</li>
+        <li><strong>The one-line difference:</strong> ADDB answers “what if an accident disables or kills me?” TAR answers “what if I die at all, before my savings plan has built up?” A family that needs ₹1 crore of life cover cannot get it from a ₹25 lakh rider — that needs a real term plan (see our <a href="/guides/lic-term-plans-head-to-head/" class="text-brand-700 font-semibold hover:text-brand-800">term plans head-to-head guide</a>).</li>
+        <li><strong>Illustrative cost:</strong> ADDB at about ₹1 per ₹1,000 of cover per year (regular premium) means ₹10 lakh of accident cover costs roughly ₹1,000 a year; a 30-year-old paying the published sample rate of ₹2.44 per ₹1,000 for a 20-year Term Assurance Rider pays roughly ₹6,100 a year for ₹25 lakh of extra death cover. Both figures are illustrative — the branch quotation is the only figure LIC will charge.</li>
+      </ul>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What a Rider Is — and What It Is Not</h2>
+      <p>
+        A rider is a clause attached to a base policy (an endowment, money-back or other non-linked plan that allows riders) for an additional premium, paid in the same mode as the base premium. It cannot be bought on its own, it has no surrender value and no paid-up value of its own, and it does not change the base policy's maturity value. Its only job is to change what is paid on one specific event.
+      </p>
+      <p>
+        That dependence cuts both ways. Because the rider premium is small, agents bundle riders casually — and because the rider is small print, buyers discover the trigger only at claim time. Before comparing prices, compare triggers: <em>which event, within which deadline, and with which exclusions</em>. The rest of this guide does exactly that for the two riders.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Accidental Death and Disability Benefit Rider (ADDB): The Accident-Only Rider</h2>
+      <p>
+        ADDB (UIN 512B209V02) is a non-linked rider available with regular, limited and single-premium plans that allow it. “Accident” here has a strict meaning in the rider document: a sudden, unforeseen, involuntary event caused by external, visible and violent means. A heart attack, a diagnosed illness, or a death months after an accident is not an ADDB claim, even if the base policy pays its own death benefit.
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Accidental death:</strong> if the life assured dies as a result of the accident within <strong>180 days</strong> of the accident date, the nominee receives the Accident Benefit Sum Assured (ABSA) <em>in addition to</em> whatever the base policy pays. Death after 180 days does not trigger this rider.</li>
+        <li><strong>Total permanent disability:</strong> if the accident causes total and permanent disability (as defined in the rider document) within 180 days, the ABSA is paid in <strong>equal monthly instalments over 10 years</strong>, and future premiums — for the base policy as well as the rider — are waived to the extent of the ABSA. If the base policy matures or becomes a death claim before all instalments are paid, the remaining instalments are paid out with that claim.</li>
+        <li><strong>Limits:</strong> minimum ABSA ₹10,000; the ABSA cannot exceed the base policy sum assured, and total accident-benefit cover across LIC policies is generally capped at <strong>₹1 crore</strong> (₹2 crore if you hold a Jeevan Shiromani plan with the required minimum cover). Entry age 18 completed; cover runs to the policy anniversary nearest age 70, or the end of the base term, whichever is earlier.</li>
+        <li><strong>When it can be added:</strong> unlike the Term Assurance Rider, ADDB can in many cases be added during the premium-paying term, subject to at least 5 years of the base term remaining — confirm this for your plan at the branch, because plan-level rider availability varies.</li>
+      </ul>
+      <p>
+        <strong>Exclusions to read before signing:</strong> intentional self-injury or suicide, insanity, influence of intoxicants or narcotics (unless medically prescribed), riots, war, hunting, mountaineering and adventurous sports, and accidents while engaged in armed-forces or police duty unless that cover was specifically opted for (police-duty cover carries a higher premium rate). These exclusions apply to the rider only — the base policy's own terms govern its own benefit.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. New Term Assurance Rider (TAR): Extra Death Cover, Capped and Inception-Only</h2>
+      <p>
+        The New Term Assurance Rider (UIN 512B210V02) is the simpler trigger: if the life assured dies during the rider term, the Term Assurance Rider Sum Assured is payable, whatever the cause of death (subject to the base policy's and rider's standard exclusions, such as the suicide clause in the early years). It is, in effect, a small term plan bolted onto a savings plan.
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>What it pays:</strong> the rider sum assured on death during the term. On survival to the end of the rider term, nothing is payable — there is no maturity value, no surrender value and no paid-up value.</li>
+        <li><strong>Limits:</strong> minimum rider sum assured ₹1 lakh; maximum <strong>₹25 lakh in total across all LIC policies</strong> of the life assured, and never more than the base policy's sum assured. Entry age 18–60 (nearest birthday), cover ceasing age 75, rider term 5–35 years (10 years minimum under limited-premium payment).</li>
+        <li><strong>When it can be added:</strong> only with non-linked plans, and <strong>only at the inception of the base policy</strong>. If your policy is already running, you cannot add TAR to it later — that is the single most common disappointment with this rider, and the reason to decide on it before the base policy is issued.</li>
+        <li><strong>Revival:</strong> a lapsed rider can be revived together with the base policy within the revival window, on satisfactory evidence of insurability and payment of arrears with interest — the same revival route as the base policy (see our <a href="/guides/lic-policy-revival/" class="text-brand-700 font-semibold hover:text-brand-800">revival guide</a>).</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Head-to-Head: ADDB vs Term Assurance Rider</h2>
+      <div class="overflow-x-auto not-prose">
+        <table class="w-full text-sm border border-slate-200 rounded-xl overflow-hidden">
+          <thead>
+            <tr class="bg-slate-50 text-left">
+              <th class="border border-slate-200 px-3 py-2">Question</th>
+              <th class="border border-slate-200 px-3 py-2">ADDB Rider</th>
+              <th class="border border-slate-200 px-3 py-2">Term Assurance Rider</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Pays on</td>
+              <td class="border border-slate-200 px-3 py-2">Accidental death within 180 days, or total permanent disability from an accident</td>
+              <td class="border border-slate-200 px-3 py-2">Death from any covered cause during the rider term</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Pays nothing on</td>
+              <td class="border border-slate-200 px-3 py-2">Natural death, illness, disability not caused by an accident</td>
+              <td class="border border-slate-200 px-3 py-2">Survival, disability, critical illness</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Maximum cover</td>
+              <td class="border border-slate-200 px-3 py-2">Base sum assured, aggregate ₹1 crore (₹2 crore with Jeevan Shiromani)</td>
+              <td class="border border-slate-200 px-3 py-2">₹25 lakh across all LIC policies, and never above the base sum assured</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Entry / cover to</td>
+              <td class="border border-slate-200 px-3 py-2">Entry 18+; cover to age 70 (nearest birthday)</td>
+              <td class="border border-slate-200 px-3 py-2">Entry 18–60; cover to age 75 (nearest birthday)</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Can be added later?</td>
+              <td class="border border-slate-200 px-3 py-2">In many cases yes, during the premium-paying term (at least 5 years remaining) — branch to confirm</td>
+              <td class="border border-slate-200 px-3 py-2">No — only at inception of a non-linked base policy</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Maturity / surrender value</td>
+              <td class="border border-slate-200 px-3 py-2">None</td>
+              <td class="border border-slate-200 px-3 py-2">None</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">If base lapses</td>
+              <td class="border border-slate-200 px-3 py-2">Rider benefit ceases with the base policy</td>
+              <td class="border border-slate-200 px-3 py-2">Rider benefit ceases with the base policy</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Illustrative Cost Maths — Why Both Riders Look Cheap</h2>
+      <p>
+        Both riders are priced per ₹1,000 of rider sum assured, so the maths is simple — and deliberately labelled illustrative, because the exact rate depends on age, term, premium-paying term and the plan's current brochure. The branch quotation is final.
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>ADDB, illustrative:</strong> at a published sample rate of about ₹1 per ₹1,000 of Accident Benefit Sum Assured per year for regular-premium plans, ₹10 lakh of accident cover costs roughly <strong>₹1,000 a year</strong>, and ₹25 lakh costs roughly ₹2,500 a year. Police-duty cover costs more. Single-premium and limited-premium rates are higher per year because the payment window is shorter.</li>
+        <li><strong>Term Assurance Rider, illustrative:</strong> published sample rates per ₹1,000 per year for regular premium include ₹2.44 for a 30-year-old on a 20-year term and ₹5.52 for a 40-year-old on the same term. So ₹25 lakh of extra death cover costs roughly <strong>₹6,100 a year at 30</strong> (2,500 × ₹2.44) and roughly <strong>₹13,800 a year at 40</strong> (2,500 × ₹5.52), before any taxes shown on the quotation.</li>
+        <li><strong>Combined example, illustrative:</strong> take a base policy with a ₹25 lakh sum assured, plus ADDB of ₹25 lakh, plus TAR of ₹25 lakh. On accidental death, the family receives the base policy's own death benefit <em>plus</em> ₹25 lakh (ADDB) <em>plus</em> ₹25 lakh (TAR) — ₹50 lakh of rider money on top of the base. On natural death, the family receives the base benefit plus ₹25 lakh (TAR only) — ADDB pays nothing. On total permanent disability from an accident, the life assured receives ₹25 lakh in monthly instalments over 10 years (about ₹20,833 a month) with future premiums waived to that extent, and TAR pays nothing.</li>
+      </ul>
+      <p>
+        The combined example is the whole point: the same ₹25 lakh + ₹25 lakh of rider cover produces three completely different outcomes depending on <em>how</em> the event happens. Check your family's gap against the worst outcome, not the best one.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Who Should Take Which — A Decision Framework</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Young family, single earner, savings plan already chosen:</strong> TAR first, if the policy is still at inception stage. It is the only one of the two that covers the most likely tragedy — death from illness — and ₹25 lakh extra for roughly ₹6,100 a year at 30 is genuinely cheap. But treat it as a top-up: work out how much cover you actually need with our <a href="/guides/lic-term-cover-how-much/" class="text-brand-700 font-semibold hover:text-brand-800">how-much-cover guide</a>, and buy a standalone term plan for the rest.</li>
+        <li><strong>High accident exposure (long daily commute, two-wheeler, field or site work):</strong> ADDB earns its place, because it is the only one of the two that pays anything for disability — and disability, not death, is the risk that stops income while expenses continue. The 10-year instalment structure is a feature here, not a flaw: it replaces income month by month.</li>
+        <li><strong>Already hold a pure term plan for the full cover amount:</strong> TAR adds little — your term plan already pays on death from any covered cause, with no ₹25 lakh cap. ADDB may still add value for the disability case, which a basic term plan does not cover.</li>
+        <li><strong>Policy already running, no riders attached:</strong> TAR is gone — it was inception-only. ADDB may still be addable (section 2); anything else needs a new policy or a separate term plan, not a rider request at the branch counter.</li>
+        <li><strong>On a tight budget:</strong> skip both before you skip the base premium. A lapsed base policy kills every rider attached to it, and a rider has never rescued a family whose main policy lapsed for non-payment.</li>
+      </ol>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Five Traps That Make a Rider Worthless</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Assuming ADDB covers all deaths.</strong> It does not. A death from illness on a policy with only ADDB attached pays the base benefit and nothing extra — the most expensive misunderstanding in this guide.</li>
+        <li><strong>Assuming ₹25 lakh of TAR is “enough cover”.</strong> It is a top-up, capped by design. A family needing ₹1 crore that stops at TAR is under-insured by ₹75 lakh.</li>
+        <li><strong>Missing the 180-day ADDB clock.</strong> Complications, coma or a death more than 180 days after the accident fall outside the rider, however genuine the link. Keep accident records, FIR/medical papers and dates from day one.</li>
+        <li><strong>Buying two accident riders as if they stack automatically.</strong> Current plan brochures list accidental-death/disability and accident-benefit riders as alternatives for the same policy, not automatically cumulative cover — check the brochure for your plan before paying two rider premiums for one accident.</li>
+        <li><strong>Letting the base policy lapse.</strong> Rider cover ceases when the base policy lapses or goes paid-up. Revival must cover the base and the rider together, within the revival window.</li>
+      </ol>
+
+      <h2 class="text-xl font-bold text-slate-900">8. The Other LIC Riders, in One Paragraph Each</h2>
+      <p>
+        Two more riders appear on current plan brochures and are worth knowing by name, though neither is the subject of this guide: the <strong>Critical Illness Rider</strong> pays a lump sum on diagnosis of a listed critical illness (cancer, heart attack, stroke and others as defined in its document, with its own waiting periods and exclusions) — it answers a risk neither ADDB nor TAR touches. The <strong>Premium Waiver Benefit Rider</strong> waives future base premiums if the life assured suffers a covered disability or critical illness, keeping the base policy alive when income stops. Both are plan-dependent, both carry their own definitions and exclusions, and both should be compared on their trigger lists, not on their brochures' headlines.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">9. Checklist Before You Sign for a Rider</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>Write down the trigger in one sentence (“pays ₹X if Y happens before Z”) and check it against the rider document, not the agent's summary.</li>
+        <li>Confirm the rider sum assured, the aggregate cap across all your LIC policies, and whether the rider can be added later or only at inception.</li>
+        <li>Get the rider premium shown separately on the written quotation — not bundled into a single “total premium” figure — and confirm the taxes shown on that quotation.</li>
+        <li>Check exclusions that apply to you personally: occupation (police/armed forces), hazardous hobbies, and any pre-existing condition the rider document carves out.</li>
+        <li>Keep the rider endorsement with the policy bond. At claim time, the nominee files under the base policy and the rider together — a missing endorsement is a delayed claim.</li>
+      </ol>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Rider UINs, limits, sample rates and exclusions are as published in rider documents and plan brochures at the time of writing and may change; the servicing branch's written quotation and your policy's rider endorsement are final for your case. Worked examples are illustrative — the branch's quotation is the only figure LIC will charge.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks
+      currentPath="/guides/lic-riders-decoded-accidental-vs-term"
+      customLinks={[
+        {
+          title: 'LIC Term Plans Head-to-Head: New Jeevan Amar vs Tech-Term vs Digi Term vs Bima Kavach',
+          description: 'Why a ₹25 lakh rider cap is a top-up, not a term plan — the standalone plans that cover ₹1–2 crore.',
+          url: '/guides/lic-term-plans-head-to-head/',
+          category: 'Term Plans',
+          type: 'guide'
+        },
+        {
+          title: 'How Much Life Cover Do You Need? HLV Method with LIC Term Example',
+          description: 'Work out the real cover gap before deciding whether a rider, a term plan, or both closes it.',
+          url: '/guides/lic-term-cover-how-much/',
+          category: 'Term Plans',
+          type: 'guide'
+        },
+        {
+          title: 'LIC Policy Lapsed? Revival Process, Cost & Last Date (5-Year Rule)',
+          description: 'Rider cover ceases with a lapsed base policy — revival within 5 years is the way back, base and rider together.',
+          url: '/guides/lic-policy-revival/',
+          category: 'Policy Servicing',
+          type: 'guide'
+        },
+        {
+          title: 'LIC Policy Loan: How Much Can You Borrow & Interest Cost',
+          description: 'Riders have no surrender or loan value of their own — borrowing, if needed, is against the base policy.',
+          url: '/guides/lic-how-much-loan-on-policy/',
+          category: 'Policy Loans',
+          type: 'guide'
+        }
+      ]}
+    />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="October 2026" />
+  </article>
+</BaseLayout>
