@@ -2,6 +2,32 @@ import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
+import { readFileSync } from 'node:fs';
+
+// Guide publish dates (slug -> YYYY-MM-DD), parsed from the same map the
+// Worker date-gate uses, so future-dated guides stay out of the sitemap
+// until their day arrives.
+const guideDatesSource = readFileSync(
+  new URL('./src/lib/content/guide-publish-dates.ts', import.meta.url),
+  'utf-8'
+);
+const GUIDE_PUBLISH_DATES = Object.fromEntries(
+  [...guideDatesSource.matchAll(/'([a-z0-9-]+)':\s*'(\d{4}-\d{2}-\d{2})'/g)].map(
+    (m) => [m[1], m[2]]
+  )
+);
+const todayIST = new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'Asia/Calcutta',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit'
+}).format(new Date());
+function isFutureGuide(page) {
+  const m = page.match(/\/(?:(?:hi|mr|gu|bn|ta|te)\/)?guides\/([a-z0-9-]+)\//);
+  if (!m) return false;
+  const d = GUIDE_PUBLISH_DATES[m[1]];
+  return Boolean(d && d > todayIST);
+}
 
 const siteUrl = process.env.SITE_URL || 'https://lic-calculators.com';
 
@@ -32,7 +58,8 @@ export default defineConfig({
       filter: (page) =>
         !page.includes('/api/') &&
         !page.includes('/admin/') &&
-        !/\/(hi|mr|gu|bn|ta|te)\/guides\/[a-z0-9-]+\//.test(page)
+        !/\/(hi|mr|gu|bn|ta|te)\/guides\/[a-z0-9-]+\//.test(page) &&
+        !isFutureGuide(page)
     })
   ],
   redirects: {

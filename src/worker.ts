@@ -1,5 +1,6 @@
 /// <reference types="@cloudflare/workers-types" />
 import { createExports as createAstroExports } from '@astrojs/cloudflare/entrypoints/server.js';
+import { GUIDE_PUBLISH_DATES } from './lib/content/guide-publish-dates';
 
 // Canonical host redirect, enforced at the Worker entrypoint for EVERY
 // request (Astro middleware alone never sees static-asset requests - the
@@ -21,6 +22,30 @@ export function createExports(manifest: Parameters<typeof createAstroExports>[0]
           url.hostname = CANONICAL_HOST;
           url.port = '';
           return Response.redirect(url.toString(), 301);
+        }
+        // Guide date-gate: guides publish one per day, so a guide whose
+        // publish date (Asia/Calcutta) is still in the future returns 404
+        // and opens automatically at 00:00 IST on its date — no rebuild
+        // needed. Slugs missing from the map are never gated.
+        const guideMatch = url.pathname.match(
+          /^\/(?:(en|hi|mr|gu|bn|ta|te)\/)?guides\/([a-z0-9-]+)\/?$/
+        );
+        if (guideMatch) {
+          const publishDate = GUIDE_PUBLISH_DATES[guideMatch[2]];
+          if (publishDate) {
+            const todayIST = new Intl.DateTimeFormat('en-CA', {
+              timeZone: 'Asia/Calcutta',
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit'
+            }).format(new Date());
+            if (publishDate > todayIST) {
+              return new Response('Not Found', {
+                status: 404,
+                headers: { 'content-type': 'text/plain; charset=utf-8' }
+              });
+            }
+          }
         }
         return astro.default.fetch(request, env as never, context);
       }

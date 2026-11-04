@@ -1,6 +1,7 @@
 ---
 import ContentLayout from '@/layouts/ContentLayout.astro';
 import Card from '@/components/ui/Card.astro';
+import { GUIDE_PUBLISH_DATES } from '@/lib/content/guide-publish-dates';
 
 const breadcrumbs = [{ name: 'Guides', url: '/guides/' }];
 ---
@@ -499,4 +500,24 @@ const breadcrumbs = [{ name: 'Guides', url: '/guides/' }];
       </a>
     </Card>
   </div>
+
+  <!-- Hide cards for future-dated guides (the Worker date-gate would 404
+       them until 00:00 IST on their publish date). -->
+  <script is:inline define:vars={{ guidePublishDates: GUIDE_PUBLISH_DATES }}>
+    try {
+      const todayIST = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Asia/Calcutta',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      }).format(new Date());
+      document.querySelectorAll('a[href^="/guides/"]').forEach((a) => {
+        const m = (a.getAttribute('href') || '').match(/^\/guides\/([a-z0-9-]+)\//);
+        if (m && guidePublishDates[m[1]] && guidePublishDates[m[1]] > todayIST) {
+          const card = a.closest('.shadow-card');
+          if (card) card.style.display = 'none';
+        }
+      });
+    } catch (e) {}
+  </script>
 </ContentLayout>
