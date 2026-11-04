@@ -308,6 +308,11 @@ const breadcrumbs = [
   { name: 'Guides', url: getLocalizedPath('/guides/', locale) },
   { name: guide.title, url: getLocalizedPath(`/guides/${guide.slug}`, locale) }
 ];
+
+// These localized guide pages are untranslated stubs (title + description
+// only), so alongside noindex their canonical points at the English
+// original, which is the version search engines should index.
+const englishCanonical = `https://lic-calculators.com${getLocalizedPath(`/guides/${guide.slug}/`, DEFAULT_LOCALE)}`;
 ---
 
 <BaseLayout
@@ -316,6 +321,7 @@ const breadcrumbs = [
   breadcrumbs={breadcrumbs}
   locale={locale}
   noIndex={true}
+  canonicalUrl={englishCanonical}
 >
   <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
     <div class="space-y-3 border-b border-slate-200 pb-8">
