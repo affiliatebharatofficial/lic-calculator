@@ -117,6 +117,19 @@ export interface HreflangEntry {
 export function getHreflangList(currentPath: string): HreflangEntry[] {
   const list: HreflangEntry[] = [];
 
+  // Localized guide pages are summary stubs (title + description only, no
+  // translated article body), so they are noindexed and must not be
+  // advertised as hreflang alternates. Guide detail pages declare only the
+  // English original and x-default.
+  const GUIDE_DETAIL_PATH = /^\/(?:(?:en|hi|mr|gu|bn|ta|te)\/)?guides\/[a-z0-9-]+\/?$/;
+  if (GUIDE_DETAIL_PATH.test(currentPath)) {
+    const enPath = getLocalizedPath(currentPath, DEFAULT_LOCALE);
+    const enHref = `${PRIMARY_DOMAIN}${enPath === '/' ? '' : enPath}`;
+    list.push({ hreflang: DEFAULT_LOCALE, href: enHref });
+    list.push({ hreflang: 'x-default', href: enHref });
+    return list;
+  }
+
   for (const loc of LOCALE_CODES) {
     const locPath = getLocalizedPath(currentPath, loc);
     const locHref = `${PRIMARY_DOMAIN}${locPath === '/' ? '' : locPath}`;

@@ -27,7 +27,12 @@ export default defineConfig({
       applyBaseStyles: false
     }),
     sitemap({
-      filter: (page) => !page.includes('/api/') && !page.includes('/admin/')
+      // Localized guide detail pages are noindexed summary stubs (no
+      // translated body yet), so keep them out of the sitemap.
+      filter: (page) =>
+        !page.includes('/api/') &&
+        !page.includes('/admin/') &&
+        !/\/(hi|mr|gu|bn|ta|te)\/guides\/[a-z0-9-]+\//.test(page)
     })
   ],
   redirects: {
