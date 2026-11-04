@@ -17,6 +17,32 @@ export function createExports(manifest: Parameters<typeof createAstroExports>[0]
     default: {
       async fetch(request: Request, env: unknown, context: ExecutionContext): Promise<Response> {
         const url = new URL(request.url);
+        // Canonical URL hygiene: exactly one URL per page. http -> https,
+        // www -> apex, and extensionless page paths -> trailing slash,
+        // combined into a single 301 so there are no redirect chains.
+        // GET/HEAD only, so posts are never rewritten; /api/ paths and
+        // files (last segment contains a dot) are left alone.
+        if (
+          (request.method === 'GET' || request.method === 'HEAD') &&
+          (url.hostname === CANONICAL_HOST || url.hostname === `www.${CANONICAL_HOST}`)
+        ) {
+          const target = new URL(url.toString());
+          target.protocol = 'https:';
+          target.hostname = CANONICAL_HOST;
+          target.port = '';
+          const lastSegment = target.pathname.split('/').pop() ?? '';
+          if (
+            target.pathname.length > 1 &&
+            !target.pathname.endsWith('/') &&
+            !lastSegment.includes('.') &&
+            !target.pathname.startsWith('/api/')
+          ) {
+            target.pathname += '/';
+          }
+          if (target.toString() !== url.toString()) {
+            return Response.redirect(target.toString(), 301);
+          }
+        }
         if (url.hostname === WORKERS_DEV_HOST) {
           url.protocol = 'https:';
           url.hostname = CANONICAL_HOST;
