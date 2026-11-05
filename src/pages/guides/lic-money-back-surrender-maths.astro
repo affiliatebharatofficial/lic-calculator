@@ -1,0 +1,220 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Money-Back Surrender Maths', url: '/guides/lic-money-back-surrender-maths' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Money-Back Surrender Maths: Survival Benefits Already Received + Surrender Value — Your Real Total',
+  description: 'Surrendering a money-back policy? Never compare the surrender value alone with the premiums you paid — you have already received survival benefits, and LIC deducts those from the guaranteed surrender value. The 20-year (20% at years 5, 10, 15) and 25-year (15% at years 5, 10, 15, 20) schedules, the GSV/SSV formulae, three illustrative year-band examples, and the paid-up alternative — with the branch quotation final.',
+  url: `${siteUrl}/guides/lic-money-back-surrender-maths`,
+  publishedDate: '2026-11-05T00:00:00Z',
+  modifiedDate: '2026-11-05T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Money-Back Surrender Maths: Survival Benefits Already Received + Surrender Value — Your Real Total"
+  description="Money-back surrender value looks small until you add back the survival benefits already in your hand — and LIC's guaranteed value deducts exactly those benefits. 20-year and 25-year schedules, GSV/SSV formulae, illustrative year-band maths, and paid-up vs surrender. Branch quotation is final."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Surrender & Exit Maths
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Money-Back Surrender Maths: Survival Benefits Already Received + Surrender Value
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        A money-back policyholder who surrenders after two instalments often panics at the quotation: “I paid ₹3 lakh, and LIC is offering only ₹1.2 lakh?” That comparison is wrong — because ₹2 lakh has already come back to you as survival benefits. The surrender value is only the <em>second</em> half of your total recovery. This guide adds both halves together, shows why LIC's guaranteed value deducts the instalments you already received, and compares surrender with the paid-up alternative — before you sign Form 5074. All worked figures below are illustrative; the servicing branch's written quotation is final for your policy.
+      </p>
+    </div>
+
+    <!-- Quick Summary Box -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 space-y-3">
+      <h2 class="text-sm font-bold text-brand-900">The one formula to remember</h2>
+      <ul class="list-disc pl-5 space-y-2 text-sm text-brand-800 leading-relaxed">
+        <li><strong>Total recovery on surrender = survival benefits already received + surrender value − outstanding loan (with interest).</strong> Judge profit or loss on that total against premiums paid — never on the surrender value alone.</li>
+        <li><strong>20-year money-back:</strong> 20% of the basic sum assured at the end of years 5, 10 and 15, then 40% + bonuses at maturity. Premium paying term 15 years.</li>
+        <li><strong>25-year money-back:</strong> 15% of the basic sum assured at the end of years 5, 10, 15 and 20, then 40% + bonuses at maturity.</li>
+        <li><strong>Guaranteed Surrender Value (GSV)</strong> = a percentage of total premiums paid (excluding taxes, extra premiums and rider premiums) <strong>minus survival benefits already paid</strong>, plus the surrender value of vested bonuses. That minus sign is why the quotation looks small after two instalments.</li>
+        <li><strong>Special Surrender Value (SSV)</strong> = (paid-up sum assured + vested bonuses) × LIC's surrender-value factor. LIC pays the <strong>higher of GSV and SSV</strong>; in practice SSV is usually the figure you receive.</li>
+      </ul>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Mistake Almost Every Money-Back Holder Makes</h2>
+      <p>
+        On an endowment policy, “premiums paid vs surrender value” is a fair comparison, because nothing has come back yet. On a money-back policy it is not. By year 10 of a 20-year plan you have already banked 40% of the sum assured in two instalments. If you ignore that money, every surrender looks like a disaster; if you count it, the decision becomes a real calculation instead of a shock.
+      </p>
+      <p>
+        There is a second mistake in the opposite direction: counting the survival benefits <em>and</em> expecting the full maturity amount as well. Surrender ends the policy. The remaining 40% at maturity, all future bonuses on it, and the life cover all stop on the surrender date. What you keep is what is already in your hand plus today's surrender value — nothing more.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. The Two Schedules — What You Have Already Received, and What Is Left</h2>
+      <div class="overflow-x-auto not-prose">
+        <table class="w-full text-sm border border-slate-200 rounded-xl overflow-hidden">
+          <thead>
+            <tr class="bg-slate-50 text-left">
+              <th class="border border-slate-200 px-3 py-2">Plan</th>
+              <th class="border border-slate-200 px-3 py-2">Survival benefits during term</th>
+              <th class="border border-slate-200 px-3 py-2">At maturity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Money-back, 20 years</td>
+              <td class="border border-slate-200 px-3 py-2">20% of basic sum assured at the end of year 5, year 10 and year 15 (60% in total)</td>
+              <td class="border border-slate-200 px-3 py-2">40% of basic sum assured + vested simple reversionary bonuses + final additional bonus, if any</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Money-back, 25 years</td>
+              <td class="border border-slate-200 px-3 py-2">15% of basic sum assured at the end of year 5, year 10, year 15 and year 20 (60% in total)</td>
+              <td class="border border-slate-200 px-3 py-2">40% of basic sum assured + vested simple reversionary bonuses + final additional bonus, if any</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Each instalment is payable only if premiums are paid up to that anniversary — see our <a href="/guides/lic-survival-benefit-claim/" class="text-brand-700 font-semibold hover:text-brand-800">survival-benefit claim guide</a> for what happens when an instalment falls due on a lapsed policy. Bonuses, meanwhile, keep accruing on the <em>full</em> sum assured, not on the shrinking balance — one reason money-back bonuses look better than the instalment schedule alone suggests.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. How LIC Actually Calculates Your Surrender Value</h2>
+      <p>
+        LIC pays the higher of two values. Both are defined in your policy document, and the branch quotation applies them to your exact premium history — the formulae below explain the structure, not your figure.
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Guaranteed Surrender Value (GSV):</strong> (GSV factor % × total premiums paid, excluding taxes, extra premiums and rider premiums) <strong>minus survival benefits already paid</strong>, plus the surrender value of vested bonuses (vested bonus × its own factor). The deduction is the whole story of this guide: LIC does not pay you the same instalment twice.</li>
+        <li><strong>Special Surrender Value (SSV):</strong> (paid-up sum assured + vested bonuses) × special surrender value factor, where the factor depends on the policy year and plan. Under the IRDAI framework in force from 1 October 2024, SSV must be at least the present value of the paid-up sum assured and accrued benefits, discounted at no more than the 10-year government-security yield plus 0.50%.</li>
+        <li><strong>When can you surrender at all?</strong> For policies issued on or after 1 October 2024, a special surrender value is payable after just one full year's premium. Older policies follow their own document — typically two or three full years' premiums before any surrender value. Check your issue date and your document; do not assume the new rule applies to a 2015 policy. Our <a href="/guides/lic-irdai-surrender-rules-2024/" class="text-brand-700 font-semibold hover:text-brand-800">IRDAI surrender-rules guide</a> covers the old-vs-new split in detail.</li>
+        <li><strong>Loan first:</strong> any outstanding policy loan plus interest is deducted from the surrender value before payment. If the loan is large, it can swallow most of the quotation — get the loan statement with the surrender quotation, not after it (see our <a href="/guides/lic-how-much-loan-on-policy/" class="text-brand-700 font-semibold hover:text-brand-800">policy-loan guide</a>).</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Illustrative Maths: One Policy, Three Surrender Dates</h2>
+      <p>
+        Take an illustrative 20-year money-back policy: basic sum assured ₹5,00,000, assumed annual premium ₹30,000 (a round illustrative figure, <em>not</em> a LIC quotation — your premium depends on age, term and plan version). Premium paying term 15 years, so total premiums payable are ₹4,50,000. Survival benefits are ₹1,00,000 (20%) at years 5, 10 and 15. The surrender values below are illustrative placeholders for the branch's SSV figure, shown only so the addition is visible.
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="w-full text-sm border border-slate-200 rounded-xl overflow-hidden">
+          <thead>
+            <tr class="bg-slate-50 text-left">
+              <th class="border border-slate-200 px-3 py-2">Surrender at</th>
+              <th class="border border-slate-200 px-3 py-2">Premiums paid</th>
+              <th class="border border-slate-200 px-3 py-2">Survival benefits already received</th>
+              <th class="border border-slate-200 px-3 py-2">Illustrative surrender value</th>
+              <th class="border border-slate-200 px-3 py-2">Total recovery</th>
+              <th class="border border-slate-200 px-3 py-2">vs premiums paid</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Year 6 (one instalment)</td>
+              <td class="border border-slate-200 px-3 py-2">₹1,80,000</td>
+              <td class="border border-slate-200 px-3 py-2">₹1,00,000</td>
+              <td class="border border-slate-200 px-3 py-2">₹45,000</td>
+              <td class="border border-slate-200 px-3 py-2">₹1,45,000</td>
+              <td class="border border-slate-200 px-3 py-2">−₹35,000 (−19%)</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Year 10 (two instalments)</td>
+              <td class="border border-slate-200 px-3 py-2">₹3,00,000</td>
+              <td class="border border-slate-200 px-3 py-2">₹2,00,000</td>
+              <td class="border border-slate-200 px-3 py-2">₹1,20,000</td>
+              <td class="border border-slate-200 px-3 py-2">₹3,20,000</td>
+              <td class="border border-slate-200 px-3 py-2">+₹20,000 — but maturity ₹2,00,000 + bonuses given up</td>
+            </tr>
+            <tr>
+              <td class="border border-slate-200 px-3 py-2 font-semibold">Year 16 (three instalments, premiums complete)</td>
+              <td class="border border-slate-200 px-3 py-2">₹4,50,000</td>
+              <td class="border border-slate-200 px-3 py-2">₹3,00,000</td>
+              <td class="border border-slate-200 px-3 py-2">₹1,60,000</td>
+              <td class="border border-slate-200 px-3 py-2">₹4,60,000</td>
+              <td class="border border-slate-200 px-3 py-2">+₹10,000 — but only 4 years left to a ₹2,00,000 + bonus maturity</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Read the table the right way. Year 6 is a genuine loss, even after counting the instalment — early surrender is expensive, and a loan against the policy is usually cheaper than surrendering (see section 5). Year 10 looks like a small gain only if you forget what was given up: the remaining 40% (₹2,00,000) plus bonuses at maturity, and the life cover for the next 10 years. Year 16 is the clearest warning: surrendering with four years to maturity, for a total barely above premiums paid, throws away a maturity payment that is larger than the surrender value itself. The closer you are to the next instalment or to maturity, the worse surrender usually looks.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Before Surrendering: Paid-Up and Loan, Side by Side</h2>
+      <p>
+        Surrender is not the only exit. Two alternatives change the maths completely, and both should be quoted in writing before you sign anything:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Paid-up (stop paying, keep a reduced policy):</strong> the policy continues in reduced form to maturity, but future survival benefits stop. The maturity paid-up sum assured for a money-back plan is [(sum assured on maturity + total survival benefits payable) × premiums paid ÷ premiums payable] <strong>minus survival benefits already paid</strong>. On the year-10 example above: [(₹2,00,000 + ₹3,00,000) × 10 ÷ 15] − ₹2,00,000 = ₹1,33,333 at maturity, plus proportionate bonuses as per the policy — instead of ₹1,20,000 today, with no further premiums to pay. Paid-up usually beats surrender when you can afford to wait; surrender wins only when you need the cash now. Our <a href="/guides/lic-paid-up-vs-surrender/" class="text-brand-700 font-semibold hover:text-brand-800">paid-up vs surrender guide</a> works through the general comparison.</li>
+        <li><strong>Policy loan (keep the policy, borrow against it):</strong> you can usually borrow up to 90% of the surrender value (85% on a paid-up policy). The policy, its instalments and its maturity all survive; the loan plus interest is deducted at maturity or claim. If the need is temporary, a loan preserves the maturity that surrender destroys. Interest accrues half-yearly, so a loan left unpaid for years quietly eats the maturity amount — price that in.</li>
+        <li><strong>Wait for the next instalment:</strong> if the next survival benefit falls due in a few months, waiting changes the “already received” column by a full 20% (or 15%) of the sum assured. Check the due date before choosing a surrender date — the branch can confirm it in writing.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Checklist Before You Sign Form 5074</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>List every survival benefit already received, with dates and amounts, from the branch statement — not from memory. Add them to the surrender quotation; that sum is your total recovery.</li>
+        <li>Get three written figures from the servicing branch: the surrender value (GSV and SSV, and which is higher), the paid-up maturity value, and the maximum loan available. Decide from those three numbers, not from the surrender figure alone.</li>
+        <li>Check the outstanding loan + interest, and whether a due survival benefit is about to fall — both change the answer.</li>
+        <li>Confirm the tax position for your case: surrender proceeds of a policy that does not meet the section 10(10D) conditions can be taxable — see our <a href="/guides/lic-maturity-tax-10-10d-explained/" class="text-brand-700 font-semibold hover:text-brand-800">maturity-tax guide</a> for the ₹5 lakh aggregate-premium rule.</li>
+        <li>Only then submit Form 5074 at the servicing branch with the original bond, NEFT mandate, cancelled cheque and ID proof — the branch process and typical 7–15 working day timeline are in our <a href="/guides/lic-surrender-form-5074-branch-process/" class="text-brand-700 font-semibold hover:text-brand-800">Form 5074 guide</a>. Keep a copy of everything you sign.</li>
+      </ol>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Survival-benefit schedules, GSV/SSV formulae and paid-up rules are as published in LIC plan brochures and policy documents at the time of writing and vary by plan version and issue date; the servicing branch's written quotation and your policy document are final for your case. Worked examples are illustrative — the branch's quotation is the only figure LIC will pay.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks
+      currentPath="/guides/lic-money-back-surrender-maths"
+      customLinks={[
+        {
+          title: 'LIC Survival Benefit Claim: Your Money-Back Instalment Falls Due — Here Is How It Reaches You',
+          description: 'The instalment side of this guide: due-date condition, discharge receipt, NEFT step, and claiming a missed instalment.',
+          url: '/guides/lic-survival-benefit-claim/',
+          category: 'Policy Servicing',
+          type: 'guide'
+        },
+        {
+          title: 'LIC Surrender Form 5074: How to Surrender at the Branch & Days to Get Your Money',
+          description: 'Once the maths says surrender: branch-only submission, documents, and the 7–15 working day NEFT timeline.',
+          url: '/guides/lic-surrender-form-5074-branch-process/',
+          category: 'Surrender',
+          type: 'guide'
+        },
+        {
+          title: 'Stop Paying LIC Premium After 3 Years? Paid-Up Value You Will Get at Maturity',
+          description: 'The paid-up alternative in full: reduced maturity value, bonus freeze, and the 5-year revival window.',
+          url: '/guides/lic-paid-up-vs-surrender/',
+          category: 'Surrender',
+          type: 'guide'
+        },
+        {
+          title: 'LIC Money-Back vs Endowment: Which Plan Actually Suits You?',
+          description: 'Why money-back costs more per rupee of maturity than a plain endowment — and when the instalments are worth it.',
+          url: '/guides/lic-money-back-vs-endowment/',
+          category: 'Plan Comparisons',
+          type: 'guide'
+        }
+      ]}
+    />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="November 2026" />
+  </article>
+</BaseLayout>
