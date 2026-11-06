@@ -1,0 +1,184 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC ULIP Charges Decoded', url: '/guides/lic-ulip-charges-decoded-nivesh-plus-siip' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC ULIP Charges Decoded: Nivesh Plus (849) & SIIP (852) — Allocation, Mortality & Fund Charges',
+  description: 'LIC\'s two ULIPs charge in five different places: Nivesh Plus (849) takes 3.30% offline / 1.50% online allocation on a single premium, SIIP (852) takes 8% in year 1 offline, both deduct 1.35% p.a. fund management charge and monthly mortality charges, and SIIP adds a ₹150/month policy administration charge from year 6. Full charge tables, illustrative cost maths, guaranteed additions that offset them, and the 5-year lock-in.',
+  url: `${siteUrl}/guides/lic-ulip-charges-decoded-nivesh-plus-siip`,
+  publishedDate: '2026-11-06T00:00:00Z',
+  modifiedDate: '2026-11-06T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC ULIP Charges Decoded: Nivesh Plus (849) & SIIP (852) — Every Charge, In Rupees"
+  description="Nivesh Plus allocation 3.30% offline / 1.50% online; SIIP allocation 8% in year 1 offline. Both charge 1.35% p.a. fund management, monthly mortality on sum at risk, ₹100 per extra switch or withdrawal, and discontinuance charges until year 5. Tables + illustrative maths + guaranteed additions."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • ULIP Charges
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC ULIP Charges Decoded: Nivesh Plus (849) &amp; SIIP (852)
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        A ULIP brochure talks about funds and guaranteed additions. The policy document talks about charges — five of them, taken at different times, in different ways. Before you judge either plan on its returns, read the charge stack: it decides how much of your premium ever reaches the market. All figures below are from LIC's current policy documents (Nivesh Plus UIN 512L317V02, SIIP UIN 512L334V02), verified November 2026. Worked figures are illustrative; the benefit illustration for your age, premium and fund choice is final.
+      </p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Two ULIPs on LIC's Shelf</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Nivesh Plus (Plan 849)</span>
+          <h3 class="font-bold text-slate-900 text-sm">Single premium, one-time lump sum</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Non-par, linked, single-premium plan. Minimum premium ₹1,25,000 (in multiples of ₹5,000), no maximum. Life cover 1.25x or 10x the single premium. Term 10–25 years. No top-ups allowed.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">SIIP (Plan 852)</span>
+          <h3 class="font-bold text-slate-900 text-sm">Regular premium, SIP-style</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Non-par, linked, regular-premium plan. Minimum ₹40,000 a year (₹4,000 a month via NACH). Life cover 10x annualised premium if entry age is below 55, 7x at 55 and above. Premiums yearly, half-yearly, quarterly or monthly.</p>
+        </div>
+      </div>
+      <p>Both offer the same four funds — Bond, Secured, Balanced and Growth — and both carry the statutory warning: <strong>no liquidity for the first five years</strong>. Surrender or partial withdrawal before the end of year 5 is not possible in full; the money sits in the discontinued policy fund until the lock-in ends. Our <a href="/guides/lic-ulip-vs-traditional/" class="text-brand-700 font-semibold hover:text-brand-800">ULIP vs traditional comparison</a> covers when either wrapper makes sense at all.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Premium Allocation Charge — The First Cut, Before a Rupee Is Invested</h2>
+      <p>This is the percentage LIC keeps from each premium before buying units. It is the single biggest reason the first year's fund value looks smaller than the premium paid — and the reason buying online matters.</p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">Plan &amp; year</th>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">Bought offline (agent/branch)</th>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">Bought online (licindia.in)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr><td class="px-3 py-2 font-semibold">Nivesh Plus — one-time</td><td class="px-3 py-2">3.30%</td><td class="px-3 py-2">1.50%</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">SIIP — year 1</td><td class="px-3 py-2">8.00%</td><td class="px-3 py-2">3.00%</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">SIIP — years 2 to 5</td><td class="px-3 py-2">5.50%</td><td class="px-3 py-2">2.00%</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">SIIP — year 6 onwards</td><td class="px-3 py-2">3.00%</td><td class="px-3 py-2">1.00%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Illustrative maths.</strong> A ₹1,25,000 Nivesh Plus premium bought offline loses ₹4,125 to allocation — only ₹1,20,875 buys units. The same premium bought online loses ₹1,875, so ₹1,23,125 buys units: a ₹2,250 head start for the same plan. A ₹50,000-a-year SIIP bought offline loses ₹4,000 in year 1 (8%) — only ₹46,000 is invested in the first year. IRDAI caps allocation charges at 12.5% of annualised premium in any year, so these rates sit well inside the ceiling — but they are still real money.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Fund Management Charge — 1.35% Every Year, Good Market or Bad</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>1.35% p.a. of the unit fund</strong> for all four funds in both plans, deducted daily by adjusting the NAV — so the NAV you see is already net of this charge.</li>
+        <li><strong>0.50% p.a.</strong> for the discontinued policy fund, where money parks during the lock-in after a surrender or discontinuance.</li>
+        <li>Unlike a mutual fund's expense ratio, this is only one layer: allocation, mortality and administration charges sit on top of it. A ULIP's total annual drag is therefore higher than 1.35% — which is why comparing a ULIP's "returns" with a mutual fund's NAV return is apples and oranges.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Mortality Charge — The Cost of the Life Cover Inside</h2>
+      <p>Deducted monthly by cancelling units, at the start of each policy month, on the <strong>sum at risk</strong> — broadly, the gap between the sum assured and the fund value. If the fund value ever exceeds the sum assured, the charge stops, because there is no sum at risk left.</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Nivesh Plus</strong> annual mortality rates per ₹1,000 sum at risk (healthy life): age 25 — ₹1.26; age 35 — ₹1.62; age 45 — ₹3.48; age 50 — ₹5.99. The 10x cover option therefore costs far more in mortality charges than the 1.25x option — the price of the bigger death benefit.</li>
+        <li><strong>SIIP</strong> uses the same age-based structure on its 10x/7x sum assured. Its one unusual feature: <strong>if you survive to maturity with all premiums paid, the total mortality charges deducted over the term are refunded along with the maturity benefit</strong>. Surrendered or discontinued policies get no such refund.</li>
+        <li><strong>Accident benefit rider</strong> (optional on both): ₹0.40 per ₹1,000 accident benefit sum assured per year (₹0.80 for police duty other than paramilitary). Read what that rider actually pays before adding it — our <a href="/guides/lic-riders-decoded-accidental-vs-term/" class="text-brand-700 font-semibold hover:text-brand-800">riders guide</a> explains the triggers.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Policy Administration Charge — SIIP Only, and Only From Year 6</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>SIIP:</strong> ₹150 per month from the 6th policy year, escalating 5% p.a. from the 7th year, capped at ₹500 per month (₹6,000 a year). Deducted monthly by cancelling units. Nothing is charged in the first five years.</li>
+        <li><strong>Nivesh Plus:</strong> no separate policy administration charge appears in its charge list — its costs are allocation, mortality, fund management, switching, withdrawal and discontinuance charges.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Switching &amp; Partial Withdrawal — Small Flat Charges, Real Rules</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Switching funds:</strong> 4 switches free per policy year in both plans; every further switch in that year costs <strong>₹100</strong>. Switching moves the entire fund value to the new fund.</li>
+        <li><strong>Partial withdrawal:</strong> flat <strong>₹100</strong> per withdrawal in both plans, and only after the 5th policy anniversary. In Nivesh Plus the amount is capped per year — 15% of the fund in years 6–10, 20% in years 11–15, 25% in years 16–20, 30% in years 21–25 — and the balance after withdrawal cannot fall below the single premium paid.</li>
+        <li><strong>Hidden cost of withdrawing:</strong> in Nivesh Plus, the sum assured is reduced by the withdrawn amount for two years after the withdrawal. In SIIP, guaranteed additions after a withdrawal are cut pro-rata. A withdrawal is never free, even when the flat charge is only ₹100.</li>
+        <li><strong>Miscellaneous charge:</strong> ₹100 flat for an alteration during the contract, such as adding the accident benefit rider later or changing the premium mode in SIIP.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Discontinuance Charge &amp; the 5-Year Lock-In</h2>
+      <p>Stop paying (SIIP) or surrender (either plan) inside the first five years, and a discontinuance charge is deducted before the money moves to the discontinued policy fund, where it earns a guaranteed 4% p.a. until the lock-in ends. From year 5 onwards the charge is nil in both plans.</p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">Policy year of discontinuance</th>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">Nivesh Plus (single premium ≤ ₹3 lakh / &gt; ₹3 lakh)</th>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">SIIP (annualised premium ≤ ₹50,000 / &gt; ₹50,000)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr><td class="px-3 py-2 font-semibold">Year 1</td><td class="px-3 py-2">Lower of 2% (max ₹3,000) / 1% (max ₹6,000)</td><td class="px-3 py-2">Lower of 20% (max ₹3,000) / 6% (max ₹6,000)</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Year 2</td><td class="px-3 py-2">Lower of 1.5% (max ₹2,000) / 0.70% (max ₹5,000)</td><td class="px-3 py-2">Lower of 15% (max ₹2,000) / 4% (max ₹5,000)</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Year 3</td><td class="px-3 py-2">Lower of 1% (max ₹1,500) / 0.50% (max ₹4,000)</td><td class="px-3 py-2">Lower of 10% (max ₹1,500) / 3% (max ₹4,000)</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Year 4</td><td class="px-3 py-2">Lower of 0.5% (max ₹1,000) / 0.35% (max ₹2,000)</td><td class="px-3 py-2">Lower of 5% (max ₹1,000) / 2% (max ₹2,000)</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Year 5 onwards</td><td class="px-3 py-2">Nil</td><td class="px-3 py-2">Nil</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The percentages apply to the lower of the premium (single premium for Nivesh Plus, annualised premium for SIIP) or the fund value. SIIP's percentages look steep because they apply to one year's premium, not the whole fund — a year-1 discontinuance on a ₹50,000 SIIP costs at most ₹3,000. SIIP also differs from traditional plans on revival: the revival window is <strong>3 years</strong> from the first unpaid premium, not 5 — see our <a href="/guides/lic-policy-revival/" class="text-brand-700 font-semibold hover:text-brand-800">revival guide</a> for the contrast. After the lock-in, surrendering either ULIP pays the full unit fund value with no discontinuance charge; our <a href="/guides/lic-single-premium-plan-surrender/" class="text-brand-700 font-semibold hover:text-brand-800">single-premium surrender guide</a> covers the Nivesh Plus exit maths.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">8. The Offset: Guaranteed Additions</h2>
+      <p>Both plans credit guaranteed additions — extra units, as a percentage of premium, added to the fund at set anniversaries, but only while the policy is in force with all premiums paid.</p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">End of policy year</th>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">Nivesh Plus (% of single premium)</th>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">SIIP (% of one annualised premium)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr><td class="px-3 py-2 font-semibold">Year 6</td><td class="px-3 py-2">3%</td><td class="px-3 py-2">5%</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Year 10</td><td class="px-3 py-2">4%</td><td class="px-3 py-2">10%</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Year 15</td><td class="px-3 py-2">5%</td><td class="px-3 py-2">15%</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Year 20</td><td class="px-3 py-2">6%</td><td class="px-3 py-2">20%</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Year 25</td><td class="px-3 py-2">7%</td><td class="px-3 py-2">25%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Illustrative: a ₹1,25,000 Nivesh Plus earns ₹3,750 of guaranteed additions at year 6 — roughly cancelling the ₹4,125 offline allocation charge, but only if you stay six years. A ₹50,000-a-year SIIP earns ₹2,500 at year 6 (5% of one annualised premium). These are additions to the fund, not cash in hand, and they are bought as units at the NAV of the day — so their rupee value still moves with the market.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">9. Two Things People Miss: Charge Revision and Tax</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Charges can be revised.</strong> LIC may revise every charge except mortality and accident benefit charges, with IRDAI approval and 3 months' notice on its website. The IRDAI caps above (allocation ≤ 12.5%, policy administration ≤ ₹500/month, switching/withdrawal/miscellaneous ≤ ₹500 each) are the ceiling, not a promise that today's rates stay.</li>
+        <li><strong>Tax:</strong> a ULIP whose annual premium exceeds ₹2,50,000 loses the Section 10(10D) exemption on maturity — the payout is taxed as capital gains. A single-premium Nivesh Plus above ₹2.5 lakh trips this in one stroke. The full decision tree is in our <a href="/guides/lic-maturity-tax-10-10d-explained/" class="text-brand-700 font-semibold hover:text-brand-800">maturity tax guide</a>.</li>
+        <li><strong>Free-look:</strong> 30 days from receipt of the policy document to return it if the charges (or anything else) are not what you were told — the refund is the unit value plus allocation charges deducted, less medical and stamp costs.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">10. Before You Buy Either ULIP — The 5-Line Checklist</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Buy online if you can:</strong> the allocation gap (Nivesh Plus 3.30% vs 1.50%; SIIP year 1 8% vs 3%) is the cheapest return you will ever earn on this plan.</li>
+        <li><strong>Read the benefit illustration, not the brochure:</strong> it shows the fund value at 4% and 8% gross returns after all these charges, for your age and premium.</li>
+        <li><strong>Pick the cover option deliberately:</strong> Nivesh Plus 10x cover costs far more mortality charge than 1.25x — buy term cover separately if protection is the goal (see our <a href="/guides/lic-term-cover-how-much/" class="text-brand-700 font-semibold hover:text-brand-800">term cover maths</a>).</li>
+        <li><strong>Commit to the lock-in:</strong> the first five years are the most expensive and the least liquid. If the money might be needed sooner, a ULIP is the wrong shelf.</li>
+        <li><strong>Count the total drag:</strong> allocation up front + 1.35% FMC every year + monthly mortality + (SIIP) administration from year 6. The fund must beat that drag before you earn anything — and guaranteed additions only start repaying it from year 6.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice or an investment recommendation. ULIP values are market-linked and not guaranteed; charges and tax rules follow the current policy documents (Nivesh Plus UIN 512L317V02, SIIP UIN 512L334V02) and law, and LIC may revise charges other than mortality charges with notice. Read the benefit illustration and the full charge tables in the policy document before signing, and get the servicing branch's written quotation for your policy.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="November 2026" />
+  </article>
+</BaseLayout>
