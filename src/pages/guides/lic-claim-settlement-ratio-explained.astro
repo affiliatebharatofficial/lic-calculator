@@ -1,0 +1,150 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Claim Settlement Ratio Explained', url: '/guides/lic-claim-settlement-ratio-explained' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Claim Settlement Ratio (Latest): What the Number Means for Buyers',
+  description: 'LIC settled 97.08% of death claims within 30 days in FY2024-25 (IRDAI data) and reports a 98.10% claim settlement ratio for FY2025-26 — but two different numbers circulate for a reason. What CSR counts, what it hides (repudiations, pending claims, the 79.70% by-amount gap), how LIC compares with private insurers on 8 lakh+ claims a year, and the 4 other numbers to check before you buy.',
+  url: `${siteUrl}/guides/lic-claim-settlement-ratio-explained`,
+  publishedDate: '2026-11-07T00:00:00Z',
+  modifiedDate: '2026-11-07T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Claim Settlement Ratio (Latest): What 98.10% Really Means for Buyers"
+  description="LIC settled 97.08% of death claims within 30 days in FY2024-25 (IRDAI) and reports 98.10% CSR for FY2025-26. Why two numbers circulate, what CSR counts and hides, the 79.70% by-amount gap, and the 4 other numbers to check alongside it."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Claim Settlement Ratio
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Claim Settlement Ratio (Latest): What the Number Means for Buyers
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Every LIC agent quotes one number before you sign: the claim settlement ratio. The trouble is that two different numbers circulate — 97.08% and 98.10% — and both are correct. They measure different things, over different years, and neither one alone tells you whether your family's claim will be paid. This guide untangles the two figures from IRDAI's FY2024-25 data and LIC's FY2025-26 disclosures (verified November 2026), shows what the ratio counts and what it hides, and lists the four other numbers a buyer should check alongside it.
+      </p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Latest Numbers, Side by Side</h2>
+      <p>There is no single "LIC claim settlement ratio". The figure you see depends on which definition and which year the source uses. Here are the verified figures, with their definitions attached — never quote one without the other.</p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">Measure</th>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">LIC</th>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">Industry / private insurers</th>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">Source</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr><td class="px-3 py-2 font-semibold">Claims settled within 30 days, by number — FY2024-25</td><td class="px-3 py-2"><strong>97.08%</strong> (8,23,382 of 8,48,145 claims)</td><td class="px-3 py-2">97.10% industry; ~97.30% private insurers</td><td class="px-3 py-2">IRDAI data, FY2024-25</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Claims settled within 30 days, by amount — FY2024-25</td><td class="px-3 py-2"><strong>79.70%</strong></td><td class="px-3 py-2">Some private insurers near 100%</td><td class="px-3 py-2">IRDAI data, FY2024-25</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Claim settlement ratio, by number — FY2025-26</td><td class="px-3 py-2"><strong>98.10%</strong></td><td class="px-3 py-2">Industry mean ~99%</td><td class="px-3 py-2">LIC public disclosures (Form L-40), compiled by Ditto/PolicyX</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Claim settlement ratio, 3-year average — FY2024-26</td><td class="px-3 py-2"><strong>98.16%</strong></td><td class="px-3 py-2">99% industry mean</td><td class="px-3 py-2">IRDAI annual reports + LIC disclosures</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Claim settlement ratio, by number — FY2023-24</td><td class="px-3 py-2"><strong>98.62%</strong> (7,51,801 of 7,62,620 claims)</td><td class="px-3 py-2">Max Life led private insurers at 99.51%</td><td class="px-3 py-2">IRDAI Annual Report 2023-24</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Why two headline numbers?</strong> The 97.08% figure counts only claims settled <strong>within 30 days</strong> of intimation in FY2024-25 — a speed measure. The 98.10% figure counts all claims settled in FY2025-26, whenever they were settled, as a share of claims decided (paid + repudiated + rejected) — a payment measure. A claim settled on day 45 counts in the second number but not the first. The FY2025-26 figures come from LIC's own public disclosures; IRDAI's consolidated Handbook for FY2025-26 is published later (usually around December), so treat the newest year as insurer-reported until the Handbook confirms it.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. What the Claim Settlement Ratio Actually Counts</h2>
+      <p>The formula IRDAI uses is simple:</p>
+      <p><strong>Claim Settlement Ratio = (Claims settled ÷ Claims received) × 100</strong></p>
+      <p>In the version most comparison sites use, the denominator is claims <em>decided</em> in the year — paid + repudiated + rejected:</p>
+      <p><strong>CSR = Claims paid ÷ (Claims paid + Claims repudiated + Claims rejected) × 100</strong></p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Only death claims count.</strong> Maturity claims, survival benefits, surrenders and annuity payouts are not in this ratio at all. A 98% CSR says nothing about how fast a maturity claim is paid — that is a different process; see our <a href="/guides/lic-death-claim-documents-nominee/" class="text-brand-700 font-semibold hover:text-brand-800">death claim documents guide</a> for what the nominee actually has to file.</li>
+        <li><strong>Pending claims are excluded from the formula.</strong> A claim still under investigation at year-end is neither paid nor rejected, so it does not drag the ratio down — it shows up as delay instead. A high CSR with a large pending pile can still mean slow service.</li>
+        <li><strong>"Settled" means paid, not paid in full.</strong> The ratio counts a claim as settled even if the amount paid was less than the sum assured — for example where a loan or unpaid premium was deducted. The amount side of the story is the Amount Settlement Ratio, in section 4.</li>
+        <li><strong>97% and above is the "strong" band.</strong> Comparison sites generally treat 97%+ as strong, 90–97% as acceptable-but-check-further, and below 90% as a warning sign. LIC has stayed above 97% on every published measure for years.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">3. The Scale Behind the Number: 8 Lakh Claims a Year</h2>
+      <p>A ratio is only as meaningful as the volume behind it. LIC settled more than 8 lakh individual death claims in FY2024-25 (8,48,145 claims paid in the IRDAI 30-day count alone) — a volume no private insurer comes close to. That scale cuts both ways, and buyers should understand both sides:</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>For the buyer:</strong> a 98% ratio on 8 lakh claims is a far stronger signal than a 99.8% ratio on a few thousand claims. One percentage point of LIC's book is roughly 8,000 families — the number has been stress-tested by sheer volume, across every state, every branch, and every cause of death.</li>
+        <li><strong>For the comparison:</strong> private insurers now cross 99% — HDFC Life 99.72% and Axis Max Life 99.78% in FY2025-26, for example. On smaller, newer, mostly-online books with fewer early claims, a higher ratio is easier to achieve. LIC's 98.16% three-year average narrowly misses the top-10 list, but it is the only insurer in the list settling claims at this scale.</li>
+        <li><strong>LIC's size in one line:</strong> as of March 2025, LIC managed about ₹56.23 lakh crore in assets, held a 57.05% share of total first-year premium income, ran 2,048 branch offices and worked with over 14.86 lakh agents. When a brochure says "India's largest insurer", this is the scale it means.</li>
+      </ul>
+      <p>The practical takeaway: do not reject LIC for being a point behind a private insurer on CSR, and do not pick a private insurer for being a point ahead. The difference between 98.1% and 99.7% is real, but it is smaller than the difference a wrong nominee, an undisclosed illness, or a lapsed policy makes to your own family's claim. Get the basics right first — our <a href="/guides/lic-term-cover-how-much/" class="text-brand-700 font-semibold hover:text-brand-800">term cover maths guide</a> covers how much cover the family actually needs.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. What CSR Hides: The 79.70% By-Amount Gap</h2>
+      <p>The most important number in section 1 is the one agents never quote: LIC settled only <strong>79.70% of the claim amount within 30 days</strong> in FY2024-25, against 97.08% by number of policies. That 17-point gap is the single most useful thing this ratio can teach you.</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Small claims settle fast; large claims take longer.</strong> A ₹2 lakh claim with clean documents can be paid in days. A ₹1 crore claim — especially an early claim, a high sum assured, or a death within the first three years — goes through investigation, medical-record checks and sometimes a fraud review. The count-based CSR hides this because it treats a ₹2 lakh claim and a ₹1 crore claim as equals.</li>
+        <li><strong>The Amount Settlement Ratio (ASR) is the fix.</strong> ASR measures the <em>value</em> settled, not the count. LIC's ASR averages 95.48% over FY2023-25 — actually <em>above</em> the industry average of 94.83%. So while LIC is slower than some private insurers at getting the full amount out within 30 days, it pays a larger share of the total value claimed than the industry average does. Both numbers matter; neither alone is the truth.</li>
+        <li><strong>Early claims are the investigation trigger.</strong> A death claim in the first three years of a policy is routinely investigated — the insurer checks the proposal form against medical records. Non-disclosure of an illness, a mismatch in age or income, or a suspiciously large sum assured taken shortly before death are the classic repudiation grounds. Honest, complete disclosure at proposal time is the one thing that protects the family more than any ratio.</li>
+      </ul>
+      <p>Illustrative example: a family files two claims — a ₹5 lakh policy settled in 12 days and a ₹50 lakh policy settled in 60 days after investigation. The count-based CSR counts both as settled (100%), the within-30-days CSR counts one of two (50%), and the amount-based ratio counts ₹5 lakh of ₹55 lakh settled within 30 days (9%). Same two claims, three very different stories. Always ask which definition a quoted number uses.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. The Other 4 Numbers to Check Before You Buy</h2>
+      <p>CSR is the headline, not the whole credit report. Before choosing an insurer — LIC or private — check these four alongside it:</p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">Metric</th>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">LIC (latest verified)</th>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">What it tells you</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr><td class="px-3 py-2 font-semibold">Amount Settlement Ratio (ASR)</td><td class="px-3 py-2">95.48% (FY2023-25 avg) vs 94.83% industry</td><td class="px-3 py-2">Share of claim <em>value</em> paid — catches the large-claim delay CSR misses</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Complaints per 10,000 claims</td><td class="px-3 py-2">4.34 vs 13.10 industry median</td><td class="px-3 py-2">How often policyholders escalate — LIC's is roughly a third of the median</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Solvency ratio</td><td class="px-3 py-2">2.15x (regulatory minimum 1.5x)</td><td class="px-3 py-2">Whether the insurer holds enough capital buffer to pay claims as they arise</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">3-year CSR trend, not one year</td><td class="px-3 py-2">98.62% (FY24) → ~98.1% (FY26), 3-yr avg 98.16%</td><td class="px-3 py-2">A one-year dip is noise; a three-year slide is a signal</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>If a claim is delayed or repudiated, the escalation route is IGMS → Bima Bharosa → Insurance Ombudsman — our <a href="/guides/lic-complaint-ombudsman-bima-bharosa/" class="text-brand-700 font-semibold hover:text-brand-800">complaint guide</a> walks through it step by step, with timelines and documents.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Where to Check the Ratio Yourself (and How Often)</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>IRDAI Annual Report and Handbook on Indian Insurance Statistics</strong> (irdai.gov.in, Publications) — the authoritative source, published annually, usually around December for the preceding financial year. This is where the 97.08% / 79.70% FY2024-25 figures come from.</li>
+        <li><strong>LIC's public disclosures, Form L-40</strong> (licindia.in, Investor Relations / Financial Disclosures) — quarterly claims data straight from the insurer; the source of the FY2025-26 98.10% figure.</li>
+        <li><strong>Check once a year, in January.</strong> Ratios move slowly — a single quarter means nothing. Re-check after the IRDAI Handbook lands, and compare the 3-year average, not the latest single year.</li>
+        <li><strong>Ignore the ratio in advertisements.</strong> Ads quote the friendliest definition and the friendliest year. Trace any number back to IRDAI or Form L-40, with the financial year stated, before you rely on it.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">7. The Buyer's Checklist — 5 Lines</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Ask which definition:</strong> "within 30 days" (97.08%) or "all settled" (98.10%) — and which financial year. A number without a definition and a year is a slogan, not data.</li>
+        <li><strong>Read the amount ratio too:</strong> LIC's 79.70% by-amount within 30 days is the honest footnote to its 97.08% by-number. Large claims take longer — plan the family's emergency buffer accordingly.</li>
+        <li><strong>Use the 3-year average:</strong> LIC's 98.16% over FY2024-26 is a steadier guide than any single year's 98.10% or 98.62%.</li>
+        <li><strong>Check ASR, complaints and solvency alongside CSR:</strong> 95.48% ASR, 4.34 complaints per 10,000 claims and a 2.15x solvency ratio all point the same way for LIC — strong, with slow large-claim speed as the honest weakness.</li>
+        <li><strong>Protect your own claim first:</strong> full disclosure at proposal, correct nominee with share percentages, premiums paid on time so the policy never lapses, and the original bond and NEFT details kept where the nominee can find them. No ratio saves a claim that the proposal form itself undermines.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice or an insurance recommendation. Claim settlement figures are from IRDAI's published FY2024-25 data and LIC's Form L-40 public disclosures as compiled in November 2026; the FY2025-26 figures are insurer-reported and await confirmation in IRDAI's consolidated Handbook. Figures vary slightly between sources because the "within 30 days" and "all settled" definitions differ — always check the definition and the financial year. For your own policy, the servicing branch's written claim guidance is final.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="November 2026" />
+  </article>
+</BaseLayout>

@@ -48,6 +48,7 @@ export const GUIDE_PUBLISH_DATES: Record<string, string> = {
   'lic-revival-quotation-interest': '2026-11-02',
   'lic-riders-decoded-accidental-vs-term': '2026-10-30',
   'lic-money-back-surrender-maths': '2026-11-05',
+  'lic-claim-settlement-ratio-explained': '2026-11-07',
   'lic-ulip-charges-decoded-nivesh-plus-siip': '2026-11-06',
   'lic-second-policy-loan-topup': '2026-10-23',
   'lic-single-premium-plan-surrender': '2026-10-24',
