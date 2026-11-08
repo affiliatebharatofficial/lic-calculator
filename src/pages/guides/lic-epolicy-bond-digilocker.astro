@@ -1,0 +1,177 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'E-Policy Bond on DigiLocker', url: '/guides/lic-epolicy-bond-digilocker' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'E-Policy Bond on DigiLocker: Download, Legal Validity & Branch Acceptance',
+  description: 'Can you keep your LIC policy bond on DigiLocker instead of paper? The honest answer: LIC lets you view and download your bond image from its own portal (Premier Services), DigiLocker treats issuer-fetched documents as equal to originals under Rule 9A — but an uploaded copy is not the same thing, LIC has no verified DigiLocker-issued bond like Postal Life Insurance does, and the branch still asks for the original bond at claim time. The three digital routes, what is legally valid, and the stronger e-insurance account option.',
+  url: `${siteUrl}/guides/lic-epolicy-bond-digilocker`,
+  publishedDate: '2026-11-08T00:00:00Z',
+  modifiedDate: '2026-11-08T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="E-Policy Bond on DigiLocker: Download, Legal Validity & Branch Acceptance"
+  description="Your LIC bond on DigiLocker: how to download it from LIC's portal, whether DigiLocker treats it as equal to the original, why an uploaded copy is weaker than an issued one, and why the branch still asks for the original at claim time — plus the free e-insurance account alternative."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • E-Policy Bond & DigiLocker
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        E-Policy Bond on DigiLocker: Download, Legal Validity &amp; Branch Acceptance
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Paper policy bonds get lost, torn, damp and eaten by termites — and every LIC policyholder who has moved house knows the panic of not finding the bond when a claim or maturity is due. DigiLocker promises a fix: a government digital locker where issued documents count as equal to originals. But for LIC specifically, the picture is messier than the promise. You <em>can</em> get your bond digitally from LIC's own portal, and you <em>can</em> store it in DigiLocker — but whether DigiLocker fetches it directly from LIC, and whether your branch will accept the digital copy at claim time, are two different questions with two different answers. This guide gives both, verified November 2026.
+      </p>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The Short Answer</h2>
+      <p>Three facts decide everything else in this guide:</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>You can download your LIC bond from LIC itself.</strong> LIC's e-services (Customer Portal, Premier Services) show the policy schedule — the first page of the bond — and the scanned image of the full policy bond and proposal form for enrolled policies. This is the reliable route, and it works today.</li>
+        <li><strong>DigiLocker has two kinds of documents, and only one is equal to the original.</strong> Documents <em>issued</em> into DigiLocker directly by the insurer are treated at par with originals under Rule 9A of the IT (Preservation and Retention of Information by Intermediaries Providing Digital Locker Facilities) Rules, 2016. Documents you <em>upload yourself</em> — a scan or PDF you put there — do not enjoy the same validity. That distinction is the whole story for LIC.</li>
+        <li><strong>At claim time, the branch still asks for the original bond.</strong> LIC's own death-claim checklist lists "the original policy document" as a required document, and maturity settlement still runs on the original bond plus the discharge voucher (Form 3825). A digital copy helps you prove and track everything; it does not yet replace the paper at the counter.</li>
+      </ul>
+      <p>So: go digital for safety and convenience, keep the paper for claims. The rest of this guide shows exactly how to do both.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Route 1 — Download Your Bond from LIC's Own Portal (Works Today)</h2>
+      <p>This is the route that actually works for every LIC policyholder, and it should be your first step. LIC's e-services on licindia.in offer, for policies enrolled in your account:</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Policy schedule</strong> — the first page of the policy bond, which carries the policy schedule: sum assured, term, premium, nominee and commencement date.</li>
+        <li><strong>Policy bond / proposal form image</strong> — the scanned image of the bond and the proposal form for enrolled policies.</li>
+        <li><strong>Premium-paid certificate and payment receipts</strong> — useful for 80C proof and for your own records; see our <a href="/guides/lic-premium-payment-online-receipt/" class="text-brand-700 font-semibold hover:text-brand-800">premium receipt guide</a> for the download steps.</li>
+      </ul>
+      <p><strong>How to set it up:</strong></p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Register on licindia.in (Login → Customer Portal → "Don't have an Account? Sign up") with your policy number, date of birth and registered mobile number.</li>
+        <li>Enrol your policies in the account. Basic e-services work after registration.</li>
+        <li>For the bond image and other advanced services, register for <strong>Premier Services</strong>: download and print the registration form, sign it, and upload it with a KYC document (PAN, Aadhaar or passport). LIC says the request is validated by the branch official, and verification usually takes up to 3 days — after which you get a confirmation on mobile and email.</li>
+        <li>Once Premier Services are active, log in and open the policy bond / proposal form image for any enrolled policy, and save the file.</li>
+      </ul>
+      <p>Two honest caveats. First, the portal shows a <em>scanned image</em> of your bond — good enough to read every term and to keep as a backup, but it is a copy of the paper, not a fresh digitally-signed e-bond. Second, newer policies bought with e-service consent at proposal time are the ones most likely to have the bond image available; for very old policies, enrol the policy and check what the portal shows — if the image is missing, the branch can advise whether the bond needs to be scanned in.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Route 2 — DigiLocker: Issued vs Uploaded Is the Whole Difference</h2>
+      <p>DigiLocker (digilocker.gov.in, or the app) is MeitY's free digital locker under the Digital India programme — 1 GB of free storage, Aadhaar-linked sign-in, and two sections that look similar but are legally different:</p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">Section</th>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">What it is</th>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">Legal standing</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr><td class="px-3 py-2 font-semibold">Issued Documents</td><td class="px-3 py-2">Fetched directly from the issuer's database — the issuer pushes the document into your locker</td><td class="px-3 py-2"><strong>At par with the original</strong> under Rule 9A of the IT Rules, 2016</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Uploaded Documents</td><td class="px-3 py-2">Scans or PDFs you upload yourself</td><td class="px-3 py-2">Stored safely, shareable — but <strong>not the same validity</strong> as an issued document</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>How to check whether LIC issues into DigiLocker:</strong></p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Open DigiLocker, sign in with your Aadhaar-linked mobile number, and go to Issued Documents → Banking and Insurance.</li>
+        <li>Search the insurer list for LIC. If LIC appears, select it, enter your policy number, and DigiLocker fetches the document straight from LIC's database into Issued Documents.</li>
+        <li><strong>As of November 2026 we could not verify LIC appearing as a DigiLocker issuer</strong> — no LIC announcement or DigiLocker listing for LIC-issued bonds surfaced in our checks, and LIC's own FAQ points policyholders to its portal for bond images, not to DigiLocker. That does not prove LIC is absent (issuer lists change without announcement), so check the list yourself before concluding — but do not assume it is there.</li>
+        <li>If LIC is not listed, the fallback still works: download the bond image from the LIC portal (section 2), then upload that file into DigiLocker's Uploaded Documents. You get safe, anywhere-accessible storage and easy sharing — just not the "at par with original" status of an issued document.</li>
+      </ul>
+      <p>The practical rule: an <em>issued</em> document is proof; an <em>uploaded</em> document is a backup. Both are worth having. Neither replaces the paper bond at the LIC counter today — see section 5.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Is a Digital LIC Bond Legally Valid?</h2>
+      <p>Yes — in the general legal sense, and with one condition that matters:</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>IRDAI's e-policy framework treats electronic policies as valid insurance contracts.</strong> IRDAI's guidelines on insurance repositories and electronic issue (2011) state that all insurance policies in electronic form are valid contracts, and insurers must use an IRDAI-registered insurance repository for them.</li>
+        <li><strong>DigiLocker-issued documents are at par with originals.</strong> Rule 9A of the IT (Preservation and Retention of Information by Intermediaries Providing Digital Locker Facilities) Rules, 2016 (notified 8 February 2017, G.S.R. 711(E)) gives documents in a digital locker the same standing as the original physical document — which is why, for example, Postal Life Insurance's ePLI bond is expressly "treated at par with the original policy bond" for all financial and non-financial requests (section 7).</li>
+        <li><strong>The condition:</strong> that parity attaches to documents <em>issued through</em> the locker by the issuer, with a digital signature. A self-uploaded scan is a copy you made — useful evidence, but a branch or court can ask for the original behind it.</li>
+        <li><strong>Digitally signed e-policies also carry weight under the Indian Evidence Act</strong> (Section 65B, electronic records), which is why insurers increasingly issue digitally signed policy documents by email at purchase. If your policy was bought online and the bond arrived as a digitally signed PDF, keep that original PDF — it is stronger than a scan you made later.</li>
+      </ul>
+      <p>Bottom line: the law is on the side of digital bonds. The gap is not the law — it is LIC's branch-level practice, which still runs on paper at claim time.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Will the Branch Accept It at Claim Time?</h2>
+      <p>This is the question that decides whether "go paperless" is safe advice, and the honest answer is: <strong>not yet as a replacement for the original</strong>.</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Death claim:</strong> LIC's own FAQ lists "the original policy document with deed(s) of assignment, if any" among the documents the nominee must submit, alongside the claim form (Form 3783 / 3783A) and the death certificate. Our <a href="/guides/lic-death-claim-documents-nominee/" class="text-brand-700 font-semibold hover:text-brand-800">death claim documents guide</a> has the full checklist — tell your nominee where the original bond is kept.</li>
+        <li><strong>Maturity claim:</strong> the standard process is to submit the original bond and the discharge voucher (Form 3825) about a month before the due date, with NEFT details, for payment in 3–5 working days. See our <a href="/guides/lic-maturity-claim-form-3825/" class="text-brand-700 font-semibold hover:text-brand-800">maturity claim guide</a> for the exact papers.</li>
+        <li><strong>What the digital copy does for you at claim time:</strong> it proves the policy number, sum assured, nominee and status instantly; it lets the nominee start the claim conversation without hunting for paper; and if the original is lost, the portal image is exactly what you show the branch when you apply for a duplicate. It does not, by itself, discharge the "original bond" requirement.</li>
+        <li><strong>If the original is lost:</strong> do not panic — the policy still exists in LIC's records. The duplicate-bond route runs on an indemnity bond (Form 3756), a newspaper notice and stamp paper; our <a href="/guides/lic-duplicate-policy-bond-form-3756/" class="text-brand-700 font-semibold hover:text-brand-800">duplicate bond guide</a> walks through it, including the claim-time shortcut (Form 3815) that can avoid the full duplicate process.</li>
+      </ul>
+      <p>Illustrative example: a nominee whose father held a ₹10 lakh Jeevan Anand policy finds the bond image in DigiLocker but not the paper bond. The DigiLocker copy lets her quote the policy number, confirm the nominee name and start the claim the same day — but the branch will still ask for the original bond or the duplicate-bond paperwork before releasing payment. The digital copy saves days of searching; it does not save the duplicate-bond step. Keep the original somewhere the nominee can actually find it, and tell them where that is.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Route 3 — The e-Insurance Account (eIA): The Stronger Digital Option</h2>
+      <p>If you want a digital holding that is <em>designed</em> for insurance — not a generic locker — the IRDAI e-insurance account is the stronger option, and it works for LIC policies:</p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>What it is:</strong> a demat-style account for insurance. Like shares in a demat account, all your policies — life, health, motor, pension, from any insurer — sit in electronic form in one account, maintained by an IRDAI-authorised Insurance Repository.</li>
+        <li><strong>The four authorised repositories:</strong> NSDL Database Management (National Insurance Repository), CDSL Insurance Repository, Karvy Insurance Repository, and CAMS Repository Services. Opening and maintaining an eIA is free for the policyholder; insurers pay the repositories.</li>
+        <li><strong>One account per person.</strong> IRDAI guidelines allow only one eIA per individual, so pick a repository and stick with it.</li>
+        <li><strong>New policies are increasingly born digital:</strong> under IRDAI's mandates, new policies above defined thresholds (sum assured above ₹1 lakh for life insurance) must be issued in electronic format and linked to an eIA. Existing paper policies can be converted by giving your insurer your eIA number and a dematerialisation request.</li>
+        <li><strong>For LIC specifically:</strong> give LIC your eIA number and ask for the policy to be held in electronic form. Once a policy is dematerialised into your eIA, the paper bond is no longer the operative record — the repository holding is. This is the closest thing to a paper-free LIC bond that exists today.</li>
+      </ul>
+      <p>The eIA takes a few days to open (KYC: PAN/Aadhaar, address proof, photograph, bank details and a cancelled cheque, plus naming an Authorised Representative who can operate the account if you cannot). It is more setup than DigiLocker, but it is the only route where the electronic holding itself — not a copy of a paper document — is the policy record.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Postal Life Insurance Did It in 2021 — LIC Hasn't (Yet)</h2>
+      <p>The contrast is instructive. The Department of Posts launched the <strong>ePLI bond</strong> on 12 October 2021 — its first digital integration with DigiLocker. Both Postal Life Insurance and Rural Postal Life Insurance bonds are available in electronic form through DigiLocker immediately after issue, the policyholder need not wait for the physical copy, and the digitally signed ePLI bond is expressly treated at par with the original for all financial and non-financial requests, including maturity settlement presented from the DigiLocker app's Issued section.</p>
+      <p>LIC has made no equivalent announcement as of November 2026: no DigiLocker-issued LIC bond, no press release, and its own help pages still route bond access through the Customer Portal. That may change — insurer integrations with DigiLocker have been expanding — but until LIC announces it, treat any claim that "LIC bonds are on DigiLocker" as unverified, check the Banking and Insurance list yourself, and use the portal download plus eIA routes above instead.</p>
+
+      <h2 class="text-xl font-bold text-slate-900">8. What to Keep Where — The Practical Setup</h2>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">Item</th>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">Keep it</th>
+              <th class="text-left font-bold text-slate-900 px-3 py-2 border-b">Why</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <tr><td class="px-3 py-2 font-semibold">Original paper bond</td><td class="px-3 py-2">A folder or locker the nominee knows about</td><td class="px-3 py-2">Still required at maturity and death claim</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Bond image / PDF from LIC portal</td><td class="px-3 py-2">DigiLocker Uploaded Documents + your own backup</td><td class="px-3 py-2">Instant proof of terms; starting point if the original is lost</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">DigiLocker Issued Documents</td><td class="px-3 py-2">Check whether LIC appears; if it does, fetch it</td><td class="px-3 py-2">Only issued documents are at par with originals</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">e-Insurance Account (eIA)</td><td class="px-3 py-2">One account, all policies dematerialised</td><td class="px-3 py-2">The electronic holding itself becomes the record</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Premium receipts &amp; premium-paid certificate</td><td class="px-3 py-2">LIC portal + DigiLocker</td><td class="px-3 py-2">80C proof and payment history for disputes</td></tr>
+            <tr><td class="px-3 py-2 font-semibold">Nominee details + branch name</td><td class="px-3 py-2">Written down where the nominee can find it</td><td class="px-3 py-2">No digital copy helps if the family doesn't know the policy exists — also check <a href="/guides/lic-unclaimed-amount-check-claim/" class="text-brand-700 font-semibold hover:text-brand-800">unclaimed money</a> if a policy was forgotten</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="text-xl font-bold text-slate-900">9. Checklist — Go Digital in One Evening</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Register on the LIC Customer Portal</strong> and enrol every policy; download each bond image and premium-paid certificate.</li>
+        <li><strong>Apply for Premier Services</strong> if the bond image is not visible — signed form plus KYC, about 3 days for validation.</li>
+        <li><strong>Open DigiLocker</strong> (Aadhaar-linked mobile), check Issued Documents → Banking and Insurance for LIC; if LIC is listed, fetch the bond as an issued document.</li>
+        <li><strong>Upload the portal-downloaded bond</strong> into DigiLocker if LIC is not an issuer — labelled clearly as a copy, not an issued document.</li>
+        <li><strong>Open one free e-insurance account</strong> with an IRDAI-authorised repository and ask LIC to dematerialise your policies into it.</li>
+        <li><strong>Keep the original paper bond safe</strong> and tell your nominee exactly where it is — digital copies do not yet replace it at the LIC counter.</li>
+        <li><strong>Re-check once a year:</strong> LIC's DigiLocker integration status, your eIA holdings, and whether the nominee details on every policy are still correct — see our <a href="/guides/lic-change-nominee-form-3750/" class="text-brand-700 font-semibold hover:text-brand-800">nominee change guide</a> if they are not.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice or an insurance recommendation. DigiLocker issuer availability, LIC portal services and IRDAI repository rules were verified against licindia.in, MeitY/DigiLocker and IRDAI framework sources in November 2026; issuer lists and portal features change without notice, so check the current Banking and Insurance list in DigiLocker and the LIC portal before relying on any route. Uploaded copies in DigiLocker are not equivalent to issued documents. For your own policy, the servicing branch's written guidance is final — especially at claim time, where the original bond is still asked for.
+      </p>
+    </div>
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="November 2026" />
+  </article>
+</BaseLayout>
