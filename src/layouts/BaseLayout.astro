@@ -8,7 +8,7 @@ import Footer from '@/components/layout/Footer.astro';
 import AIChatDrawer from '@/components/ai/AIChatDrawer.astro';
 import type { SeoMetaProps } from '@/types/seo';
 import type { Locale } from '@/types/i18n';
-import { DEFAULT_LOCALE, detectLocaleFromPath } from '@/lib/i18n';
+import { DEFAULT_LOCALE, detectLocaleFromPath, getEnglishCanonicalUrl } from '@/lib/i18n';
 
 interface Props extends SeoMetaProps {
   locale?: Locale;
@@ -34,6 +34,12 @@ const {
 
 const currentPath = Astro.url.pathname;
 const locale = explicitLocale || detectLocaleFromPath(currentPath) || DEFAULT_LOCALE;
+// Localized copies of English-only pages canonicalize to the English
+// original and stay noindexed (see isEnglishOnlyPath in @/lib/i18n). An
+// explicit canonicalUrl from the page itself always wins.
+const englishCanonicalUrl = getEnglishCanonicalUrl(currentPath);
+const effectiveCanonicalUrl = canonicalUrl || englishCanonicalUrl || undefined;
+const effectiveNoIndex = noIndex || englishCanonicalUrl !== null;
 ---
 
 <!doctype html>
@@ -42,11 +48,11 @@ const locale = explicitLocale || detectLocaleFromPath(currentPath) || DEFAULT_LO
     <BaseHead
       title={title}
       description={description}
-      canonicalUrl={canonicalUrl}
+      canonicalUrl={effectiveCanonicalUrl}
       ogType={ogType}
       ogImage={ogImage}
       twitterCard={twitterCard}
-      noIndex={noIndex}
+      noIndex={effectiveNoIndex}
       publishedTime={publishedTime}
       modifiedTime={modifiedTime}
       locale={locale}
@@ -55,7 +61,7 @@ const locale = explicitLocale || detectLocaleFromPath(currentPath) || DEFAULT_LO
       type={jsonLdType}
       title={title}
       description={description}
-      url={canonicalUrl || Astro.url.toString()}
+      url={effectiveCanonicalUrl || Astro.url.toString()}
       breadcrumbs={breadcrumbs}
       faqs={faqs}
     />

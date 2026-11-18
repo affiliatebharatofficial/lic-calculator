@@ -112,17 +112,44 @@ export interface HreflangEntry {
 }
 
 /**
+ * Paths whose content exists only in English (matched against the
+ * de-localized path, so both `/faq/` and `/hi/faq/` match). Their localized
+ * copies carry no translated body — guide detail stubs, the guides index,
+ * the plans directory, FAQ, author pages, contact pages and the editorial
+ * policy — so the locale copies must canonicalize to the English original,
+ * stay noindexed, stay out of hreflang alternates and out of the sitemap.
+ * To translate one of these pages for real: add the translations, then
+ * remove its pattern here (and from the sitemap filter in astro.config.mjs).
+ */
+const ENGLISH_ONLY_PATH =
+  /^\/(guides\/([a-z0-9-]+\/?)?|plans\/?|faq\/?|author\/[a-z0-9-]+\/?|contact\/(correction\/?)?|editorial-policy\/?)$/;
+
+export function isEnglishOnlyPath(pathname: string): boolean {
+  return ENGLISH_ONLY_PATH.test(getLocalizedPath(pathname, DEFAULT_LOCALE));
+}
+
+/**
+ * For a localized copy of an English-only page, the absolute URL of the
+ * English original it must canonicalize to. Returns null for English pages
+ * and for genuinely translated pages (which keep their self-canonical).
+ */
+export function getEnglishCanonicalUrl(pathname: string): string | null {
+  if (detectLocaleFromPath(pathname) === DEFAULT_LOCALE) return null;
+  if (!isEnglishOnlyPath(pathname)) return null;
+  const enPath = getLocalizedPath(pathname, DEFAULT_LOCALE);
+  return `${PRIMARY_DOMAIN}${enPath === '/' ? '' : enPath}`;
+}
+
+/**
  * Generates valid hreflang alternate links for SEO
  */
 export function getHreflangList(currentPath: string): HreflangEntry[] {
   const list: HreflangEntry[] = [];
 
-  // Localized guide pages are summary stubs (title + description only, no
-  // translated article body), so they are noindexed and must not be
-  // advertised as hreflang alternates. Guide detail pages declare only the
-  // English original and x-default.
-  const GUIDE_DETAIL_PATH = /^\/(?:(?:en|hi|mr|gu|bn|ta|te)\/)?guides\/[a-z0-9-]+\/?$/;
-  if (GUIDE_DETAIL_PATH.test(currentPath)) {
+  // English-only pages have no translated locale copies, so they are not
+  // advertised as hreflang alternates: only the English original and
+  // x-default are declared (for both the English and the locale URLs).
+  if (isEnglishOnlyPath(currentPath)) {
     const enPath = getLocalizedPath(currentPath, DEFAULT_LOCALE);
     const enHref = `${PRIMARY_DOMAIN}${enPath === '/' ? '' : enPath}`;
     list.push({ hreflang: DEFAULT_LOCALE, href: enHref });

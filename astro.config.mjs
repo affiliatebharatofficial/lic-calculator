@@ -53,12 +53,13 @@ export default defineConfig({
       applyBaseStyles: false
     }),
     sitemap({
-      // Localized guide detail pages are noindexed summary stubs (no
-      // translated body yet), so keep them out of the sitemap.
+      // Localized copies of English-only pages are noindexed (no translated
+      // body), so keep them out of the sitemap. Keep this pattern in sync
+      // with ENGLISH_ONLY_PATH in src/lib/i18n/index.ts.
       filter: (page) =>
         !page.includes('/api/') &&
         !page.includes('/admin/') &&
-        !/\/(hi|mr|gu|bn|ta|te)\/guides\/[a-z0-9-]+\//.test(page) &&
+        !/\/(hi|mr|gu|bn|ta|te)\/(guides\/([a-z0-9-]+\/)?|plans\/|faq\/|author\/[a-z0-9-]+\/|contact\/(correction\/)?|editorial-policy\/)/.test(page) &&
         !isFutureGuide(page)
     })
   ],
