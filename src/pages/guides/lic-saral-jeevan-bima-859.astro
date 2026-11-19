@@ -1,0 +1,203 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Saral Jeevan Bima (859)', url: '/guides/lic-saral-jeevan-bima-859' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Saral Jeevan Bima (859): IRDAI Standard Term Plan — ₹5–25 Lakh Cover, Premium & Honest Review',
+  description: 'LIC Saral Jeevan Bima (Plan 859) is IRDAI\'s standard pure-term plan: ₹5–25 lakh cover, entry 18–65, term 5–40 years, a 45-day waiting period, and the same features at every insurer. Premium options, death benefit formula, and who it actually suits.',
+  url: `${siteUrl}/guides/lic-saral-jeevan-bima-859`,
+  publishedDate: '2026-11-19T00:00:00Z',
+  modifiedDate: '2026-11-19T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Saral Jeevan Bima (859): IRDAI Standard Term Plan — ₹5–25 Lakh Cover, Premium & Honest Review"
+  description="Saral Jeevan Bima 859: IRDAI's standard pure term plan, ₹5–25 lakh cover, entry 18–65, term 5–40 years, 45-day waiting period, single/regular/limited premium. What the nominee gets, an illustrative premium, and how it compares with LIC's other term plans."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Plan Review: Term Insurance
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Saral Jeevan Bima (859): IRDAI's Standard Term Plan — ₹5–25 Lakh Cover, Premium & Honest Review
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Saral Jeevan Bima is the one LIC term plan you cannot be mis-sold on features — because IRDAI wrote the features itself. Every insurer selling a "Saral Jeevan Bima" must offer the same cover, the same limits and the same death-benefit rule. What differs is only the premium and the claim-settlement record behind it. Here is what Plan 859 actually gives you, what it deliberately leaves out, and when its ₹25 lakh ceiling makes it the wrong plan.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">Check whether ₹25 lakh is enough cover for you</h2>
+        <p class="text-xs text-brand-700">Use the term insurance calculator to size the cover your family needs — then see if Saral Jeevan Bima's ceiling fits or if you need a bigger LIC term plan.</p>
+      </div>
+      <a
+        href="/lic-term-insurance-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Your Term Cover &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What Saral Jeevan Bima Is (and Is Not)</h2>
+      <p>
+        Saral Jeevan Bima (Plan 859, UIN 512N341V01) is a <strong>non-linked, non-participating, individual pure risk term plan</strong> — insurance and nothing else. If the life assured dies during the term, the nominee gets the death benefit; if the term ends with the life assured alive, <strong>nothing is paid — no maturity benefit, no survival benefit, no surrender value</strong>. There are also <strong>no policy loans and no riders</strong>, because there is no cash value to borrow against and IRDAI's standard design allows no add-ons.
+      </p>
+      <p>
+        The "Saral" (simple) part is the point. IRDAI mandated this standard term product in 2021 so that buyers could compare term insurance across insurers on price alone, without decoding different feature sets. The sum assured, the waiting period, the death-benefit formula and the premium-payment options below are <strong>the same at every insurer</strong> — LIC's version competes on premium and on LIC's claim-settlement record, not on features. Our <a href="/guides/lic-claim-settlement-ratio-explained/" class="text-brand-700 font-semibold hover:text-brand-800">claim settlement ratio guide</a> explains what LIC's 98.10% CSR actually measures before you lean on it.
+      </p>
+      <p>
+        One status check first: Saral Jeevan Bima (859) is <strong>not on LIC's withdrawn-plans list</strong> — verified against licindia.in on 19 November 2026 — so it is still buyable as a new policy. (Several other LIC plans on that list, including Jeevan Kiran 870, Index Plus 873, Jeevan Azad 868 and Dhan Sanchay 865, are withdrawn and can no longer be bought fresh.)
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Eligibility at a Glance</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 not-prose">
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Entry age</span>
+          <h3 class="font-bold text-slate-900 text-sm">18 to 65 years</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Age on last birthday. Maximum maturity age is 70 — so a 65-year-old can only take a 5-year term.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Policy term</span>
+          <h3 class="font-bold text-slate-900 text-sm">5 to 40 years</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Subject to the age-70 maturity cap. A 30-year-old could take the full 40 years; a 50-year-old is capped at 20.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+          <span class="text-xs font-bold text-slate-500 uppercase block">Basic sum assured</span>
+          <h3 class="font-bold text-slate-900 text-sm">₹5 lakh to ₹25 lakh</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">In multiples of ₹50,000, per life. The ₹25 lakh ceiling is the plan's hard limit — underwriting cannot raise it.</p>
+        </div>
+      </div>
+      <p>
+        Eligibility is deliberately wide: salaried, self-employed and people without a regular income can all apply, and the plan is sold both offline through agents/branches and online through LIC's portal. Medical underwriting follows LIC's standard rules for the cover sought — the brochure's sample illustrations are for standard lives, so any health condition can change your actual premium.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. The 45-Day Waiting Period: The Clause That Surprises People</h2>
+      <p>
+        IRDAI built a <strong>45-day waiting period</strong> into every Saral Jeevan Bima, counted from the date risk commences. During those first 45 days, <strong>only accidental death is covered</strong> — if the life assured dies of any other cause in that window, no death benefit is paid and LIC refunds <strong>100% of the premiums paid</strong> (excluding taxes).
+      </p>
+      <p>
+        After day 45, full cover applies for death from any cause (subject to the policy's standard exclusions, such as suicide in the first year). Two practical consequences:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Do not let an old policy lapse the day you buy this one.</strong> If you are replacing cover, keep the existing policy in force until the 45 days have passed — otherwise your family has only accident cover in the gap.</li>
+        <li><strong>The refund is premiums only, not the sum assured.</strong> Anyone describing the first 45 days as "full cover from day one" is wrong — check the benefit illustration's waiting-period clause before paying.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">4. What the Nominee Actually Gets</h2>
+      <p>
+        On death after the waiting period, the nominee receives the <strong>Sum Assured on Death</strong>, defined as the <strong>highest of</strong>:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>10 times the annualised premium</strong> (excluding taxes and extra premiums), or</li>
+        <li><strong>105% of the total premiums paid</strong> up to the date of death, or</li>
+        <li><strong>the basic sum assured</strong> chosen at inception.</li>
+      </ul>
+      <p>
+        In practice the basic sum assured is almost always the highest of the three — the formula exists as a regulatory floor so the payout can never fall below 10× the annual premium or 105% of premiums paid, whichever is larger. The benefit is paid as a <strong>lump sum</strong> to the nominee. There is no maturity value, no bonus and no loyalty addition at any point, because this is a pure-risk plan.
+      </p>
+      <p>
+        Grace period is 30 days for renewal premiums, and revival is possible within 5 years of the first unpaid premium, subject to interest and health declarations — see our <a href="/guides/lic-policy-revival/" class="text-brand-700 font-semibold hover:text-brand-800">revival guide</a> for the full process. If the policy lapses and is not revived, cover ends and premiums paid are not refunded (except the waiting-period refund above).
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Premium Options: Single, Regular or Limited — and What It Costs</h2>
+      <p>
+        You choose one of three premium-payment modes at inception:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Single premium:</strong> one payment, cover for the whole term.</li>
+        <li><strong>Regular premium:</strong> pay every year for the full policy term.</li>
+        <li><strong>Limited premium:</strong> pay for only <strong>5 or 10 years</strong>, while cover continues for the full term — useful if you expect income to stop early, though each year's premium is higher than the regular-premium equivalent.</li>
+      </ul>
+      <p>
+        One illustrative data point (not a quote): LIC's brochure illustration shows a 30-year-old standard life paying roughly <strong>₹2,095 a year</strong> for a ₹5 lakh sum assured over a 20-year term under the regular-premium offline option, exclusive of taxes. Individual life-insurance premiums attract <strong>0% GST since 22 September 2025</strong> — if any illustration you receive still adds tax, ask for a corrected one. Our <a href="/guides/lic-gst-0-percent-premium-change/" class="text-brand-700 font-semibold hover:text-brand-800">GST-on-premium guide</a> explains the change. Treat every premium figure as <em>illustrative</em> — your age, term, sum assured and health move it, and the branch's written benefit illustration is the only binding quote.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Saral Jeevan Bima vs LIC's Other Term Plans</h2>
+      <p>
+        LIC now sells several pure term plans. The differences are cover size, flexibility and price — not the core promise:
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Plan</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Cover range</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Entry age</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Distinctive feature</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Saral Jeevan Bima (859)</td>
+              <td class="px-4 py-3">₹5–25 lakh</td>
+              <td class="px-4 py-3">18–65</td>
+              <td class="px-4 py-3">IRDAI-standard features, identical at every insurer; 45-day waiting period; no riders.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">LIC Digi Term (876)</td>
+              <td class="px-4 py-3">₹50 lakh minimum</td>
+              <td class="px-4 py-3">18–45</td>
+              <td class="px-4 py-3">Cheapest; fully online, no agent commission. Young cost-conscious buyers.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">LIC New Tech-Term (954)</td>
+              <td class="px-4 py-3">₹50 lakh minimum</td>
+              <td class="px-4 py-3">18–65</td>
+              <td class="px-4 py-3">Optional riders (accident, critical illness). Flexibility above the Saral ceiling.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">LIC Bima Kavach (887)</td>
+              <td class="px-4 py-3">₹2 crore minimum</td>
+              <td class="px-4 py-3">18–65</td>
+              <td class="px-4 py-3">Life-stage cover increases without medicals; cover to age 100. High-income buyers.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        The honest read: Saral Jeevan Bima is the right comparison when your need is ₹25 lakh or less and you want the simplest possible contract. The moment your need crosses ₹25 lakh, you are outside this plan entirely — Digi Term or New Tech-Term is the next rung, not a bigger Saral policy. Our <a href="/guides/lic-term-plans-head-to-head/" class="text-brand-700 font-semibold hover:text-brand-800">term plans head-to-head guide</a> compares the three larger plans in detail, and our <a href="/guides/lic-term-cover-how-much/" class="text-brand-700 font-semibold hover:text-brand-800">how-much-cover guide</a> works out the cover your family actually needs (a common rule is 10–15× annual income plus loans minus assets).
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Who Should (and Shouldn't) Buy It</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Should consider:</strong> first-time term buyers who want a small, cheap, standardised cover — say ₹10–25 lakh as a base layer over an employer's group cover; buyers who value the IRDAI-standard contract because it removes feature-comparison risk; anyone who wants LIC's branch and claim infrastructure at the lowest possible premium.</li>
+        <li><strong>Should look elsewhere:</strong> anyone whose real need exceeds ₹25 lakh (the ceiling locks you out — do not "make do" with ₹25 lakh when your family needs ₹1 crore); buyers who want riders such as critical illness or accident benefit (New Tech-Term, not Saral); anyone who wants any return of premium or maturity value — this plan pays nothing if you survive the term, by design.</li>
+        <li><strong>Before you pay:</strong> read the benefit illustration's waiting-period clause, confirm the premium mode (single/regular/limited) matches your income pattern, and keep any existing cover alive for the first 45 days. At claim time, the nominee needs the policy bond, death certificate and claim forms — our <a href="/guides/lic-death-claim-documents-nominee/" class="text-brand-700 font-semibold hover:text-brand-800">death-claim documents guide</a> lists exactly what the branch asks for.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC advice. Premium numbers shown are illustrative only — your benefit illustration and the branch's written quotation are the final figures. Plan features follow current brochures and IRDAI's standard-product guidelines; verify against your illustration before paying.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-term-insurance-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="November 2026" />
+  </article>
+</BaseLayout>
