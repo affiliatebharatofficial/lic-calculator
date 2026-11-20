@@ -1,0 +1,196 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Policy Assignment to a Bank', url: '/guides/lic-policy-assignment-bank-loan' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Policy Assignment to a Bank for a Home or Education Loan: Absolute vs Conditional Assignment & How to Get It Released',
+  description: 'When a bank takes your LIC policy as security for a home or education loan, you assign it under Section 38 of the Insurance Act. Absolute vs conditional assignment, which policies qualify, the step-by-step process, what happens to your nominee, and how to get the policy released once the loan is repaid.',
+  url: `${siteUrl}/guides/lic-policy-assignment-bank-loan`,
+  publishedDate: '2026-11-20T00:00:00Z',
+  modifiedDate: '2026-11-20T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Policy Assignment to a Bank for a Home or Education Loan: Absolute vs Conditional Assignment & How to Get It Released"
+  description="Assigning your LIC policy to a bank for a home or education loan: absolute vs conditional assignment under Section 38, which policies qualify, the step-by-step process and documents, what happens to your nominee, and how to get the policy released (reassigned) after the loan is repaid."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • Policy Assignment: Loans & Security
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Policy Assignment to a Bank for a Home or Education Loan: Absolute vs Conditional Assignment & How to Get It Released
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        When a bank lends against your LIC policy — or takes it as extra security for a home or education loan — it does not simply hold your bond in a drawer. You legally transfer your rights in the policy to the bank. That transfer is called an <strong>assignment</strong>, and the one word that decides everything about it is whether it is <strong>absolute</strong> or <strong>conditional</strong>. Get that word wrong and you can lose control of a policy you still need; forget the release step after repaying the loan and the bank stays on record as the owner of your policy for years.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">First check: how much can you actually borrow against your policy?</h2>
+        <p class="text-xs text-brand-700">A bank lends against surrender value, not sum assured. Work out your policy's loan value before you agree to assign it.</p>
+      </div>
+      <a
+        href="/guides/lic-how-much-loan-on-policy/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Check Your Policy Loan Value &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. What Assignment Is — and Why a Bank Asks for It</h2>
+      <p>
+        Assignment is the legal transfer of your rights, title and interest in a policy from you (the <strong>assignor</strong>) to another person or institution (the <strong>assignee</strong>). It is governed by <strong>Section 38 of the Insurance Act, 1938</strong> (as amended in 2015). After a valid assignment, the assignee — here, your bank — becomes entitled to the policy's benefits: maturity value, death claim, surrender value and loans, subject to the terms of the assignment.
+      </p>
+      <p>
+        A bank asks for assignment because a policy bond on its own is not security. Without assignment, if you died or defaulted, the bank would have no legal right to collect from LIC — the money would go to your nominee. Assignment gives the bank a claim on the policy proceeds, which is why it is standard whenever a policy is pledged as collateral, whether for a loan taken <em>against</em> the policy or as additional security for a home or education loan.
+      </p>
+      <p>
+        Assignment is <strong>not the same as nomination</strong>. A nominee only receives the money if you die; you keep every right in the policy while alive. An assignee takes your rights — in an absolute assignment, all of them. Our <a href="/guides/lic-change-nominee-form-3750/" class="text-brand-700 font-semibold hover:text-brand-800">nominee-change guide</a> covers Form 3750 and the nomination process separately.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Absolute vs Conditional Assignment: The One Choice That Matters</h2>
+      <p>
+        Section 38 deems every assignment <strong>absolute</strong> unless the endorsement expressly makes it conditional. That default is the trap: if your assignment deed does not spell out the condition, the law treats it as a full, unconditional transfer. For a bank loan, you almost always want <strong>conditional</strong> assignment.
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Point</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Absolute assignment</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Conditional assignment</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Who owns the policy</td>
+              <td class="px-4 py-3">The assignee, fully and unconditionally</td>
+              <td class="px-4 py-3">The assignee, only until the stated condition is met — typically loan repayment</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Your remaining rights</td>
+              <td class="px-4 py-3">None. You cannot surrender, borrow against or deal with the policy</td>
+              <td class="px-4 py-3">Rights revert to you when the condition is fulfilled</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Nominee's position</td>
+              <td class="px-4 py-3">Nomination is cancelled — the assignee takes everything</td>
+              <td class="px-4 py-3">For a loan/security assignment, nomination is affected only to the extent of the bank's interest, and revives on repayment</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Can the assignee surrender or take a loan?</td>
+              <td class="px-4 py-3">Yes, without your consent</td>
+              <td class="px-4 py-3">No — a conditional assignee cannot surrender the policy or take a loan on it</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Right choice for a bank loan</td>
+              <td class="px-4 py-3">Almost never — it hands the bank more than it needs</td>
+              <td class="px-4 py-3">Yes — the bank gets its security, you keep your policy</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Before signing, read the assignment deed and check that it says the assignment is <strong>conditional on the loan</strong> — typically worded as "until the loan is repaid" or "as security for the loan". If the deed does not contain such a condition, ask the bank to add it. A conditional assignment also cannot be used by the bank to surrender your policy or borrow against it, which is exactly the protection you want.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Which Policies Can Be Assigned to a Bank — and Which Cannot</h2>
+      <p>
+        A bank lends against <strong>surrender value</strong>, not sum assured. So only policies that have built up a surrender value work as collateral:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Qualify:</strong> traditional endowment, money-back and whole-life plans that have acquired a surrender value — generally after at least two full years of premiums. LIC's own policy loans lend up to 90% of surrender value for in-force policies (85% if paid-up); banks lending against a policy typically offer around 80–90% of surrender value, with the exact loan-to-value decided by the bank.</li>
+        <li><strong>Do not qualify:</strong> pure term plans such as Saral Jeevan Bima (859) or New Tech-Term — they have no surrender value, so there is nothing for the bank to recover. Lapsed policies and most ULIPs follow different rules and are usually not accepted as collateral.</li>
+      </ul>
+      <p>
+        An illustrative example (not a quote): a ₹10 lakh endowment policy with several years of premiums paid might have a surrender value of roughly ₹2–2.5 lakh, so a bank might lend around ₹1.6–2.25 lakh against it. The surrender value in the early years is far lower than the sum assured — do not expect a loan anywhere near the policy's face value. Our <a href="/guides/lic-check-surrender-value/" class="text-brand-700 font-semibold hover:text-brand-800">surrender-value guide</a> shows how to find your policy's actual figure before you talk to the bank.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. The Assignment Process, Step by Step</h2>
+      <p>
+        Under Section 38, an assignment is made by an <strong>endorsement on the policy itself or by a separate instrument</strong>, signed by you and attested by at least one witness, stating the fact of the transfer, the reasons, the assignee's details and the terms. It is <strong>not operative against LIC until written notice of the assignment — with the endorsement or instrument, or a certified copy — is delivered to your servicing branch</strong>. The date LIC receives that notice decides priority if there are competing claims on the policy.
+      </p>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Agree the terms with the bank.</strong> Confirm the assignment is conditional (security for the loan only), who pays future premiums, and that the bank will reassign the policy when the loan is repaid.</li>
+        <li><strong>Execute the assignment deed.</strong> The bank usually supplies its own assignment deed or endorsement wording — it is executed on stamp paper (stamp duty varies by state; the bank or branch will tell you the value). Both you and the bank's authorised signatory sign, with at least one witness attesting.</li>
+        <li><strong>Submit to your LIC servicing branch</strong> with the original policy bond, KYC of both parties, and the bank's loan sanction letter. Keep a copy of everything you submit and get a stamped acknowledgement.</li>
+        <li><strong>LIC registers the assignment</strong> and endorses it on the policy bond. Ask for the endorsed bond back or a written confirmation — do not leave the branch without proof that the assignment is on record.</li>
+        <li><strong>Check the endorsement.</strong> Read the endorsement LIC puts on the bond: it should name the bank and record the assignment as conditional. If it reads as absolute, raise it at the branch immediately.</li>
+      </ol>
+      <p>
+        A note on form numbers, verified 20 November 2026: LIC's own forms page (licindia.in/download-forms) lists only <strong>Form 3838</strong> (conditional assignment to a wife or close relative under a whole-life policy) and <strong>Form 3837</strong> (the same, for endowment policies) under "Assignment" — it lists <strong>no general bank-assignment form</strong>. For a bank loan, the assignment is done by endorsement or a separate instrument, and the bank normally provides the deed. Some agent guides cite Form 3464 as the assignment endorsement form — confirm the current form at your servicing branch rather than downloading a form from memory.
+      </p>
+      <p>
+        LIC can decline to act on an assignment if it has sufficient reason to believe it is not bona fide, not in your interest, against public interest, or for trading the policy — and must record its reasons in writing within 30 days. If that happens, you can appeal to IRDAI within 30 days of receiving the refusal.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. What Happens to Your Nominee, Your Premiums and Your Rights</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Nomination:</strong> an assignment normally cancels the nomination — <em>except</em> for an assignment made for a loan or as security, where the nomination is affected only to the extent of the assignee's interest and <strong>revives when the loan is repaid</strong>. This is why conditional assignment matters: with an absolute assignment, your nominee loses everything.</li>
+        <li><strong>Premiums:</strong> you normally keep paying the premiums unless the loan agreement says otherwise. If premiums stop and the policy lapses while assigned, the bank's security weakens — and revival later needs the assignee's involvement, so keep premiums current. See our <a href="/guides/lic-policy-revival/" class="text-brand-700 font-semibold hover:text-brand-800">revival guide</a> if a policy has already lapsed.</li>
+        <li><strong>Surrender and loans:</strong> while the policy is assigned, you cannot surrender it or take a fresh loan on it without the bank's consent — the bank's interest comes first. A conditional assignee (the bank) likewise cannot surrender the policy or borrow against it.</li>
+        <li><strong>If you die while the policy is assigned:</strong> LIC pays the bank only the outstanding loan amount; the balance goes to your nominee (or legal heirs). The bank does not keep the whole claim.</li>
+        <li><strong>If you default:</strong> the bank can recover its dues from the policy's surrender or maturity value — that is the point of the security. Unpaid interest that grows beyond the surrender value can lead to the policy being foreclosed, so treat the loan's interest like any EMI.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Getting the Policy Released (Reassignment) After the Loan Is Repaid</h2>
+      <p>
+        Repaying the loan does <strong>not</strong> automatically remove the assignment from LIC's records. The bank must <strong>reassign</strong> the policy back to you, and you must get that reassignment registered with LIC. This is the step people forget — and then, years later at maturity or claim time, LIC's records still show the bank as assignee.
+      </p>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Get the loan closure certificate / no-dues certificate</strong> from the bank once the last EMI is paid. Ask the bank in writing for reassignment at the same time.</li>
+        <li><strong>Execute the reassignment.</strong> The bank signs a reassignment endorsement (the same form of instrument as the original assignment), attested by a witness.</li>
+        <li><strong>Submit it to your LIC servicing branch</strong> with the original policy bond and the closure certificate. LIC records the reassignment and endorses the bond back in your name.</li>
+        <li><strong>Verify the release.</strong> Check the bond endorsement and confirm with the branch that the assignment is cancelled in LIC's system — and that your nomination is revived. Do not accept a verbal assurance; get it in writing or see the endorsement yourself.</li>
+      </ol>
+      <p>
+        If the bank delays reassignment, write to the bank's branch manager and then to its grievance cell, keeping copies. An unreleased assignment does not cost you money day to day, but it can block a surrender, a fresh loan or a claim settlement until it is cleared — so chase it the week the loan closes, not at maturity.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Mistakes to Avoid Before You Sign</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Signing an absolute assignment for a loan.</strong> The bank only needs security, not ownership. Insist on conditional assignment and check the deed's wording.</li>
+        <li><strong>Assigning a term plan and expecting a loan.</strong> A pure term policy has no surrender value — the bank will refuse it as collateral, and you will have wasted weeks.</li>
+        <li><strong>Not telling your nominee.</strong> The nominee should know the policy is assigned and that the bank is paid first from any claim — otherwise the family discovers it at the worst possible time.</li>
+        <li><strong>Forgetting the reassignment.</strong> Set a reminder for the loan-closure date. A policy that stays assigned after repayment is the commonest post-loan headache.</li>
+        <li><strong>Stopping premiums during the loan.</strong> A lapsed assigned policy can be foreclosed if loan and interest exceed the surrender value. Keep premiums current, and if money is tight, talk to the bank before missing one.</li>
+        <li><strong>Assuming the home loan and the policy loan are the same thing.</strong> Assigning a policy as <em>additional security</em> for a home loan is different from taking a <em>loan against the policy</em> — the interest rate, tenure and repayment terms are the home loan's, not LIC's. Compare the bank's loan-against-policy terms with LIC's own policy loan (up to 90% of surrender value, interest payable half-yearly) before choosing: our <a href="/guides/lic-policy-loan-rules/" class="text-brand-700 font-semibold hover:text-brand-800">policy-loan rules guide</a> and <a href="/guides/lic-policy-loan-interest-rate/" class="text-brand-700 font-semibold hover:text-brand-800">policy-loan interest guide</a> cover LIC's route in detail.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC or legal advice. Assignment is governed by Section 38 of the Insurance Act, 1938, and by your policy's own conditions; form numbers and bank requirements change, so confirm the current form and process at your servicing LIC branch before signing. Figures shown are illustrative only — the bank's sanction letter and the branch's written records are the final word.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-term-insurance-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="November 2026" />
+  </article>
+</BaseLayout>
