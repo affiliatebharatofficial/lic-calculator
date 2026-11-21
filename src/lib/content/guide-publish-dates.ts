@@ -52,6 +52,7 @@ export const GUIDE_PUBLISH_DATES: Record<string, string> = {
   'lic-epolicy-bond-digilocker': '2026-11-08',
   'lic-saral-jeevan-bima-859': '2026-11-19',
   'lic-policy-assignment-bank-loan': '2026-11-20',
+  'lic-nri-buy-policy-rules': '2026-11-21',
   'lic-ulip-charges-decoded-nivesh-plus-siip': '2026-11-06',
   'lic-second-policy-loan-topup': '2026-10-23',
   'lic-single-premium-plan-surrender': '2026-10-24',

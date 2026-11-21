@@ -1,0 +1,228 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'Can an NRI Buy LIC?', url: '/guides/lic-nri-buy-policy-rules' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'Can an NRI Buy LIC? Rules, Premium Payment, and Claiming from Abroad',
+  description: 'Yes — NRIs can buy new LIC policies and keep existing ones running from abroad, but LIC\'s own NRI rules draw hard lines: green-card holders are not NRIs for insurance, mail-order cover is capped at ₹3 crore, critical-illness benefit is not granted, and maturity money is repatriable only in proportion to premiums paid in foreign currency. The two buying routes, documents, NRE vs NRO premium payment, tax, and how claims work from abroad.',
+  url: `${siteUrl}/guides/lic-nri-buy-policy-rules`,
+  publishedDate: '2026-11-21T00:00:00Z',
+  modifiedDate: '2026-11-21T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="Can an NRI Buy LIC? Rules, Premium Payment, and Claiming from Abroad"
+  description="NRIs can buy LIC policies and keep existing ones running from abroad — but green-card holders are not NRIs for insurance, mail-order cover caps at ₹3 crore, critical-illness benefit is excluded, and maturity money is repatriable only in proportion to foreign-currency premiums. Buying routes, documents, NRE vs NRO payment, tax, and claiming from abroad."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • NRI Insurance: Buying & Servicing from Abroad
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Can an NRI Buy LIC? Rules, Premium Payment, and Claiming from Abroad
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Short answer: <strong>yes</strong> — an NRI can buy a new LIC policy and can keep an existing one running after moving abroad. But the rules are not the same as for a resident Indian, and the traps are expensive ones: a green-card holder is <strong>not</strong> an NRI in LIC's eyes, mail-order cover is capped at <strong>₹3 crore</strong>, critical-illness benefit is simply not granted to NRIs, and maturity money paid out of an NRO-funded policy is <strong>not repatriable</strong>. Every fact below is from LIC's own NRI Corner (licindia.in/web/guest/nri-corner, last updated 16 July 2026), re-checked on 21 November 2026, plus the FEMA position on premium payment and repatriation.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">First check: how much cover do you actually need?</h2>
+        <p class="text-xs text-brand-700">LIC caps NRI mail-order cover at ₹3 crore and restricts term-plan sum assured. Work out your real cover need before you pick a plan.</p>
+      </div>
+      <a
+        href="/lic-hlv-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Your Cover Need &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. Who Counts as an NRI for LIC — and Who Does Not</h2>
+      <p>
+        LIC's NRI Centre defines an NRI as a <strong>citizen of India temporarily residing in the country of present residence and holding a valid passport issued by the Government of India</strong>. Two exclusions catch people out:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Green-card holders are not NRIs for insurance.</strong> LIC states plainly that an NRI "should not be a green card holder" and should not have applied for — or be planning to apply in the near future for — citizenship of the country of residence or any other country. People of Indian Origin with foreign nationality residing abroad (FNIOs) and green-card holders are <strong>not considered NRIs</strong> for the purpose of allowing insurance.</li>
+        <li><strong>OCI card holders are a separate category.</strong> Mail-order business is allowed to them only if they are registered as an Overseas Citizen of India and hold a <strong>valid OCI card</strong>. A designated LIC agent's report is compulsory, the policy is issued in Indian rupees, and any claim is paid in India in Indian currency only. Other rules are the same as for NRIs.</li>
+      </ul>
+      <p>
+        If you are a green-card holder or a foreign citizen without an OCI card, do not assume you can buy a fresh LIC policy — check your status with the branch first, because the proposal can be declined at underwriting after you have paid the first premium and done the medicals.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">2. The Two Ways to Buy: Visit to India vs Mail Order Business</h2>
+      <p>
+        LIC offers exactly two routes, and which one you use changes the limits that apply:
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Point</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Buying during a visit to India</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Mail Order Business (from abroad)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">How it works</td>
+              <td class="px-4 py-3">All formalities completed during your stay in India, with a local agent, development officer or branch</td>
+              <td class="px-4 py-3">All formalities completed in your country of residence, by post / through an LIC agent visiting that country</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Treatment</td>
+              <td class="px-4 py-3">Treated <strong>at par with Indian lives</strong> for allowing insurance</td>
+              <td class="px-4 py-3">Special NRI rules apply — see the limits below</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Minimum sum assured</td>
+              <td class="px-4 py-3">₹10 lakh</td>
+              <td class="px-4 py-3">₹10 lakh</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Maximum sum assured</td>
+              <td class="px-4 py-3">Depends on conditions of insurability (no fixed cap stated)</td>
+              <td class="px-4 py-3">Limited to <strong>₹3 crore</strong></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Medicals</td>
+              <td class="px-4 py-3">Same as for Indian lives; non-medical scheme available subject to conditions</td>
+              <td class="px-4 py-3">Medical under Annexure-I rules; video medical available if neither you nor the agent has visited the other country</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        The practical point: if you need cover above ₹3 crore, or want the full range of plan options without NRI restrictions, <strong>buy during an India visit</strong> — you are treated like any resident buyer. Mail order is the fallback for when you cannot travel.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. Which Plans NRIs Can Buy — and the Three Restrictions</h2>
+      <p>
+        LIC says <strong>all types of plans are allowed</strong> to NRIs, subject to three conditions that matter when you choose:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Critical Illness Benefit is not granted.</strong> If a plan's selling point is its critical-illness rider, that benefit is off the table for an NRI proposal.</li>
+        <li><strong>Term Rider Benefit is restricted</strong> to a certain limit of the sum assured — the branch decides the limit for your proposal.</li>
+        <li><strong>Sum assured is restricted for term insurance plans.</strong> Pure term cover — the cheapest cover per rupee — is the category where LIC tightens the limit most for NRIs. Our <a href="/guides/lic-saral-jeevan-bima-859/" class="text-brand-700 font-semibold hover:text-brand-800">Saral Jeevan Bima (859) guide</a> explains the standard term plan's ₹5–25 lakh band; as an NRI, confirm the term-plan ceiling for your route before assuming the full band is open to you.</li>
+      </ul>
+      <p>
+        Policies are issued in <strong>Indian rupees only</strong>. LIC's overseas branches and joint-venture companies issue policies in their local currencies (for example, the UK branch issues in sterling) — but a policy bought from LIC in India is a rupee policy, and every payout is in rupees.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">4. Documents, Income Proof and Medicals</h2>
+      <p>
+        The papers LIC lists for an NRI proposal are the standard proposal form for the plan, the <strong>NRI Questionnaire (Annexure-II)</strong>, a medical report (unless the proposal is under the non-medical scheme), any special medical reports called for, an <strong>attested copy of your passport</strong>, proof of age and income, and an initial deposit equal to the instalment premium under the proposed plan.
+      </p>
+      <p>
+        <strong>Income proof matters more for NRIs than for residents.</strong> If the sum assured is high, or the proposal comes through Mail Order Business, LIC asks for income-tax returns, a copy of the employment contract showing emoluments, a Chartered Accountant's certificate, or a Personal Financial Questionnaire (PFQ). Keep these ready before you start — underwriting delays for NRI proposals are usually document delays.
+      </p>
+      <p>
+        The <strong>Non-Medical (Preferred and Special) scheme</strong> — buying without a full medical — is available to NRIs with restrictions: maximum age at entry <strong>50 years</strong>, plans with high risk cover and term rider benefits are not allowed, you must be employed in government or a reputed commercial firm or be a professional (Chartered Accountant, doctor, teacher, lawyer, accountant, engineer, and similar), and it applies only to NRIs residing in <strong>Group V countries</strong> (LIC's Annexure-IV lists the residence groups). If neither you nor the agent has visited the other country, LIC also offers a <strong>video medical</strong> facility, subject to terms and conditions.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. Paying Premiums from Abroad: NRE vs NRO</h2>
+      <p>
+        An NRI can pay premiums by remittance in foreign currency, from an <strong>NRE (Non-Resident External)</strong> account, from an <strong>NRO (Non-Resident Ordinary)</strong> account, or from an FCNR account. Which account you use is not a trivial detail — it decides whether the money can ever leave India again (see section 7).
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>NRE account:</strong> holds foreign earnings converted to rupees; principal and interest are freely repatriable. If you fund premiums by sending money from abroad, routing it through an NRE account keeps those funds fully repatriable.</li>
+        <li><strong>NRO account:</strong> holds income earned in India — rent, dividends, policy proceeds. Paying from NRO is the simplest route, but funds in it are repatriable only up to annual limits and with paperwork.</li>
+        <li><strong>Online payment</strong> through LIC's customer portal from an NRE/NRO account, or an <strong>NACH/ECS mandate</strong> on your Indian account, are the reliable options. A mandate is worth setting up: a delayed credit from a foreign transfer is one of the commonest causes of an accidental lapse for NRIs.</li>
+      </ul>
+      <p>
+        If a policy does lapse while you are abroad, revival works on the same terms as for a resident — including the health declaration — and can be done without travelling. Our <a href="/guides/lic-policy-revival/" class="text-brand-700 font-semibold hover:text-brand-800">revival guide</a> and <a href="/guides/lic-premium-grace-period-late-fee/" class="text-brand-700 font-semibold hover:text-brand-800">grace-period and late-fee guide</a> cover the timelines; the extra NRI step is getting the signed forms attested abroad and couriered to the branch.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Tax for NRIs: 80C, 10(10D), TDS and the GST Exemption</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Section 80C:</strong> an NRI can claim the 80C deduction on LIC premiums — but only against taxable income in India, and only under the <strong>old regime</strong>. If you have no Indian taxable income, or you file under the new regime, there is no 80C benefit to claim.</li>
+        <li><strong>Section 10(10D):</strong> maturity proceeds are tax-free in India on the same conditions as for residents — the premium must be within 10% of the sum assured, and for policies issued on or after 1 April 2023 the aggregate premium across policies must not exceed ₹5 lakh a year. Tax rules change; confirm the current position with a tax adviser before relying on it.</li>
+        <li><strong>TDS:</strong> tax deducted at source can apply to NRI maturity proceeds, and relief under a double-taxation avoidance agreement (DTAA) with your country of residence may be available. Keep your PAN updated with LIC — TDS at the higher rate applies where PAN is missing.</li>
+        <li><strong>Tax in your country of residence is separate.</strong> India treating a maturity as tax-free does not mean your country of residence does. Check local rules — several countries tax the growth inside a foreign life policy.</li>
+        <li><strong>GST exemption on renewal premium:</strong> LIC's NRI Corner notes that eligible NRI / OCI / FNIO policyholders can claim exemption of GST on payment of renewal premium, subject to conditions — the guide and annexures are published on LIC's site. If you pay renewal premiums from abroad, ask the branch whether you qualify; the exemption is not automatic.</li>
+        <li><strong>FATCA / CRS:</strong> LIC is a reporting financial institution, so it must capture your tax residency status. Every policyholder is asked to file the <strong>Self Certification Form</strong> on LIC's customer portal. If you moved abroad after buying, file it — an unfiled form can hold up servicing later.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Repatriation: Getting the Money Out of India</h2>
+      <p>
+        This is the rule most NRI buyers discover too late. Under FEMA, maturity and death proceeds are <strong>repatriable only to the extent of the premiums paid in foreign currency, in proportion to the total premiums paid</strong>. In plain terms:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>If you paid all premiums from abroad in foreign currency (or from an NRE account funded from abroad), the proceeds are repatriable.</li>
+        <li>If you paid premiums partly in foreign currency and partly in rupees, only the foreign-currency proportion is repatriable.</li>
+        <li>If you paid all premiums in Indian rupees through an NRO account, <strong>the death or maturity proceeds are not repatriable</strong> — the money stays in India, in your NRO account.</li>
+      </ul>
+      <p>
+        An illustrative example (not a quote): suppose you paid ₹6 lakh of premiums in foreign currency and ₹4 lakh in rupees from an NRO account over the policy term. Roughly 60% of the maturity proceeds would be repatriable and 40% would stay in India. The exact proportion and the paperwork are your bank's call under FEMA — confirm with the bank before you need the money, not after. Death cover itself is worldwide: a policy bought in India covers death occurring anywhere in the world.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">8. Already Have a Policy? What Changes When You Move Abroad</h2>
+      <p>
+        A policy taken while you were in India <strong>continues in Indian currency even after you move abroad as an NRI</strong> — moving does not affect the policy, and proceeds remain repatriable to the extent of premiums paid in foreign currency. What you must do:
+      </p>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Inform your servicing branch</strong> of your new NRI status and your new overseas address.</li>
+        <li><strong>Submit the NRI Questionnaire</strong> (Annexure-II), duly filled and signed.</li>
+        <li><strong>File the FATCA/CRS Self Certification Form</strong> on the customer portal, declaring your tax residency.</li>
+        <li><strong>Keep premiums flowing</strong> through an approved channel — set up an NACH mandate on your NRE/NRO account or pay online from it, and keep your overseas mobile number and email registered with the branch so due-date reminders reach you.</li>
+        <li><strong>Check your nomination.</strong> Your nominee does not need to be an NRI — a nominee in India is fine — but the nomination should be current. Our <a href="/guides/lic-change-nominee-form-3750/" class="text-brand-700 font-semibold hover:text-brand-800">nominee-change guide</a> covers Form 3750.</li>
+      </ol>
+      <p>
+        When you return to India permanently, update your residential status with LIC again and switch premium payment back to a domestic account.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">9. Claiming from Abroad: Maturity and Death Claims</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Maturity and survival benefits are paid in India, in rupees</strong>, to the policyholder's NRO account. Repatriation abroad is a separate step governed by FEMA and RBI limits, handled by your bank — LIC does not pay abroad.</li>
+        <li><strong>A death claim is paid in India to the nominee's account</strong>, and the nominee does not need to be an NRI. The standard death-claim papers apply — see our <a href="/guides/lic-death-claim-documents-nominee/" class="text-brand-700 font-semibold hover:text-brand-800">death-claim documents guide</a>.</li>
+        <li><strong>Documents signed abroad usually need notarisation or apostilling</strong> before the branch accepts them — the exact requirement varies by country and by branch, so confirm it before couriering anything.</li>
+        <li><strong>What can be done without travelling:</strong> nominee change and address change (form signed and attested abroad), revival including the health declaration, and maturity and death-claim initiation with follow-up handled at the branch. Keep a family member or agent in India as your point of contact at the branch — it shortens every one of these by weeks.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">10. Mistakes NRIs Make with LIC</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Paying every premium from NRO without thinking about repatriation.</strong> If you ever want the maturity money abroad, fund premiums in foreign currency through an NRE account from the start — you cannot fix the proportion later.</li>
+        <li><strong>Assuming a green card does not matter.</strong> It does — LIC does not treat green-card holders as NRIs for insurance, and a proposal can fail at underwriting on this alone.</li>
+        <li><strong>Letting a policy lapse because a foreign transfer was late.</strong> Set up an NACH mandate on your Indian account instead of relying on manual transfers each due date.</li>
+        <li><strong>Not telling the branch you moved.</strong> An un-updated address means intimations, bonus notices and maturity letters go to an old Indian address, and the branch has no NRI questionnaire on file when you need servicing.</li>
+        <li><strong>Skipping the FATCA self-certification.</strong> It is mandatory, it takes minutes on the portal, and an incomplete record can stall a claim or a payout.</li>
+        <li><strong>Buying a term plan and assuming the full sum assured is available.</strong> Term-plan sum assured is restricted for NRIs, and mail order caps at ₹3 crore — confirm the ceiling for your route before paying the first premium.</li>
+        <li><strong>Assuming the maturity will be tax-free abroad.</strong> Indian tax treatment and your country of residence's treatment are two different things.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC, tax or legal advice. Rules are from LIC's NRI Corner (licindia.in/web/guest/nri-corner, last updated 16 July 2026) as re-checked on 21 November 2026; residence-group lists, mail-order medical rules and the GST-exemption conditions sit in LIC's annexures, and branch practice varies — confirm the current rules at your servicing branch before buying. Figures shown are illustrative only — the policy document and the branch's written records are the final word.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-premium-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="November 2026" />
+  </article>
+</BaseLayout>
