@@ -1,0 +1,265 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'How to Become a LIC Agent', url: '/guides/lic-become-agent-commission-earnings' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'How to Become a LIC Agent in India — Eligibility, Exam & What Agents Actually Earn (2026)',
+  description: 'No salary, no degree needed, no upper age limit — but also no fixed income. A LIC agent is a licensed, commission-only intermediary: 18+ age, 10th pass (rural) / 12th pass (urban), 25 hours of IRDAI training, the IC38 exam, and an appointment from LIC. First-year commission is 25% on long endowment plans (35% with bonus), 7.5% in years 2–3 and 5% after — and under IRDAI\'s 2024 EOM Regulations there are no fixed national slabs anymore, so the branch\'s current circular is final.',
+  url: `${siteUrl}/guides/lic-become-agent-commission-earnings`,
+  publishedDate: '2026-11-22T00:00:00Z',
+  modifiedDate: '2026-11-22T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="How to Become a LIC Agent in India — Eligibility, Exam & What Agents Actually Earn (2026)"
+  description="LIC agent banne ke liye 18+ age, 10th/12th pass, 25 ghante ki training aur IC38 exam chahiye — salary nahi, sirf commission. First-year commission 25% (bonus ke saath 35%), renewal 7.5% phir 5%. Eligibility, 5-step process, 2026 commission chart, TDS aur asli kamai ka hisaab."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • LIC Agent Career: Eligibility, Commission & Earnings
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        How to Become a LIC Agent in India — Eligibility, Exam &amp; What Agents Actually Earn (2026)
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Short answer: <strong>any Indian resident aged 18 or above who has passed Class 10 (rural areas) or Class 12 (urban areas)</strong> can apply — no degree, no upper age limit, no fixed recruitment calendar. The route is short: meet the Development Officer, clear an interview, complete <strong>25 hours of IRDAI-mandated training</strong>, pass the <strong>IC38 exam</strong>, and get your appointment letter and agent code. The part most people get wrong is the money: a LIC agent is <strong>not an LIC employee and gets no salary</strong> — income is commission only, highest in the first year and then a small renewal trail that compounds over years. Every figure below was re-checked on 22 November 2026 against IRDAI's current framework and multiple 2026 commission disclosures; LIC's board-approved rates change, so the Development Officer's current circular is the final word.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">An agent's first skill: working out how much cover a client actually needs</h2>
+        <p class="text-xs text-brand-700">Before you quote any plan, calculate the client's real cover need — it is also the number that decides whether a term plan or an endowment plan is the honest recommendation.</p>
+      </div>
+      <a
+        href="/lic-hlv-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Cover Need &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. First, the Honest Summary: What a LIC Agent Is — and Is Not</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Not an LIC employee.</strong> An agent is a licensed intermediary appointed by LIC to solicit life insurance business. There is no salary, no provident fund, no fixed working hours — and no LIC employee benefits. A Development Officer (DO), by contrast, <em>is</em> an LIC employee who recruits, trains and supervises agents; it is a separate job, recruited separately, and an agent is not promoted into it automatically.</li>
+        <li><strong>Tied to LIC only.</strong> As a LIC agent you sell LIC policies and LIC policies alone. You cannot sell another insurer's life insurance alongside. (The separate women-only <a href="/guides/lic-bima-sakhi-yojana-apply/" class="text-brand-700 font-semibold hover:text-brand-800">Bima Sakhi route</a> is a different scheme with its own stipend structure — see section 10.)</li>
+        <li><strong>Income is commission only, and it is back-loaded.</strong> The first year pays the most; from year 2 the same policy pays a small renewal percentage every year the premium is paid. An agent with a large, persisting book earns mostly from renewals. An agent whose policies lapse early earns almost nothing twice over — no renewal, and LIC can recover part of the first-year commission.</li>
+        <li><strong>The licence is yours, but it needs upkeep.</strong> The agency licence is issued for 3 years; renewal needs refresher training and a clean record. Your DO confirms the current renewal hours.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">2. Eligibility — Who Can Apply</h2>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Requirement</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">What LIC / IRDAI ask for</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Age</td>
+              <td class="px-4 py-3">Minimum <strong>18 years</strong>. There is <strong>no upper age limit</strong> — retired people apply routinely.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Education</td>
+              <td class="px-4 py-3">Minimum <strong>Class 10 pass</strong> (rural areas) / <strong>Class 12 pass</strong> (urban areas), from a recognised board, under IRDAI's agent regulations. Some branches ask for Class 12 regardless — the branch decides.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Residence &amp; nationality</td>
+              <td class="px-4 py-3">Must reside in India. Indian citizenship is the norm for appointment.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Background</td>
+              <td class="px-4 py-3">No criminal record; not previously terminated by an insurer for fraud or mis-selling.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Documents</td>
+              <td class="px-4 py-3">Aadhaar, PAN, passport-size photographs, education certificate (10th/12th marksheet), bank details, and proof of address. PAN is essential — without it, TDS on commission jumps to 20% (see section 8).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        There is no entrance test before training, no application fee to LIC for the form itself, and no fixed recruitment drive — branches recruit agents all year round, whenever a Development Officer needs to build their team.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. The 5-Step Process, in Order</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>Contact the Development Officer (DO) or nearest branch.</strong> Walk into your nearest LIC branch and ask for the Development Officer, or fill the "Want to be an LIC agent" form on licindia.in and wait for the DO to call you back. The DO is the person who will sponsor your application — going through a DO is the normal route, not an optional shortcut.</li>
+        <li><strong>Interview with the Branch Manager.</strong> A short interview — the branch checks your background, your local network (your first clients are usually people you already know), and whether you understand that the income is commission-only. Clear it, and the branch sponsors your training.</li>
+        <li><strong>Complete 25 hours of IRDAI-mandated training (IC38).</strong> The pre-licensing course runs at LIC's Divisional or Agency Training Centre, or online — about 4 days of classroom sessions. It covers insurance basics, LIC's plans, selling and ethics, and IRDAI rules. This is the same IC38 syllabus every life-insurance agent in India does.</li>
+        <li><strong>Pass the IC38 pre-recruitment exam.</strong> An online, objective (MCQ) exam of 50 questions; the pass mark is <strong>35%</strong> — 18 correct answers out of 50. It is a basic test, not a competitive exam; the training material covers everything asked.</li>
+        <li><strong>Appointment letter and agent code.</strong> LIC issues the appointment letter and your agent code, and you can start selling. The whole process — from first meeting the DO to holding the code — usually takes <strong>1–2 weeks</strong>.</li>
+      </ol>
+
+      <h2 class="text-xl font-bold text-slate-900">4. What It Costs to Start</h2>
+      <p>
+        The out-of-pocket cost is small: registration, training, exam and study material together usually come to <strong>around ₹1,000</strong> in total, as reported by agents who went through the process in 2026. There is no large deposit and no franchise fee — anyone asking you for a large "joining fee" to become a LIC agent is not following LIC's process. Confirm the exact current charges at your branch, since training and exam fees are set by the examining body and can change.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">5. The Commission Chart: What LIC Pays, and When</h2>
+      <p>
+        Commission has three parts: <strong>first-year commission (FYC)</strong> on a new policy, <strong>renewal commission</strong> every year the premium is paid afterwards, and <strong>bonus commission</strong> — extra first-year commission, up to 40% of the FYC, paid when the agent hits LIC's business targets for the year. The rate depends mainly on the <strong>premium paying term (PPT)</strong> of the plan, not on the plan's name. The table below is the structure reported across LIC's 2026 disclosures — treat it as indicative, because the exact rates are set by LIC's board-approved commission policy (see section 6).
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Plan type / premium paying term</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">First year</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Years 2–3</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Year 4 onwards</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Max bonus</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Total effective, year 1</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Endowment / money-back / whole life, PPT 15 years &amp; above</td>
+              <td class="px-4 py-3">25%</td>
+              <td class="px-4 py-3">7.5%</td>
+              <td class="px-4 py-3">5%</td>
+              <td class="px-4 py-3">10% of premium (40% of FYC)</td>
+              <td class="px-4 py-3"><strong>35%</strong></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Endowment / money-back, PPT 10–14 years</td>
+              <td class="px-4 py-3">20%</td>
+              <td class="px-4 py-3">7.5%</td>
+              <td class="px-4 py-3">5%</td>
+              <td class="px-4 py-3">8% of premium</td>
+              <td class="px-4 py-3"><strong>28%</strong></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Endowment, PPT 5–9 years</td>
+              <td class="px-4 py-3">10%</td>
+              <td class="px-4 py-3">5%</td>
+              <td class="px-4 py-3">5%</td>
+              <td class="px-4 py-3">Nil</td>
+              <td class="px-4 py-3"><strong>10%</strong></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Single-premium plans</td>
+              <td class="px-4 py-3">2%</td>
+              <td class="px-4 py-3">Nil</td>
+              <td class="px-4 py-3">Nil</td>
+              <td class="px-4 py-3">Nil</td>
+              <td class="px-4 py-3"><strong>2%</strong></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">ULIPs (Nivesh Plus, SIIP)</td>
+              <td class="px-4 py-3">~5%</td>
+              <td class="px-4 py-3">~3.5%</td>
+              <td class="px-4 py-3">~2.5%</td>
+              <td class="px-4 py-3">Nil</td>
+              <td class="px-4 py-3"><strong>~5%</strong></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Pension / annuity plans (e.g. Jeevan Shanti)</td>
+              <td class="px-4 py-3">~7.5%</td>
+              <td class="px-4 py-3">~2%</td>
+              <td class="px-4 py-3">~2%</td>
+              <td class="px-4 py-3">Nil</td>
+              <td class="px-4 py-3"><strong>~7.5%</strong></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Pure term plans (online &amp; offline)</td>
+              <td class="px-4 py-3">~35% reported</td>
+              <td class="px-4 py-3">~5%</td>
+              <td class="px-4 py-3">~5%</td>
+              <td class="px-4 py-3">Varies</td>
+              <td class="px-4 py-3">High %, tiny base</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Two traps in reading this table. <strong>First, the term-plan percentage misleads:</strong> 35% of a ₹10,000 annual term premium is ₹3,500 — less than 25% of a ₹50,000 endowment premium (₹12,500). High percentage, small rupee. <strong>Second, old tables floating online still list withdrawn plans</strong> (for example Jeevan Azad and Dhan Sanchay) with commission rates — those plans are no longer sold, so their rates are meaningless for new business. Check any plan's live status on LIC's withdrawn-plans page before quoting it.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">6. The 2024 Change: IRDAI No Longer Publishes Fixed Slabs</h2>
+      <p>
+        Before April 2024, IRDAI prescribed fixed first-year and renewal commission rates. Under the <strong>IRDAI (Expenses of Management including Commission) Regulations, 2024</strong>, in force from 1 April 2024, those fixed slabs were replaced with a principle-based framework: insurers design their own commission structures under a <strong>board-approved commission policy</strong>, within overall Expenses of Management limits. That means there is no single "official IRDAI commission chart" for 2026 — the percentages in section 5 are LIC's reported structure under that framework, and LIC can revise them. Our <a href="/guides/lic-irdai-commission-caps-2026/" class="text-brand-700 font-semibold hover:text-brand-800">IRDAI commission caps guide</a> explains the EOM framework in detail. If a DO quotes you a rate different from this article, the DO's current circular wins.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">7. Illustrative Earnings: What the Numbers Actually Add Up To</h2>
+      <p>
+        The example below is <strong>illustrative only</strong> — it shows the maths, not a promise. Take an agent who sells 12 endowment policies in a year, each with a ₹50,000 annual premium and a premium paying term of 15+ years:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Year 1, first-year commission:</strong> 25% × ₹50,000 = ₹12,500 per policy × 12 = <strong>₹1,50,000</strong>.</li>
+        <li><strong>Year 1, bonus commission (if targets are hit):</strong> 40% of FYC = ₹5,000 per policy × 12 = <strong>₹60,000</strong> extra — so up to ₹2,10,000 in year 1.</li>
+        <li><strong>Years 2–3, renewal:</strong> 7.5% × ₹50,000 = ₹3,750 per policy per year × 12 = <strong>₹45,000 a year</strong>, if all 12 policies stay in force.</li>
+        <li><strong>Year 4 onwards:</strong> 5% × ₹50,000 = ₹2,500 per policy per year × 12 = <strong>₹30,000 a year</strong> — and this is the point: every new year's sales add another layer of renewal trail on top.</li>
+      </ul>
+      <p>
+        That is also why the income curve of a LIC agent is slow at first and compounding later. In year 1, everything depends on new sales. By year 5, an agent who sold 12 policies a year has 60 policies paying renewal — ₹1,50,000–₹2,25,000 a year in renewal alone, before a single new sale. The same maths runs in reverse: if policies lapse, the trail collapses, which is why persistency — keeping clients paying — is the skill that actually decides an agent's income, not the first-year percentage.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">8. Tax on Commission: TDS, and What to File</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>TDS under Section 194D:</strong> LIC deducts tax at source on commission. From <strong>1 April 2025</strong> the rate for an individual/HUF agent with PAN is <strong>2%</strong> (down from 5%), and no TDS applies if total commission in the financial year is <strong>₹20,000 or less</strong> (threshold raised from ₹15,000). Companies suffer 10%; <strong>without PAN the rate is 20%</strong>. From 1 April 2026 the provision sits in Section 393 of the new Income-tax Act, 2025, at the same 2% rate and ₹20,000 threshold.</li>
+        <li><strong>TDS is not the tax.</strong> It is only advance tax deducted by LIC. Commission is business income, taxed at your slab rate — if your total income is below the basic exemption limit, the TDS deducted is refundable on filing.</li>
+        <li><strong>Which return:</strong> commission income is generally reported as business income in <strong>ITR-3</strong>. Tax guidance for agents notes that the presumptive scheme under Section 44AD is not available for commission income — confirm with a tax adviser before filing.</li>
+        <li><strong>Keep records from day one:</strong> LIC's commission statements, TDS certificates (Form 16A), and your own expense records (travel, phone, client meetings) — business expenses against commission income need proof.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">9. Beyond Commission: Bonus, Clubs and Other Benefits</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Bonus commission</strong> (section 5) is the biggest extra — up to 40% of first-year commission for hitting annual business targets.</li>
+        <li><strong>Club memberships:</strong> LIC runs tiered agent clubs (Branch Manager's Club, Divisional Manager's Club, Zonal Manager's Club, Chairman's Club, and MDRT-level recognition) for agents who cross business thresholds. Membership brings higher recognition, conference invitations and, at higher tiers, benefits such as office allowance and vehicle advance — the exact thresholds and benefits change year to year, and your DO has the current list.</li>
+        <li><strong>Long-service benefits:</strong> agents who complete long, continuous agency may qualify for gratuity and group insurance cover under LIC's agency rules — the qualifying years and caps are set by LIC, so confirm them with the DO rather than relying on a figure quoted online.</li>
+        <li><strong>Advances:</strong> festival advance and vehicle advance are available to qualifying agents on LIC's terms — again, the DO's current circular is the source.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">10. Bima Sakhi vs the General Agent Route</h2>
+      <p>
+        Women applicants often ask about <strong>Bima Sakhi</strong>, and it is a different scheme from the general agency described above: it is a women-only route with a stipend during the first three years, aimed at recruiting women agents in rural and semi-urban areas. The general route in this article has no stipend — income is commission from day one — but also no gender restriction and no fixed three-year structure. Compare both before choosing: our <a href="/guides/lic-bima-sakhi-yojana-apply/" class="text-brand-700 font-semibold hover:text-brand-800">Bima Sakhi guide</a> covers its eligibility, stipend and application process.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">11. Mistakes New Agents Make</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Believing the "₹1 lakh a month" posters.</strong> Recruitment ads quote top agents' incomes. Year-1 income for a new agent selling to friends and family is usually modest — the renewal trail in section 7 takes years to build.</li>
+        <li><strong>Selling the highest-commission plan instead of the right plan.</strong> A 25% first-year rate on an endowment plan is tempting, but a client who needed cheap term cover and got an expensive endowment is a client who lapses — and a lapsed policy pays no renewal and can trigger commission recovery. Our <a href="/guides/lic-term-cover-how-much/" class="text-brand-700 font-semibold hover:text-brand-800">how-much-term-cover guide</a> is the honest starting point for any client conversation.</li>
+        <li><strong>Ignoring persistency.</strong> Renewal commission is paid only while the premium is paid. Agents who never follow up on due premiums lose the trail — and LIC tracks persistency when judging an agent's record.</li>
+        <li><strong>Paying a "joining fee" to a middleman.</strong> LIC's own process costs around ₹1,000 all-in (section 4). Anyone demanding a large fee to "make you an agent" is not part of LIC's process.</li>
+        <li><strong>Not giving PAN to LIC.</strong> Without PAN, TDS on your commission is 20% instead of 2% — an avoidable 18-point leak on every payment.</li>
+        <li><strong>Forgetting the licence needs renewal.</strong> The licence runs 3 years; diarise the refresher training and renewal, because an expired licence means no new business and no commission.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not LIC, tax or career advice. Commission rates are LIC's reported 2026 structure under IRDAI's EOM Regulations 2024, re-checked on 22 November 2026; LIC's board-approved commission policy can revise them, and the Development Officer's current circular is final. Eligibility, training hours and exam rules are per IRDAI's agent framework as reported in 2026 — confirm the current position at your servicing branch before applying. Earnings examples are illustrative only; the branch's written records are the final word.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-hlv-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="November 2026" />
+  </article>
+</BaseLayout>
