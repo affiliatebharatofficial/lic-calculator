@@ -1,0 +1,236 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import AuthorReviewerCard from '@/components/editorial/AuthorReviewerCard.astro';
+import ContextualLinks from '@/components/seo/ContextualLinks.astro';
+import { StructuredDataGenerator } from '@/lib/seo';
+import { AuthorManager } from '@/lib/editorial';
+
+const siteUrl = 'https://lic-calculators.com';
+const author = AuthorManager.getDefaultAuthor();
+const reviewer = AuthorManager.getDefaultReviewer();
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Educational Guides', url: '/guides/' },
+  { name: 'LIC Missing Person Claim', url: '/guides/lic-missing-person-claim-7-year-rule' }
+];
+
+const articleSchema = StructuredDataGenerator.generateArticle({
+  headline: 'LIC Claim When the Policyholder Is Missing: The 7-Year Rule, Court Order & Documents (2026)',
+  description: 'No body, no death certificate — but the claim is still possible. Under Sections 107–108 of the Indian Evidence Act, a person not heard of for seven years is presumed dead, and LIC\'s own manual says the claim is payable after seven years or on production of a court decree. The trap: the policy must be kept in force by paying premiums throughout those seven years — in LIC v Anuradha (2004) the Supreme Court held a lapsed policy pays only the paid-up value.',
+  url: `${siteUrl}/guides/lic-missing-person-claim-7-year-rule`,
+  publishedDate: '2026-11-23T00:00:00Z',
+  modifiedDate: '2026-11-23T00:00:00Z',
+  author,
+  reviewer
+});
+---
+
+<BaseLayout
+  title="LIC Claim When the Policyholder Is Missing: The 7-Year Rule, Court Order & Documents (2026)"
+  description="Policyholder lapata hai to LIC claim kaise milega? 7 saal ka rule, court decree, FIR aur documents — aur sabse badi galti: premium band kar dena. Supreme Court ke Anuradha case ke hisaab se lapsed policy par sirf paid-up value milti hai."
+  breadcrumbs={breadcrumbs}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="max-w-4xl mx-auto py-12 px-4 sm:px-6 space-y-10">
+    <div class="space-y-3 border-b border-slate-200 pb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200">
+        Educational Guide • LIC Death Claim: Missing Policyholder &amp; Presumption of Death
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        LIC Claim When the Policyholder Is Missing: The 7-Year Rule, Court Order &amp; Documents (2026)
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        Short answer: <strong>yes, the claim can be paid — but not before seven years have passed since the person was last heard of, and not without a court order.</strong> There is no death certificate when there is no body, so the law supplies a substitute: under Sections 107–108 of the Indian Evidence Act, 1872 (now re-enacted in the Bharatiya Sakshya Adhiniyam, 2023), a person who has not been heard of for seven years by those who would naturally have heard of them is presumed dead. LIC's own Insurance Manual, Rule 14, says the same thing — the life assured is presumed dead after seven years, or on production of a decree from a court of law. The part that destroys most claims is not the seven-year wait: it is the premiums. <strong>The policy must be kept in force by paying premiums regularly through all seven years.</strong> The Supreme Court said so plainly in <em>LIC v Anuradha</em> (2004) — a policy allowed to lapse pays only the paid-up value, however long the person has been missing. Everything below was re-checked on 23 November 2026 against the Supreme Court judgment, LIC's claim forms page, and IRDAI's claim-settlement framework.
+      </p>
+    </div>
+
+    <!-- Quick Tool CTA -->
+    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h2 class="text-sm font-bold text-brand-900">First, work out what the claim should be worth</h2>
+        <p class="text-xs text-brand-700">A missing-person claim pays the same death benefit as any other death claim — sum assured plus vested bonuses — so calculate the figure before you file, and compare it with what the branch offers.</p>
+      </div>
+      <a
+        href="/lic-death-benefit-calculator/"
+        class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl transition-colors shrink-0 shadow-sm"
+      >
+        Calculate Death Benefit &rarr;
+      </a>
+    </div>
+
+    <!-- Guide Content -->
+    <div class="prose prose-slate max-w-none text-sm leading-relaxed space-y-6 text-slate-700">
+      <h2 class="text-xl font-bold text-slate-900">1. The 7-Year Rule, in Plain Words</h2>
+      <p>
+        The rule comes from the law of evidence, not from LIC. Section 107 says that when a person was alive within the last 30 years, the burden of proving they are dead lies on the person who claims it. Section 108 is the exception: <strong>if it is proved that the person has not been heard of for seven years by those who would naturally have heard of them if they had been alive, the burden flips</strong> — now whoever says the person is alive must prove it. In practice, that is the presumption of death.
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Seven years means seven full years.</strong> The Supreme Court in <em>Anuradha</em> was explicit: the presumption arises only on the lapse of seven years, "and would not by applying any logic or reasoning be permitted to be raised on expiry of 6 years and 364 days or at any time short of it." Count from the date the person was last seen or last heard from — keep that date in writing from day one.</li>
+        <li><strong>It presumes the fact of death, not the date of death.</strong> The court held there is no presumption about <em>when</em> the person died. The only inference the section permits is that the person was dead at the time the question arose. If the exact date matters — and for LIC it does, because bonuses and the policy's status turn on it — the date must be proved as a fact, with evidence. In practice the branch usually works off the court decree (section 5), so what the decree records matters.</li>
+        <li><strong>The presumption arises only when the question is raised before a forum.</strong> The seven years running out, on its own, settles nothing. Somebody — the nominee or legal heir — must raise the question before a court, tribunal or authority that has to decide whether the person is alive or dead. That is why the court decree in section 5 is not optional paperwork; it is the step that activates the presumption.</li>
+        <li><strong>"Not heard of" must be proved.</strong> It is not enough to say seven years have passed. The family must show that the people who would naturally have heard from the person — spouse, parents, children, close relatives, employer — heard nothing at all in that period. Affidavits from family members, the FIR, and the police's non-traceable report are the usual evidence.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">2. The Rule That Decides Most Claims: Keep the Policy in Force</h2>
+      <p>
+        This is the single most important section of this guide. LIC's Insurance Manual, Rule 14, reads: "Where a person is reported missing, it is to be advised to the claimant that Life insured will be presumed to be dead after seven years or production of the decree from the court of law and in the meantime policy is to be kept in force by making payment of premium regularly." The Supreme Court tested exactly this in <em>LIC of India v Anuradha</em> (Civil Appeal No. 2655 of 1999, decided 26 March 2004):
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>A husband disappeared in July 1988 after paying premiums for about two years. His wife claimed in 1996, after more than seven years, on the presumption of death.</li>
+        <li>LIC had already told the family in 1988 that the policy had lapsed for non-payment of premium, and refused the full claim.</li>
+        <li>The Supreme Court allowed LIC's appeal: <strong>"in order to successfully maintain the claim for benefit under the insurance policies it is necessary for the policy to have been kept alive by punctual payment of premiums until the claim was made."</strong> The claimant got only the paid-up value of the policies.</li>
+      </ul>
+      <p>
+        The practical meaning is brutal and simple: <strong>seven years of premiums on a policy whose holder may be dead is the price of the full claim.</strong> If the family stops paying — understandably, when there is no income coming in — the policy lapses, and after seven years the claim is worth only the paid-up value, which on a young policy can be a small fraction of the sum assured. If paying is genuinely impossible, talk to the branch early about the paid-up option (see our <a href="/guides/lic-stop-premium-paid-up-value/" class="text-brand-700 font-semibold hover:text-brand-800">paid-up value guide</a>) rather than letting the policy lapse silently — a paid-up policy at least preserves a reduced, defined benefit, and the branch can confirm in writing what that value is. Never let a policy lapse by accident during the waiting years: set up auto-debit (see our <a href="/guides/lic-nach-auto-debit-premium/" class="text-brand-700 font-semibold hover:text-brand-800">NACH auto-debit guide</a>) and keep the premium receipts.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">3. What to Do From Day One — Before the Seven Years Are Up</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li><strong>File an FIR immediately.</strong> Go to the police station where the person was last seen and file a missing-person FIR. This is the foundation document for everything that follows — the court case, the police report, and the LIC claim all start here. Keep the FIR number and a certified copy.</li>
+        <li><strong>Inform LIC in writing, at the servicing branch.</strong> Give the branch a written intimation that the life assured is missing, with the FIR copy attached, and take a stamped acknowledgement. The branch will note the policy and advise you in terms of Rule 14. Do not wait seven years to make first contact with LIC.</li>
+        <li><strong>Keep paying the premiums</strong> — on time, every due date, for the full seven years (section 2). If the policy has a grace period, never use it as a habit; a missed premium that turns into a lapse is the costliest mistake in this whole process.</li>
+        <li><strong>Keep a paper trail of the search.</strong> Newspaper advertisements, police correspondence, enquiries with the employer, hospital and railway records, letters to relatives — anything that shows the family searched and heard nothing. The court will want this, and so will LIC.</li>
+        <li><strong>After some time, get the police's non-traceable report.</strong> When the police close the search as untraced, ask for the non-traceable (untraced) report in writing. It is one of the key documents for the court case and the claim.</li>
+        <li><strong>Check the nomination.</strong> Make sure you know who the nominee is — the claim will be paid to the nominee. If there is no nominee, or the nominee has also died, the family will additionally need legal evidence of title, such as a succession certificate (see our <a href="/guides/lic-death-claim-documents-nominee/" class="text-brand-700 font-semibold hover:text-brand-800">death claim documents guide</a>).</li>
+      </ol>
+
+      <h2 class="text-xl font-bold text-slate-900">4. What the Policy Is Worth During the Wait</h2>
+      <p>
+        While the seven years run, the policy is an ordinary in-force policy with a missing life assured — nothing special happens to it, and nothing is payable yet:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>No claim can be filed before seven years</strong> — unless a court decree of presumed death is obtained earlier on other evidence, which is rare. A family that files at five or six years will be turned away; the Supreme Court's "6 years and 364 days" line is the reason.</li>
+        <li><strong>If the policy matures during the seven years,</strong> the maturity claim cannot be paid either, because maturity is payable to the living policyholder. Keep the policy in force and raise the matter with the branch — the eventual death claim, once the decree is obtained, is the route to the money. Get the branch's position in writing rather than assuming.</li>
+        <li><strong>Loans and surrender:</strong> a policy loan or surrender needs the policyholder's signature, so the family generally cannot take a loan or surrender the policy while the holder is missing. Do not let anyone promise to arrange it — that is a red flag.</li>
+        <li><strong>Bonus keeps accruing</strong> while premiums are paid and the policy stays in force, which is another reason the premiums are worth paying: the eventual claim includes vested bonuses (see our <a href="/guides/how-lic-bonus-is-calculated/" class="text-brand-700 font-semibold hover:text-brand-800">bonus calculation guide</a>).</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">5. After Seven Years: Getting the Court Decree</h2>
+      <p>
+        Once seven years have elapsed, the nominee or legal heir files a suit in the civil court (usually the District Court) for a declaration that the missing person is presumed dead — a declaratory suit under the Specific Relief Act. This is the step families find most intimidating, and it is the step that cannot be skipped: LIC settles a missing-person claim on the basis of the decree.
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Who files:</strong> the nominee, or if there is no nominee, the legal heirs. A lawyer files the suit; legal-aid services exist for families that cannot afford one — ask at the District Legal Services Authority.</li>
+        <li><strong>What the suit must show:</strong> the date and place the person was last seen, the FIR and police non-traceable report, evidence that the family searched, and affidavits from the people who would naturally have heard from the person that they heard nothing for seven years.</li>
+        <li><strong>What the court gives:</strong> a decree declaring the person presumed dead. The decree is the document LIC wants — it stands in place of a death certificate. Courts sometimes also record a date of death; if the decree records one, LIC will generally work from it, so the date the suit asks for is worth discussing with the lawyer.</li>
+        <li><strong>How long it takes:</strong> a declaratory suit is ordinary civil litigation, so it can take months to a couple of years depending on the court — budget for this, and do not promise the family a date. There is no shortcut through the consumer forum for the declaration itself, though the forum can hear a complaint if LIC wrongly refuses a claim after the decree (section 8).</li>
+        <li><strong>Costs:</strong> court fees are modest (they turn on the suit valuation), but lawyer's fees vary widely — get a written estimate before filing, and keep every receipt, because the costs are the family's to bear.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">6. Filing the Claim With LIC: Forms &amp; Documents</h2>
+      <p>
+        With the decree in hand, the claim is filed at the servicing branch (the branch that issued the policy) like an ordinary death claim, with the decree standing in for the death certificate. LIC's forms page lists the standard death-claim requirements — Claim Form A (Form 3783, or 3783A if the policy has run three years or more), the discharge form (Form 3801), and the original policy document. For a missing-person claim, add the documents in the table below.
+      </p>
+      <div class="overflow-x-auto not-prose">
+        <table class="min-w-full text-xs border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Document</th>
+              <th class="px-4 py-3 text-left font-bold text-slate-700">Notes</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Court decree of presumed death</td>
+              <td class="px-4 py-3">Certified copy of the civil court's declaratory decree — the key document, in place of a death certificate.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">FIR + police non-traceable report</td>
+              <td class="px-4 py-3">Certified copy of the missing-person FIR and the police report that the person could not be traced.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Claim Form A — Form 3783 / 3783A</td>
+              <td class="px-4 py-3">The claimant's statement, filled by the nominee or legal heir; 3783A if the policy has run 3+ years.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Discharge Form 3801</td>
+              <td class="px-4 py-3">Duly executed by the claimant; the branch issues it.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Original policy bond</td>
+              <td class="px-4 py-3">If lost, LIC's duplicate-bond procedure applies (see our <a href="/guides/lic-duplicate-policy-bond-form-3756/" class="text-brand-700 font-semibold hover:text-brand-800">duplicate bond guide</a>).</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Claimant's KYC + relationship proof</td>
+              <td class="px-4 py-3">PAN, Aadhaar or other ID and address proof, plus proof of relationship with the missing person.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">NEFT mandate + cancelled cheque</td>
+              <td class="px-4 py-3">Bank account in the claimant's own name, for the claim to be credited.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Premium payment proof</td>
+              <td class="px-4 py-3">Receipts showing premiums were paid through the seven years — this is what proves the policy was kept in force (section 2).</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Legal evidence of title (if no nominee)</td>
+              <td class="px-4 py-3">Succession certificate or legal heirship document, if there is no valid nomination or the nominee has died.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-semibold text-slate-800">Indemnity bond (if the branch asks)</td>
+              <td class="px-4 py-3">The branch may ask the claimant to indemnify LIC — if the missing person is later found alive, the money must be returned. Sign only after reading it, and keep a copy.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Submit everything at the servicing branch and take a stamped acknowledgement listing each document. Under IRDAI's master circular on policyholder protection, insurers must settle a death claim within 30 days of receiving all required documents — if the branch asks for more papers, it should say so in writing and the clock runs from the complete set. The full document checklist for an ordinary death claim is in our <a href="/guides/lic-death-claim-documents-nominee/" class="text-brand-700 font-semibold hover:text-brand-800">death claim documents guide</a>.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">7. What LIC Pays — and the Date-of-Death Problem</h2>
+      <p>
+        If the policy was kept in force, the claim is the ordinary death benefit: <strong>sum assured plus vested bonuses (and any final additional bonus)</strong>, exactly as if the death had been proved in the usual way. The complication is the date. LIC's liability turns on the policy's status on the date of death — was it in force, was the premium paid, had it matured? But Section 108 presumes only the fact of death, not its date. In practice:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>If the decree records a date of death</strong> (commonly the date the seven-year period expired, or a date the court accepts on evidence), LIC works from that date.</li>
+        <li><strong>If the policy lapsed before the claim,</strong> the Supreme Court's answer in <em>Anuradha</em> applies: only the paid-up value is payable. This is the outcome the premium payments in section 2 exist to avoid.</li>
+        <li><strong>Accident benefit riders do not apply</strong> unless accidental death is proved — a presumption of death proves no cause of death, so no double accident benefit can be claimed on a missing-person file.</li>
+        <li><strong>If the missing person is later found alive,</strong> the claim money must be returned — that is what the indemnity bond in section 6 is for. It is rare, but it is the reason LIC insists on the decree and the indemnity rather than settling on the family's word alone.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">8. Illustrative Example: What the Wait Costs — and What It Protects</h2>
+      <p>
+        The figures below are <strong>illustrative only</strong> — they show the maths, not a promise, and the branch's written quotation is final. Take a policy with a ₹10 lakh sum assured and a ₹30,000 annual premium, where the holder disappears in year 5 and the family keeps paying for the seven-year wait:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Premiums paid during the wait:</strong> 7 × ₹30,000 = <strong>₹2,10,000</strong> — a heavy burden for a family that has lost its earner, which is why this decision needs to be taken with eyes open.</li>
+        <li><strong>What the claim pays (policy kept in force):</strong> ₹10 lakh sum assured, plus vested bonuses accrued over 12 years of the policy — on a typical participating plan, several lakh rupees more. The ₹2,10,000 protected a claim worth well over ₹10 lakh.</li>
+        <li><strong>What the claim would have paid if premiums had stopped in year 5:</strong> only the paid-up value — a reduced sum assured in proportion to premiums paid, plus vested bonus only. On a policy five years in, that is typically a small fraction of the sum assured, and the seven-year wait would have bought nothing.</li>
+      </ul>
+      <p>
+        If the family genuinely cannot afford the premiums, the honest conversation to have at the branch is whether to convert the policy to paid-up status deliberately (a defined, reduced benefit, confirmed in writing) rather than letting it lapse by default — and whether any other family policy or income source can carry the premiums for the seven years.
+      </p>
+
+      <h2 class="text-xl font-bold text-slate-900">9. If LIC Rejects the Claim or Delays It</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Ask for the rejection in writing, with reasons.</strong> A verbal "not payable" is not a decision. The branch must state the ground — lapsed policy, incomplete seven years, decree not accepted, documents short — because each ground has a different answer.</li>
+        <li><strong>Escalate inside LIC first:</strong> Branch Manager → Divisional Office → Zonal Office, then LIC's grievance portal. Keep copies of everything, with dates.</li>
+        <li><strong>Bima Bharosa / IRDAI:</strong> IRDAI's Bima Bharosa portal takes complaints against insurers, and the Insurance Ombudsman can hear claim disputes. Our <a href="/guides/lic-complaint-ombudsman-bima-bharosa/" class="text-brand-700 font-semibold hover:text-brand-800">complaint and ombudsman guide</a> walks through both routes, with timelines.</li>
+        <li><strong>Consumer forum:</strong> the <em>Anuradha</em> case itself travelled through the consumer commissions, so the forum is a real route — but note what it decided: where the policy had lapsed, the forum could not order the full sum assured. A forum complaint works when LIC is wrong on the facts or the law, not when the premiums genuinely stopped.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-slate-900">10. Mistakes Families Make</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Stopping the premiums.</strong> The costliest mistake, by far — see section 2 and the <em>Anuradha</em> judgment. Seven years of premiums protect the whole claim.</li>
+        <li><strong>Waiting seven years before contacting LIC.</strong> Intimate the branch in the first weeks (section 3). A branch that first hears of the disappearance at year seven will ask questions a branch that was told in week one will not.</li>
+        <li><strong>Claiming at six years and eleven months.</strong> The presumption does not arise a day early. File the court case only after the full seven years have elapsed.</li>
+        <li><strong>Assuming the FIR alone is enough.</strong> An FIR proves the person was reported missing; it does not prove death. Only the court decree does that for LIC's purposes.</li>
+        <li><strong>Losing the premium receipts.</strong> The receipts are the proof the policy was kept in force. Keep them with the policy bond, not scattered across the house.</li>
+        <li><strong>Expecting the accident rider to pay.</strong> A presumption of death proves no cause of death, so no accidental-death benefit follows from it.</li>
+        <li><strong>Paying a tout who promises a "fast decree".</strong> Court declarations take the time they take; anyone selling speed is selling a problem. Use a lawyer, or the District Legal Services Authority.</li>
+      </ul>
+
+      <p class="text-xs text-slate-500 border-t border-slate-200 pt-4">
+        This guide is independent educational content, not legal or insurance advice. The 7-year rule is Sections 107–108 of the Indian Evidence Act, 1872 (now re-enacted in the Bharatiya Sakshya Adhiniyam, 2023), as interpreted by the Supreme Court in LIC of India v Anuradha (26 March 2004); LIC's position is its Insurance Manual Rule 14 and its published claim-form requirements, re-checked on 23 November 2026. Court procedure, fees and timelines vary by state and court — confirm them with a lawyer before filing. The claim figures in section 8 are illustrative only; the servicing branch's written quotation is final.
+      </p>
+    </div>
+
+    <!-- Related Links -->
+    <ContextualLinks currentPath="/lic-death-benefit-calculator" />
+
+    <!-- Author & Reviewer Trust Box -->
+    <AuthorReviewerCard author={author} reviewer={reviewer} lastReviewedDate="November 2026" />
+  </article>
+</BaseLayout>

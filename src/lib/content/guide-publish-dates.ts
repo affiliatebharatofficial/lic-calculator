@@ -54,6 +54,7 @@ export const GUIDE_PUBLISH_DATES: Record<string, string> = {
   'lic-policy-assignment-bank-loan': '2026-11-20',
   'lic-nri-buy-policy-rules': '2026-11-21',
   'lic-become-agent-commission-earnings': '2026-11-22',
+  'lic-missing-person-claim-7-year-rule': '2026-11-23',
   'lic-ulip-charges-decoded-nivesh-plus-siip': '2026-11-06',
   'lic-second-policy-loan-topup': '2026-10-23',
   'lic-single-premium-plan-surrender': '2026-10-24',
